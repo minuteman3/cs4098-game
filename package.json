@@ -1,0 +1,24 @@
+{
+  "name": "cs4098-game",
+  "version": "0.0.0",
+  "description": "A game based on software engineering for the Trinity College Dublin 4th year CS4098 Programming Group Project module.",
+  "main": "index.js",
+  "scripts": {
+    "test": "true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/minuteman3/cs4098-game"
+  },
+  "keywords": [
+    "coursework",
+    "software-engineering",
+    "game"
+  ],
+  "author": "Miles McGuire, Tom Mason, Kevin Farrell, Ross McKinley",
+  "license": "none",
+  "bugs": {
+    "url": "https://github.com/minuteman3/cs4098-game/issues"
+  },
+  "homepage": "https://github.com/minuteman3/cs4098-game"
+}
