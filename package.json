@@ -20,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/minuteman3/cs4098-game/issues"
   },
-  "homepage": "https://github.com/minuteman3/cs4098-game"
+  "homepage": "https://github.com/minuteman3/cs4098-game",
+  "dependencies": {
+    "nconf": "~0.6.9"
+  },
+  "devDependencies": {
+    "tape": "~2.4.0"
+  }
 }
