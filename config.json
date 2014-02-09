@@ -1,0 +1,4 @@
+{
+    "example": "This is some example configuration",
+    "foo": ["List","Of","Config","Things"]
+}
