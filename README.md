@@ -5,6 +5,14 @@ cs4098-game
 
 A game based on software engineering for the Trinity College Dublin 4th year CS4098 Programming Group Project module.
 
+## Installation and Running
+
+From root of project:
+
+* Run `npm install` in root directory to fetch dependencies
+* Run `npm test` in root directory to run unit tests if desired.
+* Run `node ./index.js` in root directory to launch web server.
+
 ## Features
 
 * ### Config Loading
