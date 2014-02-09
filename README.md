@@ -1,5 +1,5 @@
-cs4098-game
-===========
+PANIC TYCOON
+============
 
 [![Build Status](https://travis-ci.org/minuteman3/cs4098-game.png?branch=master)](https://travis-ci.org/minuteman3/cs4098-game)
 
