@@ -17,3 +17,9 @@ From root of project:
 
 * ### Config Loading
     Configuration is loaded from a `config.json` file in the application root. All values contained in this file are made available to any application component that imports it using the config loader. Individual flags can be specified (or overriden) on the command line, for example: `node index.js --test=50` would set a config variable named "test" to the value 50, or override the variable "test" if it already existed in `config.json`.
+
+## Test Coverage
+
+To see the code coverage of the current test suite an external tool, `covert`, can be installed using `npm install -g covert` (may require sudo).
+
+With covert, simply run `covert ./tests/*.js` to see percentage code coverage for the full suite, or specify a specific file or files for narrower results.
