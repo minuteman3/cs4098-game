@@ -52,7 +52,7 @@ var pt = (function () {
     },
 
     displayregion: function(){
-      var regions = region();
+      var regions = this.region();
       var r = "Regions selected: "+regions;
       document.getElementById("regions").innerHTML=r;
     }
