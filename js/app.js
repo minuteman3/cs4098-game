@@ -7,7 +7,7 @@ var pt = (function () {
       constructor: pt
   };
 
-  return { 
+  var Module = { 
     makemap: function() {
       var map;
       map = new jvm.WorldMap({
@@ -32,19 +32,20 @@ var pt = (function () {
               'jvectormap-selected-regions',
               JSON.stringify(map.getSelectedRegions().sort())
             );
-            console.log(0);
-          }else{
-            console.log("localStorage not available")
           }
         }
       });
       map.setSelectedRegions( JSON.parse( window.localStorage.getItem('jvectormap-selected-regions') || '[]' ) );
-      map.setSelectedMarkers( JSON.parse( window.localStorage.getItem('jvectormap-selected-markers') || '[]' ) );
     },
 
-    region: function(){
-      var regions = window.localStorage.getItem('jvectormap-selected-regions');
-      document.getElementById('regions').innerHTML= "Regions selected: "+regions;
+    region: function(item){
+      item = item || 'jvectormap-selected-regions';
+      var regions = window.localStorage.getItem(item);
+      var r = "Regions selected: "+regions;
+      document.getElementById("regions").innerHTML=r;
+      return regions;
     }
   };
+
+  return Module;
 })();
