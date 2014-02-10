@@ -28,7 +28,7 @@
     "tape": "~2.4.0"
   },
   "testling":{
-    "scripts": ["tests/browser/test-maps-loading.js"],
+    "html": "tests/browser/index.html",
     "browsers" : [
         "ie/6..latest",
         "chrome/20..latest",
