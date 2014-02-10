@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/minuteman3/cs4098-game",
   "dependencies": {
-    "nconf": "~0.6.9"
+    "nconf": "~0.6.9",
+    "bit-array": "~0.2.2"
   },
   "devDependencies": {
     "tape": "~2.4.0"
