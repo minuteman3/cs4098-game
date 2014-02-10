@@ -1,4 +1,5 @@
 var nconf = require('nconf');
+var path = require('path');
 
 nconf.argv();
 try {
@@ -6,5 +7,5 @@ try {
 } catch (e) {
     throw new Error("config.json file not found! Aborting!");
 }
-
+console.log(nconf.get());
 module.exports = nconf.get();
