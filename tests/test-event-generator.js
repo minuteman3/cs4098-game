@@ -34,7 +34,7 @@ test("the inference engine is working",function(t){
 
 
 test("the fuzzifier is working",function(t){
-	t.plan(3);
+	t.plan(4);
 
 	// membership values with two variables with v1 having one option
 	// and v2 having two options
@@ -51,8 +51,8 @@ test("the fuzzifier is working",function(t){
 	t.doesNotThrow(function(){
 		val = fuzzifier.getMembershipsValues([4,3]);
 	});
-	t.deepEqual(val,[[1],[0.5,0.25]],"returning correct membership values");
-
+	t.deepEqual(val,[[1],[0.5,0.25]]);
+	t.deepEqual(fuzzifier.getMembershipsValues([4,9]),[[1],[0,0.25]]);
 });
 
 test("the fuzzy engine is working",function(t){
@@ -63,7 +63,7 @@ test("the fuzzy engine is working",function(t){
 		fuzzy = new FuzzyEngine();
 	});
 
-	t.equal(fuzzy.run([20,50],0.1),0,"returning correct results");
+	t.equal(fuzzy.run([20,50],0.7),2);
 });
 
 
