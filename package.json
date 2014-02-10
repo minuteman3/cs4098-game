@@ -28,14 +28,21 @@
     "tape": "~2.4.0"
   },
   "testling":{
-    "html": "tests/browser/index.html",
+    "scripts": [
+        "lib/jquery-1.11.0.min.js",
+        "lib/jquery-jvectormap-1.2.2.min.js",
+        "lib/jquery-jvectormap-world-mill-en.js",
+        "js/app.js"
+        ],
+    "files": "tests/browser/test-maps-loading.js",
     "browsers" : [
         "ie/6..latest",
         "chrome/20..latest",
         "firefox/10..latest",
         "safari/latest",
         "opera/11.0..latest",
-        "iphone/6", "ipad/6"
+        "iphone/6", 
+        "ipad/6"
     ]
   }
 }

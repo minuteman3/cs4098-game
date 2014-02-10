@@ -1,23 +1,22 @@
-var assertion = 0;
-console.log('TAP version 13');
-console.log('1..2');
+var test = require('tape');
 
 
-console.log('# localStorage is enabled');
-window.localStorage.setItem(
+test('localStorage is enabled', function (t) {
+    t.plan(2);
+    t.doesNotThrow(function () {
+		window.localStorage.setItem(
               'test-local-storage',
               "hi");
-equal(window.localStorage.getItem('test-local-storage'), "hi");
+    });
+    t.equal(window.localStorage.getItem('test-local-storage'), "hi");
+});
 
-
-console.log('# regions can be retrieved');
-window.localStorage.setItem(
+test('regions can be retrieved', function (t) {
+    t.plan(2);
+    t.doesNotThrow(function () {
+		window.localStorage.setItem(
               'test-local-storage',
               "hi");
-equal(pt.region('test-local-storage'), "hi");
-
-
-function text(elem) { return elem.textContent || elem.innerText }
-function equal (a, b) {
-    console.log((a === b ? 'ok' : 'not ok') + ' ' + (++ assertion));
-}
+    });
+    t.equal(pt.region('test-local-storage'), "hi");
+});
