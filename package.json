@@ -1,6 +1,6 @@
 {
   "name": "cs4098-game",
-  "version": "0.0.0",
+  "version": "0.1.1",
   "description": "A game based on software engineering for the Trinity College Dublin 4th year CS4098 Programming Group Project module.",
   "main": "index.js",
   "scripts": {
@@ -26,5 +26,16 @@
   },
   "devDependencies": {
     "tape": "~2.4.0"
+  },
+  "testling":{
+    "html": "index.html",
+    "browsers" : [
+        "ie/6..latest",
+        "chrome/20..latest",
+        "firefox/10..latest",
+        "safari/latest",
+        "opera/11.0..latest",
+        "iphone/6", "ipad/6"
+    ]
   }
 }
