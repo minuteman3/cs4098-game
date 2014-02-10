@@ -1,6 +1,7 @@
 var nconf = require('nconf');
 var path = require('path');
 
+nconf.overrides({ APP_DIR: path.resolve(__dirname, '..') });
 nconf.argv();
 try {
     nconf.file({ file: './config.json' });
