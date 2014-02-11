@@ -56,14 +56,22 @@ test("the fuzzifier is working",function(t){
 });
 
 test("the fuzzy engine is working",function(t){
-	t.plan(2);
+	t.plan(4);
 	var fuzzy = null;
 
 	t.doesNotThrow(function(){
 		fuzzy = new FuzzyEngine();
 	});
 
-	t.equal(fuzzy.run([20,50],0.7),2);
+	// this should make rule 1 fire 
+	// all three rules will fire
+	t.equal(fuzzy.run([20,50],0.1),0);
+
+	// only the rule 0,2 should fire and rule 0 should be not counted as it has just been seen
+	t.equal(fuzzy.run([85,50],0.1),2,"make sure same event can't happen twice in a row");
+
+	// rule 2 should be discounted and rule 0 should be down to 0.66/1.666 while rule one should have a 1/1.6 chance
+	t.equal(fuzzy.run([20,50],0.45),1,"make sure event generation is considering time");
 });
 
 
