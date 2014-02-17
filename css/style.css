@@ -5,7 +5,6 @@ html * {
 }
 h1{
     text-transform: capitalize;
-    font-size: 100%;
 }
 img {
     margin-bottom: 0%;
@@ -48,6 +47,7 @@ html a:hover {
     margin: auto;
     position: center;
     width: 25%;
+    height: 10%;
     background-color: #073642; /* base02 */
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -63,10 +63,14 @@ html a:hover {
     margin: auto;
     position: center;
     width: 50%;
+    height: 10%;
     background-color: #eee8d5; /* base2 */
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
     padding: 3px;
     text-align: center;
+}
+.map{
+    margin:auto;
 }

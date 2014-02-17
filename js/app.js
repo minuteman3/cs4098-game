@@ -11,7 +11,7 @@ var pt = (function () {
   var Module = {
     makemap: function() {
       var map;
-
+      this.resizemap();
       // This is a jvectormap object, which has terrible docs.
       // nearly all settings were inferred from the examples @ http://jvectormap.com/examples/regions-selection/
       map = new jvm.WorldMap({
@@ -27,7 +27,6 @@ var pt = (function () {
             fill: '#2aa198' //base1
           }
         },
-        // zoomOnScroll: false, //disables scroll-to-zoom
         regionsSelectable: true,
         backgroundColor: "transparent",
         onRegionSelected: function(){
@@ -44,7 +43,10 @@ var pt = (function () {
       // this gets persistent data of the selected regions, and puts them on the map at page load.
       map.setSelectedRegions( JSON.parse( window.localStorage.getItem('jvectormap-selected-regions') || '[]' ) );
     },
-
+    resizemap: function(s){
+      s = s || 80;
+      document.getElementById("map").style.height = (document.documentElement.clientHeight*s/100) + "px";
+    },
     region: function(item){
       item = item || 'jvectormap-selected-regions';
       var regions = window.localStorage.getItem(item);
