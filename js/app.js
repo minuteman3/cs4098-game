@@ -7,10 +7,11 @@ var pt = (function () {
       constructor: pt
   };
 
+  var map;
   // this file will export all of the functions in this Module var below.
   var Module = {
     makemap: function() {
-      var map;
+      
 
       // This is a jvectormap object, which has terrible docs.
       // nearly all settings were inferred from the examples @ http://jvectormap.com/examples/regions-selection/
@@ -39,6 +40,11 @@ var pt = (function () {
               JSON.stringify(map.getSelectedRegions().sort())
             );
           }
+
+          var regionsHtml = "";
+          $.each(map.getSelectedRegions().sort(), function(a, b){regionsHtml += "<li>" + b + "</li>";});
+          $("#locations").html(regionsHtml);
+      
         }
       });
       // this gets persistent data of the selected regions, and puts them on the map at page load.
@@ -55,8 +61,34 @@ var pt = (function () {
       var regions = this.region();
       var r = "Regions selected: "+regions;
       document.getElementById("regions").innerHTML=r;
+    },
+    selectRegions: function(){
+
+      map.clearSelectedRegions();
+      window.localStorage.setItem('jvectormap-selected-regions', []);
+     
+      var index = $( ".active" ).index( "li" );
+      $("#locations").html("");
+      if(index===6){
+        console.log("done");
+      }
+      else{
+        index += 2;
+        $('.active').removeClass('active');
+        $(".nav li:nth-child("+index+")").addClass("active");
+
+      }
+
     }
   };
 
   return Module;
 })();
+
+
+
+
+
+
+
+

@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html class="base03">
+<meta http-equiv="cache-control" content="max-age=0" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+
+
   <head>
     <meta charset="utf-8" />
     <title>Panic Tycoon</title>
@@ -13,10 +18,36 @@
   </head>
 
   <body class="blue centreblock" onload="pt.makemap()">
-    <h1 class="title">Select locations for your teams</h1>
+
+    <div class="sidebar">
+
+
+      <div class="sidebar-title">Select Teams</div>
+
+      <ul class="nav">
+        <li class="active">Design</li>
+        <li>Implementation</li>
+        <li>Unit test</li>
+        <li>Integration</li>
+        <li>System test</li>
+        <li>Deployment</li>
+        <li>Acceptance test</li>
+      </ul>
+
+      <div class="location-header">Locations</div>
+      <ul id="locations">  
+        
+      </ul>
+
+      <button  onclick="pt.selectRegions()" id="btn-region" class="cupid-green">Select Regions</button>
+
+     <!-- <div onclick="pt.displayregion()" id="startgame" class="gamebox" >Start Game</div> -->
+
+      
+    </div>
+
     <div id="map"></div>
-    <div onclick="pt.displayregion()" id="startgame" class="gamebox" >Start Game</div>
-    <div id="regions" >Regions selected:</div>
+    
 
   </body>
 </html>
