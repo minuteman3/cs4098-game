@@ -1,7 +1,7 @@
 PANIC TYCOON
 ============
 
-[![Front-End Build Status](https://ci.testling.com/Panic-Tycoons/panic-tycoon.png?branch=master)](https://ci.testling.com/Panic-Tycoons/panic-tycoon)  
+[![Front-End Build Status](https://ci.testling.com/Panic-Tycoons/panic-tycoon.png)](https://ci.testling.com/Panic-Tycoons/panic-tycoon)  
 [![Back-End Build Status](https://travis-ci.org/Panic-Tycoons/panic-tycoon.png?branch=master)](https://travis-ci.org/Panic-Tycoons/panic-tycoon)
 
 A game based on software engineering for the Trinity College Dublin 4th year CS4098 Programming Group Project module.
