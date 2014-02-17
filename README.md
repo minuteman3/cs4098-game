@@ -20,6 +20,9 @@ From root of project:
 	* Configuration is loaded from a `config.json` file in the application root. All values contained in this file are made available to any application component that imports it using the config loader. Individual flags can be specified (or overriden) on the command line, for example: `node index.js --test=50` would set a config variable named "test" to the value 50, or override the variable "test" if it already existed in `config.json`.
 * Clickable Maps
 	* A world map is loaded from the jvectormap library. It has selectable regions and offers a list of all the regions which have been selected. It is accessible from `index.html` in the root directory.
+
+* Process Simulator 
+    * Simulates advancement of modules in individual chunks, scaled by number of developers.
 	
 
 ## Tests
