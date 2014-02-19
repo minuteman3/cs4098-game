@@ -46,7 +46,7 @@ var pt = (function() {
   };
   var onlabelShow = function(e,label,code){
     label.html(
-      label.html()+'<br/>'+
+      cities.metro.names[code]+'<br/>'+
       'Morale: '+            cities.metro.unemployment[2009][code] +'%<br/>'+
       'Productivity: '+      cities.metro.unemployment[2009][code] +'%<br/>'+
       'Cost per cycle: '+    cities.metro.unemployment[2009][code] +'%<br/>'+
@@ -87,7 +87,6 @@ var pt = (function() {
       $('.nav li:nth-child(' + index + ')').addClass('active');
     }
   };
-
   // this file will export all of the functions in this Module var below.
   var Module = {
     buildmap: buildmap,
