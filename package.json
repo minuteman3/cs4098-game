@@ -4,7 +4,8 @@
   "description": "A game based on software engineering for the Trinity College Dublin 4th year CS4098 Programming Group Project module.",
   "main": "index.js",
   "scripts": {
-    "test": "node ./tests/*.js"
+    "test": "node ./tests/*.js",
+    "start": "lessc less/style.less > css/style.css && node ./index.js"
   },
   "repository": {
     "type": "git",
@@ -25,7 +26,9 @@
     "nconf": "~0.6.9"
   },
   "devDependencies": {
-    "tape": "~2.4.0"
+    "tape": "~2.4.0",
+    "less": "~1.6.3",
+    "browserify": "~3.28.1"
   },
   "testling":{
     "scripts": [
@@ -37,10 +40,10 @@
     "files": "tests/browser/test-maps-loading.js",
     "browsers" : [
         "ie/6..latest",
-        "chrome/20..latest",
-        "firefox/10..latest",
-        "safari/latest",
-        "opera/11.0..latest",
+        "chrome/15..latest","chrome/canary",
+        "firefox/10..latest","firefox/nightly",
+        "safari/4.0..latest",
+        "opera/10.0..latest","opera/next",
         "iphone/6..latest", 
         "ipad/6..latest" ,
         "android-browser/4.2..latest"

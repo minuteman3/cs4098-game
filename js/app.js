@@ -1,4 +1,5 @@
 var pt = (function() {
+  'use strict';
   // constructor
   var pt = function() {};
   // prototype
@@ -26,18 +27,18 @@ var pt = (function() {
           }
         },
         regionsSelectable: true,
-        backgroundColor: "transparent",
+        backgroundColor: 'transparent',
         onRegionSelected: function() {
           // this enables persistent data of the selected regions
           // it gets called each time a region is selected.
           if (window.localStorage) {
             window.localStorage.setItem('jvectormap-selected-regions', JSON.stringify(map.getSelectedRegions().sort()));
           }
-          var regionsHtml = "";
+          var regionsHtml = '';
           $.each(map.getSelectedRegions().sort(), function(a, b) {
-            regionsHtml += "<li>" + b + "</li>";
+            regionsHtml += '<li>' + b + '</li>';
           });
-          $("#locations").html(regionsHtml);
+          $('#locations').html(regionsHtml);
         }
       });
       // this gets persistent data of the selected regions, and puts them on the map at page load.
@@ -45,7 +46,7 @@ var pt = (function() {
     },
     resizemap: function(s) {
       s = s || 100;
-      document.getElementById("map").style.height = (document.documentElement.clientHeight * s / 100) + "px";
+      document.getElementById('map').style.height = (document.documentElement.clientHeight * s / 100) + 'px';
     },
     region: function(item) {
       item = item || 'jvectormap-selected-regions';
@@ -54,20 +55,20 @@ var pt = (function() {
     },
     displayregion: function() {
       var regions = this.region();
-      var r = "Regions selected: " + regions;
-      document.getElementById("regions").innerHTML = r;
+      var r = 'Regions selected: ' + regions;
+      document.getElementById('regions').innerHTML = r;
     },
     selectRegions: function() {
       map.clearSelectedRegions();
       window.localStorage.setItem('jvectormap-selected-regions', []);
-      var index = $(".active").index("li");
-      $("#locations").html("");
+      var index = $('.active').index('li');
+      $('#locations').html('');
       if (index === 6) {
-        console.log("done");
+        console.log('done');
       } else {
         index += 2;
         $('.active').removeClass('active');
-        $(".nav li:nth-child(" + index + ")").addClass("active");
+        $('.nav li:nth-child(' + index + ')').addClass('active');
       }
     }
   };
