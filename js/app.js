@@ -7,6 +7,10 @@ var pt = (function() {
     constructor: pt
   };
   var map;
+  
+  // we need to get the status values from some sort of variable.
+  var data = 10;
+
   // this file will export all of the functions in this Module var below.
   var Module = {
     makemap: function() {
@@ -39,6 +43,15 @@ var pt = (function() {
             regionsHtml += '<li>' + b + '</li>';
           });
           $('#locations').html(regionsHtml);
+        },
+        onRegionLabelShow: function(e,label,code){
+          label.html(
+            label.html()+'<br/>'+
+            'Morale: '+           data+'%<br/>'+
+            'Productivity: '+     data+'%<br/>'+
+            'Cost per cycle: '+   data+'%<br/>'+
+            'Unemployment rate: '+data+'%'
+          );
         }
       });
       // this gets persistent data of the selected regions, and puts them on the map at page load.
