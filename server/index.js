@@ -4,7 +4,7 @@ var path = require('path');
 var config = require ('./config-loader.js');
 var browserify = require('browserify');
 var b = browserify(config.APP_DIR + "js/index.js");
-b.transform('lessify');
+//b.transform('lessify');
 
 
 module.exports = null;
