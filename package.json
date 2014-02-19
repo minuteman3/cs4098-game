@@ -30,12 +30,12 @@
   "devDependencies": {
     "tape": "~2.4.0"
   },
+  "browserify": { "transform": ["lessify"] },
   "testling": {
     "scripts": [
       "lib/jquery-1.11.0.min.js",
       "lib/jquery-jvectormap-1.2.2.min.js",
-      "lib/jquery-jvectormap-world-mill-en.js",
-      "js/app.js"
+      "lib/jquery-jvectormap-world-mill-en.js"
     ],
     "files": "tests/browser/test-maps-loading.js",
     "browsers": [

@@ -86,4 +86,5 @@ function selectRegions () {
 module.exports = {
     makemap: buildmap,
     selectRegions: selectRegions,
+    region: region
 };

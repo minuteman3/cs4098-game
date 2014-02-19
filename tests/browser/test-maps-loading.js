@@ -1,4 +1,5 @@
 var test = require('tape');
+var app  = require('../../js/index.js');
 
 
 test('localStorage is enabled', function (t) {
