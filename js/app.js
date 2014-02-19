@@ -17,7 +17,7 @@ function buildmap (){
     series:{
       markers: [{
         attribute: 'fill',
-        scale: ['#FEE5D9', '#A50F15'],
+        scale: ['#A50F15', '#FEE5D9'],
         values: cities.metro.unemployment[2009]
       }]
     },
