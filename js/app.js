@@ -20,10 +20,10 @@ var pt = (function() {
         map: 'world_mill_en',
         regionStyle: {
           initial: {
-            fill: '#586e75' //base01
+            fill: '#2aa198' //cyan
           },
           selected: {
-            fill: '#2aa198' //base1
+            fill: '#859900' //green
           }
         },
         regionsSelectable: true,
