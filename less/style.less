@@ -23,6 +23,9 @@
 @blue:     #268bd2;
 @cyan:     #2aa198;
 @green:    #859900;
+@nonselectedsidebar: @base3;
+@selectedsidebar: @yellow;
+
 .box-shadow(@style, @c) when (iscolor(@c)) {
   -webkit-box-shadow: @style @c;
   -moz-box-shadow:    @style @c;
@@ -30,6 +33,11 @@
 }
 .box-shadow(@style, @alpha: 50%) when (isnumber(@alpha)) {
     .box-shadow(@style, rgba(0, 0, 0, @alpha));
+}
+.box-shadow (@string) {
+    -webkit-box-shadow: @string;
+    -moz-box-shadow:    @string;
+    box-shadow:         @string;
 }
 .gradient (@startColor, @endColor) {
     background-color: @startColor;
@@ -48,10 +56,10 @@
     -webkit-background-clip: padding-box;
     background-clip:         padding-box;
 }
-.box-shadow (@string) {
-    -webkit-box-shadow: @string;
-    -moz-box-shadow:    @string;
-    box-shadow:         @string;
+.drop-shadow (@x: 0, @y: 1px, @blur: 2px, @spread: 0, @alpha: 0.25) {
+    -webkit-box-shadow: @x @y @blur @spread rgba(0, 0, 0, @alpha);
+    -moz-box-shadow:    @x @y @blur @spread rgba(0, 0, 0, @alpha);
+    box-shadow:     @x @y @blur @spread rgba(0, 0, 0, @alpha);
 }
 .transform(@string){
     -webkit-transform:  @string;
@@ -86,19 +94,18 @@ html a:hover {
         ███████║██║██████╔╝███████╗    ██████╔╝██║  ██║██║  ██║
         ╚══════╝╚═╝╚═════╝ ╚══════╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
 */
+
 .sidebar {
-    border-top:10px solid #b58900;
+    border-top:10px solid @selectedsidebar;
+    background: @nonselectedsidebar;
+    color: @base01;
     padding-right: -1px;
-    background: #fdf6e3;
     left: 0;
     position: fixed;
     top: 0;
     height: 100%;
     width: 190px;
     font-size: 16px;
-    color: #616161;
-    text-decoration: none;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .sidebar-title{
@@ -115,10 +122,9 @@ html a:hover {
 }
 
 .nav li {
-    // .gradient(#F0F0F0, #DBDBDB); //before
-    .gradient(#eee8d5, #F3ECD4); //after
-    border-bottom: 1px solid #BDBDBD;
-    border-top: 1px solid white;
+    background-color: @nonselectedsidebar;
+    border-bottom: 1px solid @base2;
+    border-top: 1px solid @base3;
     height: 42px;
     line-height: 42px;
     margin-left: -20px;
@@ -128,14 +134,14 @@ html a:hover {
 }
 
 .nav li:last-child {
-    .box-shadow (0px 2px 10px 0 ,10%);
+    .drop-shadow (0, 2px, 5px, 0, 0.25);
 }
 
 .nav li.inactive{
-    .gradient(#5FAEDF, #4889B4);
-    .box-shadow(inset 0px 1px 0px 0 ,rgba(255, 255, 255, 0.2));
-    border-top: 1px solid #1768B9;
-    border-bottom: 1px solid #0C2D49;
+    background-color: @nonselectedsidebar;
+    .box-shadow(inset 0px 1px 0px 0 ,@base3);
+    border-bottom: 1px solid @base2;
+    border-top: 1px solid @base3;
     position: relative;
     text-shadow: none;
     color: white;
@@ -143,17 +149,15 @@ html a:hover {
 
 
 .nav li.active {
-    .gradient( #5FAEDF, #4889B4);
+    background-color: @selectedsidebar;
     .box-shadow(inset 0px 1px 0px 0 ,rgba(255, 255, 255, 0.2));
-    border-top: 1px solid #1768B9;
-    border-bottom: 1px solid #0C2D49;
     position: relative;
     text-shadow: none;
-    color: white;
+    color: @base03;
 }
 
 .nav li.active::after {
-    .box-shadow (inset 0px 1px 0px 0 ,rgba(255, 255, 255, 0.2));
+    background-color: @selectedsidebar;
     .transform (rotate(62deg) skew(30deg));
     content: "";
     display: block;
@@ -161,14 +165,9 @@ html a:hover {
     height: 20px;
     margin-top: -32px;
     margin-left: 157px;
-    background: #5FAEDF;
-    background: linear-gradient(-45deg, #5FAEDF, #4889B4);
-    border-top: 1px solid #1D6CAF;
-    border-right: 1px solid #0C2D49;
 }
 
 .nav li.active a {
-    color: white;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
 }
 
@@ -189,27 +188,22 @@ html a:hover {
     margin-right: 5px;
 }
 
-button.cupid-green {
-    .gradient(#7fbf4d, #63a62f);
+button {
     .border-radius(3px);
-    .box-shadow(inset 0 1px 0 0 ,#96ca6d);
+    background-color: desaturate(@selectedsidebar,20%);
+    border: 1px solid @selectedsidebar;
     margin-left: 20px;
-    border: 1px solid #63a62f;
-    border-bottom: 1px solid #5b992b;
-    color: #fff;
+    color: @base3;
     font-size: 16px;
     padding: 7px 0 8px 0;
     text-align: center;
-    text-shadow: 0 -1px 0 #4c9021;
     width: 150px; }
-button.cupid-green:hover {
-    .gradient(#76b347, #5e9e2e);
-    .box-shadow(inset 0 1px 0 0 ,#8dbf67);
+button:hover {
+    background-color: @selectedsidebar;
+    border: 1px solid @selectedsidebar;
     cursor: pointer; }
-button.cupid-green:active {
-    .box-shadow(inset 0 0 8px 4px #548c29);
-    border: 1px solid #5b992b;
-    border-bottom: 1px solid #538c27; }
+button:active {
+    .box-shadow(inset 0 0 4px 4px desaturate(@selectedsidebar,30%));}
 
 #btn-region{
     position: absolute; 
@@ -228,19 +222,19 @@ button.cupid-green:active {
 
 .jvectormap-label {
     .border-radius(3px);
+    background: @base3;
+    color: @yellow;
     position: absolute;
     display: none;
     padding: 3px;
-    background: @base2;
-    color: @yellow;
 }
 
 .jvectormap-zoomin,.jvectormap-zoomout {
     .border-radius(3px);
+    color: @selectedsidebar;
     position: absolute;
     left: 10px;
     padding: 3px;
-    color: @yellow;
     width: 10px;
     height: 10px;
     cursor: pointer;
@@ -248,13 +242,15 @@ button.cupid-green:active {
     text-align: center;
 }
 .jvectormap-zoomin {
-    top: 10px;
+    font-size: 2em;
+    top: 0px;
 }
 .jvectormap-zoomout {
-    top: 30px;
+    font-size: 2em;
+    top: 1em;
 }
 .jvectormap-region {
-    stroke: @base03;
+    stroke: @base02;
     stroke-width: 0.5;
     cursor: pointer;
 }
