@@ -1,3 +1,11 @@
+/*
+        ██╗     ███████╗███████╗███████╗
+        ██║     ██╔════╝██╔════╝██╔════╝
+        ██║     █████╗  ███████╗███████╗
+        ██║     ██╔══╝  ╚════██║╚════██║
+        ███████╗███████╗███████║███████║
+        ╚══════╝╚══════╝╚══════╝╚══════╝
+*/
 // Solarized Colour Scheme taken from Ethan Schoonover
 @base03:   #002b36;
 @base02:   #073642;
@@ -15,31 +23,13 @@
 @blue:     #268bd2;
 @cyan:     #2aa198;
 @green:    #859900;
-
-html {
-    font-family: 'Helvetica Neue,Helvetica', sans-serif;
-    color-profile: sRGB;
-}
-h1 {
-    text-transform: capitalize;
-}
-img {
-    margin-bottom: 0%;
-}
-html body {
-    background-color: @base03;
-}
-html a:hover {
-    background-color: @base02;
-}
-
 .box-shadow(@style, @c) when (iscolor(@c)) {
   -webkit-box-shadow: @style @c;
   -moz-box-shadow:    @style @c;
   box-shadow:         @style @c;
 }
 .box-shadow(@style, @alpha: 50%) when (isnumber(@alpha)) {
-  .box-shadow(@style, rgba(0, 0, 0, @alpha));
+    .box-shadow(@style, rgba(0, 0, 0, @alpha));
 }
 .gradient (@startColor, @endColor) {
     background-color: @startColor;
@@ -70,8 +60,31 @@ html a:hover {
     -o-transform:       @string;
 }
 
+
+html {
+    font-family: 'Helvetica Neue,Helvetica', sans-serif;
+    color-profile: sRGB;
+}
+h1 {
+    text-transform: capitalize;
+}
+img {
+    margin-bottom: 0%;
+}
+html body {
+    background-color: @base03;
+}
+html a:hover {
+    background-color: @base02;
+}
+
 /*
-    Side Bar
+        ███████╗██╗██████╗ ███████╗    ██████╗  █████╗ ██████╗ 
+        ██╔════╝██║██╔══██╗██╔════╝    ██╔══██╗██╔══██╗██╔══██╗
+        ███████╗██║██║  ██║█████╗      ██████╔╝███████║██████╔╝
+        ╚════██║██║██║  ██║██╔══╝      ██╔══██╗██╔══██║██╔══██╗
+        ███████║██║██████╔╝███████╗    ██████╔╝██║  ██║██║  ██║
+        ╚══════╝╚═╝╚═════╝ ╚══════╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
 */
 .sidebar {
     border-top:10px solid #b58900;
@@ -115,7 +128,7 @@ html a:hover {
 }
 
 .nav li:last-child {
-    .box-shadow (0px 2px 10px 0 ,rgba(0, 0, 0, 0.1));
+    .box-shadow (0px 2px 10px 0 ,10%);
 }
 
 .nav li.inactive{
@@ -204,21 +217,28 @@ button.cupid-green:active {
 }
 
 
-// Start of JVECTORMAP SPECIFIC STUFF
+/*
+             ██╗██╗   ██╗███████╗ ██████╗████████╗ ██████╗ ██████╗ ███╗   ███╗ █████╗ ██████╗ 
+             ██║██║   ██║██╔════╝██╔════╝╚══██╔══╝██╔═══██╗██╔══██╗████╗ ████║██╔══██╗██╔══██╗
+             ██║██║   ██║█████╗  ██║        ██║   ██║   ██║██████╔╝██╔████╔██║███████║██████╔╝
+        ██   ██║╚██╗ ██╔╝██╔══╝  ██║        ██║   ██║   ██║██╔══██╗██║╚██╔╝██║██╔══██║██╔═══╝ 
+        ╚█████╔╝ ╚████╔╝ ███████╗╚██████╗   ██║   ╚██████╔╝██║  ██║██║ ╚═╝ ██║██║  ██║██║     
+         ╚════╝   ╚═══╝  ╚══════╝ ╚═════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝      
+*/
 
 .jvectormap-label {
+    .border-radius(3px);
     position: absolute;
     display: none;
-    .border-radius(3px);
     padding: 3px;
     background: @base2;
     color: @yellow;
 }
 
 .jvectormap-zoomin,.jvectormap-zoomout {
+    .border-radius(3px);
     position: absolute;
     left: 10px;
-    .border-radius(3px);
     padding: 3px;
     color: @yellow;
     width: 10px;
