@@ -2,19 +2,17 @@ var http = require('http');
 var fs = require('fs');
 var path = require('path');
 var config = require ('./config-loader.js');
-
-module.exports = null;
+var browserify = require('browserify');
+var b = browserify(config.APP_DIR + "js/index.js");
 
 http.createServer(function (req,res) {
-    var result = /^\/?(lib|css|js)\/.+$/.exec(req.url);
     if (req.url === "/config") {
         res.writeHead(200);
         res.end("PANIC TYCOON CONFIG\n===================\n\n" + JSON.stringify(config));
         return;
-    } else if (result) {
+    } else if (req.url === "/js/bundle.js") {
         res.writeHead(200);
-        res.end(fs.readFileSync(path.normalize(config.APP_DIR + result[0])));
-        return;
+        b.bundle().pipe(res);
     } else {
         res.writeHead(200);
         res.end(fs.readFileSync(path.normalize(config.APP_DIR + "index.html")));
