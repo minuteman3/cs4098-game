@@ -26,7 +26,8 @@ function buildmap (){
     },
     backgroundColor: 'transparent',
     onRegionSelected: regionSelect,
-    onMarkerLabelShow: onlabelShow
+    onMarkerLabelShow: onlabelShow,
+    markersSelectable: true
   });
   // this gets persistent data of the selected regions, and puts them on the map at page load.
   // map.setSelectedMarkers();
