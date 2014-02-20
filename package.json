@@ -25,12 +25,30 @@
   "dependencies": {
     "browserify": "~3.28.1",
     "lessify": "~0.3.0",
-    "nconf": "~0.6.9"
+    "nconf": "~0.6.9",
+    "uglifyify": "~1.2.2",
+    "browserify-shim": "~3.2.2",
+    "jquery": "~1.11.0"
   },
   "devDependencies": {
     "tape": "~2.4.0"
   },
-  "browserify": { "transform": ["lessify"] },
+  "browserify": {
+    "transform": [
+      "browserify-shim",
+      "uglifyify",
+      "lessify"
+    ]
+  },
+  "browser": {
+      "jvm": "./lib/jquery-jvectormap-1.2.2.min.js"
+  },
+  "browserify-shim": {
+      "jvm": {
+          "exports": "jvm",
+          "depends": ["jquery:jQuery"]
+      }
+  },
   "testling": {
     "scripts": [
       "lib/jquery-1.11.0.min.js",
