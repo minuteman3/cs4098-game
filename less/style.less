@@ -69,6 +69,7 @@
 }
 
 
+
 html {
     font-family: 'Helvetica Neue,Helvetica', sans-serif;
     color-profile: sRGB;
@@ -153,7 +154,7 @@ html a:hover {
     .box-shadow(inset 0px 1px 0px 0 ,rgba(255, 255, 255, 0.2));
     position: relative;
     text-shadow: none;
-    color: @base03;
+    color: @base3;
 }
 
 .nav li.active::after {
@@ -177,16 +178,52 @@ html a:hover {
     margin-top: 0;
 }
 
+
 .location-header{
+    display: block;
     margin-left: 15px;
     font-weight:bold;
     margin-bottom: 5px;
 }   
 
-#locations .cost{
+#costPerMonth{
+    display: block;
     float:right;
     margin-right: 5px;
 }
+
+
+/* */
+@keyframes myfirst
+{
+from {background: @magenta;}
+to {background: @base3;}
+}
+
+@-webkit-keyframes myfirst /* Safari and Chrome */
+{
+from {background: @magenta;}
+to {background: @base3;}
+}
+
+#locations .teamMultiplierFade{
+    float:right;
+    padding-right: 3px;
+    padding-left: 3px;
+    margin-right: 5px;
+        color: @base3;
+        .border-radius();
+    animation: myfirst 3s;
+    -webkit-animation: myfirst 3s; /* Safari and Chrome */
+}
+
+#locations .teamMultiplier{
+    float:right;
+    margin-right: 5px;
+    font-weight:bold;
+}
+
+
 
 button {
     .border-radius(3px);
@@ -254,6 +291,34 @@ button:active {
     stroke-width: 0.5;
     cursor: pointer;
 }
+
+
+
+/*
+*  markers
+*/
+.jvectormap-marker{
+    fill: @base1;
+    stroke: @base03;
+    stroke-width: 2.5;
+}
+
+.jvectormap-marker:hover{
+    fill:@violet;
+}
+.jvectormap-marker:active{
+    fill: @magenta;
+
+}
+
+.jvectormap-region {
+    fill: @cyan ;
+stroke: @base03;
+stroke-width: 0.5;
+cursor: pointer;
+}
+
+
 #map {
     margin-left: 200px;
     height: 600px; //this actually gets overwritten in JS
