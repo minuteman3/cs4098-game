@@ -5,10 +5,10 @@ var jvm_map = require('../lib/jquery-jvectormap-world-mill-en.js')();
 var map;
 
 var teamsSelected = {};
-var teamCost = 0;
+var totalPayRoll = 0;
+var budget = 20000;
 
-var makerclasses = "jvectormap-marker jvectormap-element ";
-
+var isMakerSelectable = true;
 
 
 
@@ -52,6 +52,7 @@ function regionLabelShow(e,label,code){
 
 
 function onlabelShow (e,label,code){
+
   label.css('visibility','visible');
     label.html(
       cities.names[code]+'<br/>'+
@@ -60,6 +61,16 @@ function onlabelShow (e,label,code){
       'Monthly cost: $'+    cities.costPerCycle[code] +'<br/>'+
       'Unemployment rate: '+ 0 +'%'
     );
+
+    // check to make sure the label doesnt overlap with the sidebar
+    if(cities.coords[code][1] < -100){
+      var newPos = label.width() + 25;
+      //change the margin-left property as left is assigned after this function is called
+      label.css('margin-left',newPos);
+    }else{
+      label.css('margin-left',"");
+    }
+
 }
 
 function region (item) {
@@ -69,17 +80,23 @@ function region (item) {
 }
 
 function teamSelected (e,  code,  isSelected,  selectedMarkers) {
+  if(!isMakerSelectable)return;
+ 
   if(!(code in teamsSelected))
     teamsSelected[code] = 1;
   else 
-    teamsSelected[code] += 1; ;
+    teamsSelected[code] += 1; 
 
-  var locations = teamsSelected;
+  totalPayRoll += cities.costPerCycle[code];
+
+  $("#totalPayroll").html("$" + totalPayRoll);
+  $("#budgetedWeeks").html((budget/totalPayRoll).toFixed(1) + " weeks");
+
   //selectedMarkers.map(function(i){return cities.names[i];});
   // this enables persistent data of the selected regions
   // it gets called each time a region is selected.
   if (window.localStorage) {
-    window.localStorage.setItem('jvectormap-selected-regions', JSON.stringify(locations));
+    window.localStorage.setItem('jvectormap-selected-regions', JSON.stringify(teamsSelected));
   }
   var regionsHtml = '';
   var cost = 0;
@@ -102,19 +119,36 @@ function resizemap (s) {
 }
 
 function selectTeams () {
-  teamsSelected = {};
+
+  payroll = 0;
+  for(var key in teamsSelected){
+    payroll += cities.costPerCycle[key] *  teamsSelected[key];
+  }
+
+  // ignore the select teams button when no teams have been selected
+  if(payroll===0)return;
+
+
+  //map clear selected markers for some reason calls teamSelected so we need to call it
+  // before we set it to empty but also after we figure out how much the payroll is for the current
+  //module
+  isMakerSelectable = false;
   map.clearSelectedMarkers();
+  isMakerSelectable = true;
+  teamsSelected = {};
+
   window.localStorage.setItem('jvectormap-selected-regions', []);
   var index = $('.active').index('li');
   $('#locations').html('');
-  if (index === 6) {
+  if (index === 2) {
     console.log('done');
   } else {
     index += 2;
     $('.active').removeClass('active');
     $('.nav li:nth-child(' + index + ')').addClass('active');
 
-    $('.nav li:nth-child(' + index + ')').addClass('active');
+    $('.nav li:nth-child(' + (index-1) + ')').html($('.nav li:nth-child(' + (index-1) + ')').html() + "- $"+payroll);
+    teamCost = 0;
     $('#costPerMonth').html("$0");
   }
 }
