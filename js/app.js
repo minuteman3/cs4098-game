@@ -4,6 +4,7 @@ var jvm = require('jvm');
 var jvm_map = require('../lib/jquery-jvectormap-world-mill-en.js')();
 var map;
 var menu=false;
+var modal=false;
 
 function buildmap (){
   resizemap();
@@ -88,20 +89,30 @@ function selectRegions () {
   }
 }
 function showmodal (input) {
-  input = input || "Pause Menu";
-  $('#content').append('<div id="modal"><div class="modal-content">' + input + '</div></div>');
+  if(!modal){
+    modal=true;
+    console.log(modal);
+    input = input || "Pause Menu";
+    $('#content').html('<div id="modal"><div class="modal-content">' + input + '</div></div>');
+  }
 }
 function hidemodal () {
+  modal=false;
   $('#modal').remove();
 }
 function pause () {
-  if (menu===false){
+  if (!modal && !menu){
     var pausemenu = "<h1>Pause</h1>";
-    pausemenu += makeChoices(["Restart","Quit"],"Press [esc] to return to the game");
+    pausemenu += makeChoices([{"name":"Restart","funct":"initialiseGame"},
+                              {"name":"Quit","funct":"initialiseGame"}],
+                              "Press [esc] to return to the game");
     showmodal(pausemenu);
     menu=true;
-  }else{
+  }else if(modal && menu){
     hidemodal();
+    menu=false;
+    modal=false;
+  }else{
     menu=false;
   }
 }
@@ -116,7 +127,7 @@ function makeChoices(a,b){
   ret+= '</p><div class="modal-options">';
 
   $.each(a.sort(), function(a, b) {
-    ret += '<button class="btn-action">' + b + '</button>';
+    ret += '<button class="btn-action" onclick="pt.'+b.funct+'()">' + b.name + '</button>';
   });
   ret += '</div>';
 
@@ -126,14 +137,19 @@ function makesidebar(){
   $('sidebar').show();
 }
 function startGame(){
-  $('#btn-start').hide();
+  $('#startScreen').hide();
   makesidebar();
   buildmap();
+  menu = false;
+  modal = false;
 }
 function initialiseGame(){
   $('#sidebar').hide();
+  $('#modal').hide();
   $('#btn-options').hide();
-  $('#btn-start').show();
+  $('.startScreen').show();
+  menu = false;
+  modal = false;
   //reset all localStorage values;
 }
 

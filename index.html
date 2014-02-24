@@ -15,6 +15,10 @@
   </head>
   <body class="blue centreblock" onload="pt.initialiseGame()">
 
+    <div id="startScreen">
+      <h1>PANIC</h1> <h2>Tycoon</h2>
+    </div>
+
     <div id="sidebar">
       <div id="sidebar-title">Select Teams</div>
 
@@ -35,14 +39,15 @@
 
     <div id="map"></div>
     <div id="content"></div>
+    <div id="gameover"></div>
 
-    <button  onclick="pt.options()" id="btn-options">Options</button>
+    <button  onclick="pt.pause()" id="btn-options">Options</button>
 
 
     <script>
       document.onkeydown = function (evt) {
           if (evt.keyCode == 27) {
-              pt.options();
+              pt.pause();
             evt.preventDefault();
           }
         };
