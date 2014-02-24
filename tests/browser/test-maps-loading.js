@@ -12,12 +12,9 @@ test('localStorage is enabled', function (t) {
     t.equal(window.localStorage.getItem('test-local-storage'), "hi");
 });
 
-test('regions can be retrieved', function (t) {
-    t.plan(2);
+test('pt can be accessed', function (t) {
+    t.plan(1);
     t.doesNotThrow(function () {
-		window.localStorage.setItem(
-              'test-local-storage',
-              "hi");
+      pt.initialiseGame();
     });
-    t.equal(pt.region('test-local-storage'), "hi");
 });
