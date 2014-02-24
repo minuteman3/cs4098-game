@@ -69,7 +69,7 @@ function regionSelect () {
 }
 
 function resizemap (s) {
-  s = s || 100;
+  s = s || 95;
   document.getElementById('map').style.height = (document.documentElement.clientHeight * s / 100) + 'px';
 }
 
