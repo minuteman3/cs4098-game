@@ -91,7 +91,6 @@ function selectRegions () {
 function showmodal (input) {
   if(!modal){
     modal=true;
-    console.log(modal);
     input = input || "Pause Menu";
     $('#content').html('<div id="modal"><div class="modal-content">' + input + '</div></div>');
   }
@@ -133,12 +132,9 @@ function makeChoices(a,b){
 
   return ret;
 }
-function makesidebar(){
-  $('sidebar').show();
-}
 function startGame(){
   $('#startScreen').hide();
-  makesidebar();
+  $('#sidebar').show();
   buildmap();
   menu = false;
   modal = false;
@@ -147,14 +143,17 @@ function initialiseGame(){
   $('#sidebar').hide();
   $('#modal').hide();
   $('#btn-options').hide();
-  $('.startScreen').show();
+  $('.jvectormap-container').remove();
+  //reset all localStorage values;
+  map=null;
   menu = false;
   modal = false;
-  //reset all localStorage values;
+  $('#startScreen').show();
 }
 
 module.exports = {
     initialiseGame: initialiseGame, // first thing that happens. shows start screen
+    startGame: startGame,
     selectRegions: selectRegions,   // required for allocating teams to cities
     showmodal: showmodal,           // shows a modal window
     hidemodal: hidemodal,           // hides a modal window
