@@ -88,39 +88,59 @@ function selectRegions () {
   }
 }
 function showmodal (input) {
-  input = input || "Options Menu";
+  input = input || "Pause Menu";
   $('#content').append('<div id="modal"><div class="modal-content">' + input + '</div></div>');
 }
 function hidemodal () {
   $('#modal').remove();
 }
-function options () {
+function pause () {
   if (menu===false){
-    var optionsmenu = "<h1>Options</h1>";
-    showmodal(optionsmenu);
+    var pausemenu = "<h1>Pause</h1>";
+    pausemenu += makeChoices(["Restart","Quit"],"Press [esc] to return to the game");
+    showmodal(pausemenu);
     menu=true;
   }else{
     hidemodal();
     menu=false;
   }
 }
-function makeChoices(a){
+function makeChoices(a,b){
   a = a || ["Option 1"];
+  b = b || "";
 
-  var ret = '<div class="modal-options"><ul>';
+  var ret = '<p>';
+
+  // this should be a description of the event, indicating/hinting at the correct answer
+  ret+= b;
+  ret+= '</p><div class="modal-options">';
+
   $.each(a.sort(), function(a, b) {
-    ret += '<li>' + b + '</li>';
+    ret += '<button class="btn-action">' + b + '</button>';
   });
-  ret += '</ul></div>';
+  ret += '</div>';
 
   return ret;
 }
+function makesidebar(){
+  $('sidebar').show();
+}
+function startGame(){
+  $('#btn-start').hide();
+  makesidebar();
+  buildmap();
+}
+function initialiseGame(){
+  $('#sidebar').hide();
+  $('#btn-options').hide();
+  $('#btn-start').show();
+  //reset all localStorage values;
+}
 
 module.exports = {
-    makemap: buildmap,
-    selectRegions: selectRegions,
-    showmodal: showmodal,
-    hidemodal: hidemodal,
-    options: options,
-    region: region
+    initialiseGame: initialiseGame, // first thing that happens. shows start screen
+    selectRegions: selectRegions,   // required for allocating teams to cities
+    showmodal: showmodal,           // shows a modal window
+    hidemodal: hidemodal,           // hides a modal window
+    pause: pause                    // toggles the pause menu
 };
