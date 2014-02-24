@@ -3,6 +3,7 @@ var $ = require('jquery');
 var jvm = require('jvm');
 var jvm_map = require('../lib/jquery-jvectormap-world-mill-en.js')();
 var map;
+var menu=false;
 
 function buildmap (){
   resizemap();
@@ -86,11 +87,21 @@ function selectRegions () {
     $('.nav li:nth-child(' + index + ')').addClass('active');
   }
 }
-function showmodal () {
-  $('#content').html('<div id="modal"><div class="modal-content">You possibly win, maybe</div></div>');
+function showmodal (input) {
+  input = input || "Options Menu";
+  $('#content').append('<div id="modal"><div class="modal-content">' + input + '</div></div>');
 }
 function hidemodal () {
   $('#modal').remove();
+}
+function options () {
+  if (menu===false){
+    showmodal();
+    menu=true;
+  }else{
+    hidemodal();
+    menu=false;
+  }
 }
 
 module.exports = {
@@ -98,5 +109,6 @@ module.exports = {
     selectRegions: selectRegions,
     showmodal: showmodal,
     hidemodal: hidemodal,
+    options: options,
     region: region
 };
