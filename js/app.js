@@ -96,7 +96,8 @@ function hidemodal () {
 }
 function options () {
   if (menu===false){
-    showmodal();
+    var optionsmenu = "<h1>Options</h1>";
+    showmodal(optionsmenu);
     menu=true;
   }else{
     hidemodal();
