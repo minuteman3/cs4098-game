@@ -40,6 +40,13 @@
 
       <button  onclick="pt.options()" id="btn-options" class="cupid-green">Options</button>
     </div>
-
+    <script>
+      document.onkeydown = function (evt) {
+          if (evt.keyCode == 27) {
+            pt.options();
+            evt.preventDefault();
+        }
+      };
+    </script
   </body>
 </html>

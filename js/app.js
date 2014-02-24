@@ -104,6 +104,17 @@ function options () {
     menu=false;
   }
 }
+function makeChoices(a){
+  a = a || ["Option 1"];
+
+  var ret = '<div class="modal-options"><ul>';
+  $.each(a.sort(), function(a, b) {
+    ret += '<li>' + b + '</li>';
+  });
+  ret += '</ul></div>';
+
+  return ret;
+}
 
 module.exports = {
     makemap: buildmap,
