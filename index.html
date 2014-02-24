@@ -13,10 +13,10 @@
     <title>Panic Tycoon</title>
     <script src="js/bundle.js"></script>
   </head>
-  <body class="blue centreblock" onload="pt.makemap()">
+  <body class="blue centreblock" onload="pt.initialiseGame()">
 
-    <div class="sidebar">
-      <div class="sidebar-title">Select Teams</div>
+    <div id="sidebar">
+      <div id="sidebar-title">Select Teams</div>
 
       <ul class="nav">
         <li class="active">Design</li>
@@ -34,19 +34,18 @@
     </div>
 
     <div id="map"></div>
-    
-    <div id="content">
-      
+    <div id="content"></div>
 
-      <button  onclick="pt.options()" id="btn-options" class="cupid-green">Options</button>
-    </div>
+    <button  onclick="pt.options()" id="btn-options">Options</button>
+
+
     <script>
       document.onkeydown = function (evt) {
           if (evt.keyCode == 27) {
-            pt.options();
+              pt.options();
             evt.preventDefault();
-        }
-      };
+          }
+        };
     </script
   </body>
 </html>
