@@ -86,9 +86,17 @@ function selectRegions () {
     $('.nav li:nth-child(' + index + ')').addClass('active');
   }
 }
+function showmodal () {
+  $('#content').html('<div id="modal"><div class="modal-content">You possibly win, maybe</div></div>');
+}
+function hidemodal () {
+  $('#modal').remove();
+}
 
 module.exports = {
     makemap: buildmap,
     selectRegions: selectRegions,
+    showmodal: showmodal,
+    hidemodal: hidemodal,
     region: region
 };
