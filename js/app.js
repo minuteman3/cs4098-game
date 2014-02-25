@@ -92,6 +92,9 @@ function selectRegions () {
     $('.nav li:nth-child(' + index + ')').addClass('active');
   }
 }
+
+// future work for modals: add new modals to a queue
+// so many can stack up. remove from queue when dealt with
 function showmodal (input, escable) {
   escable = escable || false;
   if(!modal){
@@ -103,19 +106,6 @@ function showmodal (input, escable) {
 }
 
 function hidemodal () {
-  modal=menu=false;
-  $('#modal').remove();
-}
-function pause () {
-  if (!modal && !menu){
-    var pausemenu = "<h1>Pause</h1>";
-    pausemenu += makeChoices([{"name":"Restart","funct":"initialiseGame"},
-                              {"name":"Quit","funct":"initialiseGame"}],
-                              "Press [esc] to return to the game");
-    showmodal(pausemenu,true);
-  }else if(modal && menu){
-    hidemodal();
-  }
   modal = false;
   menu = false;
   $('#modal').empty();
@@ -149,6 +139,17 @@ function dialog(a){
   html += '<button class="btn-action" onclick="pt.hidemodal()"> Continue </button>';
 }
 
+function pause () {
+  if (!modal && !menu){
+    var pausemenu = "<h1>Pause</h1>";
+    pausemenu += makeChoices([{"name":"Restart","funct":"initialiseGame()"},
+                              {"name":"Quit","funct":"initialiseGame()"}],
+                              "Press [esc] to return to the game");
+    showmodal(pausemenu,true);
+  }else if(modal && menu){
+    hidemodal();
+  }
+}
 
 function selectProject(){
   $('#startScreen').hide();
@@ -168,6 +169,7 @@ function startGame(a){
   $('#sidebar').show();
   $('#btn-options').show();
   buildmap();
+  dialog("hi");
 }
 
 function deleteDB(){
