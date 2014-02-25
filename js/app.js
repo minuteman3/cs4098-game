@@ -141,7 +141,7 @@ function dialog(a){
   html += '<button class="btn-action" onclick="pt.hidemodal()"> Continue </button>';
   html += '</div>';
 
-  showmodal(html);
+  showmodal(html, true);
 }
 
 function pause () {
