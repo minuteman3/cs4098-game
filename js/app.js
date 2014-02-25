@@ -50,10 +50,44 @@ function buildmap (){
   // map.setSelectedMarkers();
 }
 
+function debounce(func, wait, immediate) {
+  // this is hi-jacked directly from underscore.js
+  var timeout, args, context, timestamp, result;
+
+  var later = function() {
+    var last = _.now() - timestamp;
+    if (last < wait) {
+      timeout = setTimeout(later, wait - last);
+    } else {
+      timeout = null;
+      if (!immediate) {
+        result = func.apply(context, args);
+        context = args = null;
+      }
+    }
+  };
+  return function() {
+    context = this;
+    args = arguments;
+    timestamp = _.now();
+    var callNow = immediate && !timeout;
+    if (!timeout) {
+      timeout = setTimeout(later, wait);
+    }
+    if (callNow) {
+      result = func.apply(context, args);
+      context = args = null;
+      console.log("debounced");
+    }
+
+    return result;
+  };
+}
+
 function resizemap (s) {
   // for some mysterious reason, this is no longer needed... and actually bugs out.
   s = s || 95;
-  // document.getElementById('map').style.height = (document.documentElement.clientHeight * s / 100) + 'px';
+  document.getElementById('map').style.height = (document.documentElement.clientHeight * s / 100) + 'px';
   // $('#map').style.height = (document.documentElement.clientHeight * s / 100) + 'px';
 }
 
@@ -153,6 +187,7 @@ function startGame(a){
   $('#map').empty();
   buildmap();
   modal.dialog(projects[a].dialog);
+
 }
 
 function deleteDB(){
@@ -176,5 +211,7 @@ module.exports = {
     showmodal: modal.showmodal,           // shows a modal window
     hidemodal: modal.hidemodal,           // hides a modal window
     pause: modal.pause,                    // toggles the pause menu
+    resizemap: resizemap,
+    debounce: debounce,
     selectTeams: selectTeamsForModule
 };

@@ -54,6 +54,9 @@
             evt.preventDefault();
           }
         };
+      window.addEventListener('resize', function(event){
+        pt.debounce( pt.resizemap(95) ,500);
+      });
     </script
   </body>
 </html>

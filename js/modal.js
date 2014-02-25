@@ -70,5 +70,6 @@ module.exports = {
     showmodal: showmodal,           // shows a modal window
     hidemodal: hidemodal,           // hides a modal window
     pause: pause,                   // toggles the pause menu
-    makeChoices: makeChoices
+    makeChoices: makeChoices,
+    dialog: dialog
 };
