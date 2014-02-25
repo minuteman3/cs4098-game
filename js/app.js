@@ -134,9 +134,14 @@ function makeChoices(a,b,c){
 
 function dialog(a){
   a = a || "";
-  var html = "<h1>Information</h1>";
+  var html = "<h1>Information</h1><p>";
   html += a;
+
+  html += '</p><div class="modal-options">';
   html += '<button class="btn-action" onclick="pt.hidemodal()"> Continue </button>';
+  html += '</div>';
+
+  showmodal(html);
 }
 
 function pause () {
@@ -169,7 +174,7 @@ function startGame(a){
   $('#sidebar').show();
   $('#btn-options').show();
   buildmap();
-  dialog("hi");
+  dialog(projects[a].dialog);
 }
 
 function deleteDB(){
