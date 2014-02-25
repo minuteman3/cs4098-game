@@ -135,6 +135,7 @@ function makeChoices(a,b){
 function startGame(){
   $('#startScreen').hide();
   $('#sidebar').show();
+  $('#btn-options').show();
   buildmap();
   menu = false;
   modal = false;
