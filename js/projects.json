@@ -1,0 +1,56 @@
+{
+  "projects" : [
+  {
+    "name": "Project A",
+    "budget": 10000,
+    "duration": 18, // in months/cycles 
+    "revenue": {
+      "months": 6,
+      "amount": 10000 //potential revenue on perfect game, per month
+    },
+    "modules": [
+      {
+        "name": "AI Engine",
+        "cost": 1000
+      },
+      {
+        "name": "UI Design",
+        "cost": 3000
+      },
+      {
+        "name": "Character Creation",
+        "cost": 750
+      }
+    ]
+  },{
+    "name": "Project B",
+    "budget": 200000,
+    "duration": 24, // in months/cycles 
+    "revenue": {
+      "months": 12,
+      "amount": 10000 //potential revenue on perfect game, per month
+    },
+    "modules": [
+      {
+        "name": "AI Engine",
+        "cost": 1000
+      },
+      {
+        "name": "UI Design",
+        "cost": 3000
+      },
+      {
+        "name": "Character Creation",
+        "cost": 750
+      },
+      {
+        "name": "Procedural Generation",
+        "cost": 1250
+      },
+      {
+        "name": "Story Design",
+        "cost": 1250
+      }
+    ]
+  }]
+}

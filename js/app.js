@@ -1,8 +1,12 @@
 var cities = require('./cities.json');
+var proj = require('./projects.json');
 var $ = require('jquery');
 var jvm = require('jvm');
 var jvm_map = require('../lib/jquery-jvectormap-world-mill-en.js')();
 var map;
+var projects = proj.projects;
+var projectsDescription = proj.description;
+var selectedProject;
 var menu=false;
 var modal=false;
 
@@ -97,6 +101,7 @@ function showmodal (input, escable) {
     $('#content').html('<div id="modal"><div class="modal-content">' + input + '</div></div>');
   }
 }
+
 function hidemodal () {
   modal=menu=false;
   $('#modal').remove();
@@ -111,10 +116,16 @@ function pause () {
   }else if(modal && menu){
     hidemodal();
   }
+  modal = false;
+  menu = false;
+  $('#modal').empty();
+  $('#modal').hide();
 }
-function makeChoices(a,b){
+
+function makeChoices(a,b,c){
   a = a || ["Option 1"];
   b = b || "";
+  c = c || "btn-action";
 
   var ret = '<p>';
 
@@ -122,40 +133,62 @@ function makeChoices(a,b){
   ret+= b;
   ret+= '</p><div class="modal-options">';
 
-  $.each(a.sort(), function(a, b) {
-    ret += '<button class="btn-action" onclick="pt.'+b.funct+'()">' + b.name + '</button>';
+  a.forEach(function(b,i,arr) {
+    b.funct = b.funct || "startGame("+i+")";
+    ret += '<button class="'+c+'" onclick="pt.'+b.funct+'">' + b.name + '</button>';
   });
   ret += '</div>';
 
   return ret;
 }
-function startGame(){
+
+function dialog(a){
+  a = a || "";
+  var html = "<h1>Information</h1>";
+  html += a;
+  html += '<button class="btn-action" onclick="pt.hidemodal()"> Continue </button>';
+}
+
+
+function selectProject(){
   $('#startScreen').hide();
+  menu = false;
+  modal = false;
+
+  var html = "<h1> Select A Project</h1>";
+  html += makeChoices(projects,projectsDescription,"btn-projects");
+
+  showmodal (html);
+}
+
+function startGame(a){
+  a = a || 0;
+  selectedProject = a;
+  hidemodal();
   $('#sidebar').show();
   $('#btn-options').show();
   buildmap();
-  menu = false;
-  modal = false;
 }
+
 function deleteDB(){
   window.localStorage.clear();
 }
+
 function initialiseGame(){
   $('#sidebar').hide();
-  $('#modal').hide();
   $('#btn-options').hide();
   $('#map').empty();//deletes the map
   //reset all localStorage values;
   deleteDB();
+  hidemodal();
   map=null;
-  menu = false;
-  modal = false;
   $('#startScreen').show();
 }
 
 module.exports = {
     initialiseGame: initialiseGame, // first thing that happens. shows start screen
-    startGame: startGame,
+    selectProject: selectProject,   // select which project to do
+    startGame: startGame,           // goes into "game mode", after placing teams
     selectRegions: selectRegions,   // required for allocating teams to cities
     showmodal: showmodal,           // shows a modal window
     hidemodal: hidemodal,           // hides a modal window
