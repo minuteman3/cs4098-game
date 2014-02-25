@@ -88,15 +88,17 @@ function selectRegions () {
     $('.nav li:nth-child(' + index + ')').addClass('active');
   }
 }
-function showmodal (input) {
+function showmodal (input, escable) {
+  escable = escable || false;
   if(!modal){
     modal=true;
+    menu = escable;//this is so we can show "tutorial" modals, which are skippable with [esc]
     input = input || "Pause Menu";
     $('#content').html('<div id="modal"><div class="modal-content">' + input + '</div></div>');
   }
 }
 function hidemodal () {
-  modal=false;
+  modal=menu=false;
   $('#modal').remove();
 }
 function pause () {
@@ -105,14 +107,9 @@ function pause () {
     pausemenu += makeChoices([{"name":"Restart","funct":"initialiseGame"},
                               {"name":"Quit","funct":"initialiseGame"}],
                               "Press [esc] to return to the game");
-    showmodal(pausemenu);
-    menu=true;
+    showmodal(pausemenu,true);
   }else if(modal && menu){
     hidemodal();
-    menu=false;
-    modal=false;
-  }else{
-    menu=false;
   }
 }
 function makeChoices(a,b){
