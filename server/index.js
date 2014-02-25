@@ -13,6 +13,9 @@ http.createServer(function (req,res) {
     } else if (req.url === "/js/bundle.js") {
         res.writeHead(200);
         b.bundle().pipe(res);
+    } else if (req.url === "/assets/apple-touch-icon.png") {
+        res.writeHead(200);
+        res.end(fs.readFileSync(path.normalize(config.APP_DIR + req.url)));
     } else {
         res.writeHead(200);
         res.end(fs.readFileSync(path.normalize(config.APP_DIR + "index.html")));
