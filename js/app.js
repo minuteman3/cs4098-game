@@ -127,7 +127,7 @@ function selectTeamsForModule () {
   if (index === 2) {
     console.log('done');
   } else {
-    sidebar.setListItemActive(index + 1);
+    sidebar.setListItemActive( index+1);
   }
 }
 

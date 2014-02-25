@@ -25,7 +25,7 @@ function setList(elements){
 }
 
 function getActiveListItem(){
-	return $('.active').index('li');
+	return $(activeTag).index('li');
 }
 
 function setListItemActive(i){
@@ -84,4 +84,5 @@ module.exports = {
     setLocations:setLocations,
     setPayrollforModule:setPayrollforModule,
     setListItemActive:setListItemActive,
+    getActiveListItem:getActiveListItem,
 };
