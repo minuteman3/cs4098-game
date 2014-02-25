@@ -139,12 +139,16 @@ function startGame(){
   menu = false;
   modal = false;
 }
+function deleteDB(){
+  window.localStorage.clear();
+}
 function initialiseGame(){
   $('#sidebar').hide();
   $('#modal').hide();
   $('#btn-options').hide();
-  $('.jvectormap-container').remove();
+  $('#map').empty();//deletes the map
   //reset all localStorage values;
+  deleteDB();
   map=null;
   menu = false;
   modal = false;
