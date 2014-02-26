@@ -3,10 +3,10 @@
   {
     "name": "Project A",
     "budget": 10000,
-    "duration": 18, // in months/cycles 
+    "duration": 18,
     "revenue": {
       "months": 6,
-      "amount": 10000 //potential revenue on perfect game, per month
+      "amount": 10000
     },
     "modules": [
       {
@@ -26,10 +26,10 @@
   },{
     "name": "Project B",
     "budget": 200000,
-    "duration": 24, // in months/cycles 
+    "duration": 24,
     "revenue": {
       "months": 12,
-      "amount": 10000 //potential revenue on perfect game, per month
+      "amount": 10000
     },
     "modules": [
       {
