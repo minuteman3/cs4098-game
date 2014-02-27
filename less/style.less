@@ -24,7 +24,7 @@
 @cyan:     #2aa198;
 @green:    #859900;
 @nonselectedsidebar: @base3;
-@selectedsidebar: @yellow;
+@selectedsidebar: @cyan;
 
 .box-shadow(@style, @c) when (iscolor(@c)) {
   -webkit-box-shadow: @style @c;
@@ -67,14 +67,26 @@
     -ms-transform:      @string;
     -o-transform:       @string;
 }
+.opacity (@opacity: 0.5) {
+    -webkit-opacity:    @opacity;
+    -moz-opacity:       @opacity;
+    opacity:        @opacity;
+}
+
 
 
 html {
     font-family: 'Helvetica Neue,Helvetica', sans-serif;
     color-profile: sRGB;
+    overflow-y: scroll;
+    color: @base03;
 }
 h1 {
+    font-size: 5em;
     text-transform: capitalize;
+}
+p {
+    font-size: 2em;
 }
 img {
     margin-bottom: 0%;
@@ -95,7 +107,7 @@ html a:hover {
         ╚══════╝╚═╝╚═════╝ ╚══════╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
 */
 
-.sidebar {
+#sidebar {
     border-top:10px solid @selectedsidebar;
     background: @nonselectedsidebar;
     color: @base01;
@@ -105,10 +117,10 @@ html a:hover {
     top: 0;
     height: 100%;
     width: 190px;
-    font-size: 16px;
+   
 }
 
-.sidebar-title{
+#sidebar-title{
     margin-left: 10px;
     margin-top: 20px;
     margin-bottom: 20px;  
@@ -119,6 +131,7 @@ html a:hover {
     list-style-type: none;
     margin-left: -20px;
     margin-top: 0;
+
 }
 
 .nav li {
@@ -153,7 +166,7 @@ html a:hover {
     .box-shadow(inset 0px 1px 0px 0 ,rgba(255, 255, 255, 0.2));
     position: relative;
     text-shadow: none;
-    color: @base03;
+    color: @base3;
 }
 
 .nav li.active::after {
@@ -177,16 +190,61 @@ html a:hover {
     margin-top: 0;
 }
 
+
 .location-header{
+    display: block;
     margin-left: 15px;
     font-weight:bold;
     margin-bottom: 5px;
 }   
 
-#locations .cost{
+#costPerMonth{
+    display: block;
     float:right;
     margin-right: 5px;
 }
+
+.gameProperties{
+    font-size:90%;
+   display: block;
+    margin-left: 15px;
+    margin-bottom: 5px;
+}
+
+
+
+
+/* */
+@keyframes myfirst
+{
+from {background: @magenta;}
+to {background: @base3;}
+}
+
+@-webkit-keyframes myfirst /* Safari and Chrome */
+{
+from {background: @magenta;}
+to {background: @base3;}
+}
+
+#locations .teamMultiplierFade{
+    float:right;
+    padding-right: 3px;
+    padding-left: 3px;
+    margin-right: 5px;
+        color: @base3;
+        .border-radius();
+    animation: myfirst 3s;
+    -webkit-animation: myfirst 3s; /* Safari and Chrome */
+}
+
+#locations .teamMultiplier{
+    float:right;
+    margin-right: 5px;
+    font-weight:bold;
+}
+
+
 
 button {
     .border-radius(3px);
@@ -197,17 +255,42 @@ button {
     font-size: 16px;
     padding: 7px 0 8px 0;
     text-align: center;
-    width: 150px; }
+    width: 150px;
+}
 button:hover {
     background-color: @selectedsidebar;
     border: 1px solid @selectedsidebar;
     cursor: pointer; }
 button:active {
-    .box-shadow(inset 0 0 4px 4px desaturate(@selectedsidebar,30%));}
+    .box-shadow(inset 0 0 4px 4px desaturate(@selectedsidebar,30%));
+}
+
+/***
+ *    ██████╗ ██╗   ██╗████████╗████████╗ ██████╗ ███╗   ██╗███████╗
+ *    ██╔══██╗██║   ██║╚══██╔══╝╚══██╔══╝██╔═══██╗████╗  ██║██╔════╝
+ *    ██████╔╝██║   ██║   ██║      ██║   ██║   ██║██╔██╗ ██║███████╗
+ *    ██╔══██╗██║   ██║   ██║      ██║   ██║   ██║██║╚██╗██║╚════██║
+ *    ██████╔╝╚██████╔╝   ██║      ██║   ╚██████╔╝██║ ╚████║███████║
+ *    ╚═════╝  ╚═════╝    ╚═╝      ╚═╝    ╚═════╝ ╚═╝  ╚═══╝╚══════╝
+ *                                                                  
+ */
+button{
+    z-index: 999;
+}
 
 #btn-region{
     position: absolute; 
     bottom: 20px;
+}
+#btn-options{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+.btn-action{
+}
+.btn-projects{
+    display:list-item;
 }
 
 
@@ -254,7 +337,99 @@ button:active {
     stroke-width: 0.5;
     cursor: pointer;
 }
+
+
+
+/*
+*  markers
+*/
+.jvectormap-marker{
+    fill: @base1;
+    stroke: @base03;
+    stroke-width: 2.5;
+}
+
+.jvectormap-marker:hover{
+    fill:@violet;
+}
+.jvectormap-marker:active{
+    fill: @magenta;
+
+}
+
+.jvectormap-region {
+    fill: @cyan ;
+stroke: @base03;
+stroke-width: 0.5;
+cursor: pointer;
+}
+
+
 #map {
     margin-left: 200px;
     height: 600px; //this actually gets overwritten in JS
 }
+
+/***
+ *    ███╗   ███╗ ██████╗ ██████╗  █████╗ ██╗     
+ *    ████╗ ████║██╔═══██╗██╔══██╗██╔══██╗██║     
+ *    ██╔████╔██║██║   ██║██║  ██║███████║██║     
+ *    ██║╚██╔╝██║██║   ██║██║  ██║██╔══██║██║     
+ *    ██║ ╚═╝ ██║╚██████╔╝██████╔╝██║  ██║███████╗
+ *    ╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
+ *                                                
+ */
+ #modal{
+    background-color: fade(@base03,70%);
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 998;
+    
+    .modal-content{
+        .border-radius(3px);
+        background: @nonselectedsidebar;
+        position: relative;
+        text-align: center;
+        margin: 10% 20%;
+        width: 60%;
+        height: 60%;
+    }
+    .modal-options{
+        position: absolute;
+        bottom: 20px;
+        width: 100%;
+    }
+}
+/***
+ *    ███████╗████████╗ █████╗ ██████╗ ████████╗    ███████╗ ██████╗██████╗ ███████╗███████╗███╗   ██╗
+ *    ██╔════╝╚══██╔══╝██╔══██╗██╔══██╗╚══██╔══╝    ██╔════╝██╔════╝██╔══██╗██╔════╝██╔════╝████╗  ██║
+ *    ███████╗   ██║   ███████║██████╔╝   ██║       ███████╗██║     ██████╔╝█████╗  █████╗  ██╔██╗ ██║
+ *    ╚════██║   ██║   ██╔══██║██╔══██╗   ██║       ╚════██║██║     ██╔══██╗██╔══╝  ██╔══╝  ██║╚██╗██║
+ *    ███████║   ██║   ██║  ██║██║  ██║   ██║       ███████║╚██████╗██║  ██║███████╗███████╗██║ ╚████║
+ *    ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝       ╚══════╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═══╝
+ *                                                                                                    
+ */
+ #startScreen{
+    position: absolute;
+    text-align: center;
+    display:table;
+    height: 100%;
+    width: 100%;
+    line-height: 0px;
+    h1{
+        color: @base3;
+        font-size: 15em;
+    }
+    h2{
+        color: @blue;
+        font-size: 5em;
+    }
+    #startScreenCenterV{
+        display:table-cell;
+        vertical-align: middle;
+    }
+ }

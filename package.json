@@ -1,6 +1,6 @@
 {
-  "name": "cs4098-game",
-  "version": "0.2.0",
+  "name": "panic-tycoon",
+  "version": "0.3.0",
   "description": "A game based on software engineering for the Trinity College Dublin 4th year CS4098 Programming Group Project module.",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://www.github.com/minuteman3/cs4098-game"
+    "url": "https://www.github.com/Panic-Tycoons/panic-tycoon"
   },
   "keywords": [
     "coursework",
@@ -50,11 +50,6 @@
       }
   },
   "testling": {
-    "scripts": [
-      "lib/jquery-1.11.0.min.js",
-      "lib/jquery-jvectormap-1.2.2.min.js",
-      "lib/jquery-jvectormap-world-mill-en.js"
-    ],
     "files": "tests/browser/test-maps-loading.js",
     "browsers": [
       "ie/6..latest",
