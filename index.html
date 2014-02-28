@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta name="viewport" content="width=device-width">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+
+    <title>Panic Tycoon</title>
+    <script src="js/bundle.js"></script>
+  </head>
+  <body class="blue centreblock" onload="pt.initialiseGame()">
+
+    <div id="startScreen">
+      <div id="startScreenCenterV">
+        <h1>PANIC</h1> <h2>Tycoon</h2>
+        <button  onclick="pt.selectProject()" id="btn-start">Start Game</button>
+      </div>
+    </div>
+
+    <div id="sidebar">
+      <div id="sidebar-title">Select Teams</div>
+
+      <ul class="nav">
+        <li class="active">Interface</li>
+        <li>Game Engine </li>
+        <li>Physics Engine</li>
+      </ul>
+
+      <div class="gameProperties">Total Budget<div >$20,000</div></div>
+      <div class="gameProperties">Total Payroll<div id="totalPayroll">$0</div></div>
+      <div class="gameProperties">Due Date<div >20 weeks</div></div>
+      <div class="gameProperties">Budgeted Weeks<div id="budgetedWeeks">0 weeks</div></div>
+      <br/>
+      <div class="location-header">Payroll<div id="costPerMonth">$0</div></div>
+      <ul id="locations"></ul>
+      <button  onclick="pt.selectTeams()" id="btn-region">Select Teams</button>
+    </div>
+
+    <div id="map"></div>
+    <div id="content"></div>
+    <div id="gameover"></div>
+
+    <button  onclick="pt.pause()" id="btn-options">Options</button>
+
+    <script>
+      document.onkeydown = function (evt) {
+          if (evt.keyCode == 27) {
+              pt.pause();
+            evt.preventDefault();
+          }
+        };
+      window.addEventListener('resize', function(event){
+        pt.debounce( pt.resizemap(95) ,500);
+      });
+    </script
+  </body>
+</html>

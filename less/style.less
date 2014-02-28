@@ -1,0 +1,435 @@
+/*
+        ██╗     ███████╗███████╗███████╗
+        ██║     ██╔════╝██╔════╝██╔════╝
+        ██║     █████╗  ███████╗███████╗
+        ██║     ██╔══╝  ╚════██║╚════██║
+        ███████╗███████╗███████║███████║
+        ╚══════╝╚══════╝╚══════╝╚══════╝
+*/
+// Solarized Colour Scheme taken from Ethan Schoonover
+@base03:   #002b36;
+@base02:   #073642;
+@base01:   #586e75;
+@base00:   #657b83;
+@base0:    #839496;
+@base1:    #93a1a1;
+@base2:    #eee8d5;
+@base3:    #fdf6e3;
+@yellow:   #b58900;
+@orange:   #cb4b16;
+@red:      #dc322f;
+@magenta:  #d33682;
+@violet:   #6c71c4;
+@blue:     #268bd2;
+@cyan:     #2aa198;
+@green:    #859900;
+@nonselectedsidebar: @base3;
+@selectedsidebar: @cyan;
+
+.box-shadow(@style, @c) when (iscolor(@c)) {
+  -webkit-box-shadow: @style @c;
+  -moz-box-shadow:    @style @c;
+  box-shadow:         @style @c;
+}
+.box-shadow(@style, @alpha: 50%) when (isnumber(@alpha)) {
+    .box-shadow(@style, rgba(0, 0, 0, @alpha));
+}
+.box-shadow (@string) {
+    -webkit-box-shadow: @string;
+    -moz-box-shadow:    @string;
+    box-shadow:         @string;
+}
+.gradient (@startColor, @endColor) {
+    background-color: @startColor;
+    background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
+    background: -webkit-linear-gradient(top, @startColor, @endColor);
+    background: -moz-linear-gradient(top, @startColor, @endColor);
+    background: -ms-linear-gradient(top, @startColor, @endColor);
+    background: -o-linear-gradient(top, @startColor, @endColor);
+}
+.border-radius (@radius: 5px) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius:    @radius;
+    border-radius:         @radius;
+
+    -moz-background-clip:    padding;
+    -webkit-background-clip: padding-box;
+    background-clip:         padding-box;
+}
+.drop-shadow (@x: 0, @y: 1px, @blur: 2px, @spread: 0, @alpha: 0.25) {
+    -webkit-box-shadow: @x @y @blur @spread rgba(0, 0, 0, @alpha);
+    -moz-box-shadow:    @x @y @blur @spread rgba(0, 0, 0, @alpha);
+    box-shadow:     @x @y @blur @spread rgba(0, 0, 0, @alpha);
+}
+.transform(@string){
+    -webkit-transform:  @string;
+    -moz-transform:     @string;
+    -ms-transform:      @string;
+    -o-transform:       @string;
+}
+.opacity (@opacity: 0.5) {
+    -webkit-opacity:    @opacity;
+    -moz-opacity:       @opacity;
+    opacity:        @opacity;
+}
+
+
+
+html {
+    font-family: 'Helvetica Neue,Helvetica', sans-serif;
+    color-profile: sRGB;
+    overflow-y: scroll;
+    color: @base03;
+}
+h1 {
+    font-size: 5em;
+    text-transform: capitalize;
+}
+p {
+    font-size: 2em;
+}
+img {
+    margin-bottom: 0%;
+}
+html body {
+    background-color: @base03;
+}
+html a:hover {
+    background-color: @base02;
+}
+
+/*
+        ███████╗██╗██████╗ ███████╗    ██████╗  █████╗ ██████╗ 
+        ██╔════╝██║██╔══██╗██╔════╝    ██╔══██╗██╔══██╗██╔══██╗
+        ███████╗██║██║  ██║█████╗      ██████╔╝███████║██████╔╝
+        ╚════██║██║██║  ██║██╔══╝      ██╔══██╗██╔══██║██╔══██╗
+        ███████║██║██████╔╝███████╗    ██████╔╝██║  ██║██║  ██║
+        ╚══════╝╚═╝╚═════╝ ╚══════╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+*/
+
+#sidebar {
+    border-top:10px solid @selectedsidebar;
+    background: @nonselectedsidebar;
+    color: @base01;
+    padding-right: -1px;
+    left: 0;
+    position: fixed;
+    top: 0;
+    height: 100%;
+    width: 190px;
+   
+}
+
+#sidebar-title{
+    margin-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;  
+    font-size: 26px;
+}
+
+.nav {
+    list-style-type: none;
+    margin-left: -20px;
+    margin-top: 0;
+
+}
+
+.nav li {
+    background-color: @nonselectedsidebar;
+    border-bottom: 1px solid @base2;
+    border-top: 1px solid @base3;
+    height: 42px;
+    line-height: 42px;
+    margin-left: -20px;
+    display: block;
+    padding-left: 20px;
+    letter-spacing:1.1px;
+}
+
+.nav li:last-child {
+    .drop-shadow (0, 2px, 5px, 0, 0.25);
+}
+
+.nav li.inactive{
+    background-color: @nonselectedsidebar;
+    .box-shadow(inset 0px 1px 0px 0 ,@base3);
+    border-bottom: 1px solid @base2;
+    border-top: 1px solid @base3;
+    position: relative;
+    text-shadow: none;
+    color: white;
+}
+
+
+.nav li.active {
+    background-color: @selectedsidebar;
+    .box-shadow(inset 0px 1px 0px 0 ,rgba(255, 255, 255, 0.2));
+    position: relative;
+    text-shadow: none;
+    color: @base3;
+}
+
+.nav li.active::after {
+    background-color: @selectedsidebar;
+    .transform (rotate(62deg) skew(30deg));
+    content: "";
+    display: block;
+    width: 26px;
+    height: 20px;
+    margin-top: -32px;
+    margin-left: 157px;
+}
+
+.nav li.active a {
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+}
+
+#locations{
+    list-style-type: none;
+    margin-left: -20px;
+    margin-top: 0;
+}
+
+
+.location-header{
+    display: block;
+    margin-left: 15px;
+    font-weight:bold;
+    margin-bottom: 5px;
+}   
+
+#costPerMonth{
+    display: block;
+    float:right;
+    margin-right: 5px;
+}
+
+.gameProperties{
+    font-size:90%;
+   display: block;
+    margin-left: 15px;
+    margin-bottom: 5px;
+}
+
+
+
+
+/* */
+@keyframes myfirst
+{
+from {background: @magenta;}
+to {background: @base3;}
+}
+
+@-webkit-keyframes myfirst /* Safari and Chrome */
+{
+from {background: @magenta;}
+to {background: @base3;}
+}
+
+#locations .teamMultiplierFade{
+    float:right;
+    padding-right: 3px;
+    padding-left: 3px;
+    margin-right: 5px;
+        color: @base3;
+        .border-radius();
+    animation: myfirst 3s;
+    -webkit-animation: myfirst 3s; /* Safari and Chrome */
+}
+
+#locations .teamMultiplier{
+    float:right;
+    margin-right: 5px;
+    font-weight:bold;
+}
+
+
+
+button {
+    .border-radius(3px);
+    background-color: desaturate(@selectedsidebar,20%);
+    border: 1px solid @selectedsidebar;
+    margin-left: 20px;
+    color: @base3;
+    font-size: 16px;
+    padding: 7px 0 8px 0;
+    text-align: center;
+    width: 150px;
+}
+button:hover {
+    background-color: @selectedsidebar;
+    border: 1px solid @selectedsidebar;
+    cursor: pointer; }
+button:active {
+    .box-shadow(inset 0 0 4px 4px desaturate(@selectedsidebar,30%));
+}
+
+/***
+ *    ██████╗ ██╗   ██╗████████╗████████╗ ██████╗ ███╗   ██╗███████╗
+ *    ██╔══██╗██║   ██║╚══██╔══╝╚══██╔══╝██╔═══██╗████╗  ██║██╔════╝
+ *    ██████╔╝██║   ██║   ██║      ██║   ██║   ██║██╔██╗ ██║███████╗
+ *    ██╔══██╗██║   ██║   ██║      ██║   ██║   ██║██║╚██╗██║╚════██║
+ *    ██████╔╝╚██████╔╝   ██║      ██║   ╚██████╔╝██║ ╚████║███████║
+ *    ╚═════╝  ╚═════╝    ╚═╝      ╚═╝    ╚═════╝ ╚═╝  ╚═══╝╚══════╝
+ *                                                                  
+ */
+button{
+    z-index: 999;
+}
+
+#btn-region{
+    position: absolute; 
+    bottom: 20px;
+}
+#btn-options{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+.btn-action{
+}
+.btn-projects{
+    display:list-item;
+}
+
+
+/*
+             ██╗██╗   ██╗███████╗ ██████╗████████╗ ██████╗ ██████╗ ███╗   ███╗ █████╗ ██████╗ 
+             ██║██║   ██║██╔════╝██╔════╝╚══██╔══╝██╔═══██╗██╔══██╗████╗ ████║██╔══██╗██╔══██╗
+             ██║██║   ██║█████╗  ██║        ██║   ██║   ██║██████╔╝██╔████╔██║███████║██████╔╝
+        ██   ██║╚██╗ ██╔╝██╔══╝  ██║        ██║   ██║   ██║██╔══██╗██║╚██╔╝██║██╔══██║██╔═══╝ 
+        ╚█████╔╝ ╚████╔╝ ███████╗╚██████╗   ██║   ╚██████╔╝██║  ██║██║ ╚═╝ ██║██║  ██║██║     
+         ╚════╝   ╚═══╝  ╚══════╝ ╚═════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝      
+*/
+
+.jvectormap-label {
+    .border-radius(3px);
+    background: @base3;
+    color: @yellow;
+    position: absolute;
+    display: none;
+    padding: 3px;
+}
+
+.jvectormap-zoomin,.jvectormap-zoomout {
+    .border-radius(3px);
+    color: @selectedsidebar;
+    position: absolute;
+    left: 10px;
+    padding: 3px;
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
+    line-height: 10px;
+    text-align: center;
+}
+.jvectormap-zoomin {
+    font-size: 2em;
+    top: 0px;
+}
+.jvectormap-zoomout {
+    font-size: 2em;
+    top: 1em;
+}
+.jvectormap-region {
+    stroke: @base02;
+    stroke-width: 0.5;
+    cursor: pointer;
+}
+
+
+
+/*
+*  markers
+*/
+.jvectormap-marker{
+    fill: @base1;
+    stroke: @base03;
+    stroke-width: 2.5;
+}
+
+.jvectormap-marker:hover{
+    fill:@violet;
+}
+.jvectormap-marker:active{
+    fill: @magenta;
+
+}
+
+.jvectormap-region {
+    fill: @cyan ;
+stroke: @base03;
+stroke-width: 0.5;
+cursor: pointer;
+}
+
+
+#map {
+    margin-left: 200px;
+    height: 600px; //this actually gets overwritten in JS
+}
+
+/***
+ *    ███╗   ███╗ ██████╗ ██████╗  █████╗ ██╗     
+ *    ████╗ ████║██╔═══██╗██╔══██╗██╔══██╗██║     
+ *    ██╔████╔██║██║   ██║██║  ██║███████║██║     
+ *    ██║╚██╔╝██║██║   ██║██║  ██║██╔══██║██║     
+ *    ██║ ╚═╝ ██║╚██████╔╝██████╔╝██║  ██║███████╗
+ *    ╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
+ *                                                
+ */
+ #modal{
+    background-color: fade(@base03,70%);
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 998;
+    
+    .modal-content{
+        .border-radius(3px);
+        background: @nonselectedsidebar;
+        position: relative;
+        text-align: center;
+        margin: 10% 20%;
+        width: 60%;
+        height: 60%;
+    }
+    .modal-options{
+        position: absolute;
+        bottom: 20px;
+        width: 100%;
+    }
+}
+/***
+ *    ███████╗████████╗ █████╗ ██████╗ ████████╗    ███████╗ ██████╗██████╗ ███████╗███████╗███╗   ██╗
+ *    ██╔════╝╚══██╔══╝██╔══██╗██╔══██╗╚══██╔══╝    ██╔════╝██╔════╝██╔══██╗██╔════╝██╔════╝████╗  ██║
+ *    ███████╗   ██║   ███████║██████╔╝   ██║       ███████╗██║     ██████╔╝█████╗  █████╗  ██╔██╗ ██║
+ *    ╚════██║   ██║   ██╔══██║██╔══██╗   ██║       ╚════██║██║     ██╔══██╗██╔══╝  ██╔══╝  ██║╚██╗██║
+ *    ███████║   ██║   ██║  ██║██║  ██║   ██║       ███████║╚██████╗██║  ██║███████╗███████╗██║ ╚████║
+ *    ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝       ╚══════╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═══╝
+ *                                                                                                    
+ */
+ #startScreen{
+    position: absolute;
+    text-align: center;
+    display:table;
+    height: 100%;
+    width: 100%;
+    line-height: 0px;
+    h1{
+        color: @base3;
+        font-size: 15em;
+    }
+    h2{
+        color: @blue;
+        font-size: 5em;
+    }
+    #startScreenCenterV{
+        display:table-cell;
+        vertical-align: middle;
+    }
+ }
