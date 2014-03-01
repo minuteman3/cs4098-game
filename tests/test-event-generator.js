@@ -60,7 +60,14 @@ test("the fuzzy engine is working",function(t){
 	var fuzzy = null;
 
 	t.doesNotThrow(function(){
-		fuzzy = new FuzzyEngine();
+    	var rules = [
+				[[2,0]  ,  [0] ],
+				[[1,0]  ,  [0] ],
+				[[0,2]  ,  [0] ] ];
+
+	    var memberFuncs =[[[10,20,30],[40,50,80],[45,50,90]],[[40,50,80]]];
+
+		fuzzy = new FuzzyEngine(rules, memberFuncs);
 	});
 
 	// this should make rule 1 fire 
