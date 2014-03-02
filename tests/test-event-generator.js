@@ -2,6 +2,7 @@ var test = require('tape');
 var FuzzyEngine = require("../lib/EventGenerator/fuzzyEngine.js")
 var InferenceEngine = require("../lib/EventGenerator/inferenceEngine.js")
 var Fuzzifier = require("../lib/EventGenerator/fuzzifier.js")
+var EventGenerator = require("../lib/EventGenerator/EventGenerator.js")
 
 test("the inference engine is working",function(t){
 	t.plan(4);
@@ -81,7 +82,19 @@ test("the fuzzy engine is working",function(t){
 	t.equal(fuzzy.run([20,50],0.45),1,"make sure event generation is considering time");
 });
 
+test("Event generator works", function(t){
+    t.plan(2);
 
+    var gen = null;
+    
+    t.doesNotThrow(function() {
+        gen = new EventGenerator("gamedata/events");
+    });
+
+    t.doesNotThrow(function() {
+        g.getEvent();
+    });
+});
 
 
 
