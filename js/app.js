@@ -176,7 +176,12 @@ function selectTeamsForModule () {
   // move along the markers
   var index = sidebar.getActiveListItem();
 
-  selectedTeams[index] = teamsSelected;
+  var moduleDevelopes = {};
+  Object.keys(teamsSelected).forEach(function(key) {
+    moduleDevelopes[cities.names[key]] = teamsSelected[key];
+  });
+
+  selectedTeams[selectedProject.modules[index].name] = moduleDevelopes;
 
   // reset everything for the next module
   clearMapMarkers();
@@ -194,6 +199,8 @@ function selectTeamsForModule () {
 
 
 function setUpProgressSidebar(){
+
+  console.log(selectedTeams);
 
   curGameState = GameStates.PROGRESS;
   sidebar.setList([]);
