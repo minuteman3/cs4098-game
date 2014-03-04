@@ -333,9 +333,9 @@ button{
     top: 1em;
 }
 .jvectormap-region {
-    stroke: @base02;
+    fill: @cyan ;
+    stroke: @base03;
     stroke-width: 0.5;
-    cursor: pointer;
 }
 
 
@@ -347,6 +347,7 @@ button{
     fill: @base1;
     stroke: @base03;
     stroke-width: 2.5;
+    cursor:pointer;
 }
 
 .jvectormap-marker:hover{
@@ -357,12 +358,16 @@ button{
 
 }
 
-.jvectormap-region {
-    fill: @cyan ;
-stroke: @base03;
-stroke-width: 0.5;
-cursor: pointer;
+.jvectormap-marker[state="1"]{
+     fill: @red;
 }
+.jvectormap-marker[state="2"]{
+     fill: @yellow;
+}
+.jvectormap-marker[state="3"]{
+     fill: @green;
+}
+
 
 
 #map {
