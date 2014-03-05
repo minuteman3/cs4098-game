@@ -1,5 +1,5 @@
 var test = require('tape');
-var Module = require('../lib/Module.js');
+var Module = require('../js/Module.js');
 
 test('Module advancement works', function(t) 
 {

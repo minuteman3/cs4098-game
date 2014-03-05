@@ -1,0 +1,58 @@
+{
+  "projects" : [
+  {
+    "name": "Project A",
+    "budget": 10000,
+    "duration": 18,
+    "revenue": {
+      "months": 6,
+      "amount": 10000
+    },
+    "modules": [
+      {
+        "name": "AI Engine",
+        "cost": 1000
+      },
+      {
+        "name": "UI Design",
+        "cost": 3000
+      },
+      {
+        "name": "Character Creation",
+        "cost": 750
+      }
+    ],
+    "dialog": "This Project has three modules, each with a different cost, make sure to allocate lots of resources to UI Design for this project to succeed"
+  },{
+    "name": "Project B",
+    "budget": 200000,
+    "duration": 24,
+    "revenue": {
+      "months": 12,
+      "amount": 10000
+    },
+    "modules": [
+      {
+        "name": "AI Engine",
+        "cost": 3000
+      },
+      {
+        "name": "UI Design",
+        "cost": 1000
+      },
+      {
+        "name": "Character Creation",
+        "cost": 750
+      },
+      {
+        "name": "Procedural Generation",
+        "cost": 1250
+      },
+      {
+        "name": "Story Design",
+        "cost": 1250
+      }
+    ],
+    "dialog": "This Project has five modules, each with a different cost, make sure to allocate lots of resources to AI Design for this project to succeed"
+  }]
+}

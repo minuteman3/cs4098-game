@@ -1,7 +1,7 @@
 var test = require('tape');
 
-var ProcessSim = require("../lib/ProcessSimulator.js");
-var Module = require("../lib/Module.js");
+var ProcessSim = require("../js/ProcessSimulator.js");
+var Module = require("../js/Module.js");
 
 test("process simulator works", function(t) {
     t.plan(1);
