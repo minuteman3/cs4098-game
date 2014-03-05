@@ -22,20 +22,24 @@ function hidemodal () {
   $('#modal').hide();
 }
 
-function makeChoices(a,b,c){
+function makeChoices(a,b,c,proj){
   a = a || ["Option 1"];
   b = b || "";
   c = c || "btn-action";
+  proj = proj || false;
 
   var ret = '<p>';
-
+  var d="";
   // this should be a description of the event, indicating/hinting at the correct answer
   ret+= b;
   ret+= '</p><div class="modal-options">';
 
   a.forEach(function(b,i,arr) {
     b.funct = b.funct || "startGame("+i+")";
-    ret += '<button class="'+c+'" onclick="pt.'+b.funct+'">' + b.name + '</button>';
+    if (proj){
+      d = 'onmouseover="'+'pt.projectdescription('+i+') "';
+    }
+    ret += '<button class="'+c+'" onclick="pt.'+b.funct+'" '+d+' >' + b.name + '</button>';
   });
   ret += '</div>';
 

@@ -12,7 +12,6 @@ var teamsSelected = {};
 var totalPayRoll = 0;
 var budget = 20000;
 var projects = proj.projects;
-var projectsDescription = proj.description;
 var selectedProject;
 
 var isMakerSelectable = true;
@@ -172,11 +171,13 @@ function selectProject(){
   $('#startScreen').hide();
 
   var html = "<h1> Select A Project</h1>";
-  html += modal.makeChoices(projects,projectsDescription,"btn-projects");
+  html += modal.makeChoices(projects,'<div id="project-description"></div>','btn-projects',true);
 
   modal.showmodal (html);
 }
-
+function projectdescription(a){
+  $('#project-description').html(projects[a].dialog);
+}
 function startGame(a){
   a = a || 0;
   selectedProject = a;
@@ -213,5 +214,6 @@ module.exports = {
     pause: modal.pause,                    // toggles the pause menu
     resizemap: resizemap,
     debounce: debounce,
-    selectTeams: selectTeamsForModule
+    selectTeams: selectTeamsForModule,
+    projectdescription: projectdescription
 };
