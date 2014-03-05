@@ -47,9 +47,12 @@ If you experience installation problems, a goof plan is to remove the `node_modu
 * Config Loading
     * Configuration is loaded from a `config.json` file in the application root. All values contained in this file are made available to any application component that imports it using the config loader. Individual flags can be specified (or overriden) on the command line, for example: `node index.js --test=50` would set a config variable named "test" to the value 50, or override the variable "test" if it already existed in `config.json`.
 * Clickable Maps
-    * A world map is loaded from the jvectormap library. It has selectable regions and offers a list of all the regions which have been selected. It is accessible from `index.html` in the root directory.
+	* A world map is loaded from the jvectormap library. It has selectable regions and offers a list of all the regions which have been selected. It is accessible from `index.html` in the root directory.
     * Each zone has a status display, which details the status as a percentage. It is viewable by hovering over an area.
 
+* Process Simulator 
+    * Simulates advancement of modules in individual chunks, scaled by number of developers.
+	
 ## Tests
 
 This project uses [travis](http://travis-ci.org) and [testling](http://ci.testling.com) to automate testing and ensure front-end compatibility and positive build-state on the backend.
