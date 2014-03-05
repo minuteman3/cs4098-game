@@ -305,6 +305,10 @@ module.exports = {
     selectTeams: selectTeamsForModule,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    projectdescription: projectdescription
+>>>>>>> FETCH_HEAD
 =======
     projectdescription: projectdescription
 >>>>>>> FETCH_HEAD
