@@ -11,7 +11,7 @@ A game based on software engineering for the Trinity College Dublin 4th year CS4
 * [node.js 0.10+](http://nodejs.org/download/) must be installed 
 * A browser which shows green in the testling image above
 
-## Installing Node.js 0.10
+### Installing Node.js 0.10
 
 * Clone the latest version of the node version manager (`nvm`) from https://github.com/creationix/nvm using:
 
@@ -36,6 +36,11 @@ From root of project:
 * Run `npm install` in root directory to fetch dependencies
 * Run `npm test` in root directory to run unit tests if desired.
 * Run `npm start` in root directory to launch web server.
+
+### Installation Problems
+
+If you experience installation problems, a goof plan is to remove the `node_modules` directory and do `npm install` again.
+
 
 ## Features
 
