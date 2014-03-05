@@ -12,14 +12,6 @@
       {
         "name": "AI Engine",
         "cost": 1000
-      },
-      {
-        "name": "UI Design",
-        "cost": 3000
-      },
-      {
-        "name": "Character Creation",
-        "cost": 750
       }
     ],
     "dialog": "This Project has three modules, each with a different cost, make sure to allocate lots of resources to UI Design for this project to succeed"
@@ -45,7 +37,7 @@
         "cost": 750
       },
       {
-        "name": "Procedural Generation",
+        "name": "Procedural ",
         "cost": 1250
       },
       {
