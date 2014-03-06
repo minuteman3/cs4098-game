@@ -127,8 +127,20 @@ function generateCharts(loc){
     ctx = document.getElementById(loc).getContext("2d");
     chart = new Chart(ctx).Line(data,options);
   }
+  return chart;
+}
+function addChartContainer(s){
+  if($('#gameover')){
+    $('#gameover').remove();
+  }
+  var w,h;
+  s = s || 30;
+  h = (document.documentElement.clientHeight * s / 100) + 'px;';
+  w = (document.documentElement.clientWidth  * s / 100) + 'px;';
+  $('body').append('<canvas id="gameover" width="'+w+'" height="'+h+'" style="display:none;"> </canvas>');
 }
 function endGame(){
+  addChartContainer();
   hidemodal ();
   var html = "<h1>Game Over</h1><p>";
 

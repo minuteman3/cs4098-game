@@ -84,10 +84,8 @@ function debounce(func, wait, immediate) {
 }
 
 function resizemap (s) {
-  // for some mysterious reason, this is no longer needed... and actually bugs out.
   s = s || 95;
   document.getElementById('map').style.height = (document.documentElement.clientHeight * s / 100) + 'px';
-  // $('#map').style.height = (document.documentElement.clientHeight * s / 100) + 'px';
 }
 
 function regionLabelShow(e,label,code){ 
@@ -193,12 +191,10 @@ function startGame(a){
 function deleteDB(){
   window.localStorage.clear();
 }
-
 function initialiseGame(){
   $('#sidebar').hide();
   $('#btn-options').hide();
   $('#map').empty();//deletes the map
-  $('body').append('<canvas id="gameover" width="600px;" height="400px;" style="display:none;"> </canvas>');
   deleteDB();//reset all localStorage values;
   modal.hidemodal();
   map=null;

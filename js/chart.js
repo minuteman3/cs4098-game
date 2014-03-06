@@ -6,6 +6,8 @@
  * Released under the MIT license
  * https://github.com/nnnick/Chart.js/blob/master/LICENSE.md
  */
+// modified into CommonJS (and cleaned up a bit)
+
 
 //Define the global Chart Variable as a class.
 function Chart(context) {
