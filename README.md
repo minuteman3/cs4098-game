@@ -49,6 +49,8 @@ If you experience installation problems, a goof plan is to remove the `node_modu
 * Clickable Maps
     * A world map is loaded from the jvectormap library. It has selectable regions and offers a list of all the regions which have been selected. It is accessible from `index.html` in the root directory.
     * Each zone has a status display, which details the status as a percentage. It is viewable by hovering over an area.
+* End of Game Report
+	* Shows Graphs of how you have progressed throughout the game.
 
 ## Tests
 

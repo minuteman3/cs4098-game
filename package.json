@@ -50,7 +50,10 @@
       }
   },
   "testling": {
-    "files": "tests/browser/test-maps-loading.js",
+    "files": [
+      "tests/browser/test-maps-loading.js",
+      "tests/browser/test-charts-loading.js"
+      ],
     "browsers": [
       "ie/6..latest",
       "chrome/15..latest",
