@@ -87,10 +87,8 @@ function debounce(func, wait, immediate) {
 }
 
 function resizemap (s) {
-  // for some mysterious reason, this is no longer needed... and actually bugs out.
   s = s || 95;
   document.getElementById('map').style.height = (document.documentElement.clientHeight * s / 100) + 'px';
-  // $('#map').style.height = (document.documentElement.clientHeight * s / 100) + 'px';
 }
 
 function regionLabelShow(e,label,code){ 
@@ -274,6 +272,9 @@ function initialiseGame(){
   map=null;
   $('#startScreen').show();
 }
+function endGame(){
+  modal.endGame();
+}
 
 module.exports = {
     initialiseGame: initialiseGame, // first thing that happens. shows start screen
@@ -285,5 +286,6 @@ module.exports = {
     resizemap: resizemap,
     debounce: debounce,
     selectTeams: selectTeamsForModule,
+    endGame: endGame,
     projectdescription: projectdescription
 };
