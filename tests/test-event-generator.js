@@ -32,7 +32,6 @@ test("the inference engine is working",function(t){
 
 }); 
 
-
 test("the fuzzifier is working",function(t){
 	t.plan(4);
 
@@ -91,6 +90,6 @@ test("Event generator works", function(t){
     });
 
     t.doesNotThrow(function() {
-        g.getEvent();
+        gen.getEvent([]);
     });
 });
