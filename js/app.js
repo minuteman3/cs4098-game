@@ -8,8 +8,6 @@ var jvm = require('jvm');
 var jvm_map = require('../lib/jquery-jvectormap-world-mill-en.js')();
 var map;
 
-
-
 var projects = proj.projects;
 var selectedProject;
 
@@ -17,18 +15,14 @@ var teamsSelected = {};
 var totalPayRoll = 0;
 var selectedTeams = {};
 
-
 var isMakerSelectable = true;
-
-
 
 var GameStates = {
       START:0,
       SELECT_TEAMS:1,
       PROGRESS:2,
-}
+};
 var curGameState = GameStates.START;
-
 
 function buildmap (){
   resizemap();
@@ -125,8 +119,6 @@ function onlabelShow (e,label,code){
   fixOverLap(code,label);
 }
 
-
-
 function fixOverLap(code,label){
     // check to make sure the label doesnt overlap with the sidebar
     if(cities.coords[code][1] < -100){
@@ -138,13 +130,9 @@ function fixOverLap(code,label){
     }
 }
 
-
 function runState(){
   map.series.markers[1].setValues([1,2,2,3]);
-
 }
-
-
 
 function teamSelected (e,  code,  isSelected,  selectedMarkers) {
   // hack hack 
@@ -196,7 +184,6 @@ function selectTeamsForModule () {
   }
 }
 
-
 function setUpProgressSidebar(){
 
   console.log(selectedTeams);
@@ -208,8 +195,6 @@ function setUpProgressSidebar(){
   sidebar.setTitle("Game is running");
   runState();
 }
-
-
 
 function clearMapMarkers(){
   //map clear selected markers for some reason calls teamSelected so we need to call it
@@ -236,9 +221,11 @@ function selectProject(){
 
   modal.showmodal (html);
 }
+
 function projectdescription(a){
   $('#project-description').html(projects[a].dialog);
 }
+
 function startGame(a){
   a = a || 0;
   selectedProject = projects[a];
@@ -271,7 +258,6 @@ function startGame(a){
   sidebar.setLocations([]);
 
   modal.dialog(selectedProject.dialog);
-
 }
 
 function deleteDB(){
@@ -289,10 +275,6 @@ function initialiseGame(){
   $('#startScreen').show();
 }
 
-
-
-
-
 module.exports = {
     initialiseGame: initialiseGame, // first thing that happens. shows start screen
     selectProject: selectProject,   // select which project to do
@@ -303,16 +285,5 @@ module.exports = {
     resizemap: resizemap,
     debounce: debounce,
     selectTeams: selectTeamsForModule,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     projectdescription: projectdescription
->>>>>>> FETCH_HEAD
-=======
-    projectdescription: projectdescription
->>>>>>> FETCH_HEAD
-=======
-    projectdescription: projectdescription
->>>>>>> FETCH_HEAD
 };
