@@ -188,7 +188,6 @@ function startGame(a){
   $('#map').empty();
   buildmap();
   modal.dialog(projects[a].dialog);
-
 }
 
 function deleteDB(){
@@ -199,10 +198,14 @@ function initialiseGame(){
   $('#sidebar').hide();
   $('#btn-options').hide();
   $('#map').empty();//deletes the map
+  $('body').append('<canvas id="gameover" width="600px;" height="400px;" style="display:none;"> </canvas>');
   deleteDB();//reset all localStorage values;
   modal.hidemodal();
   map=null;
   $('#startScreen').show();
+}
+function endGame(){
+  modal.endGame();
 }
 
 module.exports = {
@@ -215,5 +218,6 @@ module.exports = {
     resizemap: resizemap,
     debounce: debounce,
     selectTeams: selectTeamsForModule,
+    endGame: endGame,
     projectdescription: projectdescription
 };

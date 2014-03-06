@@ -211,9 +211,6 @@ html a:hover {
     margin-bottom: 5px;
 }
 
-
-
-
 /* */
 @keyframes myfirst
 {
@@ -243,9 +240,15 @@ to {background: @base3;}
     margin-right: 5px;
     font-weight:bold;
 }
-
-
-
+/***
+ *    ██████╗ ██╗   ██╗████████╗████████╗ ██████╗ ███╗   ██╗███████╗
+ *    ██╔══██╗██║   ██║╚══██╔══╝╚══██╔══╝██╔═══██╗████╗  ██║██╔════╝
+ *    ██████╔╝██║   ██║   ██║      ██║   ██║   ██║██╔██╗ ██║███████╗
+ *    ██╔══██╗██║   ██║   ██║      ██║   ██║   ██║██║╚██╗██║╚════██║
+ *    ██████╔╝╚██████╔╝   ██║      ██║   ╚██████╔╝██║ ╚████║███████║
+ *    ╚═════╝  ╚═════╝    ╚═╝      ╚═╝    ╚═════╝ ╚═╝  ╚═══╝╚══════╝
+ *                                                                  
+ */
 button {
     .border-radius(3px);
     background-color: desaturate(@selectedsidebar,20%);
@@ -256,6 +259,7 @@ button {
     padding: 7px 0 8px 0;
     text-align: center;
     width: 150px;
+    z-index: 999;
 }
 button:hover {
     background-color: @selectedsidebar;
@@ -263,19 +267,6 @@ button:hover {
     cursor: pointer; }
 button:active {
     .box-shadow(inset 0 0 4px 4px desaturate(@selectedsidebar,30%));
-}
-
-/***
- *    ██████╗ ██╗   ██╗████████╗████████╗ ██████╗ ███╗   ██╗███████╗
- *    ██╔══██╗██║   ██║╚══██╔══╝╚══██╔══╝██╔═══██╗████╗  ██║██╔════╝
- *    ██████╔╝██║   ██║   ██║      ██║   ██║   ██║██╔██╗ ██║███████╗
- *    ██╔══██╗██║   ██║   ██║      ██║   ██║   ██║██║╚██╗██║╚════██║
- *    ██████╔╝╚██████╔╝   ██║      ██║   ╚██████╔╝██║ ╚████║███████║
- *    ╚═════╝  ╚═════╝    ╚═╝      ╚═╝    ╚═════╝ ╚═╝  ╚═══╝╚══════╝
- *                                                                  
- */
-button{
-    z-index: 999;
 }
 
 #btn-region{
@@ -286,8 +277,6 @@ button{
     position: absolute;
     top: 20px;
     right: 20px;
-}
-.btn-action{
 }
 .btn-projects{
     display:list-item;
@@ -408,6 +397,12 @@ cursor: pointer;
         margin-left: 30%;
         margin-top: -20px;
     }
+}
+#gameover {
+    display: inline;
+    width: 600px;
+    height: 300px;
+    margin-top: -50px;
 }
 /***
  *    ███████╗████████╗ █████╗ ██████╗ ████████╗    ███████╗ ██████╗██████╗ ███████╗███████╗███╗   ██╗
