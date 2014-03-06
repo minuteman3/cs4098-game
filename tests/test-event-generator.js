@@ -1,8 +1,8 @@
 var test = require('tape');
-var FuzzyEngine = require("../lib/EventGenerator/fuzzyEngine.js")
-var InferenceEngine = require("../lib/EventGenerator/inferenceEngine.js")
-var Fuzzifier = require("../lib/EventGenerator/fuzzifier.js")
-var EventGenerator = require("../lib/EventGenerator/EventGenerator.js")
+var FuzzyEngine = require("../lib/EventGenerator/fuzzyEngine.js");
+var InferenceEngine = require("../lib/EventGenerator/inferenceEngine.js");
+var Fuzzifier = require("../lib/EventGenerator/fuzzifier.js");
+var EventGenerator = require("../lib/EventGenerator/EventGenerator.js");
 
 test("the inference engine is working",function(t){
 	t.plan(4);
@@ -11,23 +11,22 @@ test("the inference engine is working",function(t){
 	var vars = [2,2];
 	// fire if v1==0 && v2==1;
 	var rule1 = [[0],[1]];
-	//fire if v1==1 && ( v2==0 || v2 == 1);
+	// fire if v1==1 && ( v2==0 || v2 == 1);
 	var rule2 = [[1],[0,1]];
 	var rules = [rule1,rule2];
 
 	var engine  = null; 
 
 	t.doesNotThrow(function(){
-	   engine = new InferenceEngine(vars,rules);
+		engine = new InferenceEngine(vars,rules);
 	});
 	
 	var res = null;
 	t.doesNotThrow(function(){
-		res = engine.getRulesToFire([[0],[1]]).toString()
+		res = engine.getRulesToFire([[0],[1]]).toString();
 	});
-	
-	t.equal(res.length, 2,"returns back bit-array of the right length")
 
+	t.equal(res.length, 2,"returns back bit-array of the right length");
 
 	t.equal(res.toString() ,"10","its selecting the right rules");
 
@@ -39,10 +38,10 @@ test("the fuzzifier is working",function(t){
 
 	// membership values with two variables with v1 having one option
 	// and v2 having two options
-	var v1 = [[1,4,8]] 
-	var v2 = [[1,2,4],[2,6,10]]
-	var membershipValues = [v1,v2]
-	var fuzzifier = null;
+	var v1 = [[1,4,8]],
+		v2 = [[1,2,4],[2,6,10]],
+		membershipValues = [v1,v2],
+		fuzzifier = null;
 
 	t.doesNotThrow(function(){
 		fuzzifier = new Fuzzifier(membershipValues );
@@ -61,12 +60,12 @@ test("the fuzzy engine is working",function(t){
 	var fuzzy = null;
 
 	t.doesNotThrow(function(){
-    	var rules = [
+		var rules = [
 				[[2,0]  ,  [0] ],
 				[[1,0]  ,  [0] ],
 				[[0,2]  ,  [0] ] ];
 
-	    var memberFuncs =[[[10,20,30],[40,50,80],[45,50,90]],[[40,50,80]]];
+		var memberFuncs =[[[10,20,30],[40,50,80],[45,50,90]],[[40,50,80]]];
 
 		fuzzy = new FuzzyEngine(rules, memberFuncs);
 	});
@@ -95,17 +94,3 @@ test("Event generator works", function(t){
         g.getEvent();
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,5 +1,5 @@
 var $ = require('jquery');
-var Chart = require('./chart.js');
+var Chart = require('../lib/chart.js');
 
 var menu=false;
 var modal=false;
