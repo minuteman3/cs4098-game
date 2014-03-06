@@ -1,6 +1,6 @@
 {
   "name": "panic-tycoon",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "A game based on software engineering for the Trinity College Dublin 4th year CS4098 Programming Group Project module.",
   "main": "index.js",
   "scripts": {
@@ -50,7 +50,10 @@
       }
   },
   "testling": {
-    "files": "tests/browser/test-maps-loading.js",
+    "files": [
+      "tests/browser/test-maps-loading.js",
+      "tests/browser/test-charts-loading.js"
+      ],
     "browsers": [
       "ie/6..latest",
       "chrome/15..latest",

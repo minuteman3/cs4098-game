@@ -21,6 +21,6 @@ http.createServer(function (req,res) {
         res.end(fs.readFileSync(path.normalize(config.APP_DIR + "index.html")));
         return;
     }
-}).listen(config.port || 8080, function() {
+}).listen(config.PORT || 8080, function() {
     console.log("PANIC TYCOON: Now listening on port " + (config.PORT || 8080));
 });

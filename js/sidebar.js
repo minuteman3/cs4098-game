@@ -9,8 +9,20 @@ var locationTag = "#locations";
 var payrollforModuleTag = "#costPerMonth";
 var activeClass = "active";
 var activeTag = "." + activeClass;
+var gamePropertiesTag = ".gameProperties";
+var selectTeamTag = ".select-teams";
+var budgetTag = "#budget";
+var dueDateTag = "#duedate";
+var titleTag = "#sidebar-title";
+var sidebarTag = '#sidebar';
 
 
+function show(){
+    $(sidebarTag).show();
+}
+function hide(){
+    $(sidebarTag).hide();
+}
 
 /*
 *   List functions
@@ -35,11 +47,27 @@ function setListItemActive(i){
 }
 
 
+function setTitle(title){
+  $(titleTag).html(title);
+}
+
 /*
 *   General Game properties
 */
+
+
+function setBudget(budget){
+// toLocaleString formats the number to use commas
+  $(budgetTag).html("$" + budget.toLocaleString());
+}
+
+function setDueDate(weeks){
+  $(dueDateTag).html(weeks.toFixed(0) + " weeks");
+}
+
 function setPayroll(cost){
-	$(payrollTag).html("$" + cost);
+  // toLocaleString formats the number to use commas
+	$(payrollTag).html("$" + cost.toLocaleString());
 }
 
 function setBudgetedWeeks(weekCount){
@@ -52,8 +80,9 @@ function setBudgetedWeeks(weekCount){
 *  Game Module properties 
 */
 function setPayrollforModule(cost){
-	$(payrollforModuleTag).html("$" + cost);
+	$(payrollforModuleTag).html("$" + cost.toLocaleString());
 }
+
 
  
 function setLocations(teams,selectedCode){
@@ -75,6 +104,10 @@ function setLocations(teams,selectedCode){
 }
 
 
+function showSelectTeams(visible){
+  $(selectTeamTag).css('visibility',visible?"visible":"hidden");
+}
+
 
 
 module.exports = {
@@ -85,4 +118,10 @@ module.exports = {
     setPayrollforModule:setPayrollforModule,
     setListItemActive:setListItemActive,
     getActiveListItem:getActiveListItem,
+    showSelectTeams:showSelectTeams,
+    setBudget:setBudget,
+    setDueDate:setDueDate,
+    setTitle:setTitle,
+    show:show,
+    hide:hide,
 };

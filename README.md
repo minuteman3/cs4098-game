@@ -11,7 +11,7 @@ A game based on software engineering for the Trinity College Dublin 4th year CS4
 * [node.js 0.10+](http://nodejs.org/download/) must be installed 
 * A browser which shows green in the testling image above
 
-## Installing Node.js 0.10
+### Installing Node.js 0.10
 
 * Clone the latest version of the node version manager (`nvm`) from https://github.com/creationix/nvm using:
 
@@ -37,6 +37,11 @@ From root of project:
 * Run `npm test` in root directory to run unit tests if desired.
 * Run `npm start` in root directory to launch web server.
 
+### Installation Problems
+
+If you experience installation problems, a goof plan is to remove the `node_modules` directory and do `npm install` again.
+
+
 ## Features
 
 * Config Loading
@@ -44,6 +49,8 @@ From root of project:
 * Clickable Maps
     * A world map is loaded from the jvectormap library. It has selectable regions and offers a list of all the regions which have been selected. It is accessible from `index.html` in the root directory.
     * Each zone has a status display, which details the status as a percentage. It is viewable by hovering over an area.
+* End of Game Report
+	* Shows Graphs of how you have progressed throughout the game.
 
 ## Tests
 

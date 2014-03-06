@@ -8,17 +8,21 @@ var jvm = require('jvm');
 var jvm_map = require('../lib/jquery-jvectormap-world-mill-en.js')();
 var map;
 
+var projects = proj.projects;
+var selectedProject;
+
 var teamsSelected = {};
 var totalPayRoll = 0;
-var budget = 20000;
-var projects = proj.projects;
-var projectsDescription = proj.description;
-var selectedProject;
+var selectedTeams = {};
 
 var isMakerSelectable = true;
 
-
-
+var GameStates = {
+      START:0,
+      SELECT_TEAMS:1,
+      PROGRESS:2,
+};
+var curGameState = GameStates.START;
 
 function buildmap (){
   resizemap();
@@ -34,9 +38,7 @@ function buildmap (){
         scale: [6, 8],
         values: cities.productivity
       },{
-        attribute: 'fill',
-        scale: ['#A50F15', '#FEE5D9'],
-        values: cities.productivity
+        attribute: 'state',
       }]
     },
     backgroundColor: 'transparent',
@@ -85,10 +87,8 @@ function debounce(func, wait, immediate) {
 }
 
 function resizemap (s) {
-  // for some mysterious reason, this is no longer needed... and actually bugs out.
   s = s || 95;
   document.getElementById('map').style.height = (document.documentElement.clientHeight * s / 100) + 'px';
-  // $('#map').style.height = (document.documentElement.clientHeight * s / 100) + 'px';
 }
 
 function regionLabelShow(e,label,code){ 
@@ -98,6 +98,8 @@ function regionLabelShow(e,label,code){
 
 function onlabelShow (e,label,code){
   label.css('visibility','visible');
+    
+  if(curGameState === GameStates.SELECT_TEAMS){
     label.html(
       cities.names[code]+'<br/>'+
       'Morale: '+            cities.morale[code] +'%<br/>'+
@@ -105,7 +107,17 @@ function onlabelShow (e,label,code){
       'Monthly cost: $'+    cities.costPerCycle[code] +'<br/>'+
       'Unemployment rate: '+ 0 +'%'
     );
+  }else if(curGameState === GameStates.PROGRESS){
+    // fixoverlap code is broken
+    label.html(
+      "You can receive an indepth <br/> report on the progress of <br/> this team for $500"
+    );
+  }
 
+  fixOverLap(code,label);
+}
+
+function fixOverLap(code,label){
     // check to make sure the label doesnt overlap with the sidebar
     if(cities.coords[code][1] < -100){
       var newPos = label.width() + 25;
@@ -116,16 +128,25 @@ function onlabelShow (e,label,code){
     }
 }
 
+function runState(){
+  map.series.markers[1].setValues([1,2,2,3]);
+}
+
 function teamSelected (e,  code,  isSelected,  selectedMarkers) {
   // hack hack 
   if(!isMakerSelectable)return;
  
+
+  if(curGameState === GameStates.PROGRESS){
+    modal.showmodal("This team is doing very well",true);
+    return;
+  }
   //update general information
   teamsSelected[code] = (teamsSelected[code] || 0)+1;
   totalPayRoll += cities.costPerCycle[code];
 
   sidebar.setPayroll(totalPayRoll);
-  sidebar.setBudgetedWeeks(budget/totalPayRoll);
+  sidebar.setBudgetedWeeks(selectedProject.budget/totalPayRoll);
 
   // update information about this module
   sidebar.setPayrollforModule(caculatePayrollforMod());
@@ -137,18 +158,40 @@ function selectTeamsForModule () {
   payroll = caculatePayrollforMod();
   if(payroll===0)return;
 
+  // move along the markers
+  var index = sidebar.getActiveListItem();
+
+  var moduleDevelopes = {};
+  Object.keys(teamsSelected).forEach(function(key) {
+    moduleDevelopes[cities.names[key]] = teamsSelected[key];
+  });
+
+  selectedTeams[selectedProject.modules[index].name] = moduleDevelopes;
+
   // reset everything for the next module
   clearMapMarkers();
   teamsSelected = {};
   sidebar.setLocations([]);
 
-  // move along the markers
-  var index = sidebar.getActiveListItem();
-  if (index === 2) {
-    console.log('done');
+
+
+  if (index >= selectedProject.modules.length -1 ) {
+    setUpProgressSidebar();
   } else {
     sidebar.setListItemActive( index+1);
   }
+}
+
+function setUpProgressSidebar(){
+
+  console.log(selectedTeams);
+
+  curGameState = GameStates.PROGRESS;
+  sidebar.setList([]);
+  sidebar.showSelectTeams(false);
+
+  sidebar.setTitle("Game is running");
+  runState();
 }
 
 function clearMapMarkers(){
@@ -172,22 +215,47 @@ function selectProject(){
   $('#startScreen').hide();
 
   var html = "<h1> Select A Project</h1>";
-  html += modal.makeChoices(projects,projectsDescription,"btn-projects");
+  html += modal.makeChoices(projects,'<div id="project-description"></div>','btn-projects',true);
 
   modal.showmodal (html);
 }
 
+function projectdescription(a){
+  $('#project-description').html(projects[a].dialog);
+}
+
 function startGame(a){
   a = a || 0;
-  selectedProject = a;
+  selectedProject = projects[a];
   modal.hidemodal();
-  $('#sidebar').show();
+
   $('#btn-options').show();
   $('#map').show();
   $('#map').empty();
-  buildmap();
-  modal.dialog(projects[a].dialog);
 
+  buildmap();
+
+  curGameState = GameStates.SELECT_TEAMS;
+  totalPayRoll = 0;
+  teamsSelected = {};
+  selectedTeams = {};
+
+  sidebar.show();
+  sidebar.showSelectTeams(true);
+  sidebar.setTitle("Select Teams");
+
+  sidebar.setList(selectedProject.modules.map(function(a){return a.name;}));
+  sidebar.setListItemActive(0);
+
+  sidebar.setBudget(selectedProject.budget);
+  sidebar.setDueDate(selectedProject.duration);
+
+  sidebar.setPayroll(0);
+  sidebar.setBudgetedWeeks(0);
+  sidebar.setPayrollforModule(0);
+  sidebar.setLocations([]);
+
+  modal.dialog(selectedProject.dialog);
 }
 
 function deleteDB(){
@@ -195,13 +263,17 @@ function deleteDB(){
 }
 
 function initialiseGame(){
-  $('#sidebar').hide();
+  sidebar.hide();
+
   $('#btn-options').hide();
   $('#map').empty();//deletes the map
   deleteDB();//reset all localStorage values;
   modal.hidemodal();
   map=null;
   $('#startScreen').show();
+}
+function endGame(){
+  modal.endGame();
 }
 
 module.exports = {
@@ -213,5 +285,7 @@ module.exports = {
     pause: modal.pause,                    // toggles the pause menu
     resizemap: resizemap,
     debounce: debounce,
-    selectTeams: selectTeamsForModule
+    selectTeams: selectTeamsForModule,
+    endGame: endGame,
+    projectdescription: projectdescription
 };
