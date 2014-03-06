@@ -1,5 +1,5 @@
 var test = require('tape');
-var pt  = require('../../js/index.js');
+var app  = require('../../js/index.js');
 
 test('PT can be accessed', function (t) {
   t.plan(1);
