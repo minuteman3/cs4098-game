@@ -90,6 +90,6 @@ test("Event generator works", function(t){
     });
 
     t.doesNotThrow(function() {
-        gen.getEvent([]);
+        gen.getEvent([20,2000]);
     });
 });
