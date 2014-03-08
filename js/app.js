@@ -35,7 +35,7 @@ function buildmap (){
     series:{
       markers: [{
         attribute: 'r',
-        scale: [6, 8],
+        scale: [8, 12],
         values: cities.productivity
       },{
         attribute: 'state',
@@ -136,21 +136,20 @@ function teamSelected (e,  code,  isSelected,  selectedMarkers) {
   // hack hack 
   if(!isMakerSelectable)return;
  
-
   if(curGameState === GameStates.PROGRESS){
-    modal.showmodal("This team is doing very well",true);
-    return;
+    modal.dialog("This team is doing very well");
+  } else {
+    //update general information
+    teamsSelected[code] = (teamsSelected[code] || 0)+1;
+    totalPayRoll += cities.costPerCycle[code];
+
+    sidebar.setPayroll(totalPayRoll);
+    sidebar.setBudgetedWeeks(selectedProject.budget/totalPayRoll);
+
+    // update information about this module
+    sidebar.setPayrollforModule(caculatePayrollforMod());
+    sidebar.setLocations(teamsSelected,code);
   }
-  //update general information
-  teamsSelected[code] = (teamsSelected[code] || 0)+1;
-  totalPayRoll += cities.costPerCycle[code];
-
-  sidebar.setPayroll(totalPayRoll);
-  sidebar.setBudgetedWeeks(selectedProject.budget/totalPayRoll);
-
-  // update information about this module
-  sidebar.setPayrollforModule(caculatePayrollforMod());
-  sidebar.setLocations(teamsSelected,code);
 }
 
 function selectTeamsForModule () {
@@ -275,6 +274,33 @@ function initialiseGame(){
 function endGame(){
   modal.endGame();
 }
+
+
+$( document ).ready( function() {
+  var $body = $('body'); //Cache this for performance
+  
+  var setBodyScale = function() {
+    var scaleFactor = 0.35,
+      scaleSource = $body.width(),
+      maxScale = 600,
+      minScale = 30;
+
+    var fontSize = scaleSource * scaleFactor; //Multiply the width of the body by the scaling factor:
+
+    if (fontSize > maxScale) fontSize = maxScale;
+    if (fontSize < minScale) fontSize = minScale; //Enforce the minimum and maximums
+
+    $('body').css('font-size', fontSize + '%');
+  };
+
+    $(window).resize(function(){
+      setBodyScale();
+    });
+  
+  //Fire it when the page first loads:
+  setBodyScale();
+});
+
 
 module.exports = {
     initialiseGame: initialiseGame, // first thing that happens. shows start screen
