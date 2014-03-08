@@ -10,10 +10,10 @@ http.createServer(function (req,res) {
         res.writeHead(200);
         res.end("PANIC TYCOON CONFIG\n===================\n\n" + JSON.stringify(config));
         return;
-    } else if (req.url === "/js/bundle.js") {
+    } else if (req.url.toLowerCase() === "/js/bundle.js") {
         res.writeHead(200);
         b.bundle().pipe(res);
-    } else if (req.url === "/assets/apple-touch-icon.png") {
+    } else if (req.url.toLowerCase().indexOf("/assets/") >= 0) {
         res.writeHead(200);
         res.end(fs.readFileSync(path.normalize(config.APP_DIR + req.url)));
     } else {
