@@ -142,11 +142,10 @@ function addChartContainer(s){
 function endGame(){
   addChartContainer();
   hidemodal ();
-  var html = "<h1>Game Over</h1><p>";
-
+  var html = "<h1>Game Over</h1>";
   html += '<div id="chartcontainer"> </div>';
-  html += 'Here are your game stats';
-  html += '</p><div class="modal-options">';
+  html += '<p>Here are your game stats</p>';
+  html += '<div class="modal-options">';
   html += '<button class="btn-action" onclick="pt.initialiseGame()"> Continue </button>';
   html += '</div>';
 
