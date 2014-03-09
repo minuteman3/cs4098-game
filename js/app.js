@@ -103,8 +103,7 @@ function onlabelShow (e,label,code){
       cities.names[code]+'<br/>'+
       'Morale: '+            cities.morale[code] +'%<br/>'+
       'Productivity: '+      cities.productivity[code] +'%<br/>'+
-      'Cost per cycle: $'+    cities.costPerCycle[code] +'<br/>'+
-      'Unemployment rate: '+ 0 +'%'
+      'Cost per cycle: $'+    cities.costPerCycle[code] +'<br/>'
     );
   }else if(curGameState === GameStates.PROGRESS){
     // fixoverlap code is broken
