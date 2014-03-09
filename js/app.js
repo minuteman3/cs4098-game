@@ -282,12 +282,12 @@ $( document ).ready( function() {
   var setBodyScale = function() {
     var scaleFactor = 0.35,
       scaleSource = $body.width(),
-      maxScale = 600,
+      maxScale = 1600,
       minScale = 30;
 
     var fontSize = scaleSource * scaleFactor; //Multiply the width of the body by the scaling factor:
 
-    if (fontSize > maxScale) fontSize = maxScale;
+    // if (fontSize > maxScale) fontSize = maxScale;
     if (fontSize < minScale) fontSize = minScale; //Enforce the minimum and maximums
 
     $('body').css('font-size', fontSize + '%');
