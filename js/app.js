@@ -19,6 +19,8 @@ var selectedTeams = {};
 
 var isMakerSelectable = true;
 
+var modules = [];
+
 var GameStates = {
       START:0,
       SELECT_TEAMS:1,
@@ -192,6 +194,7 @@ function setUpProgressSidebar(){
 
   sidebar.setTitle("Game is running");
   runState();
+  startLoop();
 }
 
 function clearMapMarkers(){
@@ -257,21 +260,36 @@ function startGame(a){
 
   modal.dialog(selectedProject.dialog);
 }
-
-var modules = null;
+function countDevelopersPerModule(mod){
+  var result = 0;
+  cities.names.forEach(function(c){
+    if(mod[c]){
+      result += mod[c];
+    }
+  });
+  return result;
+}
 
 function startLoop(){
-    // TODO: Placeholder
-    modules = [new Module(20), new Module(30)];
-    ProcessSim.startProcessSim(modules, function() {
-        var done = true;
+    modules = [];
+    selectedProject.modules.forEach(function(i){
+      modules.push(
+        new Module( 
+          countDevelopersPerModule(selectedTeams[i.name])
+        )
+      );
+    });
 
+    ProcessSim.start(modules, function() {
+        var done = true;
         modules.forEach(function(module) {
             done = done && module.done();
         });
-
-        // game over 
-        endGame();
+        if(done){// game over 
+          endGame();
+        } else {
+          console.log("ERR: modules are not finished");
+        }
     });
 }
 
@@ -292,15 +310,17 @@ function initialiseGame(){
 function endGame(){
   modal.endGame();
 }
+function pause(){
+  modal.pause();
+  ProcessSim.pause();
+}
 
 module.exports = {
     initialiseGame: initialiseGame, // first thing that happens. shows start screen
     selectProject: selectProject,   // select which project to do
     startGame: startGame,           // goes into "game mode", after placing teams
-    startLoop: startLoop,           // starts the process sim
-    showmodal: modal.showmodal,           // shows a modal window
     hidemodal: modal.hidemodal,           // hides a modal window
-    pause: modal.pause,                    // toggles the pause menu
+    pause: pause,                    // toggles the pause menu
     resizemap: resizemap,
     debounce: debounce,
     selectTeams: selectTeamsForModule,
