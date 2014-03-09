@@ -2,6 +2,8 @@ var cities = require('./cities.json');
 var proj   = require('./projects.json');
 var sidebar= require('./sidebar.js');
 var modal = require('./modal.js');
+var ProcessSim = require('./ProcessSimulator.js');
+var Module = require('./Module.js');
 
 var $ = require('jquery');
 var jvm = require('jvm');
@@ -16,6 +18,8 @@ var totalPayRoll = 0;
 var selectedTeams = {};
 
 var isMakerSelectable = true;
+
+var modules = [];
 
 var GameStates = {
       START:0,
@@ -79,7 +83,7 @@ function debounce(func, wait, immediate) {
     if (callNow) {
       result = func.apply(context, args);
       context = args = null;
-      console.log("debounced");
+      console.log("# debounced");
     }
 
     return result;
@@ -92,7 +96,6 @@ function resizemap (s) {
 }
 
 function regionLabelShow(e,label,code){ 
-
   label.css('visibility','hidden');
 }
 
@@ -104,8 +107,7 @@ function onlabelShow (e,label,code){
       cities.names[code]+'<br/>'+
       'Morale: '+            cities.morale[code] +'%<br/>'+
       'Productivity: '+      cities.productivity[code] +'%<br/>'+
-      'Monthly cost: $'+    cities.costPerCycle[code] +'<br/>'+
-      'Unemployment rate: '+ 0 +'%'
+      'Cost per cycle: $'+    cities.costPerCycle[code] +'<br/>'
     );
   }else if(curGameState === GameStates.PROGRESS){
     // fixoverlap code is broken
@@ -191,6 +193,7 @@ function setUpProgressSidebar(){
 
   sidebar.setTitle("Game is running");
   runState();
+  startLoop();
 }
 
 function clearMapMarkers(){
@@ -256,6 +259,38 @@ function startGame(a){
 
   modal.dialog(selectedProject.dialog);
 }
+function countDevelopersPerModule(mod){
+  var result = 0;
+  cities.names.forEach(function(c){
+    if(mod[c]){
+      result += mod[c];
+    }
+  });
+  return result;
+}
+
+function startLoop(){
+    modules = [];
+    selectedProject.modules.forEach(function(i){
+      modules.push(
+        new Module( 
+          countDevelopersPerModule(selectedTeams[i.name])
+        )
+      );
+    });
+
+    ProcessSim.start(modules, function() {
+        var done = true;
+        modules.forEach(function(module) {
+            done = done && module.done();
+        });
+        if(done){// game over 
+          endGame();
+        } else {
+          console.log("ERR: modules are not finished");
+        }
+    });
+}
 
 function deleteDB(){
   window.localStorage.clear();
@@ -273,6 +308,10 @@ function initialiseGame(){
 }
 function endGame(){
   modal.endGame();
+}
+function pause(){
+  modal.pause();
+  ProcessSim.pause();
 }
 
 
@@ -315,9 +354,8 @@ module.exports = {
     initialiseGame: initialiseGame, // first thing that happens. shows start screen
     selectProject: selectProject,   // select which project to do
     startGame: startGame,           // goes into "game mode", after placing teams
-    showmodal: modal.showmodal,           // shows a modal window
     hidemodal: modal.hidemodal,           // hides a modal window
-    pause: modal.pause,                    // toggles the pause menu
+    pause: pause,                    // toggles the pause menu
     resizemap: resizemap,
     debounce: debounce,
     selectTeams: selectTeamsForModule,
