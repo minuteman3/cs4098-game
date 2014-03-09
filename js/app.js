@@ -2,6 +2,8 @@ var cities = require('./cities.json');
 var proj   = require('./projects.json');
 var sidebar= require('./sidebar.js');
 var modal = require('./modal.js');
+var ProcessSim = require('./ProcessSimulator.js');
+var Module = require('./Module.js');
 
 var $ = require('jquery');
 var jvm = require('jvm');
@@ -256,6 +258,22 @@ function startGame(a){
   modal.dialog(selectedProject.dialog);
 }
 
+var modules = null;
+
+function startLoop(){
+    // TODO: Placeholder
+    modules = [new Module(20), new Module(30)];
+    ProcessSim.startProcessSim(modules, function() {
+        var done = true;
+
+        modules.forEach(function(module) {
+            done = done && module.done();
+        });
+
+        // game over 
+    });
+}
+
 function deleteDB(){
   window.localStorage.clear();
 }
@@ -278,6 +296,7 @@ module.exports = {
     initialiseGame: initialiseGame, // first thing that happens. shows start screen
     selectProject: selectProject,   // select which project to do
     startGame: startGame,           // goes into "game mode", after placing teams
+    startLoop: startLoop,           // starts the process sim
     showmodal: modal.showmodal,           // shows a modal window
     hidemodal: modal.hidemodal,           // hides a modal window
     pause: modal.pause,                    // toggles the pause menu

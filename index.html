@@ -38,15 +38,17 @@
       <br/>
       <div class="location-header select-teams">Cost of Module<div id="costPerMonth">$0</div></div>
       <ul id="locations" class="select-teams" ></ul>
+      <div id="btn-region">
       <button  class="select-teams" onclick="pt.selectTeams()" id="btn-region">Select Teams</button>
 
-
+        <button  onclick="pt.startLoop()">Start</button>
+      </div>
     </div>
 
     <div id="map"></div>
     <div id="content"></div>
 
-    <button  onclick="pt.pause()"   id="btn-options">Options</button>
+    <button  onclick="pt.pause()" id="btn-options">Options</button>
 
     <script>
       document.onkeydown = function (evt) {

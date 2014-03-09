@@ -53,6 +53,9 @@ If you experience installation problems, a goof plan is to remove the `node_modu
     * A world map is loaded from the jvectormap library. It has selectable regions and offers a list of all the regions which have been selected. It is accessible from `index.html` in the root directory.
     * Each zone has a status display, which details the status as a percentage. It is viewable by hovering over an area.
 
+* Process Simulator 
+    * Simulates advancement of modules in individual chunks, scaled by number of developers.
+	
 ## Tests
 
 This project uses [travis](http://travis-ci.org) and [testling](http://ci.testling.com) to automate testing and ensure front-end compatibility and positive build-state on the backend.
