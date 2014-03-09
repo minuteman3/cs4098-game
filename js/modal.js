@@ -24,14 +24,13 @@ function hidemodal () {
 }
 
 function makeChoices(a,b,c,proj){
-  a = a || ["Option 1"];
-  b = b || "";
+  a = a || ["Option 1"];// the names to use for each button
+  b = b || "";// this should be a description of the event, indicating/hinting at the correct answer
   c = c || "btn-action";
   proj = proj || false;
 
   var ret = '<p>';
   var d="";
-  // this should be a description of the event, indicating/hinting at the correct answer
   ret+= b;
   ret+= '</p><div class="modal-options">';
 

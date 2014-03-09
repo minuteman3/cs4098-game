@@ -16,10 +16,19 @@ var dueDateTag = "#duedate";
 var titleTag = "#sidebar-title";
 var sidebarTag = '#sidebar';
 
+function init(){
+  showSelectTeams(true);
+  setTitle("Select Teams");
+  setPayroll(0);
+  setBudgetedWeeks(0);
+  setPayrollforModule(0);
+  setLocations([]);
+}
 
 function show(){
     $(sidebarTag).show();
 }
+
 function hide(){
     $(sidebarTag).hide();
 }
@@ -46,7 +55,6 @@ function setListItemActive(i){
     $(listTag+' li:nth-child(' + (i+1)+ ')').addClass(activeClass);
 }
 
-
 function setTitle(title){
   $(titleTag).html(title);
 }
@@ -54,8 +62,6 @@ function setTitle(title){
 /*
 *   General Game properties
 */
-
-
 function setBudget(budget){
 // toLocaleString formats the number to use commas
   $(budgetTag).html("$" + budget.toLocaleString());
@@ -74,8 +80,6 @@ function setBudgetedWeeks(weekCount){
 	$(budgetWeeksTag).html(weekCount.toFixed(1) + " weeks");
 }
 
-
-
 /*
 *  Game Module properties 
 */
@@ -83,32 +87,27 @@ function setPayrollforModule(cost){
 	$(payrollforModuleTag).html("$" + cost.toLocaleString());
 }
 
-
- 
 function setLocations(teams,selectedCode){
 
   $(locationTag).html("");
 
   for(var key in teams){
 
-  	var location = $("<li></li>");
-  	location.append(cities.names[key]);
-  	location.append($("<div></div>").addClass("teamMultiplier").html("x" +teams[key]));
+    var location = $("<li></li>");
+    location.append(cities.names[key]);
+    location.append($("<div></div>").addClass("teamMultiplier").html("x" +teams[key]));
     
     if (key === selectedCode) {
-    	location.append($("<div></div>").addClass("teamMultiplierFade").html("+1"));
+      location.append($("<div></div>").addClass("teamMultiplierFade").html("+1"));
     }
 
     $(locationTag).append(location);
    }
 }
 
-
 function showSelectTeams(visible){
   $(selectTeamTag).css('visibility',visible?"visible":"hidden");
 }
-
-
 
 module.exports = {
     setList: setList ,
@@ -124,4 +123,5 @@ module.exports = {
     setTitle:setTitle,
     show:show,
     hide:hide,
+    init:init
 };
