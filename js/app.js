@@ -293,9 +293,18 @@ $( document ).ready( function() {
     $('body').css('font-size', fontSize + '%');
   };
 
-    $(window).resize(function(){
-      setBodyScale();
-    });
+  $(window).resize(function(){
+    setBodyScale();
+  });
+  document.onkeydown = function (evt) {
+    if (evt.keyCode == 27) {
+        pt.pause();
+      evt.preventDefault();
+    }
+  };
+  window.addEventListener('resize', function(event){
+    pt.debounce( pt.resizemap(95) ,500);
+  });
   
   //Fire it when the page first loads:
   setBodyScale();

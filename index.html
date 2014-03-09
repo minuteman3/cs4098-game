@@ -50,16 +50,5 @@
 
     <button  onclick="pt.pause()"   id="btn-options">Options</button>
 
-    <script>
-      document.onkeydown = function (evt) {
-          if (evt.keyCode == 27) {
-              pt.pause();
-            evt.preventDefault();
-          }
-        };
-      window.addEventListener('resize', function(event){
-        pt.debounce( pt.resizemap(95) ,500);
-      });
-    </script
   </body>
 </html>
