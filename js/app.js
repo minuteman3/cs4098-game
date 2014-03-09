@@ -81,7 +81,7 @@ function debounce(func, wait, immediate) {
     if (callNow) {
       result = func.apply(context, args);
       context = args = null;
-      console.log("debounced");
+      console.log("# debounced");
     }
 
     return result;
@@ -271,6 +271,7 @@ function startLoop(){
         });
 
         // game over 
+        endGame();
     });
 }
 

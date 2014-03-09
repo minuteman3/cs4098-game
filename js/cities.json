@@ -14,17 +14,18 @@
       [
         31.12,
         121.30
-      ],[
+      ],
+      [
         18.9750,
         72.8258
-        ]
+      ]
     ],
     "names": [
         "San Francisco",
         "New York",
         "Dublin",
         "Shanghai",
-        "Mumbai",
+        "Mumbai"
     ],
     "morale":[
       1,1,1,1,1
