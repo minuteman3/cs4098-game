@@ -31,7 +31,7 @@ function start(_modules, _doneFunc){
 function pause(){
     if(paused){
         paused = !paused;
-        setInterval(timerLoop, config.TIMER_DURATION);
+        intervalID = setInterval(timerLoop, config.TIMER_DURATION);
     } else {
         paused = !paused;
         clearInterval(intervalID);
