@@ -92,7 +92,6 @@ function resizemap (s) {
 }
 
 function regionLabelShow(e,label,code){ 
-
   label.css('visibility','hidden');
 }
 
@@ -104,7 +103,7 @@ function onlabelShow (e,label,code){
       cities.names[code]+'<br/>'+
       'Morale: '+            cities.morale[code] +'%<br/>'+
       'Productivity: '+      cities.productivity[code] +'%<br/>'+
-      'Monthly cost: $'+    cities.costPerCycle[code] +'<br/>'+
+      'Cost per cycle: $'+    cities.costPerCycle[code] +'<br/>'+
       'Unemployment rate: '+ 0 +'%'
     );
   }else if(curGameState === GameStates.PROGRESS){
