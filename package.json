@@ -23,12 +23,14 @@
   },
   "homepage": "https://github.com/minuteman3/cs4098-game",
   "dependencies": {
+    "nconf": "~0.6.9",
+    "bit-array": "~0.2.2",
     "browserify": "~3.28.1",
     "lessify": "~0.3.0",
-    "nconf": "~0.6.9",
     "uglifyify": "~1.2.2",
     "browserify-shim": "~3.2.2",
-    "jquery": "~1.11.0"
+    "jquery": "~1.11.0",
+    "diveSync": "~0.2.0"
   },
   "devDependencies": {
     "tape": "~2.4.0"
