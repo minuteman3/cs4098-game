@@ -40,10 +40,9 @@ function unpause(){
 
 function pause(){
     if(paused){
-        paused = !paused;
-        intervalID = setInterval(timerLoop, config.TIMER_DURATION);
+        unpause();
     } else {
-        paused = !paused;
+        paused = true;
         clearInterval(intervalID);
     }
 }

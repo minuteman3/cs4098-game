@@ -3,7 +3,7 @@ var cities     = require('./cities.json');
 var maps       = require('./maps.js');
 var modal      = require('./modal.js');
 var Module     = require('./Module.js');
-var City     = require('./city.js');
+var City       = require('./city.js');
 var ProcessSim = require('./ProcessSimulator.js');
 var proj       = require('./projects.json');
 var sidebar    = require('./sidebar.js');
@@ -270,7 +270,8 @@ $( document ).ready( function() {
   });
   document.onkeydown = function (evt) {
     if (evt.keyCode == 27) {
-        pt.pause();
+      // this is the escape key [esc]
+      pt.pause();
       evt.preventDefault();
     }
   };
@@ -283,6 +284,8 @@ $( document ).ready( function() {
 
   $('#map').bind('markerSelected.jvectormap', teamSelected);
   $('#map').bind('markerLabelShow.jvectormap', onlabelShow);
+
+  ProcessSim.stop();
 });
 
 
