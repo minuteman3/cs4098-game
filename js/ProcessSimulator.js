@@ -17,10 +17,10 @@ function timerLoop(){
     });
     updateFunc(modules,cities);
     if(done){
-        stop();
         if(doneFunc){
             doneFunc(modules);
         }
+        stop();
     }
 }
 
