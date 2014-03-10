@@ -13,17 +13,14 @@ function timerLoop(){
 
     modules.forEach(function(module) {
         module.advance(cities);
-      
         done = done && module.done();
-
     });
-
     updateFunc(modules,cities);
-
     if(done){
         stop();
-        doneFunc();
-
+        if(doneFunc){
+            doneFunc(modules);
+        }
     }
 }
 
@@ -38,7 +35,7 @@ function start(_modules,_cities, _updateFunc,_doneFunc){
 
 function unpause(){
     paused = false;
-     intervalID = setInterval(timerLoop, config.TIMER_DURATION);
+    intervalID = setInterval(timerLoop, config.TIMER_DURATION);
 }
 
 function pause(){
