@@ -10,20 +10,18 @@ function buildmap (){
   // nearly all settings were inferred from the examples @ http://jvectormap.com/examples/regions-selection/
   map = new jvm.WorldMap({
     map: 'world_mill_en',
-    markers: cities.cities.map(function(city){return city.coords}),
+    markers: cities.cities.map(function(city){return city.coords;}),
     container: $('#map'),
     series:{
       markers: [{
         attribute: 'r',
         scale: [8, 12],
-        values: cities.cities.map(function(city){return city.productivity})
+        values: cities.cities.map(function(city){return city.productivity;})
       },{
         attribute: 'state',
       }]
     },
     backgroundColor: 'transparent',
-    // onMarkerSelected: app.teamSelected,
-    // onMarkerLabelShow: app.onlabelShow,
     markersSelectable: true,
     onRegionLabelShow: regionLabelShow
   });

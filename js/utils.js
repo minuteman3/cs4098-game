@@ -1,5 +1,3 @@
-
-
 function debounce(func, wait, immediate) {
   // this is hi-jacked directly from underscore.js
   var timeout, args, context, timestamp, result;
@@ -32,8 +30,6 @@ function debounce(func, wait, immediate) {
     return result;
   };
 }
-
-
 module.exports = {
-     debounce,debounce
+     debounce: debounce
 };
