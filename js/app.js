@@ -6,6 +6,7 @@ var Module     = require('./Module.js');
 var ProcessSim = require('./ProcessSimulator.js');
 var proj       = require('./projects.json');
 var sidebar    = require('./sidebar.js');
+var utils      = require('./utils.js');
 
 var projects = proj.projects;
 var selectedProject;
@@ -26,38 +27,7 @@ var GameStates = {
 var curGameState = GameStates.START;
 
 
-function debounce(func, wait, immediate) {
-  // this is hi-jacked directly from underscore.js
-  var timeout, args, context, timestamp, result;
 
-  var later = function() {
-    var last = _.now() - timestamp;
-    if (last < wait) {
-      timeout = setTimeout(later, wait - last);
-    } else {
-      timeout = null;
-      if (!immediate) {
-        result = func.apply(context, args);
-        context = args = null;
-      }
-    }
-  };
-  return function() {
-    context = this;
-    args = arguments;
-    timestamp = _.now();
-    var callNow = immediate && !timeout;
-    if (!timeout) {
-      timeout = setTimeout(later, wait);
-    }
-    if (callNow) {
-      result = func.apply(context, args);
-      context = args = null;
-    }
-
-    return result;
-  };
-}
 
 function teamSelected(e,  code,  isSelected,  selectedMarkers) {
   if(!isMakerSelectable)return;
@@ -287,5 +257,5 @@ module.exports = {
     pause: pause,                              // toggles the pause menu
     //Maps
     resizemap: maps.resizemap,
-    debounce: debounce,
+    debounce: utils.debounce,
 };
