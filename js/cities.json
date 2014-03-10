@@ -1,44 +1,35 @@
 {
-  "cities": [{
-    "coords": [ 37.6788056,
-      -122.2880726],
+  "cities": [
+  {
+    "coords": [ 37.6788056,-122.2880726],
     "name":"San Francisco",
     "morale":1,
     "productivity":10,
-    "costPerCycle":9000,
-  },
-  {
-    "coords": [ 40.43,
-      -74.0],
+    "costPerCycle":9000
+  }, {
+    "coords": [ 40.43,-74.0],
     "name":"New York",
     "morale":1,
     "productivity":9,
-    "costPerCycle":8000,
-  },
-  {
-    "coords": [      53.24,
-      -6.6],
+    "costPerCycle":8000
+  },{
+    "coords": [ 53.24, -6.6],
     "name":"Dublin",
     "morale":1,
     "productivity":10,
-    "costPerCycle":6000,
-  },
-  {
-    "coords": [  31.12,
-      121.30],
+    "costPerCycle":6000
+  },{
+    "coords": [  31.12,121.30],
     "name":"Shanghai",
     "morale":1,
     "productivity":10,
-    "costPerCycle":1500,
-  },
-  {
-    "coords": [ 18.9750,
-      72.8258],
+    "costPerCycle":1500
+  },{
+    "coords": [ 18.9750,72.8258],
     "name":"Mumbai",
     "morale":1,
     "productivity":10,
-    "costPerCycle":1500,
-  }
-  ]
+    "costPerCycle":1500
+  }]
 }
 

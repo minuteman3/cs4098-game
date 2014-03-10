@@ -10,13 +10,13 @@ function buildmap (){
   // nearly all settings were inferred from the examples @ http://jvectormap.com/examples/regions-selection/
   map = new jvm.WorldMap({
     map: 'world_mill_en',
-    markers: cities.coords,
+    markers: cities.cities.map(function(city){return city.coords}),
     container: $('#map'),
     series:{
       markers: [{
         attribute: 'r',
         scale: [8, 12],
-        values: cities.productivity
+        values: cities.cities.map(function(city){return city.productivity})
       },{
         attribute: 'state',
       }]
@@ -40,7 +40,7 @@ function regionLabelShow(e,label,code){
 
 function fixOverLap(code,label){
     // check to make sure the label doesnt overlap with the sidebar
-    if(cities.coords[code][1] < -100){
+    if(cities.cities[code].coords[1] < -100){
       var newPos = label.width() + 25;
       //change the margin-left property as left is assigned after this function is called
       label.css('margin-left',newPos);
@@ -49,8 +49,8 @@ function fixOverLap(code,label){
     }
 }
 
-function runState(){
-  map.series.markers[1].setValues([1,2,2,3]);
+function runState(states){
+  map.series.markers[1].setValues(states);
 }
 
 function clearMapMarkers(){

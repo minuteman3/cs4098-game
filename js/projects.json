@@ -11,7 +11,7 @@
     "modules": [
       {
         "name": "AI Engine",
-        "cost": 1000
+        "cost": 400
       }
     ],
     "dialog": "This Project has three modules, each with a different cost, make sure to allocate lots of resources to UI Design for this project to succeed"

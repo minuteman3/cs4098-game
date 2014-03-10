@@ -92,9 +92,9 @@ function setLocations(teams,selectedCode){
   $(locationTag).html("");
 
   for(var key in teams){
-
+    var city = cities.cities[key];
     var location = $("<li></li>");
-    location.append(cities.names[key]);
+    location.append(city.name);
     location.append($("<div></div>").addClass("teamMultiplier").html("x" +teams[key]));
     
     if (key === selectedCode) {

@@ -2,7 +2,9 @@ var config = require('./clientConfig.json');
 var Module = require('./Module.js');
 
 var modules = null;
+var cities = null;
 var doneFunc = null;
+var updateFunc = null;
 var intervalID = null;
 var paused = false;
 
@@ -10,20 +12,25 @@ function timerLoop(){
     var done = true;
 
     modules.forEach(function(module) {
-        module.advance();
-        console.log("Module % completed: "+module.getPercentComplete());
+        module.advance(cities);
+      
         done = done && module.done();
+
     });
 
     if(done){
         stop();
         doneFunc();
+    }else{
+        updateFunc(modules,cities);
     }
 }
 
-function start(_modules, _doneFunc){
+function start(_modules,_cities, _updateFunc,_doneFunc){
     modules = _modules;
     doneFunc = _doneFunc;
+    updateFunc = _updateFunc;
+    cities = _cities;
     intervalID = setInterval(timerLoop, config.TIMER_DURATION);
     return intervalID;
 }
@@ -41,6 +48,7 @@ function pause(){
 function stop(){
     clearInterval(intervalID);
     modules = null;
+    cities = null;
 }
 
 module.exports = {

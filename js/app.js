@@ -3,10 +3,11 @@ var cities     = require('./cities.json');
 var maps       = require('./maps.js');
 var modal      = require('./modal.js');
 var Module     = require('./Module.js');
+var City     = require('./city.js');
 var ProcessSim = require('./ProcessSimulator.js');
 var proj       = require('./projects.json');
 var sidebar    = require('./sidebar.js');
-var utils      = require('./utils.js');
+//var utils      = require('./utils.js');
 
 var projects = proj.projects;
 var selectedProject;
@@ -27,6 +28,40 @@ var GameStates = {
 var curGameState = GameStates.START;
 
 
+function debounce(func, wait, immediate) {
+  // this is hi-jacked directly from underscore.js
+  var timeout, args, context, timestamp, result;
+
+  var later = function() {
+    var last = _.now() - timestamp;
+    if (last < wait) {
+      timeout = setTimeout(later, wait - last);
+    } else {
+      timeout = null;
+      if (!immediate) {
+        result = func.apply(context, args);
+        context = args = null;
+      }
+    }
+  };
+  return function() {
+    context = this;
+    args = arguments;
+    timestamp = _.now();
+    var callNow = immediate && !timeout;
+    if (!timeout) {
+      timeout = setTimeout(later, wait);
+    }
+    if (callNow) {
+      result = func.apply(context, args);
+      context = args = null;
+    }
+
+    return result;
+  };
+}
+
+
 
 
 function teamSelected(e,  code,  isSelected,  selectedMarkers) {
@@ -37,13 +72,13 @@ function teamSelected(e,  code,  isSelected,  selectedMarkers) {
   } else {
     //update general information
     teamsSelected[code] = (teamsSelected[code] || 0)+1;
-    totalPayRoll += cities.costPerCycle[code];
+    totalPayRoll += cities.cities[code].costPerCycle;
 
     sidebar.setPayroll(totalPayRoll);
     sidebar.setBudgetedWeeks(selectedProject.budget/totalPayRoll);
 
     // update information about this module
-    sidebar.setPayrollforModule(caculatePayrollforMod());
+    sidebar.setPayrollforModule(calculatePayrollforMod());
     sidebar.setLocations(teamsSelected,code);
   }
 }
@@ -51,12 +86,13 @@ function teamSelected(e,  code,  isSelected,  selectedMarkers) {
 function onlabelShow(e,label,code){
   label.css('visibility','visible');
     
+    var hoverCity  = cities.cities[code];
   if(curGameState === GameStates.SELECT_TEAMS){
     label.html(
-      cities.names[code]+'<br/>'+
-      'Morale: '+            cities.morale[code] +'%<br/>'+
-      'Productivity: '+      cities.productivity[code] +'%<br/>'+
-      'Cost per cycle: $'+    cities.costPerCycle[code] +'<br/>'
+      hoverCity.names+'<br/>'+
+      'Morale: '+            hoverCity.morale +'%<br/>'+
+      'Productivity: '+      hoverCity.productivity +'%<br/>'+
+      'Cost per cycle: $'+    hoverCity.costPerCycle +'<br/>'
     );
   }else if(curGameState === GameStates.PROGRESS){
     // fixoverlap code is broken
@@ -72,12 +108,12 @@ function selectTeamsForModule () {
   var index = sidebar.getActiveListItem();
 
   // ignore the select teams button when no teams have been selected
-  payroll = caculatePayrollforMod();
+  payroll = calculatePayrollforMod();
   if(payroll===0)return;
 
   // move along the markers
   Object.keys(teamsSelected).forEach(function(key) {
-    moduleDevelopes[cities.names[key]] = teamsSelected[key];
+    moduleDevelopes[cities.cities[key].name] = teamsSelected[key];
   });
 
   selectedTeams[selectedProject.modules[index].name] = moduleDevelopes;
@@ -95,7 +131,7 @@ function selectTeamsForModule () {
 }
 
 function setUpProgressSidebar(){
-  console.log(selectedTeams);
+  //console.log(selectedTeams);
   curGameState = GameStates.PROGRESS;
   
   sidebar.setList([]);
@@ -106,10 +142,10 @@ function setUpProgressSidebar(){
   startLoop();
 }
 
-function caculatePayrollforMod(){
+function calculatePayrollforMod(){
   payroll = 0;
   for(var key in teamsSelected){
-    payroll += cities.costPerCycle[key] *  teamsSelected[key];
+    payroll += cities.cities[key].costPerCycle *  teamsSelected[key];
   }
   return payroll;
 }
@@ -167,12 +203,26 @@ function startLoop(){
     selectedProject.modules.forEach(function(i){
       modules.push(
         new Module( 
-          countDevelopersPerModule(selectedTeams[i.name])
+          selectedTeams[i.name],i.cost
         )
       );
     });
 
-    ProcessSim.start(modules, function() {
+    var citiesState = {};
+    cities.cities.forEach(function(c){
+      citiesState[c.name] = new City(c.name,c.costPerCycle,c.productivity);
+    });
+
+    ProcessSim.start(modules,citiesState, function(modules,citiesState){
+        var states = [];
+        console.log(citiesState);
+        cities.cities.forEach(function(c){
+            states.push(citiesState[c.name].status());
+        });
+
+        maps.runState(states);
+      
+    },function() {
         var done = true;
         modules.forEach(function(module) {
             done = done && module.done();
@@ -257,5 +307,5 @@ module.exports = {
     pause: pause,                              // toggles the pause menu
     //Maps
     resizemap: maps.resizemap,
-    debounce: utils.debounce,
+    debounce: debounce,
 };

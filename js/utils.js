@@ -35,5 +35,5 @@ function debounce(func, wait, immediate) {
 
 
 module.exports = {
-debounce,debounce
-}
+     debounce,debounce
+};
