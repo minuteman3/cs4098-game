@@ -16,6 +16,9 @@ var teamsSelected = {};
 var totalPayRoll = 0;
 var selectedTeams = {};
 
+var weeksTilDueDate = 0;
+var projectBudget = 0;
+
 var isMakerSelectable = true;
 
 var modules = [];
@@ -68,7 +71,10 @@ function teamSelected(e,  code,  isSelected,  selectedMarkers) {
   if(!isMakerSelectable)return;
  
   if(curGameState === GameStates.PROGRESS){
+    ProcessSim.pause();
     modal.dialog("This team is doing very well");
+    sidebar.setCash(projectBudget);
+    projectBudget -= 500;
   } else {
     //update general information
     teamsSelected[code] = (teamsSelected[code] || 0)+1;
@@ -138,6 +144,7 @@ function setUpProgressSidebar(){
   sidebar.showSelectTeams(false);
   sidebar.setTitle("Game is running");
 
+  sidebar.showProgressState(true);
   maps.runState();
   startLoop();
 }
@@ -199,6 +206,15 @@ function countDevelopersPerModule(mod){
 }
 
 function startLoop(){
+
+    projectBudget = selectedProject.budget;
+    weeksTilDueDate = selectedProject.duration;
+
+
+    sidebar.setCash(projectBudget);
+    sidebar.setWeeks(weeksTilDueDate);
+    sidebar.setProgress(0);
+
     modules = [];
     selectedProject.modules.forEach(function(i){
       modules.push(
@@ -215,12 +231,30 @@ function startLoop(){
 
     ProcessSim.start(modules,citiesState, function(modules,citiesState){
         var states = [];
-        console.log(citiesState);
+
         cities.cities.forEach(function(c){
             states.push(citiesState[c.name].status());
         });
-
         maps.runState(states);
+
+        var totalCost = 0;
+        var percentComplete = 0;
+        modules.forEach(function(module) {
+            totalCost += module.getCost(citiesState);
+            percentComplete += module.getPercentComplete();
+        });
+        weeksTilDueDate--;
+        projectBudget -= totalCost;
+        sidebar.setCash(projectBudget);
+        sidebar.setWeeks(weeksTilDueDate);
+        sidebar.setProgress(percentComplete/modules.length);
+
+
+
+
+
+
+
       
     },function() {
         var done = true;
@@ -308,4 +342,5 @@ module.exports = {
     //Maps
     resizemap: maps.resizemap,
     debounce: debounce,
+    unpause:ProcessSim.unpause,
 };

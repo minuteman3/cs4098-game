@@ -35,6 +35,11 @@ function start(_modules,_cities, _updateFunc,_doneFunc){
     return intervalID;
 }
 
+function unpause(){
+    paused = false;
+     intervalID = setInterval(timerLoop, config.TIMER_DURATION);
+}
+
 function pause(){
     if(paused){
         paused = !paused;
@@ -54,5 +59,6 @@ function stop(){
 module.exports = {
     start: start,
     pause: pause,
-    stop: stop
+    stop: stop,
+    unpause:unpause,
 };
