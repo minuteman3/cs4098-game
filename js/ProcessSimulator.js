@@ -18,11 +18,12 @@ function timerLoop(){
 
     });
 
+    updateFunc(modules,cities);
+
     if(done){
         stop();
         doneFunc();
-    }else{
-        updateFunc(modules,cities);
+
     }
 }
 
