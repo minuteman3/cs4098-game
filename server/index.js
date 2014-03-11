@@ -22,5 +22,7 @@ http.createServer(function (req,res) {
         return;
     }
 }).listen(config.PORT || 8080, function() {
-    console.log("PANIC TYCOON: Now listening on port " + (config.PORT || 8080));
+    var port = config.PORT || 8080;
+    console.log("Server now running on port %s (i.e. http://localhost:%s)", port, port);
+    console.log("CTRL + C to shut down");
 });
