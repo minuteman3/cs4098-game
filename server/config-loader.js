@@ -8,5 +8,4 @@ try {
 } catch (e) {
     throw new Error("config.json file not found! Aborting!");
 }
-console.log(nconf.get());
 module.exports = nconf.get();
