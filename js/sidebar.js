@@ -15,8 +15,13 @@ var budgetTag = "#budget";
 var dueDateTag = "#duedate";
 var titleTag = "#sidebar-title";
 var sidebarTag = '#sidebar';
+var cashTag = "#cash";
+var progressTag = "#progress";
+var weeksTag = "#weeks"
+var progressStateTag = ".progess-state";
 
 function init(){
+  showProgressState(false);
   showSelectTeams(true);
   setTitle("Select Teams");
   setPayroll(0);
@@ -80,6 +85,16 @@ function setBudgetedWeeks(weekCount){
 	$(budgetWeeksTag).html(weekCount.toFixed(1) + " weeks");
 }
 
+
+function setCash(cash){
+  $(cashTag).html("$" + cash.toLocaleString());
+}
+function setProgress(progress){
+  $(progressTag).html(progress.toFixed(0) + "%");
+}
+function setWeeks(weeks){
+  $(weeksTag).html(weeks.toFixed(0) + " weeks");
+}
 /*
 *  Game Module properties 
 */
@@ -92,9 +107,9 @@ function setLocations(teams,selectedCode){
   $(locationTag).html("");
 
   for(var key in teams){
-
+    var city = cities.cities[key];
     var location = $("<li></li>");
-    location.append(cities.names[key]);
+    location.append(city.name);
     location.append($("<div></div>").addClass("teamMultiplier").html("x" +teams[key]));
     
     if (key === selectedCode) {
@@ -106,7 +121,11 @@ function setLocations(teams,selectedCode){
 }
 
 function showSelectTeams(visible){
-  $(selectTeamTag).css('visibility',visible?"visible":"hidden");
+  $(selectTeamTag).css('display',visible?"block":"none");
+}
+
+function showProgressState(visible){
+  $(progressStateTag).css('display',visible?"block":"none");
 }
 
 module.exports = {
@@ -121,6 +140,10 @@ module.exports = {
     setBudget:setBudget,
     setDueDate:setDueDate,
     setTitle:setTitle,
+    setCash:setCash,
+    setProgress:setProgress,
+    setWeeks:setWeeks,
+    showProgressState:showProgressState,
     show:show,
     hide:hide,
     init:init
