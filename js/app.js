@@ -156,15 +156,6 @@ function startGame(a){
   modal.dialog(selectedProject.dialog);
 }
 
-function countDevelopersPerModule(mod){
-  var result = 0;
-  cities.names.forEach(function(c){
-    if(mod[c]){
-      result += mod[c];
-    }
-  });
-  return result;
-}
 
 function startLoop(){
   projectBudget = selectedProject.budget;
