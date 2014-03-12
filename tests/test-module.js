@@ -11,7 +11,7 @@ test('Module advancement works', function(t)
 					"Dublin": 1,
 					"Mumbai": 1
 				},
-				400
+				300
 				);
     var citiesState = {
 			"Dublin" : new City("Dublin",6000,100),
@@ -19,6 +19,6 @@ test('Module advancement works', function(t)
 		};
     mod.advance(citiesState);
 
-    t.equals(50, mod.getPercentComplete());
+    t.ok(50 < mod.getPercentComplete());
 });
 
