@@ -34,8 +34,10 @@ function start(_modules,_cities, _updateFunc, _doneFunc){
 }
 
 function unpause(){
-    paused = false;
-    intervalID = setInterval(timerLoop, config.TIMER_DURATION);
+    if (paused) {
+        paused = false;
+        intervalID = setInterval(timerLoop, config.TIMER_DURATION);
+    }
 }
 
 function pause(){

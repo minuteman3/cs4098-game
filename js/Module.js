@@ -1,7 +1,7 @@
 var Module = function(_developersPerCity, _cost){
-	this.progress = 0;
-	this.developersPerCity = _developersPerCity;
-	this.cost = _cost;
+    this.progress = 0;
+    this.developersPerCity = _developersPerCity;
+    this.cost = _cost + _cost*0.25*(Math.random() - 0.5);
 };
 
 Module.prototype.getPercentComplete = function(){
