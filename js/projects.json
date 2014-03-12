@@ -17,7 +17,7 @@
     "dialog": "This Project has three modules, each with a different cost, make sure to allocate lots of resources to UI Design for this project to succeed"
   },{
     "name": "Project B",
-    "budget": 200000,
+    "budget": 2000000,
     "duration": 24,
     "revenue": {
       "months": 12,
