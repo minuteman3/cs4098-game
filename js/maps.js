@@ -1,6 +1,6 @@
 var $       = require('jquery');
 var jvm     = require('jvm');
-var cities  = require('./cities.json');
+var cities  = require('./../config/cities.json');
 var jvm_map = require('../lib/jquery-jvectormap-world-mill-en.js')();
 var map;
 

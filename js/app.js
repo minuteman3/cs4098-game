@@ -1,11 +1,11 @@
 var $          = require('jquery');
-var cities     = require('./cities.json');
+var cities     = require('./../config/cities.json');
 var maps       = require('./maps.js');
 var modal      = require('./modal.js');
 var Module     = require('./Module.js');
 var City       = require('./city.js');
 var ProcessSim = require('./ProcessSimulator.js');
-var proj       = require('./projects.json');
+var proj       = require('./../config/projects.json');
 var sidebar    = require('./sidebar.js');
 var utils      = require('./utils.js');
 
@@ -185,8 +185,6 @@ function startLoop(){
 
   var citiesState = {};
   cities.cities.forEach(function(c){
-    console.log("cities");
-    console.log(c);
     citiesState[c.name] = new City(c.name,c.costPerCycle,c.productivity);
   });
   ProcessSim.start(modules,citiesState,simulationUpdate,simulationComplete);

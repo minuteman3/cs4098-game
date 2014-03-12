@@ -86,7 +86,7 @@ test("Event generator works", function(t){
     var gen = null;
     
     t.doesNotThrow(function() {
-        gen = new EventGenerator("gamedata/events");
+        gen = new EventGenerator("config");
     });
 
     t.doesNotThrow(function() {

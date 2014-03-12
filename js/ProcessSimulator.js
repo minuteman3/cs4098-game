@@ -1,4 +1,4 @@
-var config = require('./clientConfig.json');
+var config = require('./../config/client-config.json');
 var Module = require('./Module.js');
 
 var modules = null;

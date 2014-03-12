@@ -1,7 +1,4 @@
-
-
-var City = function(_name,_costPerDeveloper,_baseProductivity)
-{
+var City = function(_name,_costPerDeveloper,_baseProductivity){
     this.name = _name;
     this.costPerDeveloper = _costPerDeveloper;
     this.productivity = _baseProductivity;
@@ -9,22 +6,17 @@ var City = function(_name,_costPerDeveloper,_baseProductivity)
 
 };
 
-
-City.prototype.progress = function( developerCount)
-{
-
+City.prototype.progress = function( developerCount){
     return (this.productivity * developerCount);
 };
 
-City.prototype.cost = function( developerCount)
-{
-	
+City.prototype.cost = function( developerCount){
     return (this.costPerDeveloper * developerCount);
 };
 
 
-City.prototype.status = function()
-{
+City.prototype.status = function(){
+	// TODO needs to return a status based on not being ok all the time
     return 3;
 };
 

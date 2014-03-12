@@ -1,4 +1,4 @@
-var cities = require('./cities.json');
+var cities = require('./../config/cities.json');
 var $ = require('jquery');
 
 
@@ -17,7 +17,7 @@ var titleTag = "#sidebar-title";
 var sidebarTag = '#sidebar';
 var cashTag = "#cash";
 var progressTag = "#progress";
-var weeksTag = "#weeks"
+var weeksTag = "#weeks";
 var progressStateTag = ".progess-state";
 
 function init(){
