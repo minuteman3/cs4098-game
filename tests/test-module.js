@@ -4,7 +4,7 @@ var City = require("../js/city.js");
 
 test('Module advancement works', function(t) 
 {
-    t.plan(1);
+    t.plan(2);
 
     var mod = new Module(
 				{
@@ -17,8 +17,10 @@ test('Module advancement works', function(t)
 			"Dublin" : new City("Dublin",6000,100),
 			"Mumbai" : new City("Mumbai",500,100)
 		};
-    mod.advance(citiesState);
-
-    t.ok(50 < mod.getPercentComplete());
+	t.doesNotThrow(function(){
+        mod.advance(citiesState);
+	});
+    // 100%/300(±25%)*Developers*100%
+    t.ok(53 < mod.getPercentComplete() && mod.getPercentComplete() < 89 , 'project cost randomisation');
 });
 
