@@ -24,11 +24,11 @@ function timerLoop(){
     }
 }
 
-function start(_modules,_cities, _updateFunc,_doneFunc){
+function start(_modules,_cities, _updateFunc, _doneFunc){
     modules = _modules;
-    doneFunc = _doneFunc;
-    updateFunc = _updateFunc;
     cities = _cities;
+    updateFunc = _updateFunc;
+    doneFunc = _doneFunc;
     intervalID = setInterval(timerLoop, config.TIMER_DURATION);
     return intervalID;
 }

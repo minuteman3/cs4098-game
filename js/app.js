@@ -185,9 +185,10 @@ function startLoop(){
 
   var citiesState = {};
   cities.cities.forEach(function(c){
+    console.log("cities");
+    console.log(c);
     citiesState[c.name] = new City(c.name,c.costPerCycle,c.productivity);
   });
-
   ProcessSim.start(modules,citiesState,simulationUpdate,simulationComplete);
 }
 function simulationUpdate(modules,citiesState){

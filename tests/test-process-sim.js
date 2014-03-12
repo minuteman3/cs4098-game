@@ -2,19 +2,37 @@ var test = require('tape');
 
 var ProcessSim = require("../js/ProcessSimulator.js");
 var Module = require("../js/Module.js");
+var City = require("../js/city.js");
 
 test("process simulator works", function(t) {
-    t.plan(1);
-     
-    var modules = [new Module(20), new Module(30)];
-    ProcessSim.startProcessSim(modules, function() {
-        var done = true;
+	t.plan(2);
+	var citiesState={};
+	var modules = [];
+	t.doesNotThrow(function(){
+		// citiesState = {c.name: new City(c.name,c.costPerCycle,c.productivity) };
+		citiesState = {
+			"Dublin" : new City("Dublin",6000,100),
+			"Mumbai" : new City("Mumbai",500,100)
+		};
+		modules.push(
+			new Module( 
+				{
+					"Dublin": 1,
+					"Mumbai": 1
+				},
+				400
+			)
+		); 
+	});
 
-        modules.forEach(function(module) {
-            done = done && module.done();
-        });
+	ProcessSim.start(modules, citiesState,function(){}, function() {
+		var done = true;
 
-        t.ok(done, 'all modules done')
+		modules.forEach(function(module) {
+			done = done && module.done();
+		});
 
-    });
+		t.ok(done, 'all modules done');
+		ProcessSim.stop();
+	});
 });
