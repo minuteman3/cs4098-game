@@ -95,6 +95,8 @@ function selectTeamsForModule () {
   if (index >= selectedProject.modules.length -1 ) {
     setUpProgressSidebar();
   } else {
+    if(index == selectedProject.modules.length -2)
+      sidebar.setButtonText("Start");
     sidebar.setListItemActive( index+1);
   }
 }
@@ -148,6 +150,7 @@ function startGame(a){
   curGameState = GameStates.SELECT_TEAMS;
 
   sidebar.show();
+  sidebar.setButtonText(selectedProject.modules.length==1?"Start":"Select Teams");
   sidebar.setBudget(selectedProject.budget);
   sidebar.setDueDate(selectedProject.duration);
   sidebar.setList(selectedProject.modules.map(function(a){return a.name;}));

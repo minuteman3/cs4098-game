@@ -19,6 +19,7 @@ var cashTag = "#cash";
 var progressTag = "#progress";
 var weeksTag = "#weeks";
 var progressStateTag = ".progess-state";
+var buttonTag = "#btn-region";
 
 function init(){
   showProgressState(false);
@@ -62,6 +63,10 @@ function setListItemActive(i){
 
 function setTitle(title){
   $(titleTag).html(title);
+}
+
+function setButtonText(text){
+  $(buttonTag).html(text);
 }
 
 /*
@@ -146,5 +151,6 @@ module.exports = {
     showProgressState:showProgressState,
     show:show,
     hide:hide,
+    setButtonText:setButtonText,
     init:init
 };
