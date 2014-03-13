@@ -303,6 +303,5 @@ module.exports = {
   pause: pause,                              // toggles the pause menu
   //Maps
   resizemap: maps.resizemap,
-  debounce: utils.debounce,
   unpause:ProcessSim.unpause,
 };
