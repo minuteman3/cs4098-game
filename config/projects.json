@@ -1,7 +1,7 @@
 {
   "projects" : [
   {
-    "name": "Project A",
+    "name": "R&D Project",
     "budget": 10000,
     "duration": 18,
     "revenue": {
@@ -16,7 +16,7 @@
     ],
     "dialog": "This Project has three modules, each with a different cost, make sure to allocate lots of resources to UI Design for this project to succeed"
   },{
-    "name": "Project B",
+    "name": "RPG Game",
     "budget": 2000000,
     "duration": 24,
     "revenue": {
@@ -37,7 +37,7 @@
         "cost": 750
       },
       {
-        "name": "Procedural ",
+        "name": "Procedural Generation",
         "cost": 1250
       },
       {
@@ -46,5 +46,28 @@
       }
     ],
     "dialog": "This Project has five modules, each with a different cost, make sure to allocate lots of resources to AI Design for this project to succeed"
+  },,{
+    "name": "Software Simulator",
+    "budget": 1000000,
+    "duration": 24,
+    "revenue": {
+      "months": 36 ,
+      "amount": 5000
+    },
+    "modules": [
+      {
+        "name": "Time Simulator",
+        "cost": 8000
+      },
+      {
+        "name": "Event Generation",
+        "cost": 3000
+      },
+      {
+        "name": "Ux Design",
+        "cost": 3750
+      }
+    ],
+    "dialog": "This project has 3 moduels, with an emphasis on simulating time."
   }]
 }
