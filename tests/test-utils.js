@@ -12,7 +12,7 @@ test('revenue is calculated', function (t) {
 			"amount": 10000
 		}
 	};
-    t.equals(utils.revenue(12,project),110000);
+    t.equals(utils.revenue(12,project),180000);
 });
 
 test('commas get inserted into money numbers',function(t){
