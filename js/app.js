@@ -90,6 +90,7 @@ function selectTeamsForModule () {
   // reset everything for the next module
   maps.clearMapMarkers();
   teamsSelected = {};
+  sidebar.setPayrollforModule(0);
   sidebar.setLocations([]);
 
   if (index >= selectedProject.modules.length -1 ) {
