@@ -11,12 +11,10 @@ function revenue(time, project){
   return base + (project.revenue.amount*wobble);
 }
 
-function commafy(num){ /*
-  var parts = (''+num).split("."), s=parts[0], i=L=s.length, o='';
-  while(i--){ o = (i===0?'':((L-i)%3?'':','))+ 
-                  s.charAt(i) +o ;}
-  return o + (parts[1] ? '.' + parts[1] : ''); */
-  return num.toLocaleString();
+function commafy(x){
+    var parts = x.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
 }
 
 module.exports = {
