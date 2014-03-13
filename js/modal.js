@@ -58,23 +58,35 @@ function dialog(a){
 
   showmodal(html, true);
 }
-function generateCharts(loc){
+function generateCharts(loc, chartData){
   loc = loc || "gameover";
   var ctx, chart;
+/*
+    {
+        fillColor : "rgba(220,220,220,0.5)",
+        strokeColor : "rgba(220,220,220,1)",
+        pointColor : "rgba(220,220,220,1)",
+        pointStrokeColor : "#fff",
+        data : [65,59,90,91,0,0,0]
+      },
+      {
+        strokeColor : "rgba(151,187,205,1)",
+        data : [65,59,40,45,0,0,0]
+      }*/
+
   var data = {
-    labels : ["January","February","March","April"],
-    datasets : [
-      {
-        data : [65,59,90,91]
-      },
-      {
-        data : [65,59,40,45]
-      },
-      {
-        data : [40,19,27,15]
-      }
-    ]
+    labels : [],
+    datasets : []
   };
+
+  data.labels = chartData[0];
+  
+  for(var i = 1;i < chartData.length;i++){
+    var obj = {};
+    obj.data =  chartData[i];
+    data.datasets.push(obj);
+  }
+   
   var options = {
     //Boolean - If we show the scale above the chart data
     scaleOverlay : true,
@@ -101,7 +113,7 @@ function generateCharts(loc){
     //Number - Width of the grid lines
     scaleGridLineWidth : 1,
     //Boolean - Whether the line is curved between points
-    bezierCurve : true,
+    bezierCurve : false,
     //Boolean - Whether to show a dot for each point
     pointDot : true,
     //Number - Radius of each point dot in pixels
@@ -139,7 +151,7 @@ function addChartContainer(s){
   w = (document.documentElement.clientWidth  * s / 100) + 'px;';
   $('body').append('<canvas id="gameover" width="'+w+'" height="'+h+'" style="display:none;"> </canvas>');
 }
-function endGame(time,budget,project){
+function endGame(time,budget,project, moduleProgressOverTime){
   addChartContainer();
   hidemodal ();
   console.log(project);
@@ -157,7 +169,7 @@ function endGame(time,budget,project){
   showmodal(html, false);
 
   $('#gameover').empty();
-  generateCharts("gameover");
+  generateCharts("gameover",moduleProgressOverTime);
   $('#gameover').detach().prependTo('#chartcontainer');
   $('#gameover').show();
 }

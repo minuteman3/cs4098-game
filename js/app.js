@@ -22,6 +22,8 @@ var projectBudget = 0;
 var isMakerSelectable = true;
 
 var modules = [];
+var moduleProgressOverTime = [[]];
+var currentWeek = 0;
 
 var GameStates = {
       START:0,
@@ -166,6 +168,10 @@ function startGame(a){
   sidebar.setListItemActive(0);
 
   modal.dialog(selectedProject.dialog);
+
+
+  moduleProgressOverTime = selectedProject.modules.map(function(){return [0]});
+  moduleProgressOverTime.push([0]);
 }
 
 
@@ -202,10 +208,29 @@ function simulationUpdate(modules,citiesState){
 
   var totalCost = 0;
   var percentComplete = 0;
+
+  currentWeek += 1;
+  var collectData = currentWeek%4 == 0;
+
+  if(collectData){
+    moduleProgressOverTime[0].push(currentWeek);
+    var  i =1;
+  }
+
   modules.forEach(function(module) {
       totalCost += module.getCost(citiesState);
-      percentComplete += module.getPercentComplete();
+      modulesProgree = module.getPercentComplete();
+
+      if(collectData){
+        if(moduleProgressOverTime[i][moduleProgressOverTime[i].length -1] < 100)
+          moduleProgressOverTime[i].push(modulesProgree);
+        i += 1;
+      }
+
+      percentComplete += modulesProgree;
   });
+
+
   weeksTilDueDate--;
   projectBudget -= totalCost;
   sidebar.setCash(projectBudget);
@@ -224,7 +249,7 @@ function simulationComplete (modules) {
   }
 }
 function endGame(){
-  modal.endGame(weeksTilDueDate, projectBudget, selectedProject);
+  modal.endGame(weeksTilDueDate, projectBudget, selectedProject, moduleProgressOverTime);
   ProcessSim.stop();
 }
 
