@@ -145,7 +145,7 @@ function endGame(time,budget,project){
   console.log(project);
   var revenue = utils.revenue(time,project);
   var html = "<h1>Game Over</h1>";
-  html += '<div id="chartcontainer"> </div>';
+  html += '<div id="chartcontainer"> <p id="chart-caption">module completion over time</p></div>';
   html += '<p>The Project took  '+(project.duration - time)+' weeks</p>';
   html += '<p>You have €'+utils.commafy(budget)+' money in the bank</p>';
   html += '<p>Your revenue is €'+utils.commafy(revenue)+'</p>';
