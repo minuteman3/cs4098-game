@@ -249,7 +249,7 @@ function simulationComplete (modules) {
   }
 }
 function endGame(){
-  modal.endGame(weeksTilDueDate, projectBudget, selectedProject, moduleProgressOverTime);
+  modal.endGame(currentWeek, projectBudget, selectedProject, moduleProgressOverTime);
   ProcessSim.stop();
 }
 
