@@ -12,6 +12,6 @@ test('Canvas is supported', function (t) {
   t.plan(1);
   t.doesNotThrow(function () {
     pt.addChartContainer();
-    pt.generateCharts();
+    pt.generateCharts("gameover",[[0,4,8],[0,100],[0,25,100]]);
   });
 });

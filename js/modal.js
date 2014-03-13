@@ -61,18 +61,6 @@ function dialog(a){
 function generateCharts(loc, chartData){
   loc = loc || "gameover";
   var ctx, chart;
-/*
-    {
-        fillColor : "rgba(220,220,220,0.5)",
-        strokeColor : "rgba(220,220,220,1)",
-        pointColor : "rgba(220,220,220,1)",
-        pointStrokeColor : "#fff",
-        data : [65,59,90,91,0,0,0]
-      },
-      {
-        strokeColor : "rgba(151,187,205,1)",
-        data : [65,59,40,45,0,0,0]
-      }*/
 
   var data = {
     labels : [],
