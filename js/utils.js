@@ -1,36 +1,3 @@
-function debounce(func, wait, immediate) {
-  // this is hi-jacked directly from underscore.js
-  var timeout, args, context, timestamp, result;
-
-  var later = function() {
-    var last = _.now() - timestamp;
-    if (last < wait) {
-      timeout = setTimeout(later, wait - last);
-    } else {
-      timeout = null;
-      if (!immediate) {
-        result = func.apply(context, args);
-        context = args = null;
-      }
-    }
-  };
-  return function() {
-    context = this;
-    args = arguments;
-    timestamp = _.now();
-    var callNow = immediate && !timeout;
-    if (!timeout) {
-      timeout = setTimeout(later, wait);
-    }
-    if (callNow) {
-      result = func.apply(context, args);
-      context = args = null;
-    }
-
-    return result;
-  };
-}
-
 function revenue(time, project){
   console.log("base revenue");
   console.log(project.revenue.amount*project.revenue.months);
@@ -42,7 +9,14 @@ function revenue(time, project){
   return project.revenue.amount * (project.revenue.months + (project.duration - time/4));
 }
 
+function commafy(num){
+  var parts = (''+num).split("."), s=parts[0], i=L=s.length, o='';
+  while(i--){ o = (i===0?'':((L-i)%3?'':','))+ 
+                  s.charAt(i) +o ;}
+  return o + (parts[1] ? '.' + parts[1] : ''); 
+}
+
 module.exports = {
     revenue: revenue,
-    debounce: debounce
+    commafy: commafy
 };
