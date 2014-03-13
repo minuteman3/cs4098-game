@@ -1,10 +1,13 @@
 {
   "name": "panic-tycoon",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "description": "A game based on software engineering for the Trinity College Dublin 4th year CS4098 Programming Group Project module.",
   "main": "index.js",
+  "engines": {
+    "node": ">=0.9.9"
+  },
   "scripts": {
-    "test": "for x in `ls ./tests/*.js`; do node $x; done",
+    "test": "node ./test.js",
     "start": "node ./index.js"
   },
   "repository": {
@@ -19,16 +22,18 @@
   "author": "Miles McGuire, Tom Mason, Kevin Farrell, Ross McKinley",
   "license": "none",
   "bugs": {
-    "url": "https://github.com/minuteman3/cs4098-game/issues"
+    "url": "https://github.com/Panic-Tycoons/panic-tycoon/issues"
   },
-  "homepage": "https://github.com/minuteman3/cs4098-game",
+  "homepage": "https://github.com/Panic-Tycoons/panic-tycoon",
   "dependencies": {
+    "nconf": "~0.6.9",
+    "bit-array": "~0.2.2",
     "browserify": "~3.28.1",
     "lessify": "~0.3.0",
-    "nconf": "~0.6.9",
     "uglifyify": "~1.2.2",
     "browserify-shim": "~3.2.2",
-    "jquery": "~1.11.0"
+    "jquery": "~1.11.0",
+    "diveSync": "~0.2.0"
   },
   "devDependencies": {
     "tape": "~2.4.0"

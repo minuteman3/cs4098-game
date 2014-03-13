@@ -1,5 +1,6 @@
 var $ = require('jquery');
-var Chart = require('./chart.js');
+var Chart = require('../lib/chart.js');
+var utils      = require('./utils.js');
 
 var menu=false;
 var modal=false;
@@ -24,14 +25,13 @@ function hidemodal () {
 }
 
 function makeChoices(a,b,c,proj){
-  a = a || ["Option 1"];
-  b = b || "";
+  a = a || ["Option 1"];// the names to use for each button
+  b = b || "";// this should be a description of the event, indicating/hinting at the correct answer
   c = c || "btn-action";
   proj = proj || false;
 
   var ret = '<p>';
   var d="";
-  // this should be a description of the event, indicating/hinting at the correct answer
   ret+= b;
   ret+= '</p><div class="modal-options">';
 
@@ -53,28 +53,28 @@ function dialog(a){
   html += a;
 
   html += '</p><div class="modal-options">';
-  html += '<button class="btn-action" onclick="pt.hidemodal()"> Continue </button>';
+  html += '<button class="btn-action" onclick="pt.hidemodal();pt.unpause()"> Continue </button>';
   html += '</div>';
 
   showmodal(html, true);
 }
-function generateCharts(loc){
+function generateCharts(loc, chartData){
   loc = loc || "gameover";
   var ctx, chart;
+
   var data = {
-    labels : ["January","February","March","April"],
-    datasets : [
-      {
-        data : [65,59,90,91]
-      },
-      {
-        data : [65,59,40,45]
-      },
-      {
-        data : [40,19,27,15]
-      }
-    ]
+    labels : [],
+    datasets : []
   };
+
+  data.labels = chartData[0];
+  
+  for(var i = 1;i < chartData.length;i++){
+    var obj = {};
+    obj.data =  chartData[i];
+    data.datasets.push(obj);
+  }
+   
   var options = {
     //Boolean - If we show the scale above the chart data
     scaleOverlay : true,
@@ -101,7 +101,7 @@ function generateCharts(loc){
     //Number - Width of the grid lines
     scaleGridLineWidth : 1,
     //Boolean - Whether the line is curved between points
-    bezierCurve : true,
+    bezierCurve : false,
     //Boolean - Whether to show a dot for each point
     pointDot : true,
     //Number - Radius of each point dot in pixels
@@ -139,21 +139,25 @@ function addChartContainer(s){
   w = (document.documentElement.clientWidth  * s / 100) + 'px;';
   $('body').append('<canvas id="gameover" width="'+w+'" height="'+h+'" style="display:none;"> </canvas>');
 }
-function endGame(){
+function endGame(time,budget,project, moduleProgressOverTime){
   addChartContainer();
   hidemodal ();
-  var html = "<h1>Game Over</h1><p>";
-
-  html += '<div id="chartcontainer"> </div>';
-  html += 'Here are your game stats';
-  html += '</p><div class="modal-options">';
-  html += '<button class="btn-action" onclick="pt.initialiseGame()"> Continue </button>';
+  console.log(project);
+  var revenue = utils.revenue(time,project);
+  var html = "<h1>Game Over</h1>";
+  html += '<div id="chartcontainer"> <p id="chart-caption">module completion over time</p></div>';
+  html += '<p>The Project took  '+(time)+' weeks</p>';
+  html += '<p>You have €'+utils.commafy(budget)+' money in the bank</p>';
+  html += '<p>Your revenue is €'+utils.commafy(revenue)+'</p>';
+  html += '<p>Your earnings are: €'+utils.commafy(revenue+budget)+'</p>';
+  html += '<div class="modal-options">';
+  html += '<button class="btn-action" onclick="pt.initialiseGame()"> Quit to Menu </button>';
   html += '</div>';
 
   showmodal(html, false);
 
   $('#gameover').empty();
-  generateCharts("gameover");
+  generateCharts("gameover",moduleProgressOverTime);
   $('#gameover').detach().prependTo('#chartcontainer');
   $('#gameover').show();
 }
@@ -170,6 +174,8 @@ function pause () {
   }
 }
 
+
+
 module.exports = {
     showmodal: showmodal,           // shows a modal window
     hidemodal: hidemodal,           // hides a modal window
@@ -177,5 +183,6 @@ module.exports = {
     makeChoices: makeChoices,
     endGame: endGame,
     generateCharts: generateCharts,
+    addChartContainer: addChartContainer,
     dialog: dialog
 };

@@ -1,0 +1,35 @@
+{
+  "cities": [
+  {
+    "coords": [ 37.6788056,-122.2880726],
+    "name":"San Francisco",
+    "morale":100,
+    "productivity":120,
+    "costPerCycle":9000
+  }, {
+    "coords": [ 40.43,-74.0],
+    "name":"New York",
+    "morale":100,
+    "productivity":110,
+    "costPerCycle":8000
+  },{
+    "coords": [ 53.24, -6.6],
+    "name":"Dublin",
+    "morale":100,
+    "productivity":100,
+    "costPerCycle":6000
+  },{
+    "coords": [  31.12,121.30],
+    "name":"Shanghai",
+    "morale":100,
+    "productivity":90,
+    "costPerCycle":1500
+  },{
+    "coords": [ 18.9750,72.8258],
+    "name":"Mumbai",
+    "morale":100,
+    "productivity":70,
+    "costPerCycle":500
+  }]
+}
+

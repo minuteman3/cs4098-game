@@ -1,6 +1,6 @@
-var cities = require('./cities.json');
+var cities = require('./../config/cities.json');
 var $ = require('jquery');
-
+var utils      = require('./utils.js');
 
 var listTag = ".nav";
 var payrollTag = "#totalPayroll";
@@ -15,11 +15,26 @@ var budgetTag = "#budget";
 var dueDateTag = "#duedate";
 var titleTag = "#sidebar-title";
 var sidebarTag = '#sidebar';
+var cashTag = "#cash";
+var progressTag = "#progress";
+var weeksTag = "#weeks";
+var progressStateTag = ".progess-state";
+var buttonTag = "#btn-region";
 
+function init(){
+  showProgressState(false);
+  showSelectTeams(true);
+  setTitle("Select Teams");
+  setPayroll(0);
+  setBudgetedWeeks(0);
+  setPayrollforModule(0);
+  setLocations([]);
+}
 
 function show(){
     $(sidebarTag).show();
 }
+
 function hide(){
     $(sidebarTag).hide();
 }
@@ -46,19 +61,19 @@ function setListItemActive(i){
     $(listTag+' li:nth-child(' + (i+1)+ ')').addClass(activeClass);
 }
 
-
 function setTitle(title){
   $(titleTag).html(title);
+}
+
+function setButtonText(text){
+  $(buttonTag).html(text);
 }
 
 /*
 *   General Game properties
 */
-
-
 function setBudget(budget){
-// toLocaleString formats the number to use commas
-  $(budgetTag).html("$" + budget.toLocaleString());
+  $(budgetTag).html("$" + utils.commafy(budget));
 }
 
 function setDueDate(weeks){
@@ -66,8 +81,7 @@ function setDueDate(weeks){
 }
 
 function setPayroll(cost){
-  // toLocaleString formats the number to use commas
-	$(payrollTag).html("$" + cost.toLocaleString());
+	$(payrollTag).html("$" + utils.commafy(cost));
 }
 
 function setBudgetedWeeks(weekCount){
@@ -75,40 +89,47 @@ function setBudgetedWeeks(weekCount){
 }
 
 
-
+function setCash(cash){
+  $(cashTag).html("$" + utils.commafy(cash));
+}
+function setProgress(progress){
+  $(progressTag).html(progress.toFixed(0) + "%");
+}
+function setWeeks(weeks){
+  $(weeksTag).html(weeks.toFixed(0) + " weeks");
+}
 /*
 *  Game Module properties 
 */
 function setPayrollforModule(cost){
-	$(payrollforModuleTag).html("$" + cost.toLocaleString());
+	$(payrollforModuleTag).html("$" + utils.commafy(cost));
 }
 
-
- 
 function setLocations(teams,selectedCode){
 
   $(locationTag).html("");
 
   for(var key in teams){
-
-  	var location = $("<li></li>");
-  	location.append(cities.names[key]);
-  	location.append($("<div></div>").addClass("teamMultiplier").html("x" +teams[key]));
+    var city = cities.cities[key];
+    var location = $("<li></li>");
+    location.append(city.name);
+    location.append($("<div></div>").addClass("teamMultiplier").html("x" +teams[key]));
     
     if (key === selectedCode) {
-    	location.append($("<div></div>").addClass("teamMultiplierFade").html("+1"));
+      location.append($("<div></div>").addClass("teamMultiplierFade").html("+1"));
     }
 
     $(locationTag).append(location);
    }
 }
 
-
 function showSelectTeams(visible){
-  $(selectTeamTag).css('visibility',visible?"visible":"hidden");
+  $(selectTeamTag).css('display',visible?"block":"none");
 }
 
-
+function showProgressState(visible){
+  $(progressStateTag).css('display',visible?"block":"none");
+}
 
 module.exports = {
     setList: setList ,
@@ -122,6 +143,12 @@ module.exports = {
     setBudget:setBudget,
     setDueDate:setDueDate,
     setTitle:setTitle,
+    setCash:setCash,
+    setProgress:setProgress,
+    setWeeks:setWeeks,
+    showProgressState:showProgressState,
     show:show,
     hide:hide,
+    setButtonText:setButtonText,
+    init:init
 };

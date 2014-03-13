@@ -5,10 +5,13 @@
     <meta http-equiv="cache-control" content="max-age=0" />
     <meta http-equiv="cache-control" content="no-cache" />
     <meta http-equiv="expires" content="0" />
-    <meta name="viewport" content="width=device-width">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
+    <link rel="icon" type="image/png" href="http://localhost:8080/assets/favicon.png" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <link rel="apple-touch-startup-image" href="assets/splash.png" />
 
     <title>Panic Tycoon</title>
     <script src="js/bundle.js"></script>
@@ -30,34 +33,24 @@
         <li>Game Engine </li>
         <li>Physics Engine</li>
       </ul>
+      
+      <div class="gameProperties progess-state">Cash<div id="cash" ></div></div>
+      <div class="gameProperties progess-state">Progress<div id="progress" ></div></div>
+      <div class="gameProperties progess-state">Weeks<div id="weeks" ></div></div>
 
       <div class="gameProperties select-teams">Total Budget<div id="budget" >$20,000</div></div>
-      <div class="gameProperties select-teams">Total Payroll<div id="totalPayroll">$0</div></div>
+      <div class="gameProperties select-teams">Weekly Payroll<div id="totalPayroll">$0</div></div>
       <div class="gameProperties select-teams">Due Date<div id="duedate" >20 weeks</div></div>
       <div class="gameProperties select-teams">Budgeted Weeks<div id="budgetedWeeks">0 weeks</div></div>
-      <br/>
-      <div class="location-header select-teams">Payroll<div id="costPerMonth">$0</div></div>
+      <div class="location-header select-teams">Module Cost<div id="costPerMonth">$0</div></div>
       <ul id="locations" class="select-teams" ></ul>
       <button  class="select-teams" onclick="pt.selectTeams()" id="btn-region">Select Teams</button>
-
-
     </div>
 
     <div id="map"></div>
     <div id="content"></div>
 
-    <button  onclick="pt.pause()"   id="btn-options">Options</button>
+    <button  onclick="pt.pause()" id="btn-options">Options</button>
 
-    <script>
-      document.onkeydown = function (evt) {
-          if (evt.keyCode == 27) {
-              pt.pause();
-            evt.preventDefault();
-          }
-        };
-      window.addEventListener('resize', function(event){
-        pt.debounce( pt.resizemap(95) ,500);
-      });
-    </script
   </body>
 </html>

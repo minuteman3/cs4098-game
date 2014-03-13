@@ -51,10 +51,21 @@ If you experience installation problems, a goof plan is to remove the `node_modu
     * Each zone has a status display, which details the status as a percentage. It is viewable by hovering over an area.
 * End of Game Report
 	* Shows Graphs of how you have progressed throughout the game.
-
+    * Compares data from beginning to end of project life-cycle.
+* Process Simulator 
+    * Simulates advancement of modules in individual chunks, scaled by number of developers.
+	
 ## Tests
 
 This project uses [travis](http://travis-ci.org) and [testling](http://ci.testling.com) to automate testing and ensure front-end compatibility and positive build-state on the backend.
+
+To run manual tests run `npm test` from the project root directory.
+
+To run maunal front-end specific tests, an external tool [`testling`](http://ci.testling.com) can be installed using `npm install -g testling` (may require sudo). The testling tests can be run as follows:
+* `testling -u` in the project's root directory. 
+* It will give out a localhost URL.
+    * copy the url and load it in a webpage using any browser
+* Back in the console the tests will be run.
 
 ### Test Coverage
 
