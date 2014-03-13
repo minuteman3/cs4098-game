@@ -30,6 +30,19 @@ function debounce(func, wait, immediate) {
     return result;
   };
 }
+
+function revenue(time, project){
+  console.log("base revenue");
+  console.log(project.revenue.amount*project.revenue.months);
+  console.log("time remaining");
+  console.log(project.duration - time/4);
+  console.log("revenue ± time remaining");
+  console.log(project.revenue.amount * (project.revenue.months + ((project.duration - time)/4)));
+
+  return project.revenue.amount * (project.revenue.months + (project.duration - time/4));
+}
+
 module.exports = {
-     debounce: debounce
+    revenue: revenue,
+    debounce: debounce
 };
