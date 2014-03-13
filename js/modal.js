@@ -143,11 +143,13 @@ function endGame(time,budget,project){
   addChartContainer();
   hidemodal ();
   console.log(project);
+  var revenue = utils.revenue(time,project);
   var html = "<h1>Game Over</h1>";
   html += '<div id="chartcontainer"> </div>';
   html += '<p>The Project took  '+(project.duration - time)+' weeks</p>';
-  html += '<p>You have '+budget+' money left</p>';
-  html += '<p>Your revenue is '+utils.revenue(time,project)+'</p>';
+  html += '<p>You have €'+utils.commafy(budget)+' money in the bank</p>';
+  html += '<p>Your revenue is €'+utils.commafy(revenue)+'</p>';
+  html += '<p>Your earnings are: €'+utils.commafy(revenue+budget)+'</p>';
   html += '<div class="modal-options">';
   html += '<button class="btn-action" onclick="pt.initialiseGame()"> Quit to Menu </button>';
   html += '</div>';

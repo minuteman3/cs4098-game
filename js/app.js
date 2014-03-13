@@ -126,12 +126,20 @@ function selectProject(){
   $('#startScreen').hide();
 
   var html = "<h1> Select A Project</h1>";
-  html += modal.makeChoices(projects,'<div id="project-description"></div>','btn-projects',true);
+  html += modal.makeChoices(projects,
+    '<div id="project-budget" class="project"></div>'+
+    '<div id="project-duration" class="project"></div>'+
+    '<div id="project-revenue" class="project"></div>'+
+    '<div id="project-description" class="project"></div>',
+    'btn-projects',true);
 
   modal.showmodal(html);
 }
 
 function projectdescription(a){
+  $('#project-budget').html("Initial Budget: € "+utils.commafy(projects[a].budget));
+  $('#project-revenue').html("Predicted Revenue: € "+utils.commafy(projects[a].revenue.amount*projects[a].revenue.months));
+  $('#project-duration').html("Due in: "+projects[a].duration+ " weeks");
   $('#project-description').html(projects[a].dialog);
 }
 
@@ -269,7 +277,7 @@ $( document ).ready( function() {
     }
   };
   window.addEventListener('resize', function(event){
-    pt.debounce(pt.resizemap(95),500);
+    pt.resizemap(95);
   });
   
   //Fire it when the page first loads:
