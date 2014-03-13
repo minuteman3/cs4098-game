@@ -1,6 +1,6 @@
 var cities = require('./../config/cities.json');
 var $ = require('jquery');
-
+var utils      = require('./utils.js');
 
 var listTag = ".nav";
 var payrollTag = "#totalPayroll";
@@ -73,8 +73,7 @@ function setButtonText(text){
 *   General Game properties
 */
 function setBudget(budget){
-// toLocaleString formats the number to use commas
-  $(budgetTag).html("$" + budget.toLocaleString());
+  $(budgetTag).html("$" + utils.commafy(budget));
 }
 
 function setDueDate(weeks){
@@ -82,8 +81,7 @@ function setDueDate(weeks){
 }
 
 function setPayroll(cost){
-  // toLocaleString formats the number to use commas
-	$(payrollTag).html("$" + cost.toLocaleString());
+	$(payrollTag).html("$" + utils.commafy(cost));
 }
 
 function setBudgetedWeeks(weekCount){
@@ -92,7 +90,7 @@ function setBudgetedWeeks(weekCount){
 
 
 function setCash(cash){
-  $(cashTag).html("$" + cash.toLocaleString());
+  $(cashTag).html("$" + utils.commafy(cash));
 }
 function setProgress(progress){
   $(progressTag).html(progress.toFixed(0) + "%");
@@ -104,7 +102,7 @@ function setWeeks(weeks){
 *  Game Module properties 
 */
 function setPayrollforModule(cost){
-	$(payrollforModuleTag).html("$" + cost.toLocaleString());
+	$(payrollforModuleTag).html("$" + utils.commafy(cost));
 }
 
 function setLocations(teams,selectedCode){
