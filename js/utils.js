@@ -11,11 +11,12 @@ function revenue(time, project){
   return base + (project.revenue.amount*wobble);
 }
 
-function commafy(num){
+function commafy(num){ /*
   var parts = (''+num).split("."), s=parts[0], i=L=s.length, o='';
   while(i--){ o = (i===0?'':((L-i)%3?'':','))+ 
                   s.charAt(i) +o ;}
-  return o + (parts[1] ? '.' + parts[1] : ''); 
+  return o + (parts[1] ? '.' + parts[1] : ''); */
+  return num.toLocaleString();
 }
 
 module.exports = {
