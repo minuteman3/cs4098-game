@@ -1,5 +1,6 @@
 var $ = require('jquery');
 var Chart = require('../lib/chart.js');
+var utils      = require('./utils.js');
 
 var menu=false;
 var modal=false;
@@ -138,14 +139,17 @@ function addChartContainer(s){
   w = (document.documentElement.clientWidth  * s / 100) + 'px;';
   $('body').append('<canvas id="gameover" width="'+w+'" height="'+h+'" style="display:none;"> </canvas>');
 }
-function endGame(){
+function endGame(time,budget,project){
   addChartContainer();
   hidemodal ();
+  console.log(project);
   var html = "<h1>Game Over</h1>";
   html += '<div id="chartcontainer"> </div>';
-  html += '<p>Here are your game stats</p>';
+  html += '<p>The Project took  '+(project.duration - time)+' weeks</p>';
+  html += '<p>You have '+budget+' money left</p>';
+  html += '<p>Your revenue is '+utils.revenue(time,project)+'</p>';
   html += '<div class="modal-options">';
-  html += '<button class="btn-action" onclick="pt.initialiseGame()"> Continue </button>';
+  html += '<button class="btn-action" onclick="pt.initialiseGame()"> Quit to Menu </button>';
   html += '</div>';
 
   showmodal(html, false);
