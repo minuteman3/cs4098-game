@@ -11,6 +11,7 @@ test('PT can be accessed', function (t) {
 test('Canvas is supported', function (t) {
   t.plan(1);
   t.doesNotThrow(function () {
-    pt.endGame();
+    pt.addChartContainer();
+    pt.generateCharts();
   });
 });

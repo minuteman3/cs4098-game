@@ -305,4 +305,7 @@ module.exports = {
   //Maps
   resizemap: maps.resizemap,
   unpause:ProcessSim.unpause,
+  //Charts
+  generateCharts: modal.generateCharts,
+  addChartContainer: modal.addChartContainer
 };

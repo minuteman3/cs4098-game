@@ -183,5 +183,6 @@ module.exports = {
     makeChoices: makeChoices,
     endGame: endGame,
     generateCharts: generateCharts,
+    addChartContainer: addChartContainer,
     dialog: dialog
 };
