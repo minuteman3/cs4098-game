@@ -21,11 +21,11 @@
     "dialog": "This Project has two modules, each with a different cost, make sure to allocate resources evenly for this project to succeed.",
   },{
     "name": "RPG Game",
-    "budget": 2000000,
-    "duration": 24,
+    "budget": 1000000,
+    "duration": 20,
     "revenue": {
-      "months": 6,
-      "amount": 100000
+      "months": 8,
+      "amount": 125000
     },
     "modules": [
       {
@@ -56,7 +56,7 @@
     "duration": 24,
     "revenue": {
       "months": 36 ,
-      "amount": 5000
+      "amount": 50000
     },
     "modules": [
       {
@@ -72,6 +72,6 @@
         "cost": 3750
       }
     ],
-    "dialog": "This project has three modules, each with a different cost. The Client seems enthused abouts imulating time."
+    "dialog": "This project has three modules, each with a different cost. The Client seems enthused about simulating time."
   }]
 }
