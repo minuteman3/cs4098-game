@@ -22,7 +22,7 @@
   },{
     "name": "RPG Game",
     "budget": 1000000,
-    "duration": 20,
+    "duration": 16,
     "revenue": {
       "months": 8,
       "amount": 125000
