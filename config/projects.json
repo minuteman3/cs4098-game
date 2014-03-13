@@ -3,7 +3,7 @@
   {
     "name": "R&D Project",
     "budget": 10000,
-    "duration": 18,
+    "duration": 8,
     "revenue": {
       "months": 6,
       "amount": 10000
@@ -12,16 +12,20 @@
       {
         "name": "AI Engine",
         "cost": 400
+      },
+      {
+        "name": "Real-time Physics",
+        "cost": 400
       }
     ],
-    "dialog": "This Project has three modules, each with a different cost, make sure to allocate lots of resources to UI Design for this project to succeed"
+    "dialog": "This Project has two modules, each with a different cost, make sure to allocate resources evenly for this project to succeed.",
   },{
     "name": "RPG Game",
     "budget": 2000000,
     "duration": 24,
     "revenue": {
-      "months": 12,
-      "amount": 10000
+      "months": 6,
+      "amount": 100000
     },
     "modules": [
       {
@@ -45,7 +49,7 @@
         "cost": 1250
       }
     ],
-    "dialog": "This Project has five modules, each with a different cost, make sure to allocate lots of resources to AI Design for this project to succeed"
+    "dialog": "This Project has five modules, each with a different cost, make sure to allocate lots of resources to AI Engine for this project to succeed. The Client isn't much interested in the Character Creation for this project."
   },,{
     "name": "Software Simulator",
     "budget": 1000000,
@@ -68,6 +72,6 @@
         "cost": 3750
       }
     ],
-    "dialog": "This project has 3 moduels, with an emphasis on simulating time."
+    "dialog": "This project has three modules, each with a different cost. The Client seems enthused abouts imulating time."
   }]
 }
