@@ -29,8 +29,8 @@
         {
             "conditions":
             {
-                "morale": [0,1],
-                "pay": [0]
+                "morale": [1,2],
+                "pay": [1]
             },
             "message": "Your employees at $site are threatening to strike unless you raise pay, what will you do?",
             "effects": 
