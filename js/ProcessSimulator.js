@@ -1,11 +1,14 @@
 var config = require('./../config/client-config.json');
 var Module = require('./Module.js');
+var EventGenerator = require('./EventGenerator/EventGenerator.js');
 
 var modules = null;
 var cities = null;
 var doneFunc = null;
 var updateFunc = null;
 var intervalID = null;
+var gen = null;
+var eventFunc = null;
 var paused = false;
 
 function timerLoop(){
@@ -16,6 +19,13 @@ function timerLoop(){
         done = done && module.done();
     });
     updateFunc(modules,cities);
+    
+    var ev = gen.getEvent([20, 2000]);
+    if(ev)
+    {
+        eventFunc(ev);
+    }
+
     if(done){
         if(doneFunc){
             doneFunc(modules);
@@ -24,12 +34,14 @@ function timerLoop(){
     }
 }
 
-function start(_modules,_cities, _updateFunc, _doneFunc){
+function start(_modules,_cities, _updateFunc, _doneFunc, _eventFunc, events){
     modules = _modules;
     cities = _cities;
     updateFunc = _updateFunc;
     doneFunc = _doneFunc;
+    eventFunc = _eventFunc;
     intervalID = setInterval(timerLoop, config.TIMER_DURATION);
+    gen = new EventGenerator(events);
     return intervalID;
 }
 
