@@ -86,7 +86,7 @@ test("Event generator works", function(t){
     var gen = null;
     
     t.doesNotThrow(function() {
-        gen = new EventGenerator("config/events");
+        gen = new EventGenerator(require("../config/events/sample.json").events);
     });
 
     t.doesNotThrow(function() {
