@@ -1,5 +1,3 @@
-var diveSync = require("diveSync");
-var fs = require("fs");
 var FuzzyEngine = require("./fuzzyEngine.js");
 
 var EventGenerator = function(dir){
@@ -33,16 +31,9 @@ function loadFuzzyEngine(events){
     return new FuzzyEngine(fuzzyRules, memberFuncs);
 }
 
-EventGenerator.prototype.loadDir = function(dir){
-    var that = this;
-    diveSync(dir, function(err, file) {
-        if(err) {
-            throw err;
-        }
-        
-        var data = JSON.parse(fs.readFileSync(file));
-        that.events.push.apply(that.events, data.events);
-    });
+EventGenerator.prototype.loadDir = function(events)
+{
+    this.events = events;
 };
 
 EventGenerator.prototype.getEvent = function(variables){
