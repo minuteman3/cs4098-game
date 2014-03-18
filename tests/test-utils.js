@@ -12,13 +12,13 @@ test('revenue is calculated', function (t) {
 			"amount": 10000
 		}
 	};
-    t.equals(utils.revenue(12,project),180000);
+    t.equals(utils.revenue(12,project),75000);
 });
 
 test('commas get inserted into money numbers',function(t){
 	t.plan(3);
 	t.equals(utils.commafy(123456789),"123,456,789");
-	t.equals(utils.commafy(12345.32),"12,345.32");
+	t.equals(utils.commafy(12345.32,2),"12,345.32");
 	t.equals(utils.commafy(-123456),"-123,456");
 });
 
