@@ -63,7 +63,7 @@ function onlabelShow(e,label,code){
       '<strong>'+              hoverCity.name         +'</strong><br/>'+
       'Morale: '+          hoverCity.morale       +'%<br/>'+
       'Productivity: '+    hoverCity.productivity +'%<br/>'+
-      'Cost per cycle: $'+ hoverCity.costPerCycle +'<br/>'
+      'Cost per week: $'+ hoverCity.costPerCycle +'<br/>'
     );
   }else if(curGameState === GameStates.PROGRESS){
     // fixoverlap code is broken
@@ -164,13 +164,12 @@ function startGame(a){
   sidebar.setButtonText(selectedProject.modules.length==1?"Start":"Select Teams");
   sidebar.setBudget(selectedProject.budget);
   sidebar.setDueDate(selectedProject.duration);
-  sidebar.setList(selectedProject.modules.map(function(a){return a.name;}));
+  sidebar.setList(selectedProject.modules.map(function(a){return a.name+
+    "<br/><span class='modulecost'>Cost "+(100*a.cost/selectedProject.cost).toFixed(0)+"%</span>";}));
   sidebar.setListItemActive(0);
 
   modal.dialog(selectedProject.dialog);
-
-
-  moduleProgressOverTime = selectedProject.modules.map(function(){return [0]});
+  moduleProgressOverTime = selectedProject.modules.map(function(){return [0];});
   moduleProgressOverTime.push([0]);
 }
 
@@ -191,18 +190,28 @@ function startLoop(){
       )
     );
   });
+  var active = utils.getActiveCities(selectedTeams);
 
   var citiesState = {};
   cities.cities.forEach(function(c){
-    citiesState[c.name] = new City(c.name,c.costPerCycle,c.productivity);
+    // here we only create cities where we have selected teams
+    if(utils.contains(active,c.name)){
+      citiesState[c.name] = new City(c.name,c.costPerCycle,c.productivity);
+    }
   });
+  console.log(citiesState);
   ProcessSim.start(modules,citiesState,simulationUpdate,simulationComplete);
 }
+
 function simulationUpdate(modules,citiesState){
   var states = [];
 
   cities.cities.forEach(function(c){
-      states.push(citiesState[c.name].status());
+      if(utils.contains(Object.keys(citiesState),c.name)){
+        states.push(citiesState[c.name].status());
+      } else {
+        states.push(0);
+      }
   });
   maps.runState(states);
 
@@ -210,22 +219,16 @@ function simulationUpdate(modules,citiesState){
   var percentComplete = 0;
 
   currentWeek += 1;
-  var collectData = currentWeek%4 == 0;
-
-  if(collectData){
-    moduleProgressOverTime[0].push(currentWeek);
-    var  i =1;
-  }
+  moduleProgressOverTime[0].push(currentWeek);
+  var  i =1;
 
   modules.forEach(function(module) {
       totalCost += module.getCost(citiesState);
       modulesProgree = module.getPercentComplete();
 
-      if(collectData){
-        if(moduleProgressOverTime[i][moduleProgressOverTime[i].length -1] < 100)
-          moduleProgressOverTime[i].push(modulesProgree);
-        i += 1;
-      }
+      if(moduleProgressOverTime[i][moduleProgressOverTime[i].length -1] < 100)
+        moduleProgressOverTime[i].push(modulesProgree);
+      i += 1;
 
       percentComplete += modulesProgree;
   });
@@ -265,6 +268,9 @@ function initialiseGame(){
   sidebar.hide();
   modal.hidemodal();
   maps.map=null;
+  modules = [];
+  moduleProgressOverTime = [[]];
+  currentWeek = 0;
 
   ProcessSim.stop();
 

@@ -21,3 +21,46 @@ test('commas get inserted into money numbers',function(t){
 	t.equals(utils.commafy(12345.32),"12,345.32");
 	t.equals(utils.commafy(-123456),"-123,456");
 });
+
+test('contains works',function(t){
+	t.plan(7);
+
+	var teams = ["San Francisco","Dublin","New York"];
+	t.equals(utils.contains(teams,"Dublin"),true);
+	t.equals(utils.contains(teams,"London"),false);
+	t.equals(utils.contains(teams,'Dublin'),true);
+	t.equals(utils.contains(teams,'London'),false);
+	t.equals(utils.contains([],null),false);
+	t.equals(utils.contains([],[]),false);
+	t.equals(utils.contains([],'London'),false);
+});
+test('getActiveCities works',function(t){
+	t.plan(2);
+
+	var teams = {
+		"AI Engine": {
+			"San Francisco": 1
+		},
+		"Real-time Physics": {
+			"Dublin": 1,
+			"New York": 1
+		}
+	};
+	t.deepEqual(utils.getActiveCities(teams),["San Francisco","Dublin","New York"]);
+
+	var teams2 = {
+		"AI Engine": {
+			"San Francisco": 1
+		},
+		"Real-time Physics": {
+			"Dublin": 1,
+			"New York": 1
+		},
+		"UX Design": {
+			"Dublin": 1,
+			"New York": 1
+		}
+	};
+	t.deepEqual(utils.getActiveCities(teams2),["San Francisco","Dublin","New York"]);
+
+});

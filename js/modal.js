@@ -60,7 +60,7 @@ function dialog(a){
 }
 function generateCharts(loc, chartData){
   loc = loc || "gameover";
-  var ctx, chart;
+  var ctx, chart = null;
 
   var data = {
     labels : [],
@@ -68,7 +68,8 @@ function generateCharts(loc, chartData){
   };
 
   data.labels = chartData[0];
-  
+  console.log("chartData");
+  console.log(chartData);
   for(var i = 1;i < chartData.length;i++){
     var obj = {};
     obj.data =  chartData[i];
@@ -123,10 +124,10 @@ function generateCharts(loc, chartData){
     //Function - Fires when the animation is complete
     onAnimationComplete : null
   };
-  if (!chart){
-    ctx = document.getElementById(loc).getContext("2d");
-    chart = new Chart(ctx).Line(data,options);
-  }
+
+  ctx = document.getElementById(loc).getContext("2d");
+  chart = new Chart(ctx).Line(data,options);
+  
   return chart;
 }
 function addChartContainer(s){
@@ -142,14 +143,15 @@ function addChartContainer(s){
 function endGame(time,budget,project, moduleProgressOverTime){
   addChartContainer();
   hidemodal ();
-  console.log(project);
   var revenue = utils.revenue(time,project);
   var html = "<h1>Game Over</h1>";
-  html += '<div id="chartcontainer"> <p id="chart-caption">module completion over time</p></div>';
-  html += '<p>The Project took  '+(time)+' weeks</p>';
-  html += '<p>You have €'+utils.commafy(budget)+' money in the bank</p>';
-  html += '<p>Your revenue is €'+utils.commafy(revenue)+'</p>';
-  html += '<p>Your earnings are: €'+utils.commafy(revenue+budget)+'</p>';
+  html += '<div id="chartcontainer"> <p id="chart-caption">% module completed per week</p></div>';
+  html += '<p>The Project deadline was '+project.duration+' weeks and took '+time+' weeks</p>';
+  html += '<p>You have €'+utils.commafy(budget,0)+' in the bank</p>';
+  html += '<p>You spent €'+utils.commafy(project.budget-budget,0)+'</p>';
+  html += '<p>Your revenue is €'+utils.commafy(revenue,0)+'</p>';
+  html += '<p>Expected revenue was €'+utils.commafy(project.revenue.amount*project.revenue.months,0)+'</p>';
+  html += '<p>Your earnings are: €'+utils.commafy(revenue+budget,0)+'</p>';
   html += '<div class="modal-options">';
   html += '<button class="btn-action" onclick="pt.initialiseGame()"> Quit to Menu </button>';
   html += '</div>';
