@@ -311,15 +311,20 @@ button:active {
 }
 .jvectormap-zoomin {
     font-size: 0.25em;
-    top: 0em;
+    bottom: 2em;
 }
 .jvectormap-zoomout {
     font-size: 0.25em;
-    top: 2em;
+    bottom: 0em;
 }
 .jvectormap-region {
-    fill: @cyan ;
-    stroke: @base03;
+    fill: @base03;
+    stroke: @cyan;
+    stroke-width: 0.5;
+}
+.jvectormap-region:hover {
+    fill: @base03;
+    stroke: @magenta;
     stroke-width: 0.5;
 }
 /*
@@ -333,10 +338,10 @@ button:active {
 }
 
 .jvectormap-marker:hover{
-    fill: @violet;
+    fill: @magenta;
 }
 .jvectormap-marker:active{
-    fill: @magenta;
+    fill: @cyan;
 }
 .jvectormap-marker[state="1"]{
      fill: @red;
