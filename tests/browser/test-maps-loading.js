@@ -1,11 +1,13 @@
 var test = require('tape');
 var app  = require('../../js/index.js');
+var $ = require('jquery');
+var maps = require('../../js/maps.js');
 
 
 test('localStorage is enabled', function (t) {
   t.plan(2);
   t.doesNotThrow(function () {
-	window.localStorage.setItem(
+    window.localStorage.setItem(
             'test-local-storage',
             "hi");
   });
@@ -29,4 +31,35 @@ test('browser supports forEach', function(t){
     });
   });
   t.deepEqual(a,["A","B","C"]);
+});
+
+test('map build works', function(t){
+    t.plan(2);
+
+    $("<div>", {
+        id: "map"
+    }).appendTo("body");
+    
+    t.doesNotThrow(function(){
+        maps.buildmap();
+    });
+   
+    var map = $('.jvectormap-container');
+    t.ok(map);
+
+    $("#map").remove();
+});
+
+test('map resize works', function(t){
+    t.plan(1);
+
+    $("<div>", {
+        id: "map"
+    }).appendTo("body");
+    
+    t.doesNotThrow(function(){
+        maps.resizemap(95);
+    });
+
+    $("#map").remove();
 });
