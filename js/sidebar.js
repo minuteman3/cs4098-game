@@ -91,12 +91,18 @@ function setBudgetedWeeks(weekCount){
 
 function setCash(cash){
   $(cashTag).html("$" + utils.commafy(cash));
+  if(cash < 0){
+    $(cashTag).css('color','#dc322f');//solarized @red
+  }
 }
 function setProgress(progress){
   $(progressTag).html(progress.toFixed(0) + "%");
 }
 function setWeeks(weeks){
   $(weeksTag).html(weeks.toFixed(0) + " weeks");
+  if(weeks < 0){
+    $(weeksTag).css('color','#dc322f');//solarized @red
+  }
 }
 /*
 *  Game Module properties 
