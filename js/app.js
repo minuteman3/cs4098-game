@@ -63,7 +63,7 @@ function onlabelShow(e,label,code){
       '<strong>'+              hoverCity.name         +'</strong><br/>'+
       'Morale: '+          hoverCity.morale       +'%<br/>'+
       'Productivity: '+    hoverCity.productivity +'%<br/>'+
-      'Cost per cycle: $'+ hoverCity.costPerCycle +'<br/>'
+      'Cost per week: $'+ hoverCity.costPerCycle +'<br/>'
     );
   }else if(curGameState === GameStates.PROGRESS){
     // fixoverlap code is broken
