@@ -38,12 +38,13 @@ function regionLabelShow(e,label,code){
 
 function fixOverLap(code,label){
     // check to make sure the label doesnt overlap with the sidebar
+    var newPos = label.width() + 25;
     if(cities.cities[code].coords[1] < -100){
-      var newPos = label.width() + 25;
       //change the margin-left property as left is assigned after this function is called
       label.css('margin-left',newPos);
     }else{
-      label.css('margin-left',"");
+      // fix glitching on edge of label
+      label.css('margin-left',-10);
     }
 }
 
