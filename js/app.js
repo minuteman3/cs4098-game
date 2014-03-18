@@ -220,22 +220,16 @@ function simulationUpdate(modules,citiesState){
   var percentComplete = 0;
 
   currentWeek += 1;
-  var collectData = currentWeek%4 === 0;
-
-  if(collectData){
-    moduleProgressOverTime[0].push(currentWeek);
-    var  i =1;
-  }
+  moduleProgressOverTime[0].push(currentWeek);
+  var  i =1;
 
   modules.forEach(function(module) {
       totalCost += module.getCost(citiesState);
       modulesProgree = module.getPercentComplete();
 
-      if(collectData){
-        if(moduleProgressOverTime[i][moduleProgressOverTime[i].length -1] < 100)
-          moduleProgressOverTime[i].push(modulesProgree);
-        i += 1;
-      }
+      if(moduleProgressOverTime[i][moduleProgressOverTime[i].length -1] < 100)
+        moduleProgressOverTime[i].push(modulesProgree);
+      i += 1;
 
       percentComplete += modulesProgree;
   });
