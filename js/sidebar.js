@@ -73,7 +73,7 @@ function setButtonText(text){
 *   General Game properties
 */
 function setBudget(budget){
-  $(budgetTag).html("$" + utils.commafy(budget));
+  $(budgetTag).html("$ " + utils.commafy(budget));
 }
 
 function setDueDate(weeks){
@@ -81,11 +81,11 @@ function setDueDate(weeks){
 }
 
 function setPayroll(cost){
-	$(payrollTag).html("$" + utils.commafy(cost));
+	$(payrollTag).html("$ " + utils.commafy(cost));
 }
 
 function setBudgetedWeeks(weekCount){
-	$(budgetWeeksTag).html(weekCount.toFixed(1) + " weeks");
+	$(budgetWeeksTag).html(weekCount.toFixed(0) + " weeks");
 }
 
 
