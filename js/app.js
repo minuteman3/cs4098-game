@@ -13,11 +13,11 @@ var projects = proj.projects;
 var selectedProject;
 
 var teamsSelected = {};
-var totalPayRoll = 0;
 var selectedTeams = {};
 
 var weeksTilDueDate = 0;
 var projectBudget = 0;
+var totalPayRoll = 0;
 
 var isMakerSelectable = true;
 
@@ -80,7 +80,9 @@ function selectTeamsForModule () {
 
   // ignore the select teams button when no teams have been selected
   payroll = calculatePayrollforMod();
-  if(payroll===0)return;
+  if(payroll===0){
+    return;
+  }
 
   // move along the markers
   Object.keys(teamsSelected).forEach(function(key) {
@@ -98,8 +100,9 @@ function selectTeamsForModule () {
   if (index >= selectedProject.modules.length -1 ) {
     setUpProgressSidebar();
   } else {
-    if(index == selectedProject.modules.length -2)
+    if(index == selectedProject.modules.length -2){
       sidebar.setButtonText("Start");
+    }
     sidebar.setListItemActive( index+1);
   }
 }
