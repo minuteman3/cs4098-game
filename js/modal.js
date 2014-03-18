@@ -142,7 +142,6 @@ function addChartContainer(s){
 function endGame(time,budget,project, moduleProgressOverTime){
   addChartContainer();
   hidemodal ();
-  console.log(project);
   var revenue = utils.revenue(time,project);
   var html = "<h1>Game Over</h1>";
   html += '<div id="chartcontainer"> <p id="chart-caption">module completion over time</p></div>';

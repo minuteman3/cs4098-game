@@ -24,7 +24,7 @@ function timerLoop(){
     }
 }
 
-function start(_modules,_cities, _updateFunc, _doneFunc){
+function start(_modules, _cities, _updateFunc, _doneFunc){
     modules = _modules;
     cities = _cities;
     updateFunc = _updateFunc;

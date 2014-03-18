@@ -195,10 +195,12 @@ function startLoop(){
 
   var citiesState = {};
   cities.cities.forEach(function(c){
-    if(utils.contains(active,c)){
+    // here we only create cities where we have selected teams
+    if(utils.contains(active,c.name)){
       citiesState[c.name] = new City(c.name,c.costPerCycle,c.productivity);
     }
   });
+  console.log(citiesState);
   ProcessSim.start(modules,citiesState,simulationUpdate,simulationComplete);
 }
 
@@ -206,7 +208,11 @@ function simulationUpdate(modules,citiesState){
   var states = [];
 
   cities.cities.forEach(function(c){
-      states.push(citiesState[c.name].status());
+      if(utils.contains(citiesState,c)){
+        states.push(citiesState[c.name].status());
+      } else {
+        states.push(0);
+      }
   });
   maps.runState(states);
 
