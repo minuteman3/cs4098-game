@@ -208,7 +208,7 @@ function simulationUpdate(modules,citiesState){
   var states = [];
 
   cities.cities.forEach(function(c){
-      if(utils.contains(citiesState,c)){
+      if(utils.contains(Object.keys(citiesState),c.name)){
         states.push(citiesState[c.name].status());
       } else {
         states.push(0);
