@@ -164,13 +164,12 @@ function startGame(a){
   sidebar.setButtonText(selectedProject.modules.length==1?"Start":"Select Teams");
   sidebar.setBudget(selectedProject.budget);
   sidebar.setDueDate(selectedProject.duration);
-  sidebar.setList(selectedProject.modules.map(function(a){return a.name;}));
+  sidebar.setList(selectedProject.modules.map(function(a){return a.name+
+    "<br/><span class='modulecost'>Cost "+(100*a.cost/selectedProject.cost).toFixed(0)+"%</span>";}));
   sidebar.setListItemActive(0);
 
   modal.dialog(selectedProject.dialog);
-
-
-  moduleProgressOverTime = selectedProject.modules.map(function(){return [0]});
+  moduleProgressOverTime = selectedProject.modules.map(function(){return [0];});
   moduleProgressOverTime.push([0]);
 }
 
