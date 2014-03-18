@@ -58,7 +58,8 @@
     "files": [
       "tests/browser/test-maps-loading.js",
       "tests/browser/test-charts-loading.js",
-      "tests/browser/test-modal.js"
+      "tests/browser/test-modal.js",
+      "tests/browser/test-sidebar.js"
       ],
     "browsers": [
       "ie/6..latest",
