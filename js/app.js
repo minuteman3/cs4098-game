@@ -191,13 +191,17 @@ function startLoop(){
       )
     );
   });
+  var active = utils.getActiveCities(selectedTeams);
 
   var citiesState = {};
   cities.cities.forEach(function(c){
-    citiesState[c.name] = new City(c.name,c.costPerCycle,c.productivity);
+    if(utils.contains(active,c)){
+      citiesState[c.name] = new City(c.name,c.costPerCycle,c.productivity);
+    }
   });
   ProcessSim.start(modules,citiesState,simulationUpdate,simulationComplete);
 }
+
 function simulationUpdate(modules,citiesState){
   var states = [];
 
@@ -210,7 +214,7 @@ function simulationUpdate(modules,citiesState){
   var percentComplete = 0;
 
   currentWeek += 1;
-  var collectData = currentWeek%4 == 0;
+  var collectData = currentWeek%4 === 0;
 
   if(collectData){
     moduleProgressOverTime[0].push(currentWeek);
