@@ -268,6 +268,9 @@ function initialiseGame(){
   sidebar.hide();
   modal.hidemodal();
   maps.map=null;
+  modules = [];
+  moduleProgressOverTime = [[]];
+  currentWeek = 0;
 
   ProcessSim.stop();
 

@@ -1,6 +1,6 @@
 function revenue(time, project) {
   var base = project.revenue.amount * project.revenue.months,
-      wobble = time;
+      wobble = time/project.duration;
   // console.log("base revenue");
   // console.log(base);
   // console.log("time remaining");
@@ -8,10 +8,12 @@ function revenue(time, project) {
   // console.log("revenue ± time remaining");
   // console.log(base + (project.revenue.amount * wobble));
 
-  return base + (project.revenue.amount * wobble);
+  return (base + (project.revenue.amount * wobble));
 }
 
-function commafy(x) {
+function commafy(x,y) {
+  y = y || 0;
+  x = x.toFixed(y);
   var parts = x.toString().split(".");
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return parts.join(".");
