@@ -61,9 +61,11 @@ function dialog(a){
 
 function generateCharts(loc, chartData, project, time){
   loc = loc || "gameover";
-  console.log("chartData pre-prune");
-  console.log(chartData);
+  // console.log("chartData pre-prune");
+  // console.log(chartData);
   chartData = utils.pruneChartData(chartData, project, time);
+  // console.log("chartData post-prune");
+  // console.log(chartData);
   var ctx, chart = null;
 
   var data = {
@@ -72,8 +74,6 @@ function generateCharts(loc, chartData, project, time){
   };
 
   data.labels = chartData[0];
-  console.log("chartData post-prune");
-  console.log(chartData);
   for(var i = 1;i < chartData.length;i++){
     var obj = {};
     obj.data =  chartData[i];
@@ -134,6 +134,7 @@ function generateCharts(loc, chartData, project, time){
   
   return chart;
 }
+
 function addChartContainer(s){
   if($('#gameover')){
     $('#gameover').remove();
