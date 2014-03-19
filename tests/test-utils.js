@@ -62,5 +62,25 @@ test('getActiveCities works',function(t){
 		}
 	};
 	t.deepEqual(utils.getActiveCities(teams2),["San Francisco","Dublin","New York"]);
+});
 
+test('pruneChartData works', function(t){
+    t.plan(2);
+    var d,p,l,resultShouldBe;
+
+    d = [[1,2,3],[4,5,6]];
+    p = {"duration":3};
+    l = 3;
+    resultShouldBe = d;
+    t.deepEqual(utils.pruneChartData(d,p,l), resultShouldBe);
+    d = [
+		[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],
+		[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],
+		[1,2,3,4,5,6,7,8],
+		[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+    ];
+    p = {"duration":5};
+    l = 24;
+    resultShouldBe = [[1,6,12,18,24],[1,6,12,18,24],[1,6,8],[1,6,12,15]];
+    t.deepEqual(utils.pruneChartData(d,p,l), resultShouldBe);
 });

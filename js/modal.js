@@ -58,8 +58,12 @@ function dialog(a){
 
   showmodal(html, true);
 }
-function generateCharts(loc, chartData){
+
+function generateCharts(loc, chartData, project, time){
   loc = loc || "gameover";
+  console.log("chartData pre-prune");
+  console.log(chartData);
+  chartData = utils.pruneChartData(chartData, project, time);
   var ctx, chart = null;
 
   var data = {
@@ -68,7 +72,7 @@ function generateCharts(loc, chartData){
   };
 
   data.labels = chartData[0];
-  console.log("chartData");
+  console.log("chartData post-prune");
   console.log(chartData);
   for(var i = 1;i < chartData.length;i++){
     var obj = {};
@@ -159,7 +163,7 @@ function endGame(time,budget,project, moduleProgressOverTime){
   showmodal(html, false);
 
   $('#gameover').empty();
-  generateCharts("gameover",moduleProgressOverTime);
+  generateCharts("gameover",moduleProgressOverTime, project, time);
   $('#gameover').detach().prependTo('#chartcontainer');
   $('#gameover').show();
 }

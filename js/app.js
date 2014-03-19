@@ -108,7 +108,6 @@ function selectTeamsForModule () {
 }
 
 function setUpProgressSidebar(){
-  //console.log(selectedTeams);
   curGameState = GameStates.PROGRESS;
   
   sidebar.setList([]);
@@ -202,7 +201,6 @@ function startLoop(){
       citiesState[c.name] = new City(c.name,c.costPerCycle,c.productivity);
     }
   });
-  console.log(citiesState);
   ProcessSim.start(modules,citiesState,simulationUpdate,simulationComplete);
 }
 
@@ -255,8 +253,8 @@ function simulationComplete (modules) {
   }
 }
 function endGame(){
-  modal.endGame(currentWeek, projectBudget, selectedProject, moduleProgressOverTime);
   ProcessSim.stop();
+  modal.endGame(currentWeek, projectBudget, selectedProject, moduleProgressOverTime);
 }
 
 function deleteDB(){
