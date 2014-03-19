@@ -5,7 +5,7 @@ var Module = require("../js/Module.js");
 var City = require("../js/city.js");
 
 test("process simulator works", function(t) {
-	t.plan(2);
+	t.plan(4);
 	var citiesState={};
 	var modules = [];
 	t.doesNotThrow(function(){
@@ -31,7 +31,12 @@ test("process simulator works", function(t) {
 		modules.forEach(function(module) {
 			done = done && module.done();
 		});
-
+		t.doesNotThrow(function(){
+			ProcessSim.pause();
+		});
+		t.doesNotThrow(function(){
+			ProcessSim.unpause();
+		});
 		t.ok(done, 'all modules done');
 		ProcessSim.stop();
 	});
