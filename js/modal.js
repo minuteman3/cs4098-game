@@ -61,6 +61,8 @@ function dialog(a){
 
 function generateCharts(loc, chartData, project, time){
   loc = loc || "gameover";
+  project = project || {"duration":chartData[0].length};
+  time = time || project.duration;
   // console.log("chartData pre-prune");
   // console.log(chartData);
   chartData = utils.pruneChartData(chartData, project, time);
