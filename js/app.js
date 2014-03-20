@@ -85,7 +85,8 @@ function selectModule(cityName,nextIndex) {
  
   var index = sidebar.getActiveListItem();
 
-  if(teamsSelected){
+
+  if(Object.keys(teamsSelected).length !== 0){
     selectedTeams[selectedProject.modules[index].name] = teamsSelected;
   }
 
@@ -104,7 +105,7 @@ function startSimulation(){
   var curModuleName = selectedProject.modules[curModuleIndex].name;
   selectModule(curModuleName,curModuleIndex);
 
-  if(Object.keys(selectedTeams).length != selectedProject.modules.length){
+  if(Object.keys(selectedTeams).length !== selectedProject.modules.length){
     modal.dialog("There needs to be at least one team for every module");
     return;
   }
