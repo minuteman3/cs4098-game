@@ -34,7 +34,7 @@ function start(_modules, _cities, _updateFunc, _doneFunc){
 }
 
 function unpause(){
-    if (paused) {
+    if (paused && modules && cities && updateFunc && doneFunc) {
         paused = false;
         intervalID = setInterval(timerLoop, config.TIMER_DURATION);
     }
