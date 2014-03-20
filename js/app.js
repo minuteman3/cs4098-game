@@ -16,10 +16,10 @@ var teamsSelected = {};
 var totalPayRoll = 0;
 var selectedTeams = {};
 
+
 var weeksTilDueDate = 0;
 var projectBudget = 0;
 
-var isMakerSelectable = true;
 
 var modules = [];
 var moduleProgressOverTime = [[]];
@@ -32,27 +32,9 @@ var GameStates = {
 };
 var curGameState = GameStates.START;
 
-function teamSelected(e,  code,  isSelected,  selectedMarkers) {
-  if(!isMakerSelectable)return;
- 
-  if(curGameState === GameStates.PROGRESS){
-    ProcessSim.pause();
-    modal.dialog("This team is doing very well");
-    sidebar.setCash(projectBudget);
-    projectBudget -= 500;
-  } else {
-    //update general information
-    teamsSelected[code] = (teamsSelected[code] || 0)+1;
-    totalPayRoll += cities.cities[code].costPerCycle;
 
-    sidebar.setPayroll(totalPayRoll);
-    sidebar.setBudgetedWeeks(selectedProject.budget/totalPayRoll);
 
-    // update information about this module
-    sidebar.setPayrollforModule(calculatePayrollforMod());
-    sidebar.setLocations(teamsSelected,code);
-  }
-}
+
 
 function onlabelShow(e,label,code){
   label.css('visibility','visible');
@@ -74,37 +56,60 @@ function onlabelShow(e,label,code){
   maps.fixOverLap(code,label);
 }
 
-function selectTeamsForModule () {
-  var moduleDevelopes = {};
-  var index = sidebar.getActiveListItem();
 
-  // ignore the select teams button when no teams have been selected
-  payroll = calculatePayrollforMod();
-  if(payroll===0)return;
+function selectCity(e,  code,  isSelected,  selectedMarkers) {
 
-  // move along the markers
-  Object.keys(teamsSelected).forEach(function(key) {
-    moduleDevelopes[cities.cities[key].name] = teamsSelected[key];
-  });
-
-  selectedTeams[selectedProject.modules[index].name] = moduleDevelopes;
-
-  // reset everything for the next module
-  maps.clearMapMarkers();
-  teamsSelected = {};
-  sidebar.setPayrollforModule(0);
-  sidebar.setLocations([]);
-
-  if (index >= selectedProject.modules.length -1 ) {
-    setUpProgressSidebar();
+  if(curGameState === GameStates.PROGRESS){
+    ProcessSim.pause();
+    modal.dialog("This team is doing very well");
+    sidebar.setCash(projectBudget);
+    projectBudget -= 500;
   } else {
-    if(index == selectedProject.modules.length -2)
-      sidebar.setButtonText("Start");
-    sidebar.setListItemActive( index+1);
+    //update general information
+    teamsSelected[code] = (teamsSelected[code] || 0)+1;
+    totalPayRoll += cities.cities[code].costPerCycle;
+
+    sidebar.setPayroll(totalPayRoll);
+    sidebar.setBudgetedWeeks(selectedProject.budget/totalPayRoll);
+
+    // update information about this module
+    sidebar.setPayrollforModule(calculatePayrollforMod(teamsSelected));
+    sidebar.setLocations(teamsSelected,code);
+
   }
 }
 
-function setUpProgressSidebar(){
+
+
+function selectModule(cityName,nextIndex) {
+ 
+  var index = sidebar.getActiveListItem();
+
+  if(teamsSelected){
+    selectedTeams[selectedProject.modules[index].name] = teamsSelected;
+  }
+
+  teamsSelected = selectedTeams[cityName]?selectedTeams[cityName]:{};
+  var payroll = calculatePayrollforMod(teamsSelected);
+  
+  sidebar.setPayrollforModule(payroll);
+  sidebar.setLocations(teamsSelected);
+  sidebar.setListItemActive( nextIndex);
+
+}
+
+function startSimulation(){
+
+  var curModuleIndex = sidebar.getActiveListItem();
+  var curModuleName = selectedProject.modules[curModuleIndex].name;
+  selectModule(curModuleName,curModuleIndex);
+
+  if(Object.keys(selectedTeams).length != selectedProject.modules.length){
+    modal.dialog("There needs to be at least one team for every module");
+    return;
+  }
+
+
   //console.log(selectedTeams);
   curGameState = GameStates.PROGRESS;
   
@@ -117,10 +122,10 @@ function setUpProgressSidebar(){
   startLoop();
 }
 
-function calculatePayrollforMod(){
+function calculatePayrollforMod(teams){
   payroll = 0;
-  for(var key in teamsSelected){
-    payroll += cities.cities[key].costPerCycle *  teamsSelected[key];
+  for(var key in teams){
+    payroll += cities.cities[key].costPerCycle *  teams[key];
   }
   return payroll;
 }
@@ -161,7 +166,7 @@ function startGame(a){
   curGameState = GameStates.SELECT_TEAMS;
 
   sidebar.show();
-  sidebar.setButtonText(selectedProject.modules.length==1?"Start":"Select Teams");
+  sidebar.setButtonText("Start");
   sidebar.setBudget(selectedProject.budget);
   sidebar.setDueDate(selectedProject.duration);
   sidebar.setList(selectedProject.modules.map(function(a){return a.name;}));
@@ -185,9 +190,16 @@ function startLoop(){
 
   modules = [];
   selectedProject.modules.forEach(function(i){
+     var moduleDevelopes = {};
+       // move along the markers
+    Object.keys(selectedTeams[i.name]).forEach(function(key) {
+      moduleDevelopes[cities.cities[key].name] = selectedTeams[i.name][key];
+    });
+
+
     modules.push(
       new Module( 
-        selectedTeams[i.name],i.cost
+        moduleDevelopes,i.cost
       )
     );
   });
@@ -261,8 +273,15 @@ function deleteDB(){
 }
 
 function initialiseGame(){
-  sidebar.init();
+  sidebar.init(function(name,index){
+    console.log(name);
+    console.log(index);
+    selectModule(name,index);
+  });
   sidebar.hide();
+
+
+
   modal.hidemodal();
   maps.map=null;
 
@@ -309,8 +328,12 @@ $( document ).ready( function() {
   //Fire it when the page first loads:
   setBodyScale();
 
-  $('#map').bind('markerSelected.jvectormap', teamSelected);
+  $('#map').bind('markerSelected.jvectormap', selectCity);
   $('#map').bind('markerLabelShow.jvectormap', onlabelShow);
+
+
+
+
 
   ProcessSim.stop();
 });
@@ -322,7 +345,7 @@ module.exports = {
   startGame: startGame,                      // goes into "game mode", after placing teams
   endGame: endGame,                          // displays end-game stats
 
-  selectTeams: selectTeamsForModule,
+  startSimulation: startSimulation,
   projectdescription: projectdescription,
   // Modal
   hidemodal: modal.hidemodal,                // hides a modal window

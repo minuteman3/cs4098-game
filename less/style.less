@@ -150,11 +150,17 @@ html a:hover {
 
 .nav li {
     background-color:transparent;
+    cursor: pointer; 
     margin-right: -1em;
     display: block;
     padding-left: 0.5em;
     position: relative;
     text-shadow: none;
+}
+
+.nav li:hover{
+    background-color: @selectedsidebar;
+    color: @base3;
 }
 
 .nav li.inactive{
@@ -164,7 +170,7 @@ html a:hover {
 
 
 .nav li.active {
-    background-color: @selectedsidebar;
+    background-color: desaturate(@selectedsidebar,20%);
     background-size:100% 100%;
     background-repeat:no-repeat;
     color: @base3;
