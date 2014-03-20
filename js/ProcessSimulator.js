@@ -24,19 +24,19 @@ function timerLoop(){
     }
 }
 
-function start(_modules,_cities, _updateFunc, _doneFunc){
+function start(_modules, _cities, _updateFunc, _doneFunc){
     modules = _modules;
     cities = _cities;
     updateFunc = _updateFunc;
     doneFunc = _doneFunc;
-    intervalID = setInterval(timerLoop, config.TIMER_DURATION);
+    intervalID = setInterval(timerLoop, config.timerDuration);
     return intervalID;
 }
 
 function unpause(){
-    if (paused) {
+    if (paused && modules && cities && updateFunc && doneFunc) {
         paused = false;
-        intervalID = setInterval(timerLoop, config.TIMER_DURATION);
+        intervalID = setInterval(timerLoop, config.timerDuration);
     }
 }
 
@@ -53,6 +53,10 @@ function stop(){
     clearInterval(intervalID);
     modules = null;
     cities = null;
+    doneFunc = null;
+    updateFunc = null;
+    intervalID = null;
+    paused = false;
 }
 
 module.exports = {

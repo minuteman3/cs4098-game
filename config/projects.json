@@ -3,6 +3,7 @@
   {
     "name": "R&D Project",
     "budget": 10000,
+    "cost": 800,
     "duration": 8,
     "revenue": {
       "months": 6,
@@ -22,6 +23,7 @@
   },{
     "name": "RPG Game",
     "budget": 1000000,
+    "cost": 7125,
     "duration": 16,
     "revenue": {
       "months": 8,
@@ -53,6 +55,7 @@
   },,{
     "name": "Software Simulator",
     "budget": 1000000,
+    "cost": 14750,
     "duration": 24,
     "revenue": {
       "months": 36 ,

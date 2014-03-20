@@ -25,6 +25,7 @@
 @green:    #859900;
 @nonselectedsidebar: @base3;
 @selectedsidebar: @cyan;
+@accent: @magenta;
 
 .box-shadow(@style, @c) when (iscolor(@c)) {
   -webkit-box-shadow: @style @c;
@@ -155,6 +156,7 @@ html a:hover {
     padding-left: 0.5em;
     position: relative;
     text-shadow: none;
+    line-height: 1em;
 }
 
 .nav li.inactive{
@@ -174,6 +176,10 @@ html a:hover {
     text-shadow: 0 -0.1em 0 rgba(0, 0, 0, 0.4);
 }
 
+.modulecost{
+    font-size: 0.6em;
+    margin-left: 1em;
+}
 #locations{
     // list-style-type: none;
     // margin-left: -0.5em;
@@ -205,8 +211,21 @@ html a:hover {
     margin-left: 0.75em;
     margin-bottom: 0.5em;
 }
+#budget{
+    margin-left: 0.5em;
+}
+#totalPayroll{
+    margin-left: 0.5em;
+}
+#duedate{
+    margin-left: 0.5em;
+}
+#budgetedWeeks{
+    margin-left: 0.5em;
+}
+
 .mixi-frames{
-from {background: @magenta;}
+from {background: @accent;}
 to {background: @base3;}
 }
 @-webkit-keyframes myfirst {.mixi-frames;}
@@ -290,8 +309,9 @@ button:active {
 
 .jvectormap-label {
     .border-radius(0.3em);
+    border: 1px solid @accent;
     position: absolute;
-    background: @base3;
+    background: @base03;
     font-size:0.25em;
     color: @yellow;
     display: none;
@@ -299,7 +319,7 @@ button:active {
 }
 
 .jvectormap-zoomin,.jvectormap-zoomout {
-    color: @base3;
+    color: @accent;
     .border-radius(0.5em);
     position: absolute;
     left: 0.3em;
@@ -311,15 +331,20 @@ button:active {
 }
 .jvectormap-zoomin {
     font-size: 0.25em;
-    top: 0em;
+    bottom: 2em;
 }
 .jvectormap-zoomout {
     font-size: 0.25em;
-    top: 2em;
+    bottom: 0em;
 }
 .jvectormap-region {
-    fill: @cyan ;
-    stroke: @base03;
+    fill: @base03;
+    stroke: @cyan;
+    stroke-width: 0.5;
+}
+.jvectormap-region:hover {
+    fill: @base03;
+    stroke: @accent;
     stroke-width: 0.5;
 }
 /*
@@ -333,10 +358,10 @@ button:active {
 }
 
 .jvectormap-marker:hover{
-    fill: @violet;
+    fill: @accent;
 }
 .jvectormap-marker:active{
-    fill: @magenta;
+    fill: @cyan;
 }
 .jvectormap-marker[state="1"]{
      fill: @red;

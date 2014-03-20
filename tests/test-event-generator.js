@@ -9,10 +9,10 @@ test("the inference engine is working",function(t){
 
 	// Two variables with 2 options
 	var vars = [2,2];
-	// fire if v1==0 && v2==1;
-	var rule1 = [[0],[1]];
-	// fire if v1==1 && ( v2==0 || v2 == 1);
-	var rule2 = [[1],[0,1]];
+	// fire if v1==1 && v2==2;
+	var rule1 = [[1],[2]];
+	// fire if v1==2 && ( v2==1 || v2 == 2);
+	var rule2 = [[2],[1,2]];
 	var rules = [rule1,rule2];
 
 	var engine  = null; 
@@ -23,7 +23,7 @@ test("the inference engine is working",function(t){
 	
 	var res = null;
 	t.doesNotThrow(function(){
-		res = engine.getRulesToFire([[0],[1]]).toString();
+		res = engine.getRulesToFire([[1],[2]]).toString();
 	});
 
 	t.equal(res.length, 2,"returns back bit-array of the right length");
@@ -50,8 +50,8 @@ test("the fuzzifier is working",function(t){
 	t.doesNotThrow(function(){
 		val = fuzzifier.getMembershipsValues([4,3]);
 	});
-	t.deepEqual(val,[[1],[0.5,0.25]]);
-	t.deepEqual(fuzzifier.getMembershipsValues([4,9]),[[1],[0,0.25]]);
+	t.deepEqual(val,[[1,1],[1,0.5,0.25]]);
+	t.deepEqual(fuzzifier.getMembershipsValues([4,9]),[[1,1],[1,0,0.25]]);
 });
 
 test("the fuzzy engine is working",function(t){
@@ -60,9 +60,9 @@ test("the fuzzy engine is working",function(t){
 
 	t.doesNotThrow(function(){
 		var rules = [
-				[[2,0]  ,  [0] ],
-				[[1,0]  ,  [0] ],
-				[[0,2]  ,  [0] ] ];
+				[[1,3]  ,  [0] ],
+				[[1,2]  ,  [0] ],
+				[[1,3]  ,  [0] ] ];
 
 		var memberFuncs =[[[10,20,30],[40,50,80],[45,50,90]],[[40,50,80]]];
 
