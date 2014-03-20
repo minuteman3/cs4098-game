@@ -53,6 +53,10 @@ function stop(){
     clearInterval(intervalID);
     modules = null;
     cities = null;
+    doneFunc = null;
+    updateFunc = null;
+    intervalID = null;
+    paused = false;
 }
 
 module.exports = {
