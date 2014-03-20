@@ -6,6 +6,7 @@ var Module     = require('./Module.js');
 var City       = require('./city.js');
 var ProcessSim = require('./ProcessSimulator.js');
 var proj       = require('./../config/projects.json');
+var client     = require('./../config/client-config.json');
 var sidebar    = require('./sidebar.js');
 var utils      = require('./utils.js');
 
@@ -169,8 +170,10 @@ function startGame(a){
   sidebar.setList(selectedProject.modules.map(function(a){return a.name+
     "<br/><span class='modulecost'>Cost "+(100*a.cost/selectedProject.cost).toFixed(0)+"%</span>";}));
   sidebar.setListItemActive(0);
-
-  modal.dialog(selectedProject.dialog);
+  if( localStorage.getItem("firstTimeModals") === null ){
+    modal.dialog(client.information+"<br/>Access this Information at any time from the Options Menu."); //removed information from startup
+    localStorage.setItem("firstTimeModals",1);
+  }
   moduleProgressOverTime = selectedProject.modules.map(function(){return [0];});
   moduleProgressOverTime.push([0]);
 }
@@ -258,7 +261,6 @@ function endGame(){
 }
 
 function deleteDB(){
-  window.localStorage.clear();
   teamsSelected = {};
   selectedTeams = {};
   totalPayRoll  = 0;
@@ -285,7 +287,7 @@ function initialiseGame(){
 function pause(){
   modal.pause();
   ProcessSim.pause();
-  $('#btn-options').toggle();
+  $('#btn-options').show();
 }
 
 $( document ).ready( function() {

@@ -1,6 +1,7 @@
 var $ = require('jquery');
 var Chart = require('../lib/chart.js');
 var utils      = require('./utils.js');
+var client     = require('./../config/client-config.json');
 
 var menu=false;
 var modal=false;
@@ -176,7 +177,7 @@ function pause () {
     var pausemenu = "<h1>Pause</h1>";
     pausemenu += makeChoices([{"name":"Restart","funct":"initialiseGame()"},
                               {"name":"Quit","funct":"endGame()"}],
-                              "Press [esc] to return to the game");
+                              client.information);
     showmodal(pausemenu,true);
   }else if(modal && menu){
     hidemodal();
