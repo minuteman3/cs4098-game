@@ -21,8 +21,8 @@ http.createServer(function (req,res) {
         res.end(fs.readFileSync(path.normalize(config.APP_DIR + "index.html")));
         return;
     }
-}).listen(config.PORT || 8080, function() {
-    var port = config.PORT || 8080;
+}).listen(config.port || 8080, function() {
+    var port = config.port || 8080;
     console.log("Server now running on port %s (i.e. http://localhost:%s)", port, port);
     console.log("CTRL + C to shut down");
 });

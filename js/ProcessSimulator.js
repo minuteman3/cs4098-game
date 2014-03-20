@@ -29,14 +29,14 @@ function start(_modules, _cities, _updateFunc, _doneFunc){
     cities = _cities;
     updateFunc = _updateFunc;
     doneFunc = _doneFunc;
-    intervalID = setInterval(timerLoop, config.TIMER_DURATION);
+    intervalID = setInterval(timerLoop, config.timerDuration);
     return intervalID;
 }
 
 function unpause(){
     if (paused && modules && cities && updateFunc && doneFunc) {
         paused = false;
-        intervalID = setInterval(timerLoop, config.TIMER_DURATION);
+        intervalID = setInterval(timerLoop, config.timerDuration);
     }
 }
 

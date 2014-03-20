@@ -49,6 +49,8 @@ If you experience installation problems, a goof plan is to remove the `node_modu
 * Clickable Maps
     * A world map is loaded from the jvectormap library. It has selectable regions and offers a list of all the regions which have been selected. It is accessible from `index.html` in the root directory.
     * Each zone has a status display, which details the status as a percentage. It is viewable by hovering over an area.
+* Inquiry Interface
+	* Click on a City to get a report on how well it is doing.
 * End of Game Report
 	* Shows Graphs of how you have progressed throughout the game.
     * Compares data from beginning to end of project life-cycle.
@@ -56,6 +58,9 @@ If you experience installation problems, a goof plan is to remove the `node_modu
     * Simulates advancement of modules in individual chunks, scaled by number of developers.
 
 ## Config File Specifications
+
+** Note: All config files are available in the `config` folder.   
+All JSON key's should be in `"lowerCamelCase"`**
 
 ### cities.json
 
@@ -73,20 +78,20 @@ Specifies the cities that can have developers allocated to them during the simul
     }
 ```
 
-* coords is a latitude/longitude pair that describes the position of the city on the in game map.
-* Name is the name of the city to display on tooltips, etc.
-* Productivity represents the number of points of progress a developer at the given site will
+* `coords` is a latitude/longitude pair that describes the position of the city on the in game map.
+* `name` is the name of the city to display on tooltips, etc.
+* `productivity` represents the number of points of progress a developer at the given site will
   accomplish per in game tick.
-* Cost per cycle represents the quantity of cash that will be deducted per in game tick per
+* `cost` per cycle represents the quantity of cash that will be deducted per in game tick per
   developer at this site.
-* Morale is not yet used but will be displayed on the city tooltip when choosing to allocate
+* `morale` is not yet used but will be displayed on the city tooltip when choosing to allocate
   developers to sites.
 
 ### client-config.json
 
 Specifies constants that control client behavior during the simulation.
 
-* TIMER_DURATION: The amount of time in milliseconds between updates in the game.
+* `timerDuration`: The amount of time in milliseconds between updates in the game.
 
 ### projects.json
 
@@ -114,23 +119,23 @@ Specifies projects that can be chosen including modules, costs, etc.
 }
 ```
 
-* Name: Project name displayed on the project selection dialog
-* Budget: The amount of money available in the project
-* Cost: The total cost of all modules in the project (TODO: remove and compute from modules)
-* Duration: Time until project is due
-* Revenue: Named pair of
+* `name`: Project name displayed on the project selection dialog
+* `budget`: The amount of money available in the project
+* `cost`: The total cost of all modules in the project (TODO: remove and compute from modules)
+* `duration`: Time until project is due
+* `revenue`: Named pair of
     * Months: The number of months of revenue added to the end game score of a project completed on time
     * Amount: The amount of revenue per month
-* Modules: A list of named pairs of
+* `modules`: A list of named pairs of
     * Name: The module name to display on in game dialogs
     * Cost: The "productivity cost" required to complete the module
-* Dialog: The text to display on the project selection screen when viewing this project
+* `dialog`: The text to display on the project selection screen when viewing this project
 
 ### server-config.json
 
 Specifies constants that control server behavior.
 
-* PORT: The port to listen for incoming connections on
+* `port`: The port to listen for incoming connections on
 
 
 ## Tests
