@@ -3,6 +3,7 @@ var $ = require('jquery');
 var utils      = require('./utils.js');
 
 var listTag = ".nav";
+var itemsTag = listTag + " li";
 var payrollTag = "#totalPayroll";
 var budgetWeeksTag = "#budgetedWeeks";
 var locationTag = "#locations";
@@ -21,7 +22,9 @@ var weeksTag = "#weeks";
 var progressStateTag = ".progess-state";
 var buttonTag = "#btn-region";
 
-function init(){
+var itemSelectionFunc;
+
+function init(itemSelection){
   showProgressState(false);
   showSelectTeams(true);
   setTitle("Select Teams");
@@ -29,7 +32,10 @@ function init(){
   setBudgetedWeeks(0);
   setPayrollforModule(0);
   setLocations([]);
+
+  itemSelectionFunc = itemSelection;
 }
+
 
 function show(){
     $(sidebarTag).show();
@@ -47,8 +53,21 @@ function setList(elements){
 
 	for(var i =0;i< elements.length;i++)
 	{
-		$(listTag).append($("<li></li>").html(elements[i]));
+    var item = elements[i];
+    var html = item.name + "<br/><span class='modulecost'>Cost "+item.cost.toFixed(0)+"%</span>";
+		$(listTag).append($("<li></li>").html(html).attr("date-name",item.name));
+    
 	}
+  setListListner(itemSelectionFunc);
+}
+
+function setListListner(func){
+  $(itemsTag).click(function(){
+    var name = $(this).attr("date-name");
+    console.log(name);
+    var index = $(this).index("li");
+    func(name,index);
+  });
 }
 
 function getActiveListItem(){
@@ -111,7 +130,7 @@ function setPayrollforModule(cost){
 	$(payrollforModuleTag).html("$" + utils.commafy(cost));
 }
 
-function setLocations(teams,selectedCode){
+function setLocations(teams,selectedCity){
 
   $(locationTag).html("");
 
@@ -121,7 +140,7 @@ function setLocations(teams,selectedCode){
     location.append(city.name);
     location.append($("<div></div>").addClass("teamMultiplier").html("x" +teams[key]));
     
-    if (key === selectedCode) {
+    if (city.name === selectedCity) {
       location.append($("<div></div>").addClass("teamMultiplierFade").html("+1"));
     }
 
@@ -156,5 +175,6 @@ module.exports = {
     show:show,
     hide:hide,
     setButtonText:setButtonText,
-    init:init
+    init:init,
+    setListListner:setListListner,
 };
