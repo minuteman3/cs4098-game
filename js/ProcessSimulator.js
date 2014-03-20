@@ -12,6 +12,7 @@ function timerLoop(){
     var done = true;
 
     modules.forEach(function(module) {
+        
         module.advance(cities);
         done = done && module.done();
     });

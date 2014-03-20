@@ -3,10 +3,11 @@ var City = function(_name,_costPerDeveloper,_baseProductivity){
     this.costPerDeveloper = _costPerDeveloper;
     this.productivity = _baseProductivity;
     this.morale = 100;
-
+    this._status = 0;
 };
 
 City.prototype.progress = function( developerCount){
+	this._status = 3;
     return (this.productivity * developerCount);
 };
 
@@ -17,7 +18,7 @@ City.prototype.cost = function( developerCount){
 
 City.prototype.status = function(){
 	// TODO needs to return a status based on not being ok all the time
-    return 3;
+    return this._status;
 };
 
 module.exports = City;
