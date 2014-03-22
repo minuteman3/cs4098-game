@@ -7,7 +7,7 @@ var City = function(_name,_costPerDeveloper,_baseProductivity){
 };
 
 City.prototype.progress = function( developerCount){
-    return (this.productivity * developerCount);
+    return (this.productivity * developerCount * (this.morale / 100));
 };
 
 City.prototype.cost = function( developerCount){
