@@ -28,8 +28,8 @@ function buildmap (){
 }
 
 function resizemap (s) {
-  s = s || 95;
-  document.getElementById('map').style.height = (document.documentElement.clientHeight * s / 100) + 'px';
+  //s = s || 95;
+  //document.getElementById('map').style.height = (document.documentElement.clientHeight * s / 100) + 'px';
 }
 
 function regionLabelShow(e,label,code){ 
