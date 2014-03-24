@@ -4,6 +4,7 @@
     "name": "R&D Project",
     "budget": 10000,
     "cost": 800,
+    "eventRate": 15,
     "duration": 8,
     "revenue": {
       "months": 6,

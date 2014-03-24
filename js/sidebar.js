@@ -64,7 +64,6 @@ function setList(elements){
 function setListListner(func){
   $(itemsTag).click(function(){
     var name = $(this).attr("date-name");
-    console.log(name);
     var index = $(this).index("li");
     func(name,index);
   });
