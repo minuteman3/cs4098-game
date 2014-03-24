@@ -37,9 +37,8 @@ EventGenerator.prototype.loadDir = function(events)
 };
 
 EventGenerator.prototype.getEvent = function(variables){
-    // 50% chance to return an event
-    if(Math.random() > 0.5) {
-        console.log("> 0.5");
+    // 10% chance to return an event
+    if(Math.random() > 0.9) {
         return this.events[this.engine.run(variables, Math.random())];
     } else {
         return null;

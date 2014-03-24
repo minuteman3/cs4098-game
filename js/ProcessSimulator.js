@@ -22,8 +22,7 @@ function timerLoop(){
     updateFunc(modules,cities);
     
     var ev = gen.getEvent([20, 2000]);
-    if(ev)
-    {
+    if(ev){
         eventFunc(ev);
     }
 

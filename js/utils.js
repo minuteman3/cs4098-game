@@ -48,7 +48,6 @@ function pruneChartData(chartData, project, time){
   if (ratio < 2.25 || time < 20){
     ratio = 1;
   }
-  console.log(ratio);
   d = [];
   for (var i = 0; i < chartData.length; i++) {
     d.push([]);
