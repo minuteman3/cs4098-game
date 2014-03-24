@@ -1,6 +1,6 @@
 {
   "name": "panic-tycoon",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "A game based on software engineering for the Trinity College Dublin 4th year CS4098 Programming Group Project module.",
   "main": "index.js",
   "engines": {

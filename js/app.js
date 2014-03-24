@@ -9,6 +9,7 @@ var proj       = require('./../config/projects.json');
 var client     = require('./../config/client-config.json');
 var sidebar    = require('./sidebar.js');
 var utils      = require('./utils.js');
+var events     = require("../config/events.json");
 
 var projects = proj.projects;
 var selectedProject;
@@ -32,10 +33,6 @@ var GameStates = {
       PROGRESS:2,
 };
 var curGameState = GameStates.START;
-
-
-
-
 
 function onlabelShow(e,label,code){
   label.css('visibility','visible');
@@ -185,8 +182,7 @@ function startGame(a){
   moduleProgressOverTime.push([0]);
 }
 
-function showEvent(ev)
-{
+function showEvent(ev){
     ProcessSim.pause();
     console.dir(ev);
     modal.showEvent(ev);
@@ -208,7 +204,6 @@ function startLoop(){
       moduleDevelopes[cities.cities[key].name] = selectedTeams[i.name][key];
     });
 
-
     modules.push(
       new Module( 
         moduleDevelopes,i.cost
@@ -221,7 +216,7 @@ function startLoop(){
       citiesState[c.name] = new City(c.name,c.costPerCycle,c.productivity);
   });
   ProcessSim.start(modules,citiesState,simulationUpdate,simulationComplete,
-    showEvent,require("../config/events/sample.json").events);
+    showEvent,events);
 }
 
 function simulationUpdate(modules,citiesState){
@@ -254,7 +249,6 @@ function simulationUpdate(modules,citiesState){
 
       percentComplete += modulesProgree;
   });
-
 
   weeksTilDueDate--;
   projectBudget -= totalCost;
@@ -289,8 +283,6 @@ function initialiseGame(){
     selectModule(name,index);
   });
   sidebar.hide();
-
-
 
   modal.hidemodal();
   maps.map=null;
@@ -343,10 +335,6 @@ $( document ).ready( function() {
 
   $('#map').bind('markerSelected.jvectormap', selectCity);
   $('#map').bind('markerLabelShow.jvectormap', onlabelShow);
-
-
-
-
 
   ProcessSim.stop();
 });
