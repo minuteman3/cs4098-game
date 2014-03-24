@@ -218,8 +218,9 @@ function startLoop(){
 
   var eventRate = selectedProject.eventRate || client.eventRate;
 
+
   ProcessSim.start(modules,citiesState,simulationUpdate,simulationComplete,
-    showEvent,events);
+    showEvent,events,eventRate);
 }
 
 function simulationUpdate(modules,citiesState){
