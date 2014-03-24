@@ -184,7 +184,7 @@ function startGame(a){
 
 function showEvent(ev){
     ProcessSim.pause();
-    modal.showEvent(ev);
+    modal.showEvent(ev,currentWeek);
 }
 
 function startLoop(){
@@ -309,7 +309,14 @@ function pause(){
 }
 
 function evt(actionNumber){
+  modal.setEventAction(actionNumber);
   var ev = modal.getEvents();
+  var cev = ev[ev.length-1];
+  // do action
+  cev.actions[actionNumber].effects.forEach(function(eff){
+    console.log(eff);
+  });
+
 }
 
 $( document ).ready( function() {

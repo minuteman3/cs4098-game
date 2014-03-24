@@ -61,12 +61,17 @@ function dialog(a){
   showmodal(html, true);
 }
 
+function setEventAction(num){
+  events[events.length-1].mitigation = events[events.length-1].actions[num];
+}
+
 function getEvents(){
   return events;
 }
 
-function showEvent(ev){
+function showEvent(ev,currentWeek){
   ev.message.replace("$site", "val");
+  ev.week = currentWeek;
   events.push(ev);
   var html = "<h1>Information</h1><p>";
   html +=  '<p>' + ev.message;
@@ -218,6 +223,8 @@ module.exports = {
     generateCharts: generateCharts,
     addChartContainer: addChartContainer,
     dialog: dialog,
+    //events
+    setEventAction: setEventAction,
     getEvents: getEvents,
     showEvent: showEvent
 };
