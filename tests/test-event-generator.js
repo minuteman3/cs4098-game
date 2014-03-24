@@ -3,8 +3,9 @@ var FuzzyEngine = require("../js/EventGenerator/fuzzyEngine.js");
 var InferenceEngine = require("../js/EventGenerator/inferenceEngine.js");
 var Fuzzifier = require("../js/EventGenerator/fuzzifier.js");
 var EventGenerator = require("../js/EventGenerator/EventGenerator.js");
+var events = require("../config/events.json");
 
-test("the inference engine is working",function(t){
+test("InferenceEngine is working",function(t){
 	t.plan(4);
 
 	// Two variables with 2 options
@@ -32,7 +33,7 @@ test("the inference engine is working",function(t){
 
 }); 
 
-test("the fuzzifier is working",function(t){
+test("Fuzzifier is working",function(t){
 	t.plan(4);
 
 	// membership values with two variables with v1 having one option
@@ -86,7 +87,7 @@ test("Event generator works", function(t){
     var gen = null;
     
     t.doesNotThrow(function() {
-        gen = new EventGenerator(require("../config/events/sample.json").events);
+        gen = new EventGenerator(events);
     });
 
     t.doesNotThrow(function() {

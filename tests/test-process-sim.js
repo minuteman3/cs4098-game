@@ -1,11 +1,12 @@
 var test = require('tape');
 
 var ProcessSim = require("../js/ProcessSimulator.js");
+var events = require("../config/events.json");
 var Module = require("../js/Module.js");
 var City = require("../js/city.js");
 
 test("process simulator works", function(t) {
-	t.plan(4);
+	t.plan(5);
 	var citiesState={};
 	var modules = [];
 	t.doesNotThrow(function(){
@@ -25,19 +26,22 @@ test("process simulator works", function(t) {
 		); 
 	});
 
-	ProcessSim.start(modules, citiesState,function(){}, function() {
-		var done = true;
+	t.doesNotThrow(function(){
+	// function start(_modules,_cities, _updateFunc, _doneFunc, _eventFunc, events){
+		ProcessSim.start(modules, citiesState,function(){}, function() {
+			var done = true;
 
-		modules.forEach(function(module) {
-			done = done && module.done();
-		});
-		t.doesNotThrow(function(){
-			ProcessSim.pause();
-		});
-		t.doesNotThrow(function(){
-			ProcessSim.unpause();
-		});
-		t.ok(done, 'all modules done');
-		ProcessSim.stop();
-	});
+			modules.forEach(function(module) {
+				done = done && module.done();
+			});
+			t.doesNotThrow(function(){
+				ProcessSim.pause();
+			},'ProcessSim.pause()');
+			t.doesNotThrow(function(){
+				ProcessSim.unpause();
+			},'ProcessSim.unpause()');
+			t.ok(done, 'all modules done');
+			ProcessSim.stop();
+		},function(){},events);
+	},'ProcessSim.start()');
 });
