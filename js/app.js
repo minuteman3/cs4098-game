@@ -184,7 +184,6 @@ function startGame(a){
 
 function showEvent(ev){
     ProcessSim.pause();
-    console.dir(ev);
     modal.showEvent(ev);
 }
 
@@ -309,6 +308,10 @@ function pause(){
   $('#btn-options').show();
 }
 
+function evt(actionNumber){
+  var ev = modal.getEvents();
+}
+
 $( document ).ready( function() {
   var $body = $('body'); //Cache this for performance
   
@@ -355,6 +358,7 @@ module.exports = {
   // Modal
   hidemodal: modal.hidemodal,                // hides a modal window
   pause: pause,                              // toggles the pause menu
+  evt: evt,
   //Maps
   resizemap: maps.resizemap,
   unpause:ProcessSim.unpause,

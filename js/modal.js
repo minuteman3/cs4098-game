@@ -5,6 +5,7 @@ var client     = require('./../config/client-config.json');
 
 var menu=false;
 var modal=false;
+var events = [];
 
 // future work for modals: add new modals to a queue
 // so many can stack up. remove from queue when dealt with
@@ -60,21 +61,26 @@ function dialog(a){
   showmodal(html, true);
 }
 
-function showEvent(ev)
-{
-    var html = ev.message;
-    html += '</p><div class="modal-options">';
-    ev.actions.forEach(function(action)
-    {
-        html += '<button class="btn-action" onclick="pt.hidemodal();pt.unpause()">' + action.message + '</button>';
-    });
+function getEvents(){
+  return events;
+}
 
-    if(ev.actions.length == 0)
-        html += '<button class="btn-action" onclick="pt.hidemodal();pt.unpause()"> Continue </button>';
+function showEvent(ev){
+  ev.message.replace("$site", "val");
+  events.push(ev);
+  var html = "<h1>Information</h1><p>";
+  html +=  '<p>' + ev.message;
+  html += '</p><div class="modal-options">';
+  ev.actions.forEach(function(action, index){
+      html += '<button class="btn-action" onclick="pt.hidemodal();pt.unpause();pt.evt('+index+')">' + action.message + '</button>';
+  });
 
-    html += '</div>';
+  if(ev.actions.length === 0){
+      html += '<button class="btn-action" onclick="pt.hidemodal();pt.unpause()"> Continue </button>';
+  }
+  html += '</div>';
 
-    showmodal(html, false);
+  showmodal(html, false);
 }
 
 function generateCharts(loc, chartData, project, time){
@@ -212,5 +218,6 @@ module.exports = {
     generateCharts: generateCharts,
     addChartContainer: addChartContainer,
     dialog: dialog,
+    getEvents: getEvents,
     showEvent: showEvent
 };
