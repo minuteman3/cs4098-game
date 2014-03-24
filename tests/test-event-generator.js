@@ -4,6 +4,7 @@ var InferenceEngine = require("../js/EventGenerator/inferenceEngine.js");
 var Fuzzifier = require("../js/EventGenerator/fuzzifier.js");
 var EventGenerator = require("../js/EventGenerator/EventGenerator.js");
 var events = require("../config/events.json");
+var client = require("../config/client-config.json");
 
 test("InferenceEngine is working",function(t){
 	t.plan(4);
@@ -85,7 +86,7 @@ test("Event generator works", function(t){
     t.plan(2);
 
     var gen = null;
-    var rate = 10;
+    var rate = client.eventRate;
     
     t.doesNotThrow(function() {
         gen = new EventGenerator(events,rate);
