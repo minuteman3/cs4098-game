@@ -60,8 +60,6 @@ function onlabelShow(e,label,code){
 
 
 function selectCity(e,  code,  isSelected,  selectedMarkers) {
-
-
   if(curGameState === GameStates.PROGRESS){
     ProcessSim.pause();
     modal.dialog("This team is doing very well");
@@ -102,7 +100,6 @@ function selectModule(cityName,nextIndex) {
 }
 
 function startSimulation(){
-
   var curModuleIndex = sidebar.getActiveListItem();
   var curModuleName = selectedProject.modules[curModuleIndex].name;
   selectModule(curModuleName,curModuleIndex);
@@ -188,6 +185,12 @@ function startGame(a){
   moduleProgressOverTime.push([0]);
 }
 
+function showEvent(ev)
+{
+    ProcessSim.pause();
+    console.dir(ev);
+    modal.showEvent(ev);
+}
 
 function startLoop(){
   projectBudget = selectedProject.budget;
@@ -217,8 +220,8 @@ function startLoop(){
   cities.cities.forEach(function(c){
       citiesState[c.name] = new City(c.name,c.costPerCycle,c.productivity);
   });
-
-  ProcessSim.start(modules,citiesState,simulationUpdate,simulationComplete);
+  ProcessSim.start(modules,citiesState,simulationUpdate,simulationComplete,
+    showEvent,require("../config/events/sample.json").events);
 }
 
 function simulationUpdate(modules,citiesState){

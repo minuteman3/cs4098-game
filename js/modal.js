@@ -60,6 +60,23 @@ function dialog(a){
   showmodal(html, true);
 }
 
+function showEvent(ev)
+{
+    var html = ev.message;
+    html += '</p><div class="modal-options">';
+    ev.actions.forEach(function(action)
+    {
+        html += '<button class="btn-action" onclick="pt.hidemodal();pt.unpause()">' + action.message + '</button>';
+    });
+
+    if(ev.actions.length == 0)
+        html += '<button class="btn-action" onclick="pt.hidemodal();pt.unpause()"> Continue </button>';
+
+    html += '</div>';
+
+    showmodal(html, false);
+}
+
 function generateCharts(loc, chartData, project, time){
   loc = loc || "gameover";
   project = project || {"duration":chartData[0].length};
@@ -194,5 +211,6 @@ module.exports = {
     endGame: endGame,
     generateCharts: generateCharts,
     addChartContainer: addChartContainer,
-    dialog: dialog
+    dialog: dialog,
+    showEvent: showEvent
 };

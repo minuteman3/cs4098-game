@@ -1,8 +1,8 @@
 var test = require('tape');
-var FuzzyEngine = require("../lib/EventGenerator/fuzzyEngine.js");
-var InferenceEngine = require("../lib/EventGenerator/inferenceEngine.js");
-var Fuzzifier = require("../lib/EventGenerator/fuzzifier.js");
-var EventGenerator = require("../lib/EventGenerator/EventGenerator.js");
+var FuzzyEngine = require("../js/EventGenerator/fuzzyEngine.js");
+var InferenceEngine = require("../js/EventGenerator/inferenceEngine.js");
+var Fuzzifier = require("../js/EventGenerator/fuzzifier.js");
+var EventGenerator = require("../js/EventGenerator/EventGenerator.js");
 
 test("the inference engine is working",function(t){
 	t.plan(4);
@@ -86,7 +86,7 @@ test("Event generator works", function(t){
     var gen = null;
     
     t.doesNotThrow(function() {
-        gen = new EventGenerator("config/events");
+        gen = new EventGenerator(require("../config/events/sample.json").events);
     });
 
     t.doesNotThrow(function() {
