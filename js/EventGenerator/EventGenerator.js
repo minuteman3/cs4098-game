@@ -1,8 +1,8 @@
 var FuzzyEngine = require("./fuzzyEngine.js");
 
-var EventGenerator = function(dir){
-    this.events = [];
-    this.loadDir(dir);
+var EventGenerator = function(events,rate){
+    this.events = events || [];
+    this.rate = rate;
     this.engine = loadFuzzyEngine(this.events);
 };
 
@@ -26,19 +26,14 @@ function loadFuzzyEngine(events){
 	
     // TODO: placeholder
     //                // Morale                          // Pay
-    var memberFuncs =[[[10,20,30],[40,50,80],[45,50,90]],[[1000,2000,3000],[4000,5000,8000],[4500,5000.9000]]];
+    var memberFuncs =[[[10,20,30],[40,50,80],[45,50,90]],[[1000,2000,3000],[4000,5000,8000],[4500,5000,9000]]];
 
     return new FuzzyEngine(fuzzyRules, memberFuncs);
 }
 
-EventGenerator.prototype.loadDir = function(events)
-{
-    this.events = events;
-};
-
 EventGenerator.prototype.getEvent = function(variables){
-    // 10% chance to return an event
-    if(Math.random() > 0.9) {
+    // rate% chance to return an event
+    if(Math.random() > (1-this.rate)) {
         return this.events[this.engine.run(variables, Math.random())];
     } else {
         return null;

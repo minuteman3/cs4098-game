@@ -85,9 +85,10 @@ test("Event generator works", function(t){
     t.plan(2);
 
     var gen = null;
+    var rate = 10;
     
     t.doesNotThrow(function() {
-        gen = new EventGenerator(events);
+        gen = new EventGenerator(events,rate);
     });
 
     t.doesNotThrow(function() {

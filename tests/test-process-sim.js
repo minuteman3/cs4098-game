@@ -2,6 +2,7 @@ var test = require('tape');
 
 var ProcessSim = require("../js/ProcessSimulator.js");
 var events = require("../config/events.json");
+var config = require("../config/client-config.json");
 var Module = require("../js/Module.js");
 var City = require("../js/city.js");
 
@@ -25,7 +26,7 @@ test("process simulator works", function(t) {
 			)
 		); 
 	});
-
+	var rate = config.eventRate;
 	t.doesNotThrow(function(){
 	// function start(_modules,_cities, _updateFunc, _doneFunc, _eventFunc, events){
 		ProcessSim.start(modules, citiesState,function(){}, function() {
@@ -42,6 +43,6 @@ test("process simulator works", function(t) {
 			},'ProcessSim.unpause()');
 			t.ok(done, 'all modules done');
 			ProcessSim.stop();
-		},function(){},events);
+		},function(){},events,rate);
 	},'ProcessSim.start()');
 });

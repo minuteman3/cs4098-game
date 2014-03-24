@@ -34,14 +34,14 @@ function timerLoop(){
     }
 }
 
-function start(_modules,_cities, _updateFunc, _doneFunc, _eventFunc, events){
+function start(_modules,_cities, _updateFunc, _doneFunc, _eventFunc, events, eventRate){
     modules = _modules;
     cities = _cities;
     updateFunc = _updateFunc;
     doneFunc = _doneFunc;
     eventFunc = _eventFunc;
     intervalID = setInterval(timerLoop, config.timerDuration);
-    gen = new EventGenerator(events);
+    gen = new EventGenerator(events,eventRate);
     return intervalID;
 }
 
