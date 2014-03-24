@@ -1,5 +1,5 @@
 {
 	"information":"On this screen, you find the GAME MAP.<br />It has CITIES where you can allocate TEAMS.<br />To allocate a TEAM, just select a CITY, and it will be set up for you.<br />Be careful, though. Each TEAM costs money from your BUDGET based on which CITY it's in.<br />TEAMS are groups of developers that do all your work for you. <br />TEAMS are affected by things like MORALE and PRODUCTIVITY in each CITY.<br />The BUDGET value is the maximum amount you want to spend on the PROJECT.<br />",
-	"eventRate": 10,
+	"eventRate": 20,
     "timerDuration": 1000
 }

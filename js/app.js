@@ -216,7 +216,7 @@ function startLoop(){
       citiesState[c.name] = new City(c.name,c.costPerCycle,c.productivity);
   });
 
-  var eventRate = selectedProject.eventRate || config.eventRate;
+  var eventRate = selectedProject.eventRate || client.eventRate;
 
   ProcessSim.start(modules,citiesState,simulationUpdate,simulationComplete,
     showEvent,events);

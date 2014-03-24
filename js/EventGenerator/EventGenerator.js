@@ -2,7 +2,7 @@ var FuzzyEngine = require("./fuzzyEngine.js");
 
 var EventGenerator = function(events,rate){
     this.events = events || [];
-    this.rate = rate;
+    this.rate = (rate/100);
     this.engine = loadFuzzyEngine(this.events);
 };
 
@@ -34,6 +34,8 @@ function loadFuzzyEngine(events){
 EventGenerator.prototype.getEvent = function(variables){
     // rate% chance to return an event
     if(Math.random() > (1-this.rate)) {
+        // console.log("event fired");
+        // console.log(this.rate);
         return this.events[this.engine.run(variables, Math.random())];
     } else {
         return null;
