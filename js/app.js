@@ -37,7 +37,7 @@ var curGameState = GameStates.START;
 function onlabelShow(e,label,code){
   label.css('visibility','visible');
     
-  var hoverCity  = cities.cities[code];
+  var hoverCity  = cities[code];
   if(curGameState === GameStates.SELECT_TEAMS){
     label.html(
       '<strong>'+              hoverCity.name         +'</strong><br/>'+
@@ -65,7 +65,7 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
   } else {
     //update general information
     teamsSelected[code] = (teamsSelected[code] || 0)+1;
-    totalPayRoll += cities.cities[code].costPerCycle;
+    totalPayRoll += cities[code].costPerCycle;
 
     sidebar.setPayroll(totalPayRoll);
     sidebar.setBudgetedWeeks(selectedProject.budget/totalPayRoll);
@@ -122,7 +122,7 @@ function startSimulation(){
 function calculatePayrollforMod(teams){
   payroll = 0;
   for(var key in teams){
-    payroll += cities.cities[key].costPerCycle *  teams[key];
+    payroll += cities[key].costPerCycle *  teams[key];
   }
   return payroll;
 }
@@ -201,7 +201,7 @@ function startLoop(){
      var moduleDevelopes = {};
        // move along the markers
     Object.keys(selectedTeams[i.name]).forEach(function(key) {
-      moduleDevelopes[cities.cities[key].name] = selectedTeams[i.name][key];
+      moduleDevelopes[cities[key].name] = selectedTeams[i.name][key];
     });
 
     modules.push(
@@ -212,9 +212,12 @@ function startLoop(){
   });
  
   var citiesState = {};
-  cities.cities.forEach(function(c){
+  cities.forEach(function(c){
       citiesState[c.name] = new City(c.name,c.costPerCycle,c.productivity);
   });
+
+  var eventRate = selectedProject.eventRate || config.eventRate;
+
   ProcessSim.start(modules,citiesState,simulationUpdate,simulationComplete,
     showEvent,events);
 }
@@ -222,7 +225,7 @@ function startLoop(){
 function simulationUpdate(modules,citiesState){
   var states = [];
 
-  cities.cities.forEach(function(c){
+  cities.forEach(function(c){
       if(utils.contains(Object.keys(citiesState),c.name)){
         states.push(citiesState[c.name].status());
       } else {

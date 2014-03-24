@@ -135,7 +135,7 @@ function setLocations(teams,selectedCity){
   $(locationTag).html("");
 
   for(var key in teams){
-    var city = cities.cities[key];
+    var city = cities[key];
     var location = $("<li></li>");
     location.append(city.name);
     location.append($("<div></div>").addClass("teamMultiplier").html("x" +teams[key]));
