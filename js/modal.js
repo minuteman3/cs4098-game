@@ -145,7 +145,7 @@ function addChartContainer(s){
   s = s || 30;
   h = (document.documentElement.clientHeight * s / 100) + 'px;';
   w = (document.documentElement.clientWidth  * s / 100) + 'px;';
-  $('body').append('<canvas id="gameover" width="'+w+'" height="'+h+'" style="display:none;"> </canvas>');
+  $('body').append('<div id="gameover" width="'+w+'" height="'+h+'" style="display:none;"> </div>');
 }
 function endGame(time,budget,project, moduleProgressOverTime){
   addChartContainer();
@@ -166,6 +166,7 @@ function endGame(time,budget,project, moduleProgressOverTime){
   showmodal(html, false);
 
   $('#gameover').empty();
+  $('#gameover').show();
   generateCharts("gameover",moduleProgressOverTime, project, time);
   $('#gameover').detach().prependTo('#chartcontainer');
   $('#gameover').show();
