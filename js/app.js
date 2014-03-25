@@ -183,8 +183,10 @@ function startGame(a){
 }
 
 function showEvent(ev){
-    ProcessSim.pause();
-    modal.showEvent(ev,currentWeek);
+  ProcessSim.pause();
+  ev.module = Math.floor(Math.random()*modules.length);
+  ev.city = utils.randomCity(ev.module,modules);
+  modal.showEvent(ev,currentWeek);
 }
 
 function startLoop(){
@@ -312,13 +314,18 @@ function evt(actionNumber){
   modal.setEventAction(actionNumber);
   var ev = modal.getEvents();
   var cev = ev[ev.length-1];
-  var effects = cev.actions[actionNumber].effects;
+  var effects = utils.objectadd(cev.effects, cev.actions[actionNumber].effects);
   if(effects.money){
     projectBudget += effects.money;
   }
   if(effects.stall){
-    modules[Math.floor(Math.random()*modules.length)].stall(effects.stall);
+    modules[cev.module].stall(effects.stall);
+    // set city status to bad
   }
+  if(effects.morale){
+    // set city morale to effects.morale
+  }
+  console.log(selectedProject);
 }
 
 $( document ).ready( function() {

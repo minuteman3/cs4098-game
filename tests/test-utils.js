@@ -101,3 +101,11 @@ test('objectadd works', function(t){
     resultShouldBe = {"a":4,"c":5};
     t.deepEqual(utils.objectadd(d,l), resultShouldBe);
 });
+
+test('randomCity works',function(t){
+	t.plan(2);
+	var mod = [{"developersPerCity":{"Dublin":1}}];
+	t.equals(utils.randomCity(0,mod),"Dublin");
+	var mod2 = [{"developersPerCity":{"Dublin":1,"Cork":4}}];
+	t.ok(utils.randomCity(0,mod) == "Dublin" || utils.randomCity(0,mod) == "Cork" ,'picks a city');
+});

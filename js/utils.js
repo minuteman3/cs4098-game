@@ -68,11 +68,17 @@ function objectadd(a,b){
   return a;
 }
 
+function randomCity(m,mod){
+  var c = Object.keys(mod[m].developersPerCity);
+  return c[Math.floor(Math.random()*c.length)];
+}
+
 module.exports = {
   getActiveCities: getActiveCities,
   contains: contains,
   revenue: revenue,
   pruneChartData: pruneChartData,
   objectadd: objectadd,
+  randomCity: randomCity,
   commafy: commafy
 };
