@@ -111,6 +111,8 @@ function setCash(cash){
   $(cashTag).html("$" + utils.commafy(cash));
   if(cash < 0){
     $(cashTag).css('color','#dc322f');//solarized @red
+  } else {
+    $(cashTag).css('color','#859900');//solarized @green
   }
 }
 function setProgress(progress){
@@ -120,6 +122,8 @@ function setWeeks(weeks){
   $(weeksTag).html(weeks.toFixed(0) + " weeks");
   if(weeks < 0){
     $(weeksTag).css('color','#dc322f');//solarized @red
+  } else {
+    $(weeksTag).css('color','#859900');//solarized @green
   }
 }
 /*
