@@ -1,5 +1,5 @@
 var $ = require('jquery');
-var Chart = require('../lib/chart.js');
+var Chart = require('../lib/canvasjs.js'); // adds 
 var utils      = require('./utils.js');
 var client     = require('./../config/client-config.json');
 
@@ -95,74 +95,49 @@ function generateCharts(loc, chartData, project, time){
   time = time || project.duration;
   // console.log("chartData pre-prune");
   // console.log(chartData);
-  chartData = utils.pruneChartData(chartData, project, time);
+  // chartData = utils.pruneChartData(chartData, project, time);
   // console.log("chartData post-prune");
   // console.log(chartData);
   var ctx, chart = null;
 
-  var data = {
-    labels : [],
-    datasets : []
-  };
+  var datas = [];
 
-  data.labels = chartData[0];
+  // data.labels = chartData[0];
   for(var i = 1;i < chartData.length;i++){
-    var obj = {};
-    obj.data =  chartData[i];
-    data.datasets.push(obj);
+    var obj = {
+      type: "line",
+      showInLegend: true,
+      name: project.modules[i-1].name,
+      dataPoints: []
+    };
+    for(var j = 0;j < chartData[i].length;j++){
+      var pt = {
+        x:chartData[0][j],
+        y:chartData[i][j]
+      };
+      obj.dataPoints.push(pt);
+    }
+    datas.push(obj);
   }
-   
-  var options = {
-    //Boolean - If we show the scale above the chart data
-    scaleOverlay : true,
-    //String - Colour of the scale line
-    scaleLineColor : "rgba(0,0,0,0.1)",
-    //Number - Pixel width of the scale line
-    scaleLineWidth : 2,
-    //Boolean - Whether to show labels on the scale
-    scaleShowLabels : true,
-    //Interpolated JS string - can access value
-    scaleLabel : "<%=value%>",
-    //String - Scale label font declaration for the scale label
-    scaleFontFamily : "'Helvetica Neue'",
-    //Number - Scale label font size in pixels
-    scaleFontSize : 12,
-    //String - Scale label font weight style
-    scaleFontStyle : "normal",
-    //String - Scale label font colour
-    scaleFontColor : "#666",
-    ///Boolean - Whether grid lines are shown across the chart
-    scaleShowGridLines : true,
-    //String - Colour of the grid lines
-    scaleGridLineColor : "rgba(0,0,0,.1)",
-    //Number - Width of the grid lines
-    scaleGridLineWidth : 1,
-    //Boolean - Whether the line is curved between points
-    bezierCurve : false,
-    //Boolean - Whether to show a dot for each point
-    pointDot : true,
-    //Number - Radius of each point dot in pixels
-    pointDotRadius : 5,
-    //Number - Pixel width of point dot stroke
-    pointDotStrokeWidth : 1,
-    //Boolean - Whether to show a stroke for datasets
-    datasetStroke : true,
-    //Number - Pixel width of dataset stroke
-    datasetStrokeWidth : 4,
-    //Boolean - Whether to fill the dataset with a colour
-    datasetFill : false,
-    //Boolean - Whether to animate the chart
-    animation : true,
-    //Number - Number of animation steps
-    animationSteps : 90,
-    //String - Animation easing effect
-    animationEasing : "easeOutQuart",
-    //Function - Fires when the animation is complete
-    onAnimationComplete : null
-  };
+  console.log(JSON.stringify(datas));
+  chart = new CanvasJS.Chart(loc,
+  {
+    title:{
+      text: "Hover over Columns to See Tool Tip"
+    },
+    toolTip:{
+      enabled: true,       //disable here
+      content: function(e){
+        var content;
+        content = e.entries[0].dataSeries.name + " <strong>"+e.entries[0].dataPoint.y  ;
+        return content;
+      },
+      animationEnabled: true //disable here
+    },
+    data: datas
+  });
 
-  ctx = document.getElementById(loc).getContext("2d");
-  chart = new Chart(ctx).Line(data,options);
+  chart.render();
   
   return chart;
 }
