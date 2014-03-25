@@ -117,8 +117,14 @@ function generateCharts(loc, chartData, project, time){
   // console.log(JSON.stringify(datas));
   chart = new CanvasJS.Chart(loc,
   {
+    theme: "theme2",
+    backgroundColor: "transparent", 
+    legend:{
+      fontSize: 16
+    },
     axisX: {
-        title: "Weeks"
+        title: "Weeks",
+        minimum: 0
     },
     axisY: {
         title: "% Module Completion",
@@ -129,7 +135,7 @@ function generateCharts(loc, chartData, project, time){
         enabled: true, //disable here
         content: function (e) {
             var content;
-            content = e.entries[0].dataSeries.name + " <strong>" + e.entries[0].dataPoint.y.toFixed(1);
+            content = e.entries[0].dataSeries.name + " <strong>" + e.entries[0].dataPoint.y.toFixed(1) + " % </strong>";
             return content;
         },
         animationEnabled: true //disable here
@@ -146,12 +152,14 @@ function addChartContainer(s){
   if($('#gameover')){
     $('#gameover').remove();
   }
-  var w,h;
-  s = s || 30;
+  var w,h,ws;
+  s = s || 40;
+  ws = 4*s/5;
   h = (document.documentElement.clientHeight * s / 100) + 'px;';
-  w = (document.documentElement.clientWidth  * s / 100) + 'px;';
+  w = (document.documentElement.clientWidth  * ws / 100) + 'px;';
   d = document.createElement("div");
   d.id = "gameover";
+  d.setAttribute("style","width:"+w+";height:"+h+";");
   $('body').append(d);
 }
 function endGame(time,budget,project, moduleProgressOverTime){
@@ -167,10 +175,10 @@ function endGame(time,budget,project, moduleProgressOverTime){
     html += '<p>Your revenue is €'+utils.commafy(revenue,0)+'</p>';
     html += '<p>Expected revenue was €'+utils.commafy(project.revenue.amount*project.revenue.months,0)+'</p>';
     html += '<p>Your earnings are: €'+utils.commafy(revenue+budget,0)+'</p>';
+    html += '</div>';
     html += '<div class="modal-options">';
       html += '<button class="btn-action" onclick="pt.initialiseGame()"> Quit to Menu </button>';
     html += '</div>';
-  html += '</div>';
 
   showmodal(html, false);
 
