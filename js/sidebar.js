@@ -54,7 +54,7 @@ function setList(elements){
 	for(var i =0;i< elements.length;i++)
 	{
     var item = elements[i];
-    var html = item.name + "<br/><span class='modulecost'>Cost "+item.cost.toFixed(0)+"%</span>";
+    var html = item.name + "<br/><span class='modulecost'>Effort "+item.cost.toFixed(0)+"%</span>";
 		$(listTag).append($("<li></li>").html(html).attr("date-name",item.name));
     
 	}
