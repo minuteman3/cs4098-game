@@ -93,11 +93,6 @@ function generateCharts(loc, chartData, project, time){
   loc = loc || "gameover";
   project = project || {"duration":chartData[0].length};
   time = time || project.duration;
-  // console.log("chartData pre-prune");
-  // console.log(chartData);
-  // chartData = utils.pruneChartData(chartData, project, time);
-  // console.log("chartData post-prune");
-  // console.log(chartData);
   var ctx, chart = null;
 
   var datas = [];
@@ -119,7 +114,7 @@ function generateCharts(loc, chartData, project, time){
     }
     datas.push(obj);
   }
-  console.log(JSON.stringify(datas));
+  // console.log(JSON.stringify(datas));
   chart = new CanvasJS.Chart(loc,
   {
     title:{
