@@ -15,10 +15,17 @@ City.prototype.cost = function( developerCount){
     return (this.costPerDeveloper * developerCount);
 };
 
-
 City.prototype.status = function(){
     // TODO needs to return a status based on not being ok all the time
     return this._status;
+};
+
+City.prototype.stall = function(){
+    this._status = 2;
+};
+
+City.prototype.setMorale = function(a){
+    this.morale = this.morale-a;
 };
 
 module.exports = City;

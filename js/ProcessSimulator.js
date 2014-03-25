@@ -45,6 +45,14 @@ function start(_modules,_cities, _updateFunc, _doneFunc, _eventFunc, events, eve
     return intervalID;
 }
 
+function getCity(name){
+    return cities[name];
+}
+
+function setCity(name,city){
+    cities[name] = city;
+}
+
 function unpause(){
     if (paused && modules && cities && updateFunc && doneFunc) {
         paused = false;
@@ -75,5 +83,7 @@ module.exports = {
     start: start,
     pause: pause,
     stop: stop,
+    getCity: getCity,
+    setCity: setCity,
     unpause:unpause,
 };

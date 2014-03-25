@@ -315,17 +315,22 @@ function evt(actionNumber){
   var ev = modal.getEvents();
   var cev = ev[ev.length-1];
   var effects = utils.objectadd(cev.effects, cev.actions[actionNumber].effects);
+  var city = ProcessSim.getCity(cev.city);
   if(effects.money){
     projectBudget += effects.money;
   }
   if(effects.stall){
     modules[cev.module].stall(effects.stall);
-    // set city status to bad
+    city.stall();
   }
   if(effects.morale){
     // set city morale to effects.morale
+    city.stall();
+    city.setMorale(effects.morale);
+    // setTimeout(function(){
+    //   city.setMorale(0-effects.morale);
+    // },5000);
   }
-  console.log(selectedProject);
 }
 
 $( document ).ready( function() {
