@@ -9,13 +9,14 @@
             {
                 "message": "Hire Manager",
                 "effects": {
-                    "money": -15000
+                    "money": -15000,
+                    "stall": 1
                 }
             },
             {
                 "message": "Wing it",
                 "effects": {
-                    "productivity": -40
+                    "stall": 4
                 }
             }
         ]
@@ -36,14 +37,13 @@
             {
                 "message": "Raise pay",
                 "effects": {
-                    "pay": 500
+                    "money": 2000
                 }
             },
             {
                 "message": "Nothing",
                 "effects": {
-                    "productivity": -100,
-                    "duration": 5
+                    "stall": 2
                 }
             }
         ]

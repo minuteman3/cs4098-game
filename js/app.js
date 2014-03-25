@@ -312,11 +312,13 @@ function evt(actionNumber){
   modal.setEventAction(actionNumber);
   var ev = modal.getEvents();
   var cev = ev[ev.length-1];
-  // do action
-  cev.actions[actionNumber].effects.forEach(function(eff){
-    console.log(eff);
-  });
-
+  var effects = cev.actions[actionNumber].effects;
+  if(effects.money){
+    projectBudget += effects.money;
+  }
+  if(effects.stall){
+    modules[Math.floor(Math.random()*modules.length)].stall(effects.stall);
+  }
 }
 
 $( document ).ready( function() {
