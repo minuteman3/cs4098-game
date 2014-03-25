@@ -84,3 +84,20 @@ test('pruneChartData works', function(t){
     resultShouldBe = [[1,6,12,18,24],[1,6,12,18,24],[1,6,8],[1,6,12,15]];
     t.deepEqual(utils.pruneChartData(d,p,l), resultShouldBe);
 });
+
+test('objectadd works', function(t){
+    t.plan(3);
+    var d,p,l,resultShouldBe;
+
+    d = {"a":3};
+    p = {"b":4};
+    l = {"b":4,"c":5};
+    resultShouldBe = {"a":3,"b":4};
+    t.deepEqual(utils.objectadd(d,p), resultShouldBe);
+    resultShouldBe = {"a":3,"b":4,"c":5};
+    t.deepEqual(utils.objectadd(d,l), resultShouldBe);
+    d = {"a":3};
+    l = {"a":4,"c":5};
+    resultShouldBe = {"a":4,"c":5};
+    t.deepEqual(utils.objectadd(d,l), resultShouldBe);
+});

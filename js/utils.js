@@ -63,10 +63,16 @@ function pruneChartData(chartData, project, time){
   return d;
 }
 
+function objectadd(a,b){
+  Object.keys(b).forEach(function(k){a[k]=b[k];});
+  return a;
+}
+
 module.exports = {
   getActiveCities: getActiveCities,
   contains: contains,
   revenue: revenue,
   pruneChartData: pruneChartData,
+  objectadd: objectadd,
   commafy: commafy
 };
