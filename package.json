@@ -1,6 +1,6 @@
 {
   "name": "panic-tycoon",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "A game based on software engineering for the Trinity College Dublin 4th year CS4098 Programming Group Project module.",
   "main": "index.js",
   "engines": {
@@ -32,8 +32,7 @@
     "lessify": "~0.3.0",
     "uglifyify": "~1.2.2",
     "browserify-shim": "~3.2.2",
-    "jquery": "~1.11.0",
-    "diveSync": "~0.2.0"
+    "jquery": "~1.11.0"
   },
   "devDependencies": {
     "tape": "~2.4.0"

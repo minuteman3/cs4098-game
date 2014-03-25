@@ -48,7 +48,6 @@ function pruneChartData(chartData, project, time){
   if (ratio < 2.25 || time < 20){
     ratio = 1;
   }
-  console.log(ratio);
   d = [];
   for (var i = 0; i < chartData.length; i++) {
     d.push([]);
@@ -64,10 +63,31 @@ function pruneChartData(chartData, project, time){
   return d;
 }
 
+function objectadd(a,b){
+  Object.keys(b).forEach(function(k){a[k]=b[k];});
+  return a;
+}
+
+function randomCity(m,mod){
+  var c = Object.keys(mod[m].developersPerCity);
+  return c[Math.floor(Math.random()*c.length)];
+}
+
+function calculateCost(selectedProject){
+  var cost = 0;
+  cost = selectedProject.modules.reduce(function(cost, a){
+    return cost + a.cost;
+  },0);
+  return cost;
+}
+
 module.exports = {
   getActiveCities: getActiveCities,
   contains: contains,
   revenue: revenue,
   pruneChartData: pruneChartData,
+  objectadd: objectadd,
+  randomCity: randomCity,
+  calculateCost: calculateCost,
   commafy: commafy
 };

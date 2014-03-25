@@ -5,6 +5,7 @@ var client     = require('./../config/client-config.json');
 
 var menu=false;
 var modal=false;
+var events = [];
 
 // future work for modals: add new modals to a queue
 // so many can stack up. remove from queue when dealt with
@@ -58,6 +59,34 @@ function dialog(a){
   html += '</div>';
 
   showmodal(html, true);
+}
+
+function setEventAction(num){
+  events[events.length-1].mitigation = events[events.length-1].actions[num];
+}
+
+function getEvents(){
+  return events;
+}
+
+function showEvent(ev,currentWeek){
+  console.log(ev);
+  ev.message = ev.message.replace("$site", ev.city);
+  ev.week = currentWeek;
+  events.push(ev);
+  var html = "<h1>Information</h1><p>";
+  html +=  '<p>' + ev.message;
+  html += '</p><div class="modal-options">';
+  ev.actions.forEach(function(action, index){
+      html += '<button class="btn-action" onclick="pt.hidemodal();pt.unpause();pt.evt('+index+')">' + action.message + '</button>';
+  });
+
+  if(ev.actions.length === 0){
+      html += '<button class="btn-action" onclick="pt.hidemodal();pt.unpause()"> Continue </button>';
+  }
+  html += '</div>';
+
+  showmodal(html, false);
 }
 
 function generateCharts(loc, chartData, project, time){
@@ -194,5 +223,9 @@ module.exports = {
     endGame: endGame,
     generateCharts: generateCharts,
     addChartContainer: addChartContainer,
-    dialog: dialog
+    dialog: dialog,
+    //events
+    setEventAction: setEventAction,
+    getEvents: getEvents,
+    showEvent: showEvent
 };

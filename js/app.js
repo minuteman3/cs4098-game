@@ -9,6 +9,7 @@ var proj       = require('./../config/projects.json');
 var client     = require('./../config/client-config.json');
 var sidebar    = require('./sidebar.js');
 var utils      = require('./utils.js');
+var events     = require("../config/events.json");
 
 var projects = proj.projects;
 var selectedProject;
@@ -33,14 +34,10 @@ var GameStates = {
 };
 var curGameState = GameStates.START;
 
-
-
-
-
 function onlabelShow(e,label,code){
   label.css('visibility','visible');
     
-  var hoverCity  = cities.cities[code];
+  var hoverCity  = cities[code];
   if(curGameState === GameStates.SELECT_TEAMS){
     label.html(
       '<strong>'+              hoverCity.name         +'</strong><br/>'+
@@ -60,8 +57,6 @@ function onlabelShow(e,label,code){
 
 
 function selectCity(e,  code,  isSelected,  selectedMarkers) {
-
-
   if(curGameState === GameStates.PROGRESS){
     ProcessSim.pause();
     modal.dialog("This team is doing very well");
@@ -70,7 +65,7 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
   } else {
     //update general information
     teamsSelected[code] = (teamsSelected[code] || 0)+1;
-    totalPayRoll += cities.cities[code].costPerCycle;
+    totalPayRoll += cities[code].costPerCycle;
 
     sidebar.setPayroll(totalPayRoll);
     sidebar.setBudgetedWeeks(selectedProject.budget/totalPayRoll);
@@ -102,7 +97,6 @@ function selectModule(cityName,nextIndex) {
 }
 
 function startSimulation(){
-
   var curModuleIndex = sidebar.getActiveListItem();
   var curModuleName = selectedProject.modules[curModuleIndex].name;
   selectModule(curModuleName,curModuleIndex);
@@ -128,7 +122,7 @@ function startSimulation(){
 function calculatePayrollforMod(teams){
   payroll = 0;
   for(var key in teams){
-    payroll += cities.cities[key].costPerCycle *  teams[key];
+    payroll += cities[key].costPerCycle *  teams[key];
   }
   return payroll;
 }
@@ -157,6 +151,7 @@ function projectdescription(a){
 function startGame(a){
   a = a || 0;
   selectedProject = projects[a];
+  selectedProject.cost = utils.calculateCost(selectedProject);
   modal.hidemodal();
 
   $('#btn-options').show();
@@ -188,6 +183,12 @@ function startGame(a){
   moduleProgressOverTime.push([0]);
 }
 
+function showEvent(ev){
+  ProcessSim.pause();
+  ev.module = Math.floor(Math.random()*modules.length);
+  ev.city = utils.randomCity(ev.module,modules);
+  modal.showEvent(ev,currentWeek);
+}
 
 function startLoop(){
   projectBudget = selectedProject.budget;
@@ -202,9 +203,8 @@ function startLoop(){
      var moduleDevelopes = {};
        // move along the markers
     Object.keys(selectedTeams[i.name]).forEach(function(key) {
-      moduleDevelopes[cities.cities[key].name] = selectedTeams[i.name][key];
+      moduleDevelopes[cities[key].name] = selectedTeams[i.name][key];
     });
-
 
     modules.push(
       new Module( 
@@ -214,17 +214,21 @@ function startLoop(){
   });
  
   var citiesState = {};
-  cities.cities.forEach(function(c){
+  cities.forEach(function(c){
       citiesState[c.name] = new City(c.name,c.costPerCycle,c.productivity);
   });
 
-  ProcessSim.start(modules,citiesState,simulationUpdate,simulationComplete);
+  var eventRate = selectedProject.eventRate || client.eventRate;
+
+
+  ProcessSim.start(modules,citiesState,simulationUpdate,simulationComplete,
+    showEvent,events,eventRate);
 }
 
 function simulationUpdate(modules,citiesState){
   var states = [];
 
-  cities.cities.forEach(function(c){
+  cities.forEach(function(c){
       if(utils.contains(Object.keys(citiesState),c.name)){
         states.push(citiesState[c.name].status());
       } else {
@@ -251,7 +255,6 @@ function simulationUpdate(modules,citiesState){
 
       percentComplete += modulesProgree;
   });
-
 
   weeksTilDueDate--;
   projectBudget -= totalCost;
@@ -287,8 +290,6 @@ function initialiseGame(){
   });
   sidebar.hide();
 
-
-
   modal.hidemodal();
   maps.map=null;
   modules = [];
@@ -308,6 +309,32 @@ function pause(){
   modal.pause();
   ProcessSim.pause();
   $('#btn-options').show();
+}
+
+function evt(actionNumber){
+  modal.setEventAction(actionNumber);
+  var ev = modal.getEvents();
+  var cev = ev[ev.length-1];
+  var effects = utils.objectadd(cev.effects, cev.actions[actionNumber].effects);
+  var city = ProcessSim.getCity(cev.city);
+  if(effects.money){
+    projectBudget += effects.money;
+    if(effects.money<0){
+      city.stall();
+    }
+  }
+  if(effects.stall){
+    modules[cev.module].stall(effects.stall);
+    city.stall();
+  }
+  if(effects.morale){
+    // set city morale to effects.morale
+    city.stall();
+    city.setMorale(effects.morale);
+    // setTimeout(function(){
+    //   city.setMorale(0-effects.morale);
+    // },5000);
+  }
 }
 
 $( document ).ready( function() {
@@ -341,10 +368,6 @@ $( document ).ready( function() {
   $('#map').bind('markerSelected.jvectormap', selectCity);
   $('#map').bind('markerLabelShow.jvectormap', onlabelShow);
 
-
-
-
-
   ProcessSim.stop();
 });
 
@@ -360,6 +383,7 @@ module.exports = {
   // Modal
   hidemodal: modal.hidemodal,                // hides a modal window
   pause: pause,                              // toggles the pause menu
+  evt: evt,
   //Maps
   resizemap: maps.resizemap,
   unpause:ProcessSim.unpause,

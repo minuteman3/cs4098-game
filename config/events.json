@@ -1,0 +1,51 @@
+[
+    {
+        "conditions": {},
+        "message": "The manager at $site has slipped on a banana peel and died. What do you do?",
+        "effects": {
+            "morale": -20
+        },
+        "actions": [
+            {
+                "message": "Hire Manager",
+                "effects": {
+                    "money": -15000,
+                    "stall": 1
+                }
+            },
+            {
+                "message": "Wing it",
+                "effects": {
+                    "stall": 4
+                }
+            }
+        ]
+    },
+    {
+        "conditions": {
+            "morale": [
+                1,
+                2
+            ],
+            "pay": [
+                1
+            ]
+        },
+        "message": "Your employees at $site are threatening to strike unless you raise pay, what will you do?",
+        "effects": {},
+        "actions": [
+            {
+                "message": "Raise pay",
+                "effects": {
+                    "money": 2000
+                }
+            },
+            {
+                "message": "Nothing",
+                "effects": {
+                    "stall": 2
+                }
+            }
+        ]
+    }
+]
