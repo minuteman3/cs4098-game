@@ -73,6 +73,14 @@ function randomCity(m,mod){
   return c[Math.floor(Math.random()*c.length)];
 }
 
+function calculateCost(selectedProject){
+  var cost = 0;
+  cost = selectedProject.modules.reduce(function(cost, a){
+    return cost + a.cost;
+  },0);
+  return cost;
+}
+
 module.exports = {
   getActiveCities: getActiveCities,
   contains: contains,
@@ -80,5 +88,6 @@ module.exports = {
   pruneChartData: pruneChartData,
   objectadd: objectadd,
   randomCity: randomCity,
+  calculateCost: calculateCost,
   commafy: commafy
 };

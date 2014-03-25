@@ -70,6 +70,7 @@ function getEvents(){
 }
 
 function showEvent(ev,currentWeek){
+  console.log(ev);
   ev.message = ev.message.replace("$site", ev.city);
   ev.week = currentWeek;
   events.push(ev);

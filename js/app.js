@@ -151,6 +151,7 @@ function projectdescription(a){
 function startGame(a){
   a = a || 0;
   selectedProject = projects[a];
+  selectedProject.cost = utils.calculateCost(selectedProject);
   modal.hidemodal();
 
   $('#btn-options').show();
@@ -318,6 +319,9 @@ function evt(actionNumber){
   var city = ProcessSim.getCity(cev.city);
   if(effects.money){
     projectBudget += effects.money;
+    if(effects.money<0){
+      city.stall();
+    }
   }
   if(effects.stall){
     modules[cev.module].stall(effects.stall);
