@@ -62,7 +62,6 @@ module.exports = {
   getActiveCities: getActiveCities,
   contains: contains,
   revenue: revenue,
-  pruneChartData: pruneChartData,
   objectadd: objectadd,
   randomCity: randomCity,
   calculateCost: calculateCost,
