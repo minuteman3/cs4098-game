@@ -117,17 +117,22 @@ function generateCharts(loc, chartData, project, time){
   // console.log(JSON.stringify(datas));
   chart = new CanvasJS.Chart(loc,
   {
-    title:{
-      text: "Hover over Columns to See Tool Tip"
+    axisX: {
+        title: "Weeks"
     },
-    toolTip:{
-      enabled: true,       //disable here
-      content: function(e){
-        var content;
-        content = e.entries[0].dataSeries.name + " <strong>"+e.entries[0].dataPoint.y.toFixed(1)  ;
-        return content;
-      },
-      animationEnabled: true //disable here
+    axisY: {
+        title: "% Module Completion",
+        minimum: 0,
+        maximum: 105
+    },
+    toolTip: {
+        enabled: true, //disable here
+        content: function (e) {
+            var content;
+            content = e.entries[0].dataSeries.name + " <strong>" + e.entries[0].dataPoint.y.toFixed(1);
+            return content;
+        },
+        animationEnabled: true //disable here
     },
     data: datas
   });
@@ -145,22 +150,26 @@ function addChartContainer(s){
   s = s || 30;
   h = (document.documentElement.clientHeight * s / 100) + 'px;';
   w = (document.documentElement.clientWidth  * s / 100) + 'px;';
-  $('body').append('<div id="gameover" width="'+w+'" height="'+h+'" style="display:none;"> </div>');
+  d = document.createElement("div");
+  d.id = "gameover";
+  $('body').append(d);
 }
 function endGame(time,budget,project, moduleProgressOverTime){
   addChartContainer();
   hidemodal ();
   var revenue = utils.revenue(time,project);
   var html = "<h1>Game Over</h1>";
-  html += '<div id="chartcontainer"> <p id="chart-caption">% module completed per week</p></div>';
-  html += '<p>The Project deadline was '+project.duration+' weeks and took '+time+' weeks</p>';
-  html += '<p>You have €'+utils.commafy(budget,0)+' in the bank</p>';
-  html += '<p>You spent €'+utils.commafy(project.budget-budget,0)+'</p>';
-  html += '<p>Your revenue is €'+utils.commafy(revenue,0)+'</p>';
-  html += '<p>Expected revenue was €'+utils.commafy(project.revenue.amount*project.revenue.months,0)+'</p>';
-  html += '<p>Your earnings are: €'+utils.commafy(revenue+budget,0)+'</p>';
-  html += '<div class="modal-options">';
-  html += '<button class="btn-action" onclick="pt.initialiseGame()"> Quit to Menu </button>';
+  html += '<div id="chartcontainer"></div>';
+  html += '<div id="results">';
+    html += '<p>The Project deadline was '+project.duration+' weeks and took '+time+' weeks</p>';
+    html += '<p>You have €'+utils.commafy(budget,0)+' in the bank</p>';
+    html += '<p>You spent €'+utils.commafy(project.budget-budget,0)+'</p>';
+    html += '<p>Your revenue is €'+utils.commafy(revenue,0)+'</p>';
+    html += '<p>Expected revenue was €'+utils.commafy(project.revenue.amount*project.revenue.months,0)+'</p>';
+    html += '<p>Your earnings are: €'+utils.commafy(revenue+budget,0)+'</p>';
+    html += '<div class="modal-options">';
+      html += '<button class="btn-action" onclick="pt.initialiseGame()"> Quit to Menu </button>';
+    html += '</div>';
   html += '</div>';
 
   showmodal(html, false);
