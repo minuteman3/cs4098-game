@@ -129,7 +129,7 @@ function generateCharts(loc, chartData, project, time){
       enabled: true,       //disable here
       content: function(e){
         var content;
-        content = e.entries[0].dataSeries.name + " <strong>"+e.entries[0].dataPoint.y  ;
+        content = e.entries[0].dataSeries.name + " <strong>"+e.entries[0].dataPoint.y.toFixed(1)  ;
         return content;
       },
       animationEnabled: true //disable here
