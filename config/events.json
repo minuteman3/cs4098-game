@@ -44,7 +44,7 @@
             {
                 "message": "Nothing",
                 "effects": {
-                    "stall": 2
+                    "stall": 2,
                     "morale": -20
                 }
             }
