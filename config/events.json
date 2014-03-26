@@ -37,13 +37,15 @@
             {
                 "message": "Raise pay",
                 "effects": {
-                    "money": 2000
+                    "money": 2000,
+                    "morale": 20
                 }
             },
             {
                 "message": "Nothing",
                 "effects": {
                     "stall": 2
+                    "morale": -20
                 }
             }
         ]
