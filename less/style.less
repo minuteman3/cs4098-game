@@ -280,10 +280,10 @@ button {
     border: 0.1em solid transparent;
     margin-left: 1em;
     color: @base2;
-    font-size: 0.25em;
+    font-size: 0.2em;
     padding: 0.5em 0 0.5em 0;
     text-align: center;
-    width: 8em;
+    width: 10em;
     z-index: 997;
 }
 button:hover {
@@ -306,6 +306,9 @@ button:active {
     top: 1em;
     right: 1em;
     z-index: 999;
+}
+#btn-action{
+    margin-left: 0;
 }
 .btn-projects{
     display:list-item;
@@ -385,7 +388,8 @@ button:active {
      fill: @orange;
 }
 .jvectormap-marker[state="3"]{
-     fill: @green;
+     // fill: @green;
+     fill: #7FB347; // greener than @green
 }
 #map {
     height: 6em; //this actually gets overwritten in JS
@@ -429,7 +433,7 @@ button:active {
     }
     .modal-options{
         position: absolute;
-        bottom: 1em;
+        bottom: 0.25em;
         width: 100%;
     }
     .project{
