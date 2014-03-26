@@ -1,5 +1,5 @@
 var $ = require('jquery');
-var Chart = require('../lib/chart.js');
+var Chart = require('../lib/canvasjs.js'); // adds 
 var utils      = require('./utils.js');
 var client     = require('./../config/client-config.json');
 
@@ -93,76 +93,57 @@ function generateCharts(loc, chartData, project, time){
   loc = loc || "gameover";
   project = project || {"duration":chartData[0].length};
   time = time || project.duration;
-  // console.log("chartData pre-prune");
-  // console.log(chartData);
-  chartData = utils.pruneChartData(chartData, project, time);
-  // console.log("chartData post-prune");
-  // console.log(chartData);
   var ctx, chart = null;
 
-  var data = {
-    labels : [],
-    datasets : []
-  };
+  var datas = [];
 
-  data.labels = chartData[0];
+  // data.labels = chartData[0];
   for(var i = 1;i < chartData.length;i++){
-    var obj = {};
-    obj.data =  chartData[i];
-    data.datasets.push(obj);
+    var obj = {
+      type: "line",
+      showInLegend: true,
+      name: project.modules[i-1].name,
+      dataPoints: []
+    };
+    for(var j = 0;j < chartData[i].length;j++){
+      var pt = {
+        x:chartData[0][j],
+        y:chartData[i][j]
+      };
+      obj.dataPoints.push(pt);
+    }
+    datas.push(obj);
   }
-   
-  var options = {
-    //Boolean - If we show the scale above the chart data
-    scaleOverlay : true,
-    //String - Colour of the scale line
-    scaleLineColor : "rgba(0,0,0,0.1)",
-    //Number - Pixel width of the scale line
-    scaleLineWidth : 2,
-    //Boolean - Whether to show labels on the scale
-    scaleShowLabels : true,
-    //Interpolated JS string - can access value
-    scaleLabel : "<%=value%>",
-    //String - Scale label font declaration for the scale label
-    scaleFontFamily : "'Helvetica Neue'",
-    //Number - Scale label font size in pixels
-    scaleFontSize : 12,
-    //String - Scale label font weight style
-    scaleFontStyle : "normal",
-    //String - Scale label font colour
-    scaleFontColor : "#666",
-    ///Boolean - Whether grid lines are shown across the chart
-    scaleShowGridLines : true,
-    //String - Colour of the grid lines
-    scaleGridLineColor : "rgba(0,0,0,.1)",
-    //Number - Width of the grid lines
-    scaleGridLineWidth : 1,
-    //Boolean - Whether the line is curved between points
-    bezierCurve : false,
-    //Boolean - Whether to show a dot for each point
-    pointDot : true,
-    //Number - Radius of each point dot in pixels
-    pointDotRadius : 5,
-    //Number - Pixel width of point dot stroke
-    pointDotStrokeWidth : 1,
-    //Boolean - Whether to show a stroke for datasets
-    datasetStroke : true,
-    //Number - Pixel width of dataset stroke
-    datasetStrokeWidth : 4,
-    //Boolean - Whether to fill the dataset with a colour
-    datasetFill : false,
-    //Boolean - Whether to animate the chart
-    animation : true,
-    //Number - Number of animation steps
-    animationSteps : 90,
-    //String - Animation easing effect
-    animationEasing : "easeOutQuart",
-    //Function - Fires when the animation is complete
-    onAnimationComplete : null
-  };
+  // console.log(JSON.stringify(datas));
+  chart = new CanvasJS.Chart(loc,
+  {
+    theme: "theme2",
+    backgroundColor: "transparent", 
+    legend:{
+      fontSize: 16
+    },
+    axisX: {
+        title: "Weeks",
+        minimum: 0
+    },
+    axisY: {
+        title: "% Module Completion",
+        minimum: 0,
+        maximum: 105
+    },
+    toolTip: {
+        enabled: true, //disable here
+        content: function (e) {
+            var content;
+            content = e.entries[0].dataSeries.name + " <strong>" + e.entries[0].dataPoint.y.toFixed(1) + " % </strong>";
+            return content;
+        },
+        animationEnabled: true //disable here
+    },
+    data: datas
+  });
 
-  ctx = document.getElementById(loc).getContext("2d");
-  chart = new Chart(ctx).Line(data,options);
+  chart.render();
   
   return chart;
 }
@@ -171,31 +152,38 @@ function addChartContainer(s){
   if($('#gameover')){
     $('#gameover').remove();
   }
-  var w,h;
-  s = s || 30;
+  var w,h,ws;
+  s = s || 40;
+  ws = 4*s/5;
   h = (document.documentElement.clientHeight * s / 100) + 'px;';
-  w = (document.documentElement.clientWidth  * s / 100) + 'px;';
-  $('body').append('<canvas id="gameover" width="'+w+'" height="'+h+'" style="display:none;"> </canvas>');
+  w = (document.documentElement.clientWidth  * ws / 100) + 'px;';
+  d = document.createElement("div");
+  d.id = "gameover";
+  d.setAttribute("style","width:"+w+";height:"+h+";");
+  $('body').append(d);
 }
 function endGame(time,budget,project, moduleProgressOverTime){
   addChartContainer();
   hidemodal ();
   var revenue = utils.revenue(time,project);
   var html = "<h1>Game Over</h1>";
-  html += '<div id="chartcontainer"> <p id="chart-caption">% module completed per week</p></div>';
-  html += '<p>The Project deadline was '+project.duration+' weeks and took '+time+' weeks</p>';
-  html += '<p>You have €'+utils.commafy(budget,0)+' in the bank</p>';
-  html += '<p>You spent €'+utils.commafy(project.budget-budget,0)+'</p>';
-  html += '<p>Your revenue is €'+utils.commafy(revenue,0)+'</p>';
-  html += '<p>Expected revenue was €'+utils.commafy(project.revenue.amount*project.revenue.months,0)+'</p>';
-  html += '<p>Your earnings are: €'+utils.commafy(revenue+budget,0)+'</p>';
-  html += '<div class="modal-options">';
-  html += '<button class="btn-action" onclick="pt.initialiseGame()"> Quit to Menu </button>';
-  html += '</div>';
+  html += '<div id="chartcontainer"></div>';
+  html += '<div id="results">';
+    html += '<p>The Project deadline was '+project.duration+' weeks and took '+time+' weeks</p>';
+    html += '<p>You have €'+utils.commafy(budget,0)+' in the bank</p>';
+    html += '<p>You spent €'+utils.commafy(project.budget-budget,0)+'</p>';
+    html += '<p>Your revenue is €'+utils.commafy(revenue,0)+'</p>';
+    html += '<p>Expected revenue was €'+utils.commafy(project.revenue.amount*project.revenue.months,0)+'</p>';
+    html += '<p>Your earnings are: €'+utils.commafy(revenue+budget,0)+'</p>';
+    html += '</div>';
+    html += '<div class="modal-options">';
+      html += '<button class="btn-action" onclick="pt.initialiseGame()"> Quit to Menu </button>';
+    html += '</div>';
 
   showmodal(html, false);
 
   $('#gameover').empty();
+  $('#gameover').show();
   generateCharts("gameover",moduleProgressOverTime, project, time);
   $('#gameover').detach().prependTo('#chartcontainer');
   $('#gameover').show();

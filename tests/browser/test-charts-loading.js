@@ -12,7 +12,16 @@ test('Canvas is supported', function (t) {
   t.plan(1);
   t.doesNotThrow(function () {
     pt.addChartContainer();
-    pt.generateCharts("gameover",[[0,4,8],[0,100],[0,25,100]],{"duration":3},3);
+    var project = {
+      duration:3,
+      modules: [
+      {name:"Dublin"},
+      {name:"London"}
+      ]
+    };
+    var chart = 
+    pt.generateCharts("gameover",[[0,4,8],[0,100],[0,25,100]],project,3);
     // function generateCharts(loc, chartData, project, time)
   });
+  document.getElementById('gameover').innerHTML = "";
 });
