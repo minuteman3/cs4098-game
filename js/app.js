@@ -112,7 +112,7 @@ function startSimulation(){
   
   sidebar.setList([],[]);
   sidebar.showSelectTeams(false);
-  sidebar.setTitle("Game is running");
+  sidebar.setTitle("Game is Running");
 
   sidebar.showProgressState(true);
   maps.runState();

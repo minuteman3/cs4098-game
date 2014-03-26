@@ -23,8 +23,8 @@
 @blue:     #268bd2;
 @cyan:     #2aa198;
 @green:    #859900;
-@nonselectedsidebar: @base3;
-@selectedsidebar: @cyan;
+@nonselectedsidebar: @base03;
+@selectedsidebar: @magenta;
 @accent: @magenta;
 
 .box-shadow(@style, @c) when (iscolor(@c)) {
@@ -94,6 +94,12 @@ html {
     overflow-y: scroll;
     color: @base3;
 }
+h1,h2,h3,h4,h5,h6,p,button{
+    font-weight: 100;
+}
+strong {
+    font-weight: 200;
+}
 h1 {
     font-size: 0.75em;
     text-transform: capitalize;
@@ -108,7 +114,7 @@ html body {
     background-color: @base03;
 }
 html a:hover {
-    background-color: @base02;
+    background-color: @base03;
 }
 
 /*
@@ -121,9 +127,9 @@ html a:hover {
 */
 
 #sidebar {
-    border-top:0.1em solid @selectedsidebar;
-    background: @nonselectedsidebar;
-    color: @base01;
+    border-top:0.1em solid @magenta;
+    background: @base02;
+    color: @base1;
     overflow-y: scroll;
     overflow-x: hidden;
     position: fixed;
@@ -137,7 +143,8 @@ html a:hover {
     margin-top: 1em;
     margin-bottom: 0.2em;
     font-size: 0.5em;
-    border-bottom: 0.05em solid @base02;
+    border-bottom: 0.05em solid @magenta;
+    font-weight:100;
 }
 
 .nav {
@@ -161,8 +168,7 @@ html a:hover {
 }
 
 .nav li:hover{
-    background-color: @selectedsidebar;
-    color: @base3;
+    color: @accent;
 }
 
 .nav li.inactive{
@@ -172,10 +178,7 @@ html a:hover {
 
 
 .nav li.active {
-    background-color: desaturate(@selectedsidebar,20%);
-    background-size:100% 100%;
-    background-repeat:no-repeat;
-    color: @base3;
+    color: @accent;
 }
 
 .nav li.active a {
@@ -200,7 +203,7 @@ html a:hover {
 .location-header{
     margin-bottom: 0.5em;
     margin-left: 0.5em;
-    font-weight:bold;
+    font-weight: 200;
     font-size: 0.3em;
     display: block;
 }   
@@ -213,6 +216,7 @@ html a:hover {
 
 .gameProperties{
     font-size:0.25em;
+    font-weight: 100;
     display: block;
     margin-left: 0.75em;
     margin-bottom: 0.5em;
@@ -259,7 +263,7 @@ to {background: @base3;}
 
     float:right;
     margin-right: 0.5em;
-    font-weight:bold;
+    font-weight:200;
 }
 /***
  *    ██████╗ ██╗   ██╗████████╗████████╗ ██████╗ ███╗   ██╗███████╗
@@ -272,32 +276,36 @@ to {background: @base3;}
  */
 button {
     .border-radius(0.3em);
-    background-color: desaturate(@selectedsidebar,20%);
+    background-color: desaturate(@cyan,20%);
     border: 0.1em solid transparent;
     margin-left: 1em;
-    color: @base3;
+    color: @base2;
     font-size: 0.25em;
     padding: 0.5em 0 0.5em 0;
     text-align: center;
     width: 8em;
-    z-index: 999;
+    z-index: 997;
 }
 button:hover {
-    background-color: @selectedsidebar;
-    border: 0.1em solid @selectedsidebar;
-    cursor: pointer; }
+    background-color: @cyan;
+    border: 0.1em solid @cyan;
+    cursor: pointer;
+    color: @base3; 
+}
 button:active {
-    .box-shadow(inset 0 0 0.3em 0.3em desaturate(@selectedsidebar,30%));
+    .box-shadow(inset 0 0 0.3em 0.3em desaturate(@cyan,30%));
 }
 
 #btn-region{
     position: relative; 
     bottom: 1em;
+    margin:auto;
 }
 #btn-options{
     position: absolute;
     top: 1em;
     right: 1em;
+    z-index: 999;
 }
 .btn-projects{
     display:list-item;
@@ -319,6 +327,7 @@ button:active {
     position: absolute;
     background: @base03;
     font-size:0.25em;
+    font-weight: 100;
     color: @yellow;
     display: none;
     padding: 0.3em;
@@ -373,7 +382,7 @@ button:active {
      fill: @red;
 }
 .jvectormap-marker[state="2"]{
-     fill: @yellow;
+     fill: @orange;
 }
 .jvectormap-marker[state="3"]{
      fill: @green;
@@ -406,7 +415,8 @@ button:active {
     
     .modal-content{
         .border-radius(0.1em);
-        background: @nonselectedsidebar;
+        background: @base2;
+        font-weight: 200;
         position: relative;
         text-align: center;
         margin: 5% 5%;
@@ -414,6 +424,7 @@ button:active {
         height: 70%;
         p {
             font-size: 0.25em;
+            font-weight: 200;
         }
     }
     .modal-options{
