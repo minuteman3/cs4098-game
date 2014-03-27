@@ -1,0 +1,8 @@
+filename, function, reason not tested
+assets/*, *, these are just assets
+less/style, *, this is style information which uses mixins to target cross-browser
+lib/canvasjs, *, this is a charting library available at canvasjs.com
+lib/jquery-jvectormap-1.2.2.min, *, this is a mapping library available at jvectormap.com
+lib/jquery-jvectormap-world-mill-en, *, this is a geo-map data available at jvectormap.com
+node_modules/*, *, these are all library dependencies and fall outside our testing remit
+tests/*, *, these are tests

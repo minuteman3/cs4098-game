@@ -1,5 +1,4 @@
-{
-  "cities": [
+[
   {
     "coords": [ 37.6788056,-122.2880726],
     "name":"San Francisco",
@@ -30,6 +29,6 @@
     "morale":100,
     "productivity":20,
     "costPerCycle":1200
-  }]
-}
+  }
+]
 

@@ -54,7 +54,7 @@ function setList(elements){
 	for(var i =0;i< elements.length;i++)
 	{
     var item = elements[i];
-    var html = item.name + "<br/><span class='modulecost'>Cost "+item.cost.toFixed(0)+"%</span>";
+    var html = item.name + "<br/><span class='modulecost'>Effort "+item.cost.toFixed(0)+"%</span>";
 		$(listTag).append($("<li></li>").html(html).attr("date-name",item.name));
     
 	}
@@ -64,7 +64,6 @@ function setList(elements){
 function setListListner(func){
   $(itemsTag).click(function(){
     var name = $(this).attr("date-name");
-    console.log(name);
     var index = $(this).index("li");
     func(name,index);
   });
@@ -112,6 +111,8 @@ function setCash(cash){
   $(cashTag).html("$" + utils.commafy(cash));
   if(cash < 0){
     $(cashTag).css('color','#dc322f');//solarized @red
+  } else {
+    $(cashTag).css('color','#859900');//solarized @green
   }
 }
 function setProgress(progress){
@@ -121,6 +122,8 @@ function setWeeks(weeks){
   $(weeksTag).html(weeks.toFixed(0) + " weeks");
   if(weeks < 0){
     $(weeksTag).css('color','#dc322f');//solarized @red
+  } else {
+    $(weeksTag).css('color','#859900');//solarized @green
   }
 }
 /*
@@ -135,7 +138,7 @@ function setLocations(teams,selectedCity){
   $(locationTag).html("");
 
   for(var key in teams){
-    var city = cities.cities[key];
+    var city = cities[key];
     var location = $("<li></li>");
     location.append(city.name);
     location.append($("<div></div>").addClass("teamMultiplier").html("x" +teams[key]));

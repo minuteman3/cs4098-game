@@ -7,18 +7,25 @@ var City = function(_name,_costPerDeveloper,_baseProductivity){
 };
 
 City.prototype.progress = function( developerCount){
-	this._status = 3;
-    return (this.productivity * developerCount);
+    this._status = 3;
+    return (this.productivity * developerCount * (this.morale / 100));
 };
 
 City.prototype.cost = function( developerCount){
     return (this.costPerDeveloper * developerCount);
 };
 
-
 City.prototype.status = function(){
-	// TODO needs to return a status based on not being ok all the time
+    // TODO needs to return a status based on not being ok all the time
     return this._status;
+};
+
+City.prototype.stall = function(){
+    this._status = 2;
+};
+
+City.prototype.setMorale = function(a){
+    this.morale = this.morale-a;
 };
 
 module.exports = City;

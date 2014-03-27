@@ -56,6 +56,10 @@ If you experience installation problems, a goof plan is to remove the `node_modu
     * Compares data from beginning to end of project life-cycle.
 * Process Simulator 
     * Simulates advancement of modules in individual chunks, scaled by number of developers.
+* Event Generator
+	* Generates events based on fuzzy logic. Each variable is divided into a list of options so for example the money variable is divided into small,medium,large so when money is $10,000 it will be 60% small and 30% medium and 0% large. We then use rules to determine which event should fire. So a rule then specifies which option(s) it chooses for each variable so eg when money=medium then fire rule 2. We then generate a weight for this rule based on which option is applied the lest. We use this value to make a weighted list of all possible rules we can fire. We then execute one of the rules based on a random number. 
+    * Loads events from JSON files.
+
 
 ## Config File Specifications
 

@@ -64,23 +64,33 @@ test('getActiveCities works',function(t){
 	t.deepEqual(utils.getActiveCities(teams2),["San Francisco","Dublin","New York"]);
 });
 
-test('pruneChartData works', function(t){
-    t.plan(2);
+test('objectadd works', function(t){
+    t.plan(3);
     var d,p,l,resultShouldBe;
 
-    d = [[1,2,3],[4,5,6]];
-    p = {"duration":3};
-    l = 3;
-    resultShouldBe = d;
-    t.deepEqual(utils.pruneChartData(d,p,l), resultShouldBe);
-    d = [
-		[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],
-		[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],
-		[1,2,3,4,5,6,7,8],
-		[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
-    ];
-    p = {"duration":5};
-    l = 24;
-    resultShouldBe = [[1,6,12,18,24],[1,6,12,18,24],[1,6,8],[1,6,12,15]];
-    t.deepEqual(utils.pruneChartData(d,p,l), resultShouldBe);
+    d = {"a":3};
+    p = {"b":4};
+    l = {"b":4,"c":5};
+    resultShouldBe = {"a":3,"b":4};
+    t.deepEqual(utils.objectadd(d,p), resultShouldBe);
+    resultShouldBe = {"a":3,"b":4,"c":5};
+    t.deepEqual(utils.objectadd(d,l), resultShouldBe);
+    d = {"a":3};
+    l = {"a":4,"c":5};
+    resultShouldBe = {"a":4,"c":5};
+    t.deepEqual(utils.objectadd(d,l), resultShouldBe);
+});
+
+test('randomCity works',function(t){
+	t.plan(2);
+	var mod = [{"developersPerCity":{"Dublin":1}}];
+	t.equals(utils.randomCity(0,mod),"Dublin");
+	var mod2 = [{"developersPerCity":{"Dublin":1,"Cork":4}}];
+	t.ok(utils.randomCity(0,mod) == "Dublin" || utils.randomCity(0,mod) == "Cork" ,'picks a city');
+});
+
+test('calculateCost works',function(t){
+	t.plan(1);
+	var pro = {"modules":[{"cost":1},{"cost":3}]};
+	t.equals(utils.calculateCost(pro),4);
 });
