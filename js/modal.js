@@ -169,12 +169,12 @@ function endGame(time,budget,project, moduleProgressOverTime){
   var html = "<h1>Game Over</h1>";
   html += '<div id="chartcontainer"></div>';
   html += '<div id="results">';
-    html += '<p>The Project deadline was '+project.duration+' weeks and took '+time+' weeks</p>';
-    html += '<p>You have €'+utils.commafy(budget,0)+' in the bank</p>';
-    html += '<p>You spent €'+utils.commafy(project.budget-budget,0)+'</p>';
-    html += '<p>Your revenue is €'+utils.commafy(revenue,0)+'</p>';
-    html += '<p>Expected revenue was €'+utils.commafy(project.revenue.amount*project.revenue.months,0)+'</p>';
-    html += '<p>Your earnings are: €'+utils.commafy(revenue+budget,0)+'</p>';
+    html += '<p>The Project deadline was '+project.duration+' weeks and took <span id="res-time">'+time+'</span> weeks</p>';
+    html += '<p>You have € <span id="res-balance">'+utils.commafy(budget,0)+'</span> in the bank</p>';
+    html += '<p>You spent <span id="res-budget">'+(100*(project.budget-budget)/project.budget).toFixed(1)+'</span>% of your budget</p>';
+    html += '<p>Your revenue is € <span id="res-revenue">'+utils.commafy(revenue,0)+'</span></p>';
+    html += '<p>You earned <span id="res-revenuepc">'+(revenue*100/(project.revenue.amount*project.revenue.months)).toFixed(1)+'</span>% of the expected revenue</p>';
+    html += '<p>Your earnings are: € <span id="res-earnings">'+utils.commafy(revenue+budget,0)+'</span></p>';
     html += '</div>';
     html += '<div class="modal-options">';
       html += '<button class="btn-action" onclick="pt.initialiseGame()"> Quit to Menu </button>';
@@ -187,6 +187,24 @@ function endGame(time,budget,project, moduleProgressOverTime){
   generateCharts("gameover",moduleProgressOverTime, project, time);
   $('#gameover').detach().prependTo('#chartcontainer');
   $('#gameover').show();
+
+  rg("#res-time",time-project.duration,true);
+  rg("#res-balance",budget);
+  rg("#res-budget",((project.budget-budget)/project.budget)-1,true);
+  rg("#res-revenue",revenue);
+  rg("#res-revenuepc",revenue*100/project.revenue.amount*project.revenue.months);
+  rg("#res-earnings",revenue+budget);
+}
+
+function rg(tag,num,rev){
+  rev = rev || false;
+  var o = 0;
+  if(rev){o=num;num=0;}
+  if(num < o){
+    $(tag).css('color','#dc322f');//solarized @red
+  } else {
+    $(tag).css('color','#859900');//solarized @green
+  }
 }
 
 function pause () {
