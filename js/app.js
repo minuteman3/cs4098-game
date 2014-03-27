@@ -43,7 +43,7 @@ function onlabelShow(e,label,code){
       '<strong>'+              hoverCity.name         +'</strong><br/>'+
       'Morale: '+          hoverCity.morale       +'%<br/>'+
       'Productivity: '+    hoverCity.productivity +'%<br/>'+
-      'Cost per week: $'+ hoverCity.costPerCycle +'<br/>'
+      'Cost per week: $'+ hoverCity.costPerWeek +'<br/>'
     );
   }else if(curGameState === GameStates.PROGRESS){
     // fixoverlap code is broken
@@ -65,7 +65,7 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
   } else {
     //update general information
     teamsSelected[code] = (teamsSelected[code] || 0)+1;
-    totalPayRoll += cities[code].costPerCycle;
+    totalPayRoll += cities[code].costPerWeek;
 
     sidebar.setPayroll(totalPayRoll);
     sidebar.setBudgetedWeeks(selectedProject.budget/totalPayRoll);
@@ -122,7 +122,7 @@ function startSimulation(){
 function calculatePayrollforMod(teams){
   payroll = 0;
   for(var key in teams){
-    payroll += cities[key].costPerCycle *  teams[key];
+    payroll += cities[key].costPerWeek *  teams[key];
   }
   return payroll;
 }
@@ -215,7 +215,7 @@ function startLoop(){
  
   var citiesState = {};
   cities.forEach(function(c){
-      citiesState[c.name] = new City(c.name,c.costPerCycle,c.productivity);
+      citiesState[c.name] = new City(c.name,c.costPerWeek,c.productivity);
   });
 
   var eventRate = selectedProject.eventRate || client.eventRate;

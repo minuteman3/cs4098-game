@@ -11,7 +11,7 @@ test("process simulator works", function(t) {
 	var citiesState={};
 	var modules = [];
 	t.doesNotThrow(function(){
-		// citiesState = {c.name: new City(c.name,c.costPerCycle,c.productivity) };
+		// citiesState = {c.name: new City(c.name,c.costPerWeek,c.productivity) };
 		citiesState = {
 			"Dublin" : new City("Dublin",6000,100),
 			"Mumbai" : new City("Mumbai",500,100)

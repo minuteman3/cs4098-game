@@ -4,31 +4,31 @@
     "name":"San Francisco",
     "morale":100,
     "productivity":200,
-    "costPerCycle":12000
+    "costPerWeek":12000
   }, {
     "coords": [ 40.43,-74.0],
     "name":"New York",
     "morale":100,
     "productivity":125,
-    "costPerCycle":7500
+    "costPerWeek":7500
   },{
     "coords": [ 53.24, -6.6],
     "name":"Dublin",
     "morale":100,
     "productivity":100,
-    "costPerCycle":6000
+    "costPerWeek":6000
   },{
     "coords": [  31.12,121.30],
     "name":"Shanghai",
     "morale":100,
     "productivity":75,
-    "costPerCycle":4500
+    "costPerWeek":4500
   },{
     "coords": [ 18.9750,72.8258],
     "name":"Mumbai",
     "morale":100,
     "productivity":20,
-    "costPerCycle":1200
+    "costPerWeek":1200
   }
 ]
 
