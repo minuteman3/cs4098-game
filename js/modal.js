@@ -135,7 +135,7 @@ function generateCharts(loc, chartData, project, time){
         enabled: true, //disable here
         content: function (e) {
             var content;
-            content = e.entries[0].dataSeries.name + " <strong>" + e.entries[0].dataPoint.y.toFixed(1) + " % </strong>";
+            content = "<div class='ttip'>"+e.entries[0].dataSeries.name +" <strong>" + e.entries[0].dataPoint.y.toFixed(1) + " % </strong></div>";
             return content;
         },
         animationEnabled: true //disable here
@@ -153,7 +153,7 @@ function addChartContainer(s){
     $('#gameover').remove();
   }
   var w,h,ws;
-  s = s || 40;
+  s = s || 50;
   ws = 4*s/5;
   h = (document.documentElement.clientHeight * s / 100) + 'px;';
   w = (document.documentElement.clientWidth  * ws / 100) + 'px;';
