@@ -1,56 +1,78 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="cache-control" content="max-age=0" />
-    <meta http-equiv="cache-control" content="no-cache" />
-    <meta http-equiv="expires" content="0" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-    <link rel="icon" type="image/png" href="http://localhost:8080/assets/favicon.png" />
-    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
-    <link rel="apple-touch-startup-image" href="assets/splash.png" />
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="max-age=0" http-equiv="cache-control">
+    <meta content="no-cache" http-equiv="cache-control">
+    <meta content="0" http-equiv="expires">
+    <meta content=
+    "width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0"
+    name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <link href="http://localhost:8080/assets/favicon.png" rel="icon" type=
+    "image/png">
+    <link href="assets/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="assets/splash.png" rel="apple-touch-startup-image">
 
     <title>Panic Tycoon</title>
     <script src="js/bundle.js"></script>
-  </head>
-  <body class="blue centreblock" onload="pt.initialiseGame()">
+</head>
+
+<body class="blue centreblock" onload="pt.initialiseGame()">
+    <div id="map"></div>
 
     <div id="startScreen">
-      <div id="startScreenCenterV">
-        <h1>PANIC</h1> <h2>Tycoon</h2>
-        <button  onclick="pt.selectProject()" id="btn-start">Start Game</button>
-      </div>
+        <div id="startScreenCenterV">
+            <h1>PANIC</h1>
+
+            <h2>Tycoon</h2><button id="btn-start" onclick=
+            "pt.selectProject()">Start Game</button>
+        </div>
     </div>
 
-    <div id="sidebar">
-      <div id="sidebar-title">Select Teams</div>
+    <div id="HUD">
+        <div id="statusbar">
+            <div class="gameProperties select-teams" style="display: block;">
+                Total Budget<div id="budget"></div>
+            </div>
 
-      <ul class="nav">
-        <li class="active">Interface</li>
-        <li>Game Engine </li>
-        <li>Physics Engine</li>
-      </ul>
-      
-      <div class="gameProperties progess-state">Cash<div id="cash" ></div></div>
-      <div class="gameProperties progess-state">Progress<div id="progress" ></div></div>
-      <div class="gameProperties progess-state">Weeks<div id="weeks" ></div></div>
+            <div class="gameProperties select-teams" style="display: block;">
+                Weekly Payroll<div id="totalPayroll"></div>
+            </div>
 
-      <div class="gameProperties select-teams">Total Budget<div id="budget" >$20,000</div></div>
-      <div class="gameProperties select-teams">Weekly Payroll<div id="totalPayroll">$0</div></div>
-      <div class="gameProperties select-teams">Due Date<div id="duedate" >20 weeks</div></div>
-      <div class="gameProperties select-teams">Budgeted Weeks<div id="budgetedWeeks">0 weeks</div></div>
-      <div class="location-header select-teams">Module Cost<div id="costPerMonth">$0</div></div>
-      <ul id="locations" class="select-teams" ></ul>
-      <button  class="select-teams" onclick="pt.startSimulation()" id="btn-region">Select Teams</button>
+            <div class="gameProperties select-teams" style="display: block;">
+                Due Date<div id="duedate"></div>
+            </div>
+
+            <div class="gameProperties select-teams" style="display: block;">
+                Budgeted Weeks<div id="budgetedWeeks"></div>
+            </div>
+
+            <div class="gameProperties progess-state">Cash <div id="cash"></div></div>
+
+            <div class="gameProperties progess-state">Progress <div id="progress"></div></div>
+
+            <div class="gameProperties progess-state">Weeks <div id="weeks"></div></div>
+
+            <button id="btn-options" onclick="pt.pause()" style="display: none;">Options</button>
+        </div>
+        <div id="sidebar">
+            <div id="sidebar-title">
+                Select Teams
+            </div>
+            <ul class="nav"></ul>
+
+            <div class="location-header">Module Cost <div id="costPerMonth"></div></div>
+
+            <ul id="locations"></ul>
+
+            <button id="btn-region" onclick="pt.startSimulation()">Select Teams</button>
+        </div>
+
     </div>
 
-    <div id="map"></div>
     <div id="content"></div>
-
-    <button  onclick="pt.pause()" id="btn-options">Options</button>
-
-  </body>
+</body>
 </html>
