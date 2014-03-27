@@ -34,19 +34,19 @@
 
     <div id="HUD">
         <div id="statusbar">
-            <div class="gameProperties select-teams" style="display: block;">
+            <div class="gameProperties select-teams-status" style="display: block;">
                 Total Budget<div id="budget"></div>
             </div>
 
-            <div class="gameProperties select-teams" style="display: block;">
+            <div class="gameProperties select-teams-status" style="display: block;">
                 Weekly Payroll<div id="totalPayroll"></div>
             </div>
 
-            <div class="gameProperties select-teams" style="display: block;">
+            <div class="gameProperties select-teams-status" style="display: block;">
                 Due Date<div id="duedate"></div>
             </div>
 
-            <div class="gameProperties select-teams" style="display: block;">
+            <div class="gameProperties select-teams-status" style="display: block;">
                 Budgeted Weeks<div id="budgetedWeeks"></div>
             </div>
 
@@ -64,11 +64,11 @@
             </div>
             <ul class="nav"></ul>
 
-            <div class="location-header">Module Cost <div id="costPerMonth"></div></div>
+            <div class="select-teams location-header">Module Cost <div id="costPerMonth"></div></div>
 
-            <ul id="locations"></ul>
+            <ul class="select-teams" id="locations"></ul>
 
-            <button id="btn-region" onclick="pt.startSimulation()">Select Teams</button>
+            <button class="select-teams" id="btn-region" onclick="pt.startSimulation()">Select Teams</button>
         </div>
 
     </div>

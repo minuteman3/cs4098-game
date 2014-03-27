@@ -11,6 +11,7 @@ var payrollforModuleTag = "#costPerMonth";
 var activeClass = "active";
 var activeTag = "." + activeClass;
 var gamePropertiesTag = ".gameProperties";
+var selectTeamTagstatus = ".select-teams-status";
 var selectTeamTag = ".select-teams";
 var budgetTag = "#budget";
 var dueDateTag = "#duedate";
@@ -152,6 +153,7 @@ function setLocations(teams,selectedCity){
 }
 
 function showSelectTeams(visible){
+  $(selectTeamTagstatus).css('display',visible?"block":"none");
   $(selectTeamTag).css('display',visible?"block":"none");
 }
 
