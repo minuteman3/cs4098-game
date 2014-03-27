@@ -174,7 +174,7 @@ function endGame(time,budget,project, moduleProgressOverTime){
     html += '<p>You spent <span id="res-budget">'+(100*(project.budget-budget)/project.budget).toFixed(1)+'</span>% of your budget</p>';
     html += '<p>Your revenue is € <span id="res-revenue">'+utils.commafy(revenue,0)+'</span></p>';
     html += '<p>You earned <span id="res-revenuepc">'+(revenue*100/(project.revenue.amount*project.revenue.months)).toFixed(1)+'</span>% of the expected revenue</p>';
-    html += '<p>Your earnings are: € <span id="res-earnings">'+utils.commafy(revenue+budget,0)+'</span></p>';
+    html += '<p id="final-result">Your earnings are: € <span id="res-earnings">'+utils.commafy(revenue+budget,0)+'</span></p>';
     html += '</div>';
     html += '<div class="modal-options">';
       html += '<button class="btn-action" onclick="pt.initialiseGame()"> Quit to Menu </button>';
@@ -189,11 +189,11 @@ function endGame(time,budget,project, moduleProgressOverTime){
   $('#gameover').show();
 
   rg("#res-time",time-project.duration,true);
-  rg("#res-balance",budget);
+  // rg("#res-balance",budget);
   rg("#res-budget",((project.budget-budget)/project.budget)-1,true);
-  rg("#res-revenue",revenue);
+  // rg("#res-revenue",revenue);
   rg("#res-revenuepc",revenue*100/project.revenue.amount*project.revenue.months);
-  rg("#res-earnings",revenue+budget);
+  // rg("#res-earnings",revenue+budget);
 }
 
 function rg(tag,num,rev){
