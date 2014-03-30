@@ -1,14 +1,17 @@
 function revenue(time, project) {
   var base = project.revenue.amount * project.revenue.months,
-      wobble = time/project.duration;
+      wobble = project.duration-time,
+      bonus = project.revenue.amount *wobble;
   // console.log("base revenue");
   // console.log(base);
   // console.log("time remaining");
+  // console.log(time);
+  // console.log("wobble");
   // console.log(wobble);
   // console.log("revenue ± time remaining");
-  // console.log(base + (project.revenue.amount * wobble));
+  // console.log(base + bonus);
 
-  return (base + (project.revenue.amount * wobble));
+  return base + bonus;
 }
 
 function commafy(x,y) {
