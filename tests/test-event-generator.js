@@ -86,13 +86,13 @@ test("Event generator works", function(t){
     t.plan(2);
 
     var gen = null;
-    var rate = client.eventRate;
+    var rate = 100;
     
     t.doesNotThrow(function() {
         gen = new EventGenerator(events,rate);
     });
 
     t.doesNotThrow(function() {
-        gen.getEvent([20,2000]);
+        gen.getEvent([20,4000,20]);
     });
 });
