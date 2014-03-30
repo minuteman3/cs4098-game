@@ -48,8 +48,8 @@ function objectadd(a,b){
   return a;
 }
 
-function randomCity(m,mod){
-  var c = Object.keys(mod[m].developersPerCity);
+function randomCity(m){
+  var c = Object.keys(m.developersPerCity);
   return c[Math.floor(Math.random()*c.length)];
 }
 

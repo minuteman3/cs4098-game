@@ -87,9 +87,9 @@ test('objectadd works', function(t){
 test('randomCity works',function(t){
 	t.plan(2);
 	var mod = [{"developersPerCity":{"Dublin":1}}];
-	t.equals(utils.randomCity(0,mod),"Dublin");
+	t.equals(utils.randomCity(mod[0]),"Dublin");
 	var mod2 = [{"developersPerCity":{"Dublin":1,"Cork":4}}];
-	t.ok(utils.randomCity(0,mod) == "Dublin" || utils.randomCity(0,mod) == "Cork" ,'picks a city');
+	t.ok(utils.randomCity(mod2[0]) == "Dublin" || utils.randomCity(mod2[0]) == "Cork" ,'picks a city');
 });
 
 test('calculateCost works',function(t){

@@ -43,6 +43,6 @@ test("process simulator works", function(t) {
 			},'ProcessSim.unpause()');
 			t.ok(done, 'all modules done');
 			ProcessSim.stop();
-		},function(){},events,rate);
+		},function(){}, function() {return modules[0];}, events,rate);
 	},'ProcessSim.start()');
 });
