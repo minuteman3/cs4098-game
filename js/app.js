@@ -110,7 +110,7 @@ function startSimulation(){
   //console.log(selectedTeams);
   curGameState = GameStates.PROGRESS;
   
-  sidebar.setList([],[]);
+  sidebar.setList([],false);
   sidebar.showSelectTeams(false);
   sidebar.setTitle("Game is Running");
 
@@ -173,7 +173,7 @@ function startGame(a){
       obj.name = a.name;
       obj.cost = (100*a.cost/selectedProject.cost);
       return obj;
-    }));
+    }),true);
   sidebar.setListItemActive(0);
   if( localStorage.getItem("firstTimeModals") === null ){
     modal.dialog(client.information+"<br/>Access this Information at any time from the Options Menu."); //removed information from startup
@@ -208,7 +208,7 @@ function startLoop(){
 
     modules.push(
       new Module( 
-        moduleDevelopes,i.cost
+        moduleDevelopes, i.cost, i.name
       )
     );
   });
@@ -243,15 +243,18 @@ function simulationUpdate(modules,citiesState){
   currentWeek += 1;
   moduleProgressOverTime[0].push(currentWeek);
   var  i =1;
-
-  modules.forEach(function(module) {
+  var sidebarmodules = [];
+  modules.forEach(function(module, index) {
 
       totalCost += module.getCost(citiesState);
       modulesProgree = module.getPercentComplete();
+      // update the sidebar
+      console.log(module.name+" "+modulesProgree+"%");
  
       if(moduleProgressOverTime[i][moduleProgressOverTime[i].length -1] < 100)
         moduleProgressOverTime[i].push(modulesProgree);
       i += 1;
+      sidebarmodules.push({"name":module.name,"cost":modulesProgree});
 
       percentComplete += modulesProgree;
   });
@@ -261,6 +264,7 @@ function simulationUpdate(modules,citiesState){
   sidebar.setCash(projectBudget);
   sidebar.setWeeks(weeksTilDueDate);
   sidebar.setProgress(percentComplete/modules.length);
+  sidebar.setList(sidebarmodules,true);
 }
 function simulationComplete (modules) {
   var done = true;

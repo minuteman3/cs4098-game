@@ -49,17 +49,23 @@ function hide(){
 /*
 *   List functions
 */ 
-function setList(elements){
-	$(listTag).empty();
+function setList(elements,nonselectable){
+  nonselectable = nonselectable || false;
+  $(listTag).empty();
+  var e = "Effort ";
+  if (nonselectable){
+    e = "Progress ";
+  }
 
-	for(var i =0;i< elements.length;i++)
-	{
+  for(var i =0;i< elements.length;i++)
+  {
     var item = elements[i];
-    var html = item.name + "<br/><span class='modulecost'>Effort "+item.cost.toFixed(0)+"%</span>";
-		$(listTag).append($("<li></li>").html(html).attr("date-name",item.name));
-    
-	}
-  setListListner(itemSelectionFunc);
+    var html = item.name + "<br/><span class='modulecost'>"+e+item.cost.toFixed(0)+"%</span>";
+    $(listTag).append($("<li></li>").html(html).attr("date-name",item.name));
+  }
+  if (nonselectable){
+    setListListner(itemSelectionFunc);
+  }
 }
 
 function setListListner(func){
