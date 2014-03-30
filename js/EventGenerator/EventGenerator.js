@@ -12,7 +12,7 @@ function loadFuzzyEngine(events){
 
     for(var i = 0; i < events.length; i++) {   
                           //Morale  // Pay  
-        var conditions = [[0],[0]]; 
+        var conditions = [[0],[0],[0]]; 
 
         if('morale' in events[i].conditions) {
             conditions[0] = events[i].conditions.morale;
@@ -20,6 +20,11 @@ function loadFuzzyEngine(events){
 
         if('pay' in events[i].conditions) {
             conditions[1] = events[i].conditions.pay;
+        }
+
+        if('progress' in events[i].conditions)
+        {
+            conditions[2] = events[i].conditions.progress;
         }
 
         fuzzyRules.push(conditions);
