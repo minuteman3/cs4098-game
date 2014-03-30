@@ -41,6 +41,15 @@ Module.prototype.advance = function advance (cities) {
     }
 };
 
+Module.prototype.calculateMaximalProgressPerCycle = function calculateMaximalProgress() {
+    var devs = this.developersPerCity,
+        idealProgress = 0;
+    Object.keys(devs).forEach(function(key) {
+        idealProgress += cities[key].idealProgress(devs[key]);
+    });
+    return idealProgress;
+};
+
 Module.prototype.getCost = function getCost (cities) {
     var devs = this.developersPerCity;
     var cost = 0;
@@ -49,6 +58,11 @@ Module.prototype.getCost = function getCost (cities) {
         cost += cities[key].cost(developers);
     });
     return cost;
+};
+
+Module.prototype.isBehindSchedule = function isBehindSchedule (currentWeek) {
+      var completion = module.getPercentComplete();
+      return (completion < module.calculateMaximalProgressPerCycle() * currentWeek);
 };
 
 module.exports = Module;

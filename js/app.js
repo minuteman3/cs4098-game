@@ -258,13 +258,13 @@ function simulationUpdate(modules,citiesState){
 
       percentComplete += modulesProgree;
   });
-
   weeksTilDueDate--;
   projectBudget -= totalCost;
   sidebar.setCash(projectBudget);
   sidebar.setWeeks(weeksTilDueDate);
   sidebar.setProgress(percentComplete/modules.length);
 }
+
 function simulationComplete (modules) {
   var done = true;
   modules.forEach(function(module) {
@@ -319,7 +319,7 @@ function evt(actionNumber){
   var ev = modal.getEvents();
   var cev = ev[ev.length-1];
   var effects = utils.objectadd(cev.effects, cev.actions[actionNumber].effects);
-  var city = ProcessSim.getCity(cev.city);
+  var city = cev.city;
   if(effects.money){
     projectBudget += effects.money;
     if(effects.money<0){
@@ -333,7 +333,8 @@ function evt(actionNumber){
   if(effects.morale){
     // set city morale to effects.morale
     city.stall();
-    city.setMorale(effects.morale);
+    city.modifyMorale(effects.morale);
+    console.log(city);
     // setTimeout(function(){
     //   city.setMorale(0-effects.morale);
     // },5000);

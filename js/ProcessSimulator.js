@@ -24,9 +24,10 @@ function timerLoop(){
     updateFunc(modules,cities);
 
     var module = getRandomModule();
-    var city = utils.randomCity(module);
+    var city = cities[utils.randomCity(module)];
     
     var ev = gen.getEvent([city.morale, city.costPerDeveloper, module.getPercentComplete()]);
+    console.log(city);
     if(ev){
         ev.module = module;
         ev.city = city;
