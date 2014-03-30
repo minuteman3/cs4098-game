@@ -338,6 +338,10 @@ function evt(actionNumber){
     //   city.setMorale(0-effects.morale);
     // },5000);
   }
+  if(effects.progress)
+  {
+      cev.module.setPercentageComplete(effects.progress);
+  }
 }
 
 $( document ).ready( function() {
