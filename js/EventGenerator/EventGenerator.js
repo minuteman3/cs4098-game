@@ -1,4 +1,5 @@
 var FuzzyEngine = require("./fuzzyEngine.js");
+var config = require("../../config/client-config.json");
 
 var EventGenerator = function(events,rate){
     this.events = events || [];
@@ -24,9 +25,7 @@ function loadFuzzyEngine(events){
         fuzzyRules.push(conditions);
     }
 	
-    // TODO: placeholder
-    //                // Morale                          // Pay
-    var memberFuncs =[[[0,20,30],[40,50,80],[45,50,100]],[[0,4000,5000],[6000,7000,10000],[6500,7000,Number.MAX_VALUE]]];
+    var memberFuncs = [config.moraleFuzzification, config.payFuzzification];
 
     return new FuzzyEngine(fuzzyRules, memberFuncs);
 }
