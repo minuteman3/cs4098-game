@@ -40,7 +40,8 @@ function makeChoices(a,b,c,proj){
   a.forEach(function(b,i,arr) {
     b.funct = b.funct || "startGame("+i+")";
     if (proj){
-      d = 'onmouseover="'+'pt.projectdescription('+i+') "';
+      d = 'onmouseover="'+'pt.projectdescription('+i+')" ';
+      d += 'ontouchstart="'+'pt.projectdescription('+i+')" ';
     }
     ret += '<button class="'+c+'" onclick="pt.'+b.funct+'" '+d+' >' + b.name + '</button>';
   });
