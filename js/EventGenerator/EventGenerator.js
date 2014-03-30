@@ -26,7 +26,7 @@ function loadFuzzyEngine(events){
 	
     // TODO: placeholder
     //                // Morale                          // Pay
-    var memberFuncs =[[[10,20,30],[40,50,80],[45,50,90]],[[1000,2000,3000],[4000,5000,8000],[4500,5000,9000]]];
+    var memberFuncs =[[[0,20,30],[40,50,80],[45,50,100]],[[0,4000,5000],[6000,7000,10000],[6500,7000,Number.MAX_VALUE]]];
 
     return new FuzzyEngine(fuzzyRules, memberFuncs);
 }
