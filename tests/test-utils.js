@@ -2,7 +2,7 @@ var test = require('tape');
 var utils = require('./../js/utils.js');
 
 test('revenue is calculated', function (t) {
-    t.plan(1);
+    t.plan(4);
     var project={
 		"name": "Project A",
 		"budget": 10000,
@@ -12,7 +12,10 @@ test('revenue is calculated', function (t) {
 			"amount": 10000
 		}
 	};
-    t.equals(utils.revenue(12,project),75000);
+    t.equals(utils.revenue(8,project),60000);
+    t.equals(utils.revenue(12,project),20000);
+    t.equals(utils.revenue(4,project),100000);
+    t.equals(utils.revenue(1,project),130000);
 });
 
 test('commas get inserted into money numbers',function(t){
