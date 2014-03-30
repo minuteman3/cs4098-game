@@ -11,11 +11,12 @@ var payrollforModuleTag = "#costPerMonth";
 var activeClass = "active";
 var activeTag = "." + activeClass;
 var gamePropertiesTag = ".gameProperties";
+var selectTeamTagstatus = ".select-teams-status";
 var selectTeamTag = ".select-teams";
 var budgetTag = "#budget";
 var dueDateTag = "#duedate";
 var titleTag = "#sidebar-title";
-var sidebarTag = '#sidebar';
+var sidebarTag = '#HUD';
 var cashTag = "#cash";
 var progressTag = "#progress";
 var weeksTag = "#weeks";
@@ -48,17 +49,23 @@ function hide(){
 /*
 *   List functions
 */ 
-function setList(elements){
-	$(listTag).empty();
+function setList(elements,nonselectable){
+  nonselectable = nonselectable || false;
+  $(listTag).empty();
+  var e = "Effort ";
+  if (nonselectable){
+    e = "Progress ";
+  }
 
-	for(var i =0;i< elements.length;i++)
-	{
+  for(var i =0;i< elements.length;i++)
+  {
     var item = elements[i];
-    var html = item.name + "<br/><span class='modulecost'>Effort "+item.cost.toFixed(0)+"%</span>";
-		$(listTag).append($("<li></li>").html(html).attr("date-name",item.name));
-    
-	}
-  setListListner(itemSelectionFunc);
+    var html = item.name + "<br/><span class='modulecost'>"+e+item.cost.toFixed(0)+"%</span>";
+    $(listTag).append($("<li></li>").html(html).attr("date-name",item.name));
+  }
+  if (nonselectable){
+    setListListner(itemSelectionFunc);
+  }
 }
 
 function setListListner(func){
@@ -152,6 +159,7 @@ function setLocations(teams,selectedCity){
 }
 
 function showSelectTeams(visible){
+  $(selectTeamTagstatus).css('display',visible?"block":"none");
   $(selectTeamTag).css('display',visible?"block":"none");
 }
 
