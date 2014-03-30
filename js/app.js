@@ -185,9 +185,12 @@ function startGame(a){
 
 function showEvent(ev){
   ProcessSim.pause();
-  ev.module = Math.floor(Math.random()*modules.length);
-  ev.city = utils.randomCity(ev.module,modules);
   modal.showEvent(ev,currentWeek);
+}
+
+function getRandomModule()
+{
+   return modules[Math.floor(Math.random()*modules.length)];
 }
 
 function startLoop(){
@@ -222,7 +225,7 @@ function startLoop(){
 
 
   ProcessSim.start(modules,citiesState,simulationUpdate,simulationComplete,
-    showEvent,events,eventRate);
+    showEvent,getRandomModule,events,eventRate);
 }
 
 function simulationUpdate(modules,citiesState){
@@ -328,7 +331,7 @@ function evt(actionNumber){
     }
   }
   if(effects.stall){
-    modules[cev.module].stall(effects.stall);
+    cev.module.stall(effects.stall);
     city.stall();
   }
   if(effects.morale){
