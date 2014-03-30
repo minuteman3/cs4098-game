@@ -7,8 +7,11 @@ var City = function(_name,_costPerDeveloper,_baseProductivity){
 };
 
 City.prototype.progress = function( developerCount){
-    this._status = 3;
-    return (this.productivity * developerCount * (this.morale / 100));
+    return this.idealProgress(developerCount) * (this.morale / 100);
+};
+
+City.prototype.idealProgress = function (developerCount) {
+    return this.productivity * developerCount;
 };
 
 City.prototype.cost = function( developerCount){
@@ -20,12 +23,20 @@ City.prototype.status = function(){
     return this._status;
 };
 
-City.prototype.stall = function(){
+City.prototype.stall = function stall(){
     this._status = 2;
 };
 
-City.prototype.setMorale = function(a){
-    this.morale = this.morale-a;
+City.prototype.modifyMorale = function modifyMorale(mod){
+    this.morale = this.morale + mod;
+    if (this.morale < 0) this.morale = 0;
+    if (this.morale === 0) this._status = 1;
+};
+
+City.prototype.setMorale = function setMorale(morale) {
+    this.morale = morale;
+    if (this.morale < 0) this.morale = 0;
+    if (this.morale === 0) this._status = 1;
 };
 
 module.exports = City;
