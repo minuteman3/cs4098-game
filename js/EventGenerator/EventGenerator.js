@@ -12,7 +12,7 @@ function loadFuzzyEngine(events){
 
     for(var i = 0; i < events.length; i++) {   
                           //Morale  // Pay  
-        var conditions = [[0],[0]]; // 0,1,2 allows the event to occur for any val of this var
+        var conditions = [[0],[0]]; 
 
         if('morale' in events[i].conditions) {
             conditions[0] = events[i].conditions.morale;
@@ -25,7 +25,7 @@ function loadFuzzyEngine(events){
         fuzzyRules.push(conditions);
     }
 	
-    var memberFuncs = [config.moraleFuzzification, config.payFuzzification];
+    var memberFuncs = [config.moraleFuzzification, config.payFuzzification, config.completionFuzzification];
 
     return new FuzzyEngine(fuzzyRules, memberFuncs);
 }

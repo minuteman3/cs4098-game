@@ -26,7 +26,7 @@ function timerLoop(){
     var module = getRandomModule();
     var city = utils.randomCity(module);
     
-    var ev = gen.getEvent([city.morale, city.costPerDeveloper]);
+    var ev = gen.getEvent([city.morale, city.costPerDeveloper, module.getPercentComplete()]);
     if(ev){
         ev.module = module;
         ev.city = city;
