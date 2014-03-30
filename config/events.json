@@ -49,5 +49,59 @@
                 }
             }
         ]
+    },
+    {
+        "conditions": {
+            "morale": [
+                1
+            ],
+            "progress": [
+                2
+            ]
+        },
+        "message": "A module at $site fails integration tests, what do you do?",
+        "effects": {},
+        "actions": [
+            {
+                "message": "Forced overtime",
+                "effects": {
+                    "money": 10000,
+                    "morale": -20
+                }
+            },
+            {
+                "message": "Nothing",
+                "effects": {
+                    "stall": 5
+                }
+            }
+        ]
+    },
+    {
+        "conditions": {
+            "morale": [
+                1, 2
+            ],
+            "progress": [
+                3
+            ]
+        },
+        "message": "A module at $site fails acceptance tests, what do you do?",
+        "effects": {},
+        "actions": [
+            {
+                "message": "Forced overtime",
+                "effects": {
+                    "money": 10000,
+                    "morale": -20
+                }
+            },
+            {
+                "message": "Nothing",
+                "effects": {
+                    "stall": 5
+                }
+            }
+        ]
     }
 ]
