@@ -10,43 +10,14 @@
             "effects": {
                 "stall": 2,
                 "morale": 100,
-                "money": 0;
-            }
-        },
-        {
-            "message": "Do nothing",
-            "effects": {
                 "money": 0
             }
         },
         {
-            "message": "Do nothing",
+            "message": "Encourage Overtime",
             "effects": {
-                "money": 0
-            }
-        },
-        {
-            "message": "Do nothing",
-            "effects": {
-                "money": 0
-            }
-        },
-        {
-            "message": "Do nothing",
-            "effects": {
-                "money": 0
-            }
-        },
-        {
-            "message": "Do nothing",
-            "effects": {
-                "money": 0
-            }
-        },
-        {
-            "message": "Do nothing",
-            "effects": {
-                "money": 0
+                "morale": 20,
+                "money": -20000
             }
         },
         {
