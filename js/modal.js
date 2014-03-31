@@ -167,7 +167,7 @@ function endGame(time,budget,project, moduleProgressOverTime){
   addChartContainer();
   hidemodal ();
   var revenue = utils.revenue(time,project);
-  var html = "<h1>Game Over</h1>";
+  var html = "<h1>"+project.name+" - Project Simulation Complete</h1>";
   html += '<div id="chartcontainer"></div>';
   html += '<div id="results">';
     html += '<p>The Project deadline was '+project.duration+' weeks and took <span id="res-time">'+time+'</span> weeks</p>';
@@ -211,8 +211,11 @@ function rg(tag,num,rev){
 function pause () {
   if (!modal && !menu){
     var pausemenu = "<h1>Pause</h1>";
-    pausemenu += makeChoices([{"name":"Restart","funct":"initialiseGame()"},
-                              {"name":"Quit","funct":"endGame()"}],
+    pausemenu += makeChoices([
+                              {"name":"Continue","funct":"pause()"},
+                              {"name":"Restart","funct":"initialiseGame()"},
+                              {"name":"Quit","funct":"endGame()"}
+                              ],
                               client.information);
     showmodal(pausemenu,true);
   }else if(modal && menu){
