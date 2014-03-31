@@ -48,7 +48,7 @@ function onlabelShow(e,label,code){
   }else if(curGameState === GameStates.PROGRESS){
     // fixoverlap code is broken
     label.html(
-      "You can receive an indepth <br/> report on the progress of <br/> this team for $500"
+      "Make a pre-emptive intervention<br />in "+hoverCity.name
     );
   }
   maps.fixOverLap(code,label);
