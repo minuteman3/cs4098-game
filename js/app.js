@@ -54,12 +54,17 @@ function onlabelShow(e,label,code){
   maps.fixOverLap(code,label);
 }
 
-
-
 function selectCity(e,  code,  isSelected,  selectedMarkers) {
   if(curGameState === GameStates.PROGRESS){
+    var hoverCity  = cities[code];
+    var label;
+    label =
+      '<strong>'+              hoverCity.name         +'</strong><br/>'+
+      'Morale: '+          hoverCity.morale       +'%<br/>'+
+      'Productivity: '+    hoverCity.productivity +'%<br/>'+
+      'Cost per week: $'+ hoverCity.costPerWeek +'<br/>';
     ProcessSim.pause();
-    modal.dialog("This team is doing very well");
+    modal.dialog(label);
     sidebar.setCash(projectBudget);
     projectBudget -= 500;
   } else {
@@ -314,7 +319,9 @@ function initialiseGame(){
 
 function pause(){
   modal.pause();
-  ProcessSim.pause();
+  if(curGameState === GameStates.PROGRESS){
+    ProcessSim.pause();
+  }
   $('#btn-options').show();
 }
 
@@ -363,7 +370,7 @@ $( document ).ready( function() {
     setBodyScale();
   });
   document.onkeydown = function (evt) {
-    if (evt.keyCode == 27) {
+    if (evt.keyCode === 27) {
       // this is the escape key [esc]
       pt.pause();
       evt.preventDefault();
