@@ -71,12 +71,10 @@ function getEvents(){
 }
 
 function showEvent(ev,currentWeek){
-  console.log(ev);
-  ev.message = ev.message.replace("$site", ev.city.name);
   ev.week = currentWeek;
   events.push(ev);
   var html = "<h1>Information</h1><p>";
-  html +=  '<p>' + ev.message;
+  html +=  '<p>' + ev.message.replace("$site", ev.city.name);
   html += '</p><div class="modal-options">';
   ev.actions.forEach(function(action, index){
       html += '<button class="btn-action" onclick="pt.hidemodal();pt.unpause();pt.evt('+index+')">' + action.message + '</button>';
