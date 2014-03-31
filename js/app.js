@@ -10,6 +10,8 @@ var client     = require('./../config/client-config.json');
 var sidebar    = require('./sidebar.js');
 var utils      = require('./utils.js');
 var events     = require("../config/events.json");
+var interventions= require("../config/interventions.json");
+var deepcopy   = require('deepcopy');
 
 var projects = proj.projects;
 var selectedProject;
@@ -56,17 +58,10 @@ function onlabelShow(e,label,code){
 
 function selectCity(e,  code,  isSelected,  selectedMarkers) {
   if(curGameState === GameStates.PROGRESS){
-    var hoverCity  = cities[code];
-    var label;
-    label =
-      '<strong>'+              hoverCity.name         +'</strong><br/>'+
-      'Morale: '+          hoverCity.morale       +'%<br/>'+
-      'Productivity: '+    hoverCity.productivity +'%<br/>'+
-      'Cost per week: $'+ hoverCity.costPerWeek +'<br/>';
-    ProcessSim.pause();
-    modal.dialog(label);
-    sidebar.setCash(projectBudget);
-    projectBudget -= 500;
+    var i = deepcopy(interventions);
+    i.city = deepcopy(cities[code]);
+    console.log(i);
+    showEvent(i);
   } else {
     //update general information
     teamsSelected[code] = (teamsSelected[code] || 0)+1;
@@ -110,9 +105,6 @@ function startSimulation(){
     modal.dialog("There needs to be at least one team for every module");
     return;
   }
-
-
-  //console.log(selectedTeams);
   curGameState = GameStates.PROGRESS;
   
   sidebar.setList([],false);
@@ -257,8 +249,6 @@ function simulationUpdate(modules,citiesState){
       totalCost += module.getCost(citiesState);
       modulesProgree = module.getPercentComplete();
       // update the sidebar
-      console.log(module.name+" "+modulesProgree+"%");
- 
       if(moduleProgressOverTime[i][moduleProgressOverTime[i].length -1] < 100)
         moduleProgressOverTime[i].push(modulesProgree);
       i += 1;
