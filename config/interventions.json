@@ -1,0 +1,59 @@
+{
+    "conditions": {},
+    "message": "These pre-emptive interventions are available for $site . What would you like to do?",
+    "effects": {
+        "money": -10000
+    },
+    "actions": [
+        {
+            "message": "Two Week Company Vacation",
+            "effects": {
+                "stall": 2,
+                "morale": 100,
+                "money": 0;
+            }
+        },
+        {
+            "message": "Do nothing",
+            "effects": {
+                "money": 0
+            }
+        },
+        {
+            "message": "Do nothing",
+            "effects": {
+                "money": 0
+            }
+        },
+        {
+            "message": "Do nothing",
+            "effects": {
+                "money": 0
+            }
+        },
+        {
+            "message": "Do nothing",
+            "effects": {
+                "money": 0
+            }
+        },
+        {
+            "message": "Do nothing",
+            "effects": {
+                "money": 0
+            }
+        },
+        {
+            "message": "Do nothing",
+            "effects": {
+                "money": 0
+            }
+        },
+        {
+            "message": "Do nothing",
+            "effects": {
+                "money": 0
+            }
+        }
+    ]
+}
