@@ -32,7 +32,8 @@
     "lessify": "~0.3.0",
     "uglifyify": "~1.2.2",
     "browserify-shim": "~3.2.2",
-    "jquery": "~1.11.0"
+    "jquery": "~1.11.0",
+    "deepcopy": "^0.3.3"
   },
   "devDependencies": {
     "tape": "~2.4.0"
@@ -45,13 +46,15 @@
     ]
   },
   "browser": {
-      "jvm": "./lib/jquery-jvectormap-1.2.2.min.js"
+    "jvm": "./lib/jquery-jvectormap-1.2.2.min.js"
   },
   "browserify-shim": {
-      "jvm": {
-          "exports": "jvm",
-          "depends": ["jquery:jQuery"]
-      }
+    "jvm": {
+      "exports": "jvm",
+      "depends": [
+        "jquery:jQuery"
+      ]
+    }
   },
   "testling": {
     "files": [
@@ -60,7 +63,7 @@
       "tests/browser/test-sidebar.js",
       "tests/browser/test-modal.js",
       "tests/browser/test-app.js"
-      ],
+    ],
     "browsers": [
       "ie/6..latest",
       "chrome/15..latest",

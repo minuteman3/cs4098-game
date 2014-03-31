@@ -1,5 +1,6 @@
 var FuzzyEngine = require("./fuzzyEngine.js");
 var config = require("../../config/client-config.json");
+var deepcopy = require('deepcopy');
 
 var EventGenerator = function(events,rate){
     this.events = events || [];
@@ -38,7 +39,7 @@ function loadFuzzyEngine(events){
 EventGenerator.prototype.getEvent = function(variables){
     // rate% chance to return an event
     if(Math.random() > (1-this.rate)) {
-        return this.events[this.engine.run(variables, Math.random())];
+        return deepcopy(this.events[this.engine.run(variables, Math.random())]);
     } else {
         return null;
     }

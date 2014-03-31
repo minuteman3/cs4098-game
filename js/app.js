@@ -334,7 +334,6 @@ function evt(actionNumber){
     // set city morale to effects.morale
     city.stall();
     city.modifyMorale(effects.morale);
-    console.log(city);
     // setTimeout(function(){
     //   city.setMorale(0-effects.morale);
     // },5000);

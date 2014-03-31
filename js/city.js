@@ -7,7 +7,9 @@ var City = function(_name,_costPerDeveloper,_baseProductivity){
 };
 
 City.prototype.progress = function( developerCount){
-    return this.idealProgress(developerCount) * (this.morale / 100);
+    var progress = this.idealProgress(developerCount) * (this.morale / 100);
+    this._status = progress === 0 ? 1 : progress < (this.idealProgress(developerCount) / 2) ? 2 : 3;
+    return progress;
 };
 
 City.prototype.idealProgress = function (developerCount) {
