@@ -63,9 +63,7 @@ function setList(elements,nonselectable){
     var html = item.name + "<br/><span class='modulecost'>"+e+item.cost.toFixed(0)+"%</span>";
     $(listTag).append($("<li></li>").html(html).attr("date-name",item.name));
   }
-  if (nonselectable){
-    setListListner(itemSelectionFunc);
-  }
+  setListListner(itemSelectionFunc);
 }
 
 function setListListner(func){

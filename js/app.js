@@ -60,7 +60,6 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
   if(curGameState === GameStates.PROGRESS){
     var i = deepcopy(interventions);
     i.city = deepcopy(cities[code]);
-    console.log(i);
     showEvent(i);
   } else {
     //update general information
