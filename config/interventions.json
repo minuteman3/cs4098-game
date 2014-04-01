@@ -1,5 +1,4 @@
 {
-    "conditions": {},
     "message": "These pre-emptive interventions are available for $site . What would you like to do?",
     "effects": {
         "money": -10000
