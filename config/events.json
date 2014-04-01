@@ -37,7 +37,7 @@
             {
                 "message": "Raise pay",
                 "effects": {
-                    "money": 2000,
+                    "money": -2000,
                     "morale": 20
                 }
             },
@@ -65,7 +65,7 @@
             {
                 "message": "Forced overtime",
                 "effects": {
-                    "money": 10000,
+                    "money": -10000,
                     "morale": -20
                 }
             },
@@ -92,7 +92,7 @@
             {
                 "message": "Forced overtime",
                 "effects": {
-                    "money": 10000,
+                    "money": -10000,
                     "morale": -20
                 }
             },
