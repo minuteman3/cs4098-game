@@ -60,7 +60,7 @@
             ]
         },
         "message": "$module fails integration tests, what do you do?",
-        "effects": {},
+        "effects": {"progress": 60},
         "actions": [
             {
                 "message": "Forced overtime",
@@ -87,7 +87,7 @@
             ]
         },
         "message": "$module fails acceptance tests, what do you do?",
-        "effects": {},
+        "effects": {"progress": 75 },
         "actions": [
             {
                 "message": "Forced overtime",
