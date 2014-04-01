@@ -48,19 +48,38 @@ function onlabelShow(e,label,code){
       'Cost per week: $'+ hoverCity.costPerWeek +'<br/>'
     );
   }else if(curGameState === GameStates.PROGRESS){
-    // fixoverlap code is broken
-    label.html(
-      "Make a pre-emptive intervention<br />in "+hoverCity.name
-    );
+    var mods = [];
+    modules.forEach(function(m){
+      Object.keys(m.developersPerCity).forEach(function(mc){
+        mods.push(mc);
+      });
+    });
+    // only show tooltip if hoverCity in any of modules.developersPerCity
+    if(utils.contains(mods, hoverCity.name)){
+      label.html(
+        "Make a pre-emptive intervention<br />in "+hoverCity.name
+      );
+    }else{
+      label.css('visibility','hidden');
+    }
   }
   maps.fixOverLap(code,label);
 }
 
 function selectCity(e,  code,  isSelected,  selectedMarkers) {
   if(curGameState === GameStates.PROGRESS){
-    var i = deepcopy(interventions);
-    i.city = deepcopy(cities[code]);
-    showEvent(i);
+    var mods = [];
+    modules.forEach(function(m){
+      Object.keys(m.developersPerCity).forEach(function(mc){
+        mods.push(mc);
+      });
+    });
+    // only show tooltip if hoverCity in any of modules.developersPerCity
+    if(utils.contains(mods, cities[code].name)){
+      var i = deepcopy(interventions);
+      i.city = deepcopy(cities[code]);
+      showEvent(i);
+    }
   } else {
     //update general information
     teamsSelected[code] = (teamsSelected[code] || 0)+1;
