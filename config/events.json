@@ -59,7 +59,7 @@
                 2
             ]
         },
-        "message": "A module at $site fails integration tests, what do you do?",
+        "message": "$module fails integration tests, what do you do?",
         "effects": {},
         "actions": [
             {
@@ -86,7 +86,7 @@
                 3
             ]
         },
-        "message": "A module at $site fails acceptance tests, what do you do?",
+        "message": "$module fails acceptance tests, what do you do?",
         "effects": {},
         "actions": [
             {

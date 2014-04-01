@@ -211,7 +211,7 @@ function startLoop(){
 
     modules.push(
       new Module( 
-        moduleDevelopes,i.cost
+        moduleDevelopes,i.cost,i.name
       )
     );
   });

@@ -1,7 +1,8 @@
-var Module = function(_developersPerCity, _cost){
+var Module = function(_developersPerCity, _cost, _name){
     this.progress = 0;
     this.developersPerCity = _developersPerCity;
     this.cost = _cost + _cost*0.25*(Math.random() - 0.5);
+    this.name = _name;
     this.stalled = 0;
 };
 

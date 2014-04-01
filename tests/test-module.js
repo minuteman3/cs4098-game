@@ -11,7 +11,8 @@ test('Module advancement works', function(t)
                     "Dublin": 1,
                     "Mumbai": 1
                 },
-                300
+                300,
+                "test"
                 );
     var citiesState = {
             "Dublin" : new City("Dublin",6000,100),
@@ -28,7 +29,7 @@ test('Modules can be stalled', function (t) {
     t.plan(2);
     var mod = new Module({
                     Dublin: 1
-                  }, 300);
+                  }, 300, "test");
     var citiesState = {
                 Dublin: new City("Dublin",6000,100)
         };
@@ -43,7 +44,7 @@ test('Morale effects productivity', function(t) {
     t.plan(3);
     var mod = new Module( {
                     "Dublin": 1,
-                }, 300);
+                }, 300, "test");
     var citiesState = {
             "Dublin" : new City("Dublin",6000,100)
     };
