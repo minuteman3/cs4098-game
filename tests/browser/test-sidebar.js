@@ -3,7 +3,7 @@ var test = require('tape');
 var $ = require('jquery');
 
 test('sidebar:', function(t){
-    t.plan(3);
+    t.plan(18);
 
     $("<div>", {
         id: "sidebar"
@@ -57,13 +57,24 @@ test('sidebar:', function(t){
         ]);
     },'setList works');
 
-    t.equals(sidebar.getActiveListItem,0,'getActiveListItem works');
+    t.equals(sidebar.getActiveListItem(),0,'getActiveListItem works');
 
     sidebar.setListItemActive(1);
-    t.equals(sidebar.getActiveListItem,1,'setActiveListItem works');
+    t.equals(sidebar.getActiveListItem(),1,'setActiveListItem works');
 
     sidebar.setBudget(1000000);
-    t.equals($('#budget').innerHTML,"$ 1,000,000");
+    t.equals($('#budget').innerHTML,"$ 1,000,000",'setBudget');
+    t.equals($('').innerHTML,"$ 1,000,000",'setBudgetedWeeks');
+    t.equals($('').innerHTML,"$ 1,000,000",'setButtonText');
+    t.equals($('').innerHTML,"$ 1,000,000",'setCash');
+    t.equals($('').innerHTML,"$ 1,000,000",'setDueDate');
+    t.equals($('').innerHTML,"$ 1,000,000",'setPayroll');
+    t.equals($('').innerHTML,"$ 1,000,000",'setPayrollforModule');
+    t.equals($('').innerHTML,"$ 1,000,000",'setProgress');
+    t.equals($('').innerHTML,"$ 1,000,000",'setTitle');
+    t.equals($('').innerHTML,"$ 1,000,000",'setWeeks');
+    t.equals($('').innerHTML,"$ 1,000,000",'showProgressState');
+    t.equals($('').innerHTML,"$ 1,000,000",'showSelectTeams');
 
     $("#sidebar").remove();
 });
