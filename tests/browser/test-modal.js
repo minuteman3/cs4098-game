@@ -83,3 +83,51 @@ test('modal: endGame works', function(t){
 });
 
 //charts tested in test-charts-loading.js
+
+test('modal: events work', function(t){
+  t.plan(5);
+
+    $("<div>", {
+        id: "content"
+    }).appendTo("body");
+
+    var ev = {
+        "conditions": {},
+        "message": "The manager at $site has slipped on a banana peel and died. What do you do?",
+        "effects": {
+            "morale": -20
+        },
+        "actions": [
+            {
+                "message": "Wing it",
+                "effects": {
+                    "stall": 4
+                }
+            }
+        ],
+        "city": {
+            "name": "Dublin"
+        }
+    };
+    t.doesNotThrow(function(){
+        modal.showEvent(ev,3);
+    },'showEvent');
+
+    t.doesNotThrow(function(){
+        var es = modal.getEvents();
+        var evt = es[es.length-1];
+        ev.message = ev.message.replace("$site",ev.city.name);
+        t.deepEquals(evt,ev);
+    },'showEvent event added to array');
+
+    t.doesNotThrow(function(){
+        modal.setEventAction(0);
+        var es = modal.getEvents();
+        var evt = es[es.length-1];
+        t.equals(evt.mitigation,ev.actions[0]);
+    },'showEvent event mitigation saved');
+
+
+
+    $("#content").remove();
+});

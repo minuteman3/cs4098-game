@@ -72,7 +72,6 @@ function getEvents(){
 
 function showEvent(ev,currentWeek){
   ev.week = currentWeek;
-  events.push(ev);
   var html = "<h1>Information</h1><p>";
   html +=  '<p>' + ev.message.replace("$site", ev.city.name);
   html += '</p><div class="modal-options">';
@@ -85,6 +84,7 @@ function showEvent(ev,currentWeek){
   }
   html += '</div>';
 
+  events.push(ev);
   showmodal(html, false);
 }
 
