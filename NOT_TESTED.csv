@@ -6,3 +6,19 @@ lib/jquery-jvectormap-1.2.2.min, *, this is a mapping library available at jvect
 lib/jquery-jvectormap-world-mill-en, *, this is a geo-map data available at jvectormap.com
 node_modules/*, *, these are all library dependencies and fall outside our testing remit
 tests/*, *, these are tests
+js/app, calculatePayrollforMod, this is an internal function which isn't exported and therefore isn't tested
+js/app, deleteDB, this is an internal function which isn't exported and therefore isn't tested
+js/app, initialise, this is an internal function which isn't exported and therefore isn't tested
+js/app, onlabelShow, this is an internal function which isn't exported and therefore isn't tested
+js/app, selectCity, this is an internal function which isn't exported and therefore isn't tested
+js/app, selectModule, this is an internal function which isn't exported and therefore isn't tested
+js/app, simulationComplete, this is an internal function which isn't exported and therefore isn't tested
+js/app, simulationUpdate, this is an internal function which isn't exported and therefore isn't tested
+js/app, startLoop, this is an internal function which isn't exported and therefore isn't tested
+
+
+
+
+
+
+
