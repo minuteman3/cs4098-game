@@ -43,6 +43,28 @@ test('sidebar:', function(t){
         sidebar.hide();
     },'hide works');
 
+    t.doesNotThrow(function(){
+        sidebar.setList([
+        {
+          "name":"hi",
+          "cost": 100
+        },
+        {
+          "name":"there",
+          "cost": 50
+        }
+
+        ]);
+    },'setList works');
+
+    t.equals(sidebar.getActiveListItem,0,'getActiveListItem works');
+
+    sidebar.setListItemActive(1);
+    t.equals(sidebar.getActiveListItem,1,'setActiveListItem works');
+
+    sidebar.setBudget(1000000);
+    t.equals($('#budget').innerHTML,"$ 1,000,000");
+
     $("#sidebar").remove();
 });
 
