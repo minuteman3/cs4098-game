@@ -10,7 +10,7 @@ Module.prototype.getPercentComplete = function getPercentComplete () {
     return (this.progress/this.cost)*100;
 };
 
-Module.prototype.setPercentComplete = function (percent)
+Module.prototype.setPercentComplete = function setPercentComplete (percent)
 {
     this.progress = percent*this.cost;
 };

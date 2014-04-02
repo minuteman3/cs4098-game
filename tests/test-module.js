@@ -2,9 +2,9 @@ var test = require('tape');
 var Module = require('../js/Module.js');
 var City = require("../js/city.js");
 
-test('Module advancement works', function(t)
+test('Module:', function(t)
 {
-    t.plan(2);
+    t.plan(3);
 
     var mod = new Module(
                 {
@@ -19,43 +19,52 @@ test('Module advancement works', function(t)
         };
     t.doesNotThrow(function(){
         mod.advance(citiesState);
-    });
+    },'advance');
     // 100%/300(±25%)*Developers*100%
-    t.ok(53 < mod.getPercentComplete() && mod.getPercentComplete() < 89 , 'project cost randomisation');
+    t.ok(53 < mod.getPercentComplete() && mod.getPercentComplete() < 89 , 'getPercentComplete');
+    
+    mod.setPercentComplete(0.45);
+    t.equals(mod.getPercentComplete(),45,'setPercentComplete');
 });
 
-test('Modules can be stalled', function (t) {
-    t.plan(2);
+test('Module: stall', function (t) {
+    t.plan(4);
     var mod = new Module({
-                    Dublin: 1
+                    "Dublin": 1
                   }, 300);
     var citiesState = {
-                Dublin: new City("Dublin",6000,100)
-        };
+        "Dublin": new City("Dublin",6000,100)
+    };
     mod.stall(1);
     mod.advance(citiesState);
-    t.ok(mod.getPercentComplete() === 0, 'module has not advanced when stalled');
+
+    t.ok(mod.isBehindSchedule() === true,'isBehindSchedule');
+    t.doesNotThrow(function(){
+        mod.calculateMaximalProgressPerCycle();
+    },"calculateMaximalProgressPerCycle");
+    t.ok(mod.getPercentComplete() === 0, 'stall does not advance');
     mod.advance(citiesState);
-    t.ok(mod.getPercentComplete() > 0, 'module unstalls on its own');
+    t.ok(mod.getPercentComplete() > 0, 'stall advances when over');
 });
 
-test('Morale effects productivity', function(t) {
-    t.plan(3);
+test('Module: Morale effects productivity', function(t) {
+    t.plan(4);
     var mod = new Module( {
-                    "Dublin": 1,
+                    "Dublin": 1
                 }, 300);
     var citiesState = {
             "Dublin" : new City("Dublin",6000,100)
     };
+    t.ok(!mod.done(),'done');
     citiesState.Dublin.morale = 0;
     mod.advance(citiesState);
-    t.ok(mod.getPercentComplete() === 0, 'module progress affect by morale (0 progress at 0)');
+    t.ok(mod.getPercentComplete() === 0, 'morale affects progress (0 progress at 0)');
     citiesState.Dublin.morale = 50;
     mod.advance(citiesState);
     var progress50 = mod.getPercentComplete();
-    t.ok(mod.getPercentComplete() > 0, 'module progresses when morale is non-zero');
+    t.ok(mod.getPercentComplete() > 0, 'morale affects progress non-zero');
     citiesState.Dublin.morale = 100;
     mod.advance(citiesState);
     var progress100 = mod.getPercentComplete() - progress50;
-    t.ok(Math.abs(progress100 - (2 * progress50) < 0.000001), 'module progress is scaled by morale');
+    t.ok(Math.abs(progress100 - (2 * progress50) < 0.000001), 'morale scales progress');
 });
