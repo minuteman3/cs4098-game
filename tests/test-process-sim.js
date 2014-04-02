@@ -22,7 +22,8 @@ test("process simulator works", function(t) {
 					"Dublin": 1,
 					"Mumbai": 1
 				},
-				400
+				400,
+                "test"
 			)
 		); 
 	});

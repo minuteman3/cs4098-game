@@ -22,6 +22,34 @@
         ]
     },
     {
+        "conditions": {},
+        "message": "The minister has come for an inspection of $site",
+        "effects": {
+            "stall": 1
+        },
+        "actions": [
+            {
+                "message": "Ok",
+                "effects": {}
+            }
+        ]
+    },
+    {
+        "conditions": {
+            "morale": [ 3 ]
+            },
+        "message": "Extra investment! + $1000",
+        "effects": {
+            "money": 1000
+        },
+        "actions": [
+            {
+                "message": "Ok",
+                "effects": {}
+            }
+        ]
+    },
+    {
         "conditions": {
             "morale": [
                 1,
@@ -37,7 +65,7 @@
             {
                 "message": "Raise pay",
                 "effects": {
-                    "money": 2000,
+                    "money": -2000,
                     "morale": 20
                 }
             },
@@ -59,13 +87,13 @@
                 2
             ]
         },
-        "message": "A module at $site fails integration tests, what do you do?",
-        "effects": {},
+        "message": "$module fails integration tests, what do you do?",
+        "effects": {"progress": 60},
         "actions": [
             {
                 "message": "Forced overtime",
                 "effects": {
-                    "money": 10000,
+                    "money": -10000,
                     "morale": -20
                 }
             },
@@ -86,13 +114,13 @@
                 3
             ]
         },
-        "message": "A module at $site fails acceptance tests, what do you do?",
-        "effects": {},
+        "message": "$module fails acceptance tests, what do you do?",
+        "effects": {"progress": 75 },
         "actions": [
             {
                 "message": "Forced overtime",
                 "effects": {
-                    "money": 10000,
+                    "money": -10000,
                     "morale": -20
                 }
             },
