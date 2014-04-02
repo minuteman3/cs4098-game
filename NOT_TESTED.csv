@@ -16,9 +16,5 @@ js/app, simulationComplete, this is an internal function which isn't exported an
 js/app, simulationUpdate, this is an internal function which isn't exported and therefore isn't tested
 js/app, startLoop, this is an internal function which isn't exported and therefore isn't tested
 
-
-
-
-
-
+js/maps, regionLabelShow, this is an internal function which isn't exported and therefore isn't tested
 

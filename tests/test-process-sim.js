@@ -6,8 +6,8 @@ var config = require("../config/client-config.json");
 var Module = require("../js/Module.js");
 var City = require("../js/city.js");
 
-test("process simulator works", function(t) {
-	t.plan(5);
+test("process simulator: works", function(t) {
+	t.plan(6);
 	var citiesState={};
 	var modules = [];
 	t.doesNotThrow(function(){
@@ -16,6 +16,8 @@ test("process simulator works", function(t) {
 			"Dublin" : new City("Dublin",6000,100),
 			"Mumbai" : new City("Mumbai",500,100)
 		};
+	},'add cities');
+	t.doesNotThrow(function(){
 		modules.push(
 			new Module( 
 				{
@@ -25,7 +27,7 @@ test("process simulator works", function(t) {
 				400
 			)
 		); 
-	});
+	},'add modules');
 	var rate = config.eventRate;
 	t.doesNotThrow(function(){
 	// function start(_modules,_cities, _updateFunc, _doneFunc, _eventFunc, events){
@@ -37,12 +39,13 @@ test("process simulator works", function(t) {
 			});
 			t.doesNotThrow(function(){
 				ProcessSim.pause();
-			},'ProcessSim.pause()');
+			},'pause()');
 			t.doesNotThrow(function(){
 				ProcessSim.unpause();
-			},'ProcessSim.unpause()');
-			t.ok(done, 'all modules done');
+			},'unpause()');
+			// at this point, done should still be true, or else timerLoop is borken
+			t.ok(done, 'timerLoop()');
 			ProcessSim.stop();
 		},function(){}, function() {return modules[0];}, events,rate);
-	},'ProcessSim.start()');
+	},'start()');
 });
