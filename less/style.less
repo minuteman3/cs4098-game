@@ -17,7 +17,7 @@
 @base3:    #fdf6e3;
 @yellow:   #b58900;
 @orange:   #cb4b16;
-@red:      #dc322f;
+@red:      #dc322f;// Green #7FB347
 @magenta:  #d33682;
 @violet:   #6c71c4;
 @blue:     #268bd2;
@@ -140,10 +140,9 @@ html a:hover {
 }
 
 #sidebar-title{
-    margin-top: 1em;
-    margin-bottom: 0.2em;
+    margin-bottom: 1.5em;
+    margin-top: 0.5em;
     font-size: 0.5em;
-    border-bottom: 0.05em solid @magenta;
     font-weight:100;
 }
 
@@ -176,7 +175,6 @@ html a:hover {
     color: @base3;
 }
 
-
 .nav li.active {
     color: @accent;
 }
@@ -189,9 +187,8 @@ html a:hover {
     font-size: 0.6em;
     margin-left: 1em;
 }
+
 #locations{
-    // list-style-type: none;
-    // margin-left: -0.5em;
     .paddingstart(0.5em);
     font-size: 0.3em;
     margin-top: 0;
@@ -199,10 +196,10 @@ html a:hover {
 
 }
 
-
 .location-header{
     margin-bottom: 0.5em;
     margin-left: 0.5em;
+    margin-top: 3em;
     font-weight: 200;
     font-size: 0.3em;
     display: block;
@@ -218,9 +215,35 @@ html a:hover {
     font-size:0.25em;
     font-weight: 100;
     display: block;
-    margin-left: 0.75em;
-    margin-bottom: 0.5em;
+    margin-left: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
+
+#statusbar {
+    border-bottom: 0.05em solid @magenta;
+    border-top: 0.1em solid @magenta;
+    background: @base02;
+    color: #93a1a1;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 81%;
+}
+
+.select-teams-status {
+    width:20%;
+    float: left;
+    margin-left: 1em;
+    margin-top: 0.5em;
+}
+.progess-state {
+    width:20%;
+    float: left;
+    margin-left: 1em;
+    margin-top: 0.5em;
+}
+
 #budget{
     margin-left: 0.5em;
 }
@@ -246,7 +269,8 @@ to {background: @base3;}
 
 
 #locations li{
- padding-bottom:0.1em;
+    padding-bottom:0.1em;
+    list-style: none;
 }
 #locations .teamMultiplierFade{
     float:right;
@@ -297,9 +321,10 @@ button:active {
 }
 
 #btn-region{
-    position: relative; 
+    position: absolute;
     bottom: 1em;
-    margin:auto;
+    left:5%;
+    width:80%;
 }
 #btn-options{
     position: absolute;
@@ -309,6 +334,7 @@ button:active {
 }
 #btn-action{
     margin-left: 0;
+    bottom: 1em;
 }
 .btn-projects{
     display:list-item;
@@ -385,7 +411,8 @@ button:active {
      fill: @red;
 }
 .jvectormap-marker[state="2"]{
-     fill: @orange;
+     // fill: @orange;
+     fill: #FFD801; // yellower than yellow
 }
 .jvectormap-marker[state="3"]{
      // fill: @green;
@@ -394,6 +421,7 @@ button:active {
 #map {
     height: 6em; //this actually gets overwritten in JS
     float: right;
+    bottom: 0;
     width: 80%;
 }
 
@@ -475,10 +503,25 @@ button:active {
     canvas.canvasjs-chart-canvas{
         right: 1em;
     }
+    .ttip {
+        font-size: 1.5em;
+        font-weight: 200;
+        font-family: 'Helvetica Neue', 'Helvetica', 'Ariel', sans-serif;
+        color: @base03;
+        strong{
+            font-weight: 400;
+        }
+    }
 }
 #results {
     float: left;
     padding-left: 1em;
+    span{
+       font-weight: 400;
+    }
+    #final-result{
+       font-weight: 800;
+    }
 }
 /***
  *    ███████╗████████╗ █████╗ ██████╗ ████████╗    ███████╗ ██████╗██████╗ ███████╗███████╗███╗   ██╗

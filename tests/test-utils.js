@@ -89,7 +89,8 @@ test('randomCity works',function(t){
 	var mod = [{"developersPerCity":{"Dublin":1}}];
 	t.equals(utils.randomCity(mod[0]),"Dublin");
 	var mod2 = [{"developersPerCity":{"Dublin":1,"Cork":4}}];
-	t.ok(utils.randomCity(mod2[0]) == "Dublin" || utils.randomCity(mod2[0]) == "Cork" ,'picks a city');
+	var city = utils.randomCity(mod2[0]);
+	t.ok(city == "Dublin" || city == "Cork" ,'picks a city');
 });
 
 test('calculateCost works',function(t){
