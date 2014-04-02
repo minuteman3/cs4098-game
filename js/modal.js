@@ -226,12 +226,13 @@ function pause () {
 module.exports = {
     showmodal: showmodal,           // shows a modal window
     hidemodal: hidemodal,           // hides a modal window
+    dialog: dialog,
     pause: pause,                   // toggles the pause menu
     makeChoices: makeChoices,
     endGame: endGame,
+    //charts
     generateCharts: generateCharts,
     addChartContainer: addChartContainer,
-    dialog: dialog,
     //events
     setEventAction: setEventAction,
     getEvents: getEvents,
