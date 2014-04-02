@@ -2,8 +2,8 @@ var sidebar = require("../../js/sidebar.js");
 var test = require('tape');
 var $ = require('jquery');
 
-test('sidebar works', function(t){
-    t.plan(2);
+test('sidebar:', function(t){
+    t.plan(3);
 
     $("<div>", {
         id: "sidebar"
@@ -33,12 +33,15 @@ test('sidebar works', function(t){
     
     t.doesNotThrow(function(){
         sidebar.init();
-    });
+    },'init works');
+
+    t.doesNotThrow(function(){
+      sidebar.show();
+    },'show works');
 
     t.doesNotThrow(function(){
         sidebar.hide();
-        sidebar.show();
-    });
+    },'hide works');
 
     $("#sidebar").remove();
 });
