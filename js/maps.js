@@ -29,7 +29,7 @@ function buildmap (){
 }
 
 function resizemap (s) {
-  s = s || 95;
+  s = s || 85;
   if(document.getElementById('map')){
     document.getElementById('map').style.height = (document.documentElement.clientHeight * s / 100) + 'px';
   }

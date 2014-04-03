@@ -10,6 +10,8 @@ var client     = require('./../config/client-config.json');
 var sidebar    = require('./sidebar.js');
 var utils      = require('./utils.js');
 var events     = require("../config/events.json");
+var interventions= require("../config/interventions.json");
+var deepcopy   = require('deepcopy');
 
 var projects = proj.projects;
 var selectedProject;
@@ -46,20 +48,38 @@ function onlabelShow(e,label,code){
       'Cost per week: $'+ hoverCity.costPerWeek +'<br/>'
     );
   }else if(curGameState === GameStates.PROGRESS){
-    // fixoverlap code is broken
-    label.html(
-      "You can receive an indepth <br/> report on the progress of <br/> this team for $500"
-    );
+    var mods = [];
+    modules.forEach(function(m){
+      Object.keys(m.developersPerCity).forEach(function(mc){
+        mods.push(mc);
+      });
+    });
+    // only show tooltip if hoverCity in any of modules.developersPerCity
+    if(utils.contains(mods, hoverCity.name)){
+      label.html(
+        "Make a pre-emptive intervention<br />in "+hoverCity.name
+      );
+    }else{
+      label.css('visibility','hidden');
+    }
   }
   maps.fixOverLap(code,label);
 }
 
 function selectCity(e,  code,  isSelected,  selectedMarkers) {
   if(curGameState === GameStates.PROGRESS){
-    ProcessSim.pause();
-    modal.dialog("This team is doing very well");
-    sidebar.setCash(projectBudget);
-    projectBudget -= 500;
+    var mods = [];
+    modules.forEach(function(m){
+      Object.keys(m.developersPerCity).forEach(function(mc){
+        mods.push(mc);
+      });
+    });
+    // only show tooltip if hoverCity in any of modules.developersPerCity
+    if(utils.contains(mods, cities[code].name)){
+      var i = deepcopy(interventions);
+      i.city = deepcopy(cities[code]);
+      showEvent(i);
+    }
   } else {
     //update general information
     teamsSelected[code] = (teamsSelected[code] || 0)+1;
@@ -74,6 +94,7 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
 
   }
 }
+
 
 function selectModule(cityName,nextIndex) {
  
@@ -90,6 +111,7 @@ function selectModule(cityName,nextIndex) {
   sidebar.setPayrollforModule(payroll);
   sidebar.setLocations(teamsSelected);
   sidebar.setListItemActive( nextIndex);
+
 }
 
 function startSimulation(){
@@ -101,8 +123,6 @@ function startSimulation(){
     modal.dialog("There needs to be at least one team for every module");
     return;
   }
-
-  //console.log(selectedTeams);
   curGameState = GameStates.PROGRESS;
   
   sidebar.setList([],false);
@@ -247,8 +267,6 @@ function simulationUpdate(modules,citiesState){
       totalCost += module.getCost(citiesState);
       modulesProgree = module.getPercentComplete();
       // update the sidebar
-      console.log(module.name+" "+modulesProgree+"%");
- 
       if(moduleProgressOverTime[i][moduleProgressOverTime[i].length -1] < 100)
         moduleProgressOverTime[i].push(modulesProgree);
       i += 1;
@@ -310,7 +328,9 @@ function initialiseGame(){
 
 function pause(){
   modal.pause();
-  ProcessSim.pause();
+  if(curGameState === GameStates.PROGRESS){
+    ProcessSim.pause();
+  }
   $('#btn-options').show();
 }
 
@@ -359,7 +379,7 @@ $( document ).ready( function() {
     setBodyScale();
   });
   document.onkeydown = function (evt) {
-    if (evt.keyCode == 27) {
+    if (evt.keyCode === 27) {
       // this is the escape key [esc]
       pt.pause();
       evt.preventDefault();

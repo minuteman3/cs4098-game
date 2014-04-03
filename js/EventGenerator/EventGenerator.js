@@ -28,12 +28,9 @@ function loadFuzzyEngine(events){
             conditions[1] = getConditions(events[i].conditions.pay,config.payFuzzification) ;
         }
 
-        if('progress' in events[i].conditions)
-        {
+        if('progress' in events[i].conditions) {
             conditions[2] = getConditions(events[i].progress,config.completionFuzzification) ;
         }
-
-        console.log(conditions);
 
         fuzzyRules.push(conditions);
     }
@@ -48,7 +45,7 @@ function loadFuzzyEngine(events){
 
 
 function getMemValues(memValObject){
-    values =  memValObject.map(function(x){ return x.values});
+    values =  memValObject.map(function(x){ return x.values;});
     return values;
 }
 function getConditions(conditions,fuzzyValue){

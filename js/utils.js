@@ -2,15 +2,6 @@ function revenue(time, project) {
   var base = project.revenue.amount * project.revenue.months,
       wobble = project.duration-time,
       bonus = project.revenue.amount *wobble;
-  // console.log("base revenue");
-  // console.log(base);
-  // console.log("time remaining");
-  // console.log(time);
-  // console.log("wobble");
-  // console.log(wobble);
-  // console.log("revenue ± time remaining");
-  // console.log(base + bonus);
-
   return base + bonus;
 }
 

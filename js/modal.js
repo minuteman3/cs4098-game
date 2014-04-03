@@ -113,7 +113,6 @@ function generateCharts(loc, chartData, project, time){
     }
     datas.push(obj);
   }
-  // console.log(JSON.stringify(datas));
   chart = new CanvasJS.Chart(loc,
   {
     theme: "theme2",
