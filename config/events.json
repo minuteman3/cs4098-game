@@ -36,7 +36,7 @@
     },
     {
         "conditions": {
-            "morale": [ 3 ]
+            "morale": [ "high" ]
             },
         "message": "Extra investment! + $1000",
         "effects": {
@@ -52,11 +52,11 @@
     {
         "conditions": {
             "morale": [
-                1,
-                2
+                "low",
+                "med"
             ],
             "pay": [
-                1
+                "low"
             ]
         },
         "message": "Your employees at $site are threatening to strike unless you raise pay, what will you do?",
@@ -81,10 +81,10 @@
     {
         "conditions": {
             "morale": [
-                1
+                "low"
             ],
             "progress": [
-                2
+                "med"
             ]
         },
         "message": "$module fails integration tests, what do you do?",
@@ -108,10 +108,10 @@
     {
         "conditions": {
             "morale": [
-                1, 2
+                "low", "med"
             ],
             "progress": [
-                3
+                "high"
             ]
         },
         "message": "$module fails acceptance tests, what do you do?",
