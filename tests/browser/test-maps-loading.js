@@ -82,24 +82,23 @@ test('maps: clearMapMarkers works', function(t){
   $("#map").remove();
 });
 
-
 test('maps: fixOverLap works', function(t){
-  t.plan(1);
+  t.plan(2);
 
-  $("<div>", {
-      id: "map"
-  }).appendTo("body");
+  var a = $("<div>", {
+      id: "lab"
+  });
+  var b = $("<div>", {
+      id: "lab2"
+  });
+  maps.fixOverLap(0,a);
+  maps.fixOverLap(4,b);
+  setTimeout(function(){
+    t.equals(a.css('margin-left'),a.width()+25+"px");
+    t.equals(b.css('margin-left'),"-10px");
+  },0);
 
-  // t.doesNotThrow(function(){
-  //     maps.resizemap(95);
-  // });
-
-  t.equals(1,0);
-
-  $("#map").remove();
 });
-
-
 
 test('maps: runState works', function(t){
   t.plan(1);
