@@ -59,27 +59,59 @@ test('modal: pause works', function(t){
 });
 
 test('modal: makeChoices works', function(t){
-  t.plan(1);
+    t.plan(3);
 
-    $("<div>", {
-        id: "content"
-    }).appendTo("body");
-    t.equals(1,0);
-    
-    $("#content").remove();
+    var e = modal.makeChoices();
+
+    t.equals(e,'<p></p>'+
+        '<div class="modal-options">'+
+            '<button class="btn-action" onclick="pt.startGame(0)"  >'+
+                'Option 1'+
+            '</button>'+
+        '</div>');
+    var f = modal.makeChoices([{"name":"Option 1","funct":""}],"hello");
+
+    t.equals(f,'<p>hello</p>'+
+        '<div class="modal-options">'+
+            '<button class="btn-action" onclick="pt.startGame(0)"  >'+
+                'Option 1'+
+            '</button>'+
+        '</div>');
+    var g = modal.makeChoices([{"name":"Option 1","funct":""}],"hello","other");
+
+    t.equals(g,'<p>hello</p>'+
+        '<div class="modal-options">'+
+            '<button class="other" onclick="pt.startGame(0)"  >'+
+                'Option 1'+
+            '</button>'+
+        '</div>');
 
 });
 
 test('modal: endGame works', function(t){
-  t.plan(1);
+  t.plan(2);
 
     $("<div>", {
         id: "content"
     }).appendTo("body");
-    t.equals(1,0);
-    
-    $("#content").remove();
 
+    var p = {
+        "name":"test",
+        "duration":30,
+        "budget":300,
+        "revenue": {
+            "amount":1000,
+            "months":5
+        }
+    };
+
+    t.doesNotThrow(function(){
+        modal.endGame(0,200,p,[]);
+    });
+
+    t.ok($('#results'),"");
+
+    $("#content").remove();
 });
 
 //charts tested in test-charts-loading.js
