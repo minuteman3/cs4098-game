@@ -368,6 +368,23 @@ $( document ).ready( function() {
       pt.pause();
       evt.preventDefault();
     }
+    else if(evt.keyCode == 38)
+    {//up
+      if(curGameState == GameStates.SELECT_TEAMS){
+          var index = sidebar.getActiveListItem() - 1; 
+          if(index >= 0){
+            var moduleName = selectedProject.modules[index].name;
+            selectModule(moduleName,index);
+          }
+      }
+    }
+    else if(evt.keyCode == 40){
+          var index = sidebar.getActiveListItem() + 1; 
+          if(index < selectedProject.modules.length ){
+            var moduleName = selectedProject.modules[index].name;
+            selectModule(moduleName,index);
+          }
+    }
   };
   window.addEventListener('resize', function(event){
     pt.resizemap(95);
