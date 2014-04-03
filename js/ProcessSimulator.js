@@ -1,6 +1,7 @@
 var config = require('./../config/client-config.json');
 var Module = require('./Module.js');
 var EventGenerator = require('./EventGenerator/EventGenerator.js');
+var utils = require("./utils.js");
 
 var modules = null;
 var cities = null;
@@ -9,6 +10,7 @@ var updateFunc = null;
 var intervalID = null;
 var gen = null;
 var eventFunc = null;
+var getRandomModule = null;
 var paused = false;
 
 function timerLoop(){
@@ -20,9 +22,14 @@ function timerLoop(){
         done = done && module.done();
     });
     updateFunc(modules,cities);
+
+    var module = getRandomModule();
+    var city = cities[utils.randomCity(module)];
     
-    var ev = gen.getEvent([20, 2000]);
+    var ev = gen.getEvent([city.morale, city.costPerDeveloper, module.getPercentComplete()]);
     if(ev){
+        ev.module = module;
+        ev.city = city;
         eventFunc(ev);
     }
 
@@ -34,12 +41,13 @@ function timerLoop(){
     }
 }
 
-function start(_modules,_cities, _updateFunc, _doneFunc, _eventFunc, events, eventRate){
+function start(_modules,_cities, _updateFunc, _doneFunc, _eventFunc, _getRandomModule, events, eventRate){
     modules = _modules;
     cities = _cities;
     updateFunc = _updateFunc;
     doneFunc = _doneFunc;
     eventFunc = _eventFunc;
+    getRandomModule = _getRandomModule;
     intervalID = setInterval(timerLoop, config.timerDuration);
     gen = new EventGenerator(events,eventRate);
     return intervalID;

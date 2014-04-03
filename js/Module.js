@@ -1,12 +1,20 @@
-var Module = function(_developersPerCity, _cost){
+var Module = function(_developersPerCity, _cost, _name){
     this.progress = 0;
     this.developersPerCity = _developersPerCity;
     this.cost = _cost + _cost*0.25*(Math.random() - 0.5);
+    this.name = _name;
     this.stalled = 0;
+    this.name = _name;
+    this.weeks = 0;
 };
 
 Module.prototype.getPercentComplete = function getPercentComplete () {
     return (this.progress/this.cost)*100;
+};
+
+Module.prototype.setPercentComplete = function setPercentComplete (percent)
+{
+    this.progress = percent*this.cost;
 };
 
 Module.prototype.done = function done () {
@@ -36,6 +44,15 @@ Module.prototype.advance = function advance (cities) {
     }
 };
 
+Module.prototype.calculateMaximalProgressPerCycle = function calculateMaximalProgress(cities) {
+    var devs = this.developersPerCity,
+        idealProgress = 0;
+    Object.keys(devs).forEach(function(key) {
+        idealProgress += cities[key].idealProgress(devs[key]);
+    });
+    return idealProgress;
+};
+
 Module.prototype.getCost = function getCost (cities) {
     var devs = this.developersPerCity;
     var cost = 0;
@@ -44,6 +61,11 @@ Module.prototype.getCost = function getCost (cities) {
         cost += cities[key].cost(developers);
     });
     return cost;
+};
+
+Module.prototype.isBehindSchedule = function isBehindSchedule (currentWeek,cities) {
+      var completion = this.getPercentComplete();
+      return (completion < this.calculateMaximalProgressPerCycle(cities) * currentWeek);
 };
 
 module.exports = Module;

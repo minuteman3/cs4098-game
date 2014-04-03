@@ -2,25 +2,26 @@ var cities = require('./../config/cities.json');
 var $ = require('jquery');
 var utils      = require('./utils.js');
 
-var listTag = ".nav";
-var itemsTag = listTag + " li";
-var payrollTag = "#totalPayroll";
-var budgetWeeksTag = "#budgetedWeeks";
-var locationTag = "#locations";
-var payrollforModuleTag = "#costPerMonth";
 var activeClass = "active";
 var activeTag = "." + activeClass;
-var gamePropertiesTag = ".gameProperties";
-var selectTeamTag = ".select-teams";
 var budgetTag = "#budget";
-var dueDateTag = "#duedate";
-var titleTag = "#sidebar-title";
-var sidebarTag = '#sidebar';
-var cashTag = "#cash";
-var progressTag = "#progress";
-var weeksTag = "#weeks";
-var progressStateTag = ".progess-state";
+var budgetWeeksTag = "#budgetedWeeks";
 var buttonTag = "#btn-region";
+var cashTag = "#cash";
+var dueDateTag = "#duedate";
+var gamePropertiesTag = ".gameProperties";
+var itemsTag = listTag + " li";
+var listTag = ".nav";
+var locationTag = "#locations";
+var payrollTag = "#totalPayroll";
+var payrollforModuleTag = "#costPerMonth";
+var progressStateTag = ".progess-state";
+var progressTag = "#progress";
+var selectTeamTag = ".select-teams";
+var selectTeamTagstatus = ".select-teams-status";
+var sidebarTag = '#HUD';
+var titleTag = "#sidebar-title";
+var weeksTag = "#weeks";
 
 var itemSelectionFunc;
 
@@ -48,17 +49,23 @@ function hide(){
 /*
 *   List functions
 */ 
-function setList(elements){
-	$(listTag).empty();
+function setList(elements,nonselectable){
+  nonselectable = nonselectable || false;
+  $(listTag).empty();
+  var e = "Effort ";
+  if (nonselectable){
+    e = "Progress ";
+  }
 
-	for(var i =0;i< elements.length;i++)
-	{
+  for(var i =0;i< elements.length;i++)
+  {
     var item = elements[i];
-    var html = item.name + "<br/><span class='modulecost'>Effort "+item.cost.toFixed(0)+"%</span>";
-		$(listTag).append($("<li></li>").html(html).attr("date-name",item.name));
-    
-	}
-  setListListner(itemSelectionFunc);
+    var html = item.name + "<br/><span class='modulecost'>"+e+item.cost.toFixed(0)+"%</span>";
+    $(listTag).append($("<li></li>").html(html).attr("date-name",item.name));
+  }
+  if (nonselectable){
+    setListListner(itemSelectionFunc);
+  }
 }
 
 function setListListner(func){
@@ -152,6 +159,7 @@ function setLocations(teams,selectedCity){
 }
 
 function showSelectTeams(visible){
+  $(selectTeamTagstatus).css('display',visible?"block":"none");
   $(selectTeamTag).css('display',visible?"block":"none");
 }
 

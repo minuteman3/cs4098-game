@@ -1,4 +1,7 @@
 var FuzzyEngine = require("./fuzzyEngine.js");
+var config = require("../../config/client-config.json");
+var deepcopy = require('deepcopy');
+
 
 var EventGenerator = function(events,rate){
     this.events = events || [];
@@ -7,34 +10,62 @@ var EventGenerator = function(events,rate){
 };
 
 function loadFuzzyEngine(events){
+
+
+
     var fuzzyRules = [];
 
     for(var i = 0; i < events.length; i++) {   
                           //Morale  // Pay  
-        var conditions = [[0],[0]]; // 0,1,2 allows the event to occur for any val of this var
+        var conditions = [[0],[0],[0]]; 
 
         if('morale' in events[i].conditions) {
-            conditions[0] = events[i].conditions.morale;
+
+            conditions[0] = getConditions(events[i].conditions.morale,config.moraleFuzzification) ;
         }
 
         if('pay' in events[i].conditions) {
-            conditions[1] = events[i].conditions.pay;
+            conditions[1] = getConditions(events[i].conditions.pay,config.payFuzzification) ;
+        }
+
+        if('progress' in events[i].conditions) {
+            conditions[2] = getConditions(events[i].progress,config.completionFuzzification) ;
         }
 
         fuzzyRules.push(conditions);
     }
 	
-    // TODO: placeholder
-    //                // Morale                          // Pay
-    var memberFuncs =[[[10,20,30],[40,50,80],[45,50,90]],[[1000,2000,3000],[4000,5000,8000],[4500,5000,9000]]];
+    var memberFuncs = [
+    getMemValues( config.moraleFuzzification), 
+    getMemValues( config.payFuzzification ),
+    getMemValues( config.completionFuzzification) ];
 
     return new FuzzyEngine(fuzzyRules, memberFuncs);
+}
+
+
+function getMemValues(memValObject){
+    values =  memValObject.map(function(x){ return x.values;});
+    return values;
+}
+function getConditions(conditions,fuzzyValue){
+    if(!conditions)return [0];
+
+    return conditions.map(function(value){
+        for(var i = 0; i < fuzzyValue.length; i++){
+           if(fuzzyValue[i].option == value)
+                return i + 1; 
+        }
+
+        return 0;
+    });
+
 }
 
 EventGenerator.prototype.getEvent = function(variables){
     // rate% chance to return an event
     if(Math.random() > (1-this.rate)) {
-        return this.events[this.engine.run(variables, Math.random())];
+        return deepcopy(this.events[this.engine.run(variables, Math.random())]);
     } else {
         return null;
     }

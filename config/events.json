@@ -22,13 +22,41 @@
         ]
     },
     {
+        "conditions": {},
+        "message": "The minister has come for an inspection of $site",
+        "effects": {
+            "stall": 1
+        },
+        "actions": [
+            {
+                "message": "Ok",
+                "effects": {}
+            }
+        ]
+    },
+    {
+        "conditions": {
+            "morale": [ "high" ]
+            },
+        "message": "Extra investment! + $1000",
+        "effects": {
+            "money": 1000
+        },
+        "actions": [
+            {
+                "message": "Ok",
+                "effects": {}
+            }
+        ]
+    },
+    {
         "conditions": {
             "morale": [
-                1,
-                2
+                "low",
+                "med"
             ],
             "pay": [
-                1
+                "low"
             ]
         },
         "message": "Your employees at $site are threatening to strike unless you raise pay, what will you do?",
@@ -37,7 +65,7 @@
             {
                 "message": "Raise pay",
                 "effects": {
-                    "money": 2000,
+                    "money": -2000,
                     "morale": 20
                 }
             },
@@ -46,6 +74,60 @@
                 "effects": {
                     "stall": 2,
                     "morale": -20
+                }
+            }
+        ]
+    },
+    {
+        "conditions": {
+            "morale": [
+                "low"
+            ],
+            "progress": [
+                "med"
+            ]
+        },
+        "message": "$module fails integration tests, what do you do?",
+        "effects": {"progress": 60},
+        "actions": [
+            {
+                "message": "Forced overtime",
+                "effects": {
+                    "money": -10000,
+                    "morale": -20
+                }
+            },
+            {
+                "message": "Nothing",
+                "effects": {
+                    "stall": 5
+                }
+            }
+        ]
+    },
+    {
+        "conditions": {
+            "morale": [
+                "low", "med"
+            ],
+            "progress": [
+                "high"
+            ]
+        },
+        "message": "$module fails acceptance tests, what do you do?",
+        "effects": {"progress": 75 },
+        "actions": [
+            {
+                "message": "Forced overtime",
+                "effects": {
+                    "money": -10000,
+                    "morale": -20
+                }
+            },
+            {
+                "message": "Nothing",
+                "effects": {
+                    "stall": 5
                 }
             }
         ]

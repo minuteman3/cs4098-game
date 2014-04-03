@@ -100,12 +100,47 @@ Specifies constants that control client behaviour during the simulation.
 	"information": String,
 	"eventRate": Number,
     "timerDuration": Number
+    "moraleFuzzification":[
+    	{
+    		"option":string,
+    		"values":[Number,Number,Number]
+    	},
+    	{
+    		"option":string,
+    		"values":[Number,Number,Number]
+    	},
+    ],
+    "completionFuzzification":[
+    	{
+    		"option":string,
+    		"values":[Number,Number,Number]
+    	},
+    	{
+    		"option":string,
+    		"values":[Number,Number,Number]
+    	},
+    ],
+    "payFuzzification":[
+    	{
+    		"option":string,
+    		"values":[Number,Number,Number]
+    	},
+    	{
+    		"option":string,
+    		"values":[Number,Number,Number]
+    	},
+    ],
+
 }
 ```
 
 * `information`: Instructions shown on first launch in a browser. Accessible in pause menu.
 * `eventRate`: The percentage rate of fire for events.
 * `timerDuration`: The amount of time in milliseconds between updates in the game.
+ `moraleFuzzification`: The fuzzyfied values to be used in the event generator. Here you can defiine
+ every option you want to use in the conditions variable in events.json. 
+* 'option' * is just a name to use to identify which values you want to use in events.json
+* 'values' * is the triangular membership value you want to use for that option. So you first specifiy what the cut off point for the lowest possible value to be considered that option, the second value specifies what number would be considered '100%' for that option and then thrid option is the highest possible value you could have before you would not consider it to be that option. It's easier to reason about if you consider an options like low, medium and high.
 
 ### events.json
 
@@ -118,11 +153,11 @@ Specifies events which can be fired depending on `eventRate` and fuzzy logic eng
 	{
 		"conditions": {
 			"morale": [
-				Number,
-				Number
+				String,
+				String
 			],
 			"pay": [
-				Number
+				String
 			]
 		},
 		"message": String,

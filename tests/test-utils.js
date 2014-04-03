@@ -1,7 +1,7 @@
 var test = require('tape');
 var utils = require('./../js/utils.js');
 
-test('revenue is calculated', function (t) {
+test('utils: revenue', function (t) {
     t.plan(4);
     var project={
 		"name": "Project A",
@@ -18,14 +18,14 @@ test('revenue is calculated', function (t) {
     t.equals(utils.revenue(1,project),130000);
 });
 
-test('commas get inserted into money numbers',function(t){
+test('utils: commafy',function(t){
 	t.plan(3);
 	t.equals(utils.commafy(123456789),"123,456,789");
 	t.equals(utils.commafy(12345.32,2),"12,345.32");
 	t.equals(utils.commafy(-123456),"-123,456");
 });
 
-test('contains works',function(t){
+test('utils: contains',function(t){
 	t.plan(7);
 
 	var teams = ["San Francisco","Dublin","New York"];
@@ -37,7 +37,7 @@ test('contains works',function(t){
 	t.equals(utils.contains([],[]),false);
 	t.equals(utils.contains([],'London'),false);
 });
-test('getActiveCities works',function(t){
+test('utils: getActiveCities',function(t){
 	t.plan(2);
 
 	var teams = {
@@ -67,7 +67,7 @@ test('getActiveCities works',function(t){
 	t.deepEqual(utils.getActiveCities(teams2),["San Francisco","Dublin","New York"]);
 });
 
-test('objectadd works', function(t){
+test('utils: objectadd', function(t){
     t.plan(3);
     var d,p,l,resultShouldBe;
 
@@ -84,15 +84,16 @@ test('objectadd works', function(t){
     t.deepEqual(utils.objectadd(d,l), resultShouldBe);
 });
 
-test('randomCity works',function(t){
+test('utils: randomCity',function(t){
 	t.plan(2);
 	var mod = [{"developersPerCity":{"Dublin":1}}];
-	t.equals(utils.randomCity(0,mod),"Dublin");
+	t.equals(utils.randomCity(mod[0]),"Dublin");
 	var mod2 = [{"developersPerCity":{"Dublin":1,"Cork":4}}];
-	t.ok(utils.randomCity(0,mod) == "Dublin" || utils.randomCity(0,mod) == "Cork" ,'picks a city');
+	var city = utils.randomCity(mod2[0]);
+	t.ok(city == "Dublin" || city == "Cork" ,'picks a city');
 });
 
-test('calculateCost works',function(t){
+test('utils: calculateCost',function(t){
 	t.plan(1);
 	var pro = {"modules":[{"cost":1},{"cost":3}]};
 	t.equals(utils.calculateCost(pro),4);

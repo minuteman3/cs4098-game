@@ -27,7 +27,7 @@ function hidemodal () {
 }
 
 function makeChoices(a,b,c,proj){
-  a = a || ["Option 1"];// the names to use for each button
+  a = a || [{"name":"Option 1","funct":""}];// the names to use for each button
   b = b || "";// this should be a description of the event, indicating/hinting at the correct answer
   c = c || "btn-action";
   proj = proj || false;
@@ -40,7 +40,8 @@ function makeChoices(a,b,c,proj){
   a.forEach(function(b,i,arr) {
     b.funct = b.funct || "startGame("+i+")";
     if (proj){
-      d = 'onmouseover="'+'pt.projectdescription('+i+') "';
+      d = 'onmouseover="'+'pt.projectdescription('+i+')" ';
+      d += 'ontouchstart="'+'pt.projectdescription('+i+')" ';
     }
     ret += '<button class="'+c+'" onclick="pt.'+b.funct+'" '+d+' >' + b.name + '</button>';
   });
@@ -70,12 +71,9 @@ function getEvents(){
 }
 
 function showEvent(ev,currentWeek){
-  console.log(ev);
-  ev.message = ev.message.replace("$site", ev.city);
   ev.week = currentWeek;
-  events.push(ev);
   var html = "<h1>Information</h1><p>";
-  html +=  '<p>' + ev.message;
+  html +=  '<p>' + ev.message.replace("$site", ev.city.name).replace("$module", ev.module.name);
   html += '</p><div class="modal-options">';
   ev.actions.forEach(function(action, index){
       html += '<button class="btn-action" onclick="pt.hidemodal();pt.unpause();pt.evt('+index+')">' + action.message + '</button>';
@@ -86,6 +84,7 @@ function showEvent(ev,currentWeek){
   }
   html += '</div>';
 
+  events.push(ev);
   showmodal(html, false);
 }
 
@@ -114,7 +113,6 @@ function generateCharts(loc, chartData, project, time){
     }
     datas.push(obj);
   }
-  // console.log(JSON.stringify(datas));
   chart = new CanvasJS.Chart(loc,
   {
     theme: "theme2",
@@ -135,7 +133,7 @@ function generateCharts(loc, chartData, project, time){
         enabled: true, //disable here
         content: function (e) {
             var content;
-            content = e.entries[0].dataSeries.name + " <strong>" + e.entries[0].dataPoint.y.toFixed(1) + " % </strong>";
+            content = "<div class='ttip'>"+e.entries[0].dataSeries.name +" <strong>" + e.entries[0].dataPoint.y.toFixed(1) + " % </strong></div>";
             return content;
         },
         animationEnabled: true //disable here
@@ -153,7 +151,7 @@ function addChartContainer(s){
     $('#gameover').remove();
   }
   var w,h,ws;
-  s = s || 40;
+  s = s || 50;
   ws = 4*s/5;
   h = (document.documentElement.clientHeight * s / 100) + 'px;';
   w = (document.documentElement.clientWidth  * ws / 100) + 'px;';
@@ -162,23 +160,24 @@ function addChartContainer(s){
   d.setAttribute("style","width:"+w+";height:"+h+";");
   $('body').append(d);
 }
+
 function endGame(time,budget,project, moduleProgressOverTime){
   addChartContainer();
   hidemodal ();
   var revenue = utils.revenue(time,project);
-  var html = "<h1>Game Over</h1>";
+  var html = "<h1>"+project.name+" - Project Simulation Complete</h1>";
   html += '<div id="chartcontainer"></div>';
   html += '<div id="results">';
-    html += '<p>The Project deadline was '+project.duration+' weeks and took '+time+' weeks</p>';
-    html += '<p>You have €'+utils.commafy(budget,0)+' in the bank</p>';
-    html += '<p>You spent €'+utils.commafy(project.budget-budget,0)+'</p>';
-    html += '<p>Your revenue is €'+utils.commafy(revenue,0)+'</p>';
-    html += '<p>Expected revenue was €'+utils.commafy(project.revenue.amount*project.revenue.months,0)+'</p>';
-    html += '<p>Your earnings are: €'+utils.commafy(revenue+budget,0)+'</p>';
-    html += '</div>';
-    html += '<div class="modal-options">';
-      html += '<button class="btn-action" onclick="pt.initialiseGame()"> Quit to Menu </button>';
-    html += '</div>';
+    html += '<p>The Project deadline was '+project.duration+' weeks and took <span id="res-time">'+time+'</span> weeks</p>';
+    html += '<p>You have € <span id="res-balance">'+utils.commafy(budget,0)+'</span> in the bank</p>';
+    html += '<p>You spent <span id="res-budget">'+(100*(project.budget-budget)/project.budget).toFixed(1)+'</span>% of your budget</p>';
+    html += '<p>Your revenue is € <span id="res-revenue">'+utils.commafy(revenue,0)+'</span></p>';
+    html += '<p>You earned <span id="res-revenuepc">'+(revenue*100/(project.revenue.amount*project.revenue.months)).toFixed(1)+'</span>% of the expected revenue</p>';
+    html += '<p id="final-result">Your earnings are: € <span id="res-earnings">'+utils.commafy(revenue+budget,0)+'</span></p>';
+  html += '</div>';
+  html += '<div class="modal-options">';
+    html += '<button class="btn-action" onclick="pt.initialiseGame()"> Quit to Menu </button>';
+  html += '</div>';
 
   showmodal(html, false);
 
@@ -187,13 +186,34 @@ function endGame(time,budget,project, moduleProgressOverTime){
   generateCharts("gameover",moduleProgressOverTime, project, time);
   $('#gameover').detach().prependTo('#chartcontainer');
   $('#gameover').show();
+
+  rg("#res-time",time-project.duration,true);
+  // rg("#res-balance",budget);
+  rg("#res-budget",((project.budget-budget)/project.budget)-1,true);
+  // rg("#res-revenue",revenue);
+  rg("#res-revenuepc",revenue*100/project.revenue.amount*project.revenue.months);
+  // rg("#res-earnings",revenue+budget);
+}
+
+function rg(tag,num,rev){
+  rev = rev || false;
+  var o = 0;
+  if(rev){o=num;num=0;}
+  if(num < o){
+    $(tag).css('color','#dc322f');//solarized @red
+  } else {
+    $(tag).css('color','#859900');//solarized @green
+  }
 }
 
 function pause () {
   if (!modal && !menu){
     var pausemenu = "<h1>Pause</h1>";
-    pausemenu += makeChoices([{"name":"Restart","funct":"initialiseGame()"},
-                              {"name":"Quit","funct":"endGame()"}],
+    pausemenu += makeChoices([
+                              {"name":"Continue","funct":"pause()"},
+                              {"name":"Restart","funct":"initialiseGame()"},
+                              {"name":"Quit","funct":"endGame()"}
+                              ],
                               client.information);
     showmodal(pausemenu,true);
   }else if(modal && menu){
@@ -206,12 +226,13 @@ function pause () {
 module.exports = {
     showmodal: showmodal,           // shows a modal window
     hidemodal: hidemodal,           // hides a modal window
+    dialog: dialog,
     pause: pause,                   // toggles the pause menu
     makeChoices: makeChoices,
     endGame: endGame,
+    //charts
     generateCharts: generateCharts,
     addChartContainer: addChartContainer,
-    dialog: dialog,
     //events
     setEventAction: setEventAction,
     getEvents: getEvents,
