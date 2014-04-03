@@ -1,11 +1,25 @@
 var test = require('tape');
 var app  = require('../../js/index.js');
+var $ = require('jquery');
 
 test('PT can be accessed', function (t) {
   t.plan(1);
   t.doesNotThrow(function () {
     pt.initialiseGame();
   });
+});
+
+test('addChartContainer works', function(t){
+    t.plan(2);
+    
+    t.doesNotThrow(function(){
+        pt.addChartContainer();
+    });
+   
+    var map = $('#gameover');
+    t.ok(map, "chart container is inserted");
+
+    $("#gameover").remove();
 });
 
 test('Canvas is supported', function (t) {
@@ -22,6 +36,6 @@ test('Canvas is supported', function (t) {
     var chart = 
     pt.generateCharts("gameover",[[0,4,8],[0,100],[0,25,100]],project,3);
     // function generateCharts(loc, chartData, project, time)
-  });
-  document.getElementById('gameover').innerHTML = "";
+  },'generateCharts works');
+    $("#gameover").remove();
 });

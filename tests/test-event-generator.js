@@ -6,7 +6,7 @@ var EventGenerator = require("../js/EventGenerator/EventGenerator.js");
 var events = require("../config/events.json");
 var client = require("../config/client-config.json");
 
-test("InferenceEngine is working",function(t){
+test("events: InferenceEngine is working",function(t){
 	t.plan(4);
 
 	// Two variables with 2 options
@@ -34,7 +34,7 @@ test("InferenceEngine is working",function(t){
 
 }); 
 
-test("Fuzzifier is working",function(t){
+test("events: Fuzzifier is working",function(t){
 	t.plan(4);
 
 	// membership values with two variables with v1 having one option
@@ -56,7 +56,7 @@ test("Fuzzifier is working",function(t){
 	t.deepEqual(fuzzifier.getMembershipsValues([4,9]),[[1,1],[1,0,0.25]]);
 });
 
-test("the fuzzy engine is working",function(t){
+test("events: the fuzzy engine is working",function(t){
 	t.plan(4);
 	var fuzzy = null;
 
@@ -82,7 +82,7 @@ test("the fuzzy engine is working",function(t){
 	t.equal(fuzzy.run([20,50],0.45),1,"make sure event generation is considering time");
 });
 
-test("Event generator works", function(t){
+test("events: Event generator works", function(t){
     t.plan(2);
 
     var gen = null;
@@ -96,3 +96,4 @@ test("Event generator works", function(t){
         gen.getEvent([20,4000,20]);
     });
 });
+

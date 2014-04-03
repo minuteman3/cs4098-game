@@ -54,8 +54,6 @@ function onlabelShow(e,label,code){
   maps.fixOverLap(code,label);
 }
 
-
-
 function selectCity(e,  code,  isSelected,  selectedMarkers) {
   if(curGameState === GameStates.PROGRESS){
     ProcessSim.pause();
@@ -77,7 +75,6 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
   }
 }
 
-
 function selectModule(cityName,nextIndex) {
  
   var index = sidebar.getActiveListItem();
@@ -93,7 +90,6 @@ function selectModule(cityName,nextIndex) {
   sidebar.setPayrollforModule(payroll);
   sidebar.setLocations(teamsSelected);
   sidebar.setListItemActive( nextIndex);
-
 }
 
 function startSimulation(){
@@ -105,7 +101,6 @@ function startSimulation(){
     modal.dialog("There needs to be at least one team for every module");
     return;
   }
-
 
   //console.log(selectedTeams);
   curGameState = GameStates.PROGRESS;
@@ -280,6 +275,7 @@ function simulationComplete (modules) {
     console.log("ERR: modules are not finished");
   }
 }
+
 function endGame(){
   ProcessSim.stop();
   modal.endGame(currentWeek, projectBudget, selectedProject, moduleProgressOverTime);
