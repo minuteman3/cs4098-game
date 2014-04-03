@@ -27,7 +27,7 @@ function hidemodal () {
 }
 
 function makeChoices(a,b,c,proj){
-  a = a || ["Option 1"];// the names to use for each button
+  a = a || [{"name":"Option 1","funct":""}];// the names to use for each button
   b = b || "";// this should be a description of the event, indicating/hinting at the correct answer
   c = c || "btn-action";
   proj = proj || false;
@@ -72,7 +72,6 @@ function getEvents(){
 
 function showEvent(ev,currentWeek){
   ev.week = currentWeek;
-  events.push(ev);
   var html = "<h1>Information</h1><p>";
   html +=  '<p>' + ev.message.replace("$site", ev.city.name).replace("$module", ev.module.name);
   html += '</p><div class="modal-options">';
@@ -85,6 +84,7 @@ function showEvent(ev,currentWeek){
   }
   html += '</div>';
 
+  events.push(ev);
   showmodal(html, false);
 }
 
@@ -161,6 +161,7 @@ function addChartContainer(s){
   d.setAttribute("style","width:"+w+";height:"+h+";");
   $('body').append(d);
 }
+
 function endGame(time,budget,project, moduleProgressOverTime){
   addChartContainer();
   hidemodal ();
@@ -174,10 +175,10 @@ function endGame(time,budget,project, moduleProgressOverTime){
     html += '<p>Your revenue is € <span id="res-revenue">'+utils.commafy(revenue,0)+'</span></p>';
     html += '<p>You earned <span id="res-revenuepc">'+(revenue*100/(project.revenue.amount*project.revenue.months)).toFixed(1)+'</span>% of the expected revenue</p>';
     html += '<p id="final-result">Your earnings are: € <span id="res-earnings">'+utils.commafy(revenue+budget,0)+'</span></p>';
-    html += '</div>';
-    html += '<div class="modal-options">';
-      html += '<button class="btn-action" onclick="pt.initialiseGame()"> Quit to Menu </button>';
-    html += '</div>';
+  html += '</div>';
+  html += '<div class="modal-options">';
+    html += '<button class="btn-action" onclick="pt.initialiseGame()"> Quit to Menu </button>';
+  html += '</div>';
 
   showmodal(html, false);
 
@@ -226,12 +227,13 @@ function pause () {
 module.exports = {
     showmodal: showmodal,           // shows a modal window
     hidemodal: hidemodal,           // hides a modal window
+    dialog: dialog,
     pause: pause,                   // toggles the pause menu
     makeChoices: makeChoices,
     endGame: endGame,
+    //charts
     generateCharts: generateCharts,
     addChartContainer: addChartContainer,
-    dialog: dialog,
     //events
     setEventAction: setEventAction,
     getEvents: getEvents,

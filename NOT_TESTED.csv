@@ -11,14 +11,9 @@ js/app, deleteDB, this is an internal function which isn't exported and therefor
 js/app, initialise, this is an internal function which isn't exported and therefore isn't tested
 js/app, onlabelShow, this is an internal function which isn't exported and therefore isn't tested
 js/app, selectCity, this is an internal function which isn't exported and therefore isn't tested
-js/app, selectModule, this is an internal function which isn't exported and therefore isn't tested
-js/app, simulationComplete, this is an internal function which isn't exported and therefore isn't tested
-js/app, simulationUpdate, this is an internal function which isn't exported and therefore isn't tested
-js/app, startLoop, this is an internal function which isn't exported and therefore isn't tested
-
-
-
-
-
-
+js/app, selectModule, this is tested as part of initialiseGame
+js/app, simulationComplete, this is tested as part of the Process Simulator
+js/app, simulationUpdate, this is tested as part of the Process Simulator
+js/app, startLoop, this is an internal function which isn't exported but is tested alongside startSimulation
+js/maps, regionLabelShow, this is an internal function which isn't exported and therefore isn't tested
 

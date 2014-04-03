@@ -25,6 +25,7 @@ function buildmap (){
     markersSelectable: true,
     onRegionLabelShow: regionLabelShow
   });
+  return map;
 }
 
 function resizemap (s) {

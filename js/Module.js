@@ -5,13 +5,14 @@ var Module = function(_developersPerCity, _cost, _name){
     this.name = _name;
     this.stalled = 0;
     this.name = _name;
+    this.weeks = 0;
 };
 
 Module.prototype.getPercentComplete = function getPercentComplete () {
     return (this.progress/this.cost)*100;
 };
 
-Module.prototype.setPercentComplete = function (percent)
+Module.prototype.setPercentComplete = function setPercentComplete (percent)
 {
     this.progress = percent*this.cost;
 };
@@ -43,7 +44,7 @@ Module.prototype.advance = function advance (cities) {
     }
 };
 
-Module.prototype.calculateMaximalProgressPerCycle = function calculateMaximalProgress() {
+Module.prototype.calculateMaximalProgressPerCycle = function calculateMaximalProgress(cities) {
     var devs = this.developersPerCity,
         idealProgress = 0;
     Object.keys(devs).forEach(function(key) {
@@ -62,9 +63,9 @@ Module.prototype.getCost = function getCost (cities) {
     return cost;
 };
 
-Module.prototype.isBehindSchedule = function isBehindSchedule (currentWeek) {
-      var completion = module.getPercentComplete();
-      return (completion < module.calculateMaximalProgressPerCycle() * currentWeek);
+Module.prototype.isBehindSchedule = function isBehindSchedule (currentWeek,cities) {
+      var completion = this.getPercentComplete();
+      return (completion < this.calculateMaximalProgressPerCycle(cities) * currentWeek);
 };
 
 module.exports = Module;
