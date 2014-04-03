@@ -1,0 +1,25 @@
+{
+    	"morale":[
+    		{
+    				"option":"low",
+    				"values":[100,5000,10000]
+    		}
+    		{
+    				"option":"high",
+    				"values":[100,5000,10000]
+    		}
+
+    	],
+    	"pay":[
+    		{
+    				"option":"low",
+    				"values":[100,5000,10000]
+    		}
+    		{
+    				"option":"high",
+    				"values":[100,5000,10000]
+    		}
+
+    	],
+
+ }
