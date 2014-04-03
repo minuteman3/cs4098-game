@@ -102,7 +102,6 @@ function startSimulation(){
     return;
   }
 
-
   //console.log(selectedTeams);
   curGameState = GameStates.PROGRESS;
   
