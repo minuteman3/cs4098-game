@@ -37,5 +37,5 @@ test('Canvas is supported', function (t) {
     pt.generateCharts("gameover",[[0,4,8],[0,100],[0,25,100]],project,3);
     // function generateCharts(loc, chartData, project, time)
   },'generateCharts works');
-  document.getElementById('gameover').innerHTML = "";
+    $("#gameover").remove();
 });

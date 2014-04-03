@@ -28,8 +28,7 @@ test('sidebar:', function(t){
       '<ul id="locations" class="select-teams" ></ul>' +
       '<button  class="select-teams" id="btn-region">Select Teams</button>'; 
     
-    $("sidebar").html(str);
-
+    $("#sidebar").html(str);
     
     t.doesNotThrow(function(){
         sidebar.init();
@@ -56,27 +55,41 @@ test('sidebar:', function(t){
 
         ]);
     },'setList works');
-
-    t.equals(sidebar.getActiveListItem(),0,'getActiveListItem works');
-
-    sidebar.setListItemActive(1);
-    t.equals(sidebar.getActiveListItem(),1,'setActiveListItem works');
-
     sidebar.setBudget(1000000);
-    t.equals($('#budget').html(),"$ 1,000,000",'setBudget');
-    t.equals($('').html(),"$ 1,000,000",'setBudgetedWeeks');
-    t.equals($('').html(),"$ 1,000,000",'setButtonText');
-    t.equals($('').html(),"$ 1,000,000",'setCash');
-    t.equals($('').html(),"$ 1,000,000",'setDueDate');
-    t.equals($('').html(),"$ 1,000,000",'setPayroll');
-    t.equals($('').html(),"$ 1,000,000",'setPayrollforModule');
-    t.equals($('').html(),"$ 1,000,000",'setProgress');
-    t.equals($('').html(),"$ 1,000,000",'setTitle');
-    t.equals($('').html(),"$ 1,000,000",'setWeeks');
-    t.equals($('').html(),"$ 1,000,000",'showProgressState');
-    t.equals($('').html(),"$ 1,000,000",'showSelectTeams');
+    sidebar.setBudgetedWeeks(10);
+    sidebar.setButtonText("butt");
+    sidebar.setCash(100000);
+    sidebar.setDueDate(50.003);
+    // sidebar.setLocations("");
+    sidebar.setPayroll(1000000000);
+    sidebar.setPayrollforModule(1000);
+    sidebar.setProgress(57.56);
+    sidebar.setTitle("title");
+    sidebar.setWeeks(10.5);
+    sidebar.showProgressState(true);
+    sidebar.showSelectTeams(false);
 
-    $("#sidebar").remove();
+    setTimeout(function() {
+        t.equals(sidebar.getActiveListItem(),-1,'getActiveListItem works');
+        sidebar.setListItemActive(1);
+        t.equals(sidebar.getActiveListItem(),1,'setListItemActive works');
+
+        // this exists to allow the browser rendering threads to complete
+        t.equals($('#btn-region').html(),"butt",'setButtonText');
+        t.equals($('#budget').html(),"$ 1,000,000",'setBudget');
+        t.equals($('#budgetedWeeks').html(),"10 weeks",'setBudgetedWeeks');
+        t.equals($('#cash').html(),"$100,000",'setCash');
+        t.equals($('#costPerMonth').html(),"$1,000",'setPayrollforModule');
+        t.equals($('#duedate').html(),"50 weeks",'setDueDate');
+        t.equals($('#progress').html(),"58%",'setProgress');
+        t.equals($('#sidebar-title').html(),"title",'setTitle');
+        t.equals($('#totalPayroll').html(),"$ 1,000,000,000",'setPayroll');
+        t.equals($('#weeks').html(),"11 weeks",'setWeeks');
+        t.equals($('.progess-state').css('display'),"block",'showProgressState');
+        t.equals($('.select-teams').css('display'),"none",'showSelectTeams');
+        $("#sidebar").remove();
+    },0);
+
 });
 
 
