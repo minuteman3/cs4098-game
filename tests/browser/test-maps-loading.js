@@ -12,6 +12,7 @@ test('maps: localStorage is enabled', function (t) {
             "hi");
   });
   t.equal(window.localStorage.getItem('test-local-storage'), "hi");
+  window.localStorage.clear();
 });
 
 test('maps: pt can be accessed', function (t) {
@@ -33,54 +34,6 @@ test('maps: browser supports forEach', function(t){
   t.deepEqual(a,["A","B","C"]);
 });
 
-test('maps: buildmap works', function(t){
-    t.plan(2);
-
-    $("<div>", {
-        id: "map"
-    }).appendTo("body");
-    
-    t.doesNotThrow(function(){
-        maps.buildmap();
-    });
-   
-    var map = $('.jvectormap-container');
-    t.ok(map, "jvectormap is inserted");
-
-    $("#map").remove();
-});
-
-test('maps: resizemap works', function(t){
-  t.plan(1);
-
-  $("<div>", {
-      id: "map"
-  }).appendTo("body");
-
-  // t.doesNotThrow(function(){
-  //     maps.resizemap(95);
-  // });
-
-  t.equals(1,0);
-
-  $("#map").remove();
-});
-
-test('maps: clearMapMarkers works', function(t){
-  t.plan(1);
-
-  $("<div>", {
-      id: "map"
-  }).appendTo("body");
-
-  // t.doesNotThrow(function(){
-  //     maps.resizemap(95);
-  // });
-
-  t.equals(1,0);
-
-  $("#map").remove();
-});
 
 test('maps: fixOverLap works', function(t){
   t.plan(2);
@@ -97,21 +50,29 @@ test('maps: fixOverLap works', function(t){
     t.equals(a.css('margin-left'),a.width()+25+"px");
     t.equals(b.css('margin-left'),"-10px");
   },0);
-
 });
 
-test('maps: runState works', function(t){
-  t.plan(1);
+test('maps: buildmap works', function(t){
+    t.plan(5);
 
-  $("<div>", {
-      id: "map"
-  }).appendTo("body");
+    $("<div>", {
+        id: "map"
+    }).appendTo("body");
+    
+    t.doesNotThrow(function(){
+        maps.buildmap();
+    });
+   
+    var map = $('.jvectormap-container');
+    t.ok(map, "jvectormap is inserted");
 
-  // t.doesNotThrow(function(){
-  //     maps.resizemap(95);
-  // });
 
-  t.equals(1,0);
+    t.fail("runState()");
+    t.fail("clearMapMarkers()");
 
-  $("#map").remove();
+    
+    t.fail("resizemap()");
+
+
+    // $("#map").remove();
 });
