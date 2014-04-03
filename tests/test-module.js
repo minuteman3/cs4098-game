@@ -38,9 +38,9 @@ test('Module: stall', function (t) {
     mod.stall(1);
     mod.advance(citiesState);
 
-    t.ok(mod.isBehindSchedule() === true,'isBehindSchedule');
+    t.ok(mod.isBehindSchedule(2,citiesState) === true,'isBehindSchedule');
     t.doesNotThrow(function(){
-        mod.calculateMaximalProgressPerCycle();
+        mod.calculateMaximalProgressPerCycle(citiesState);
     },"calculateMaximalProgressPerCycle");
     t.ok(mod.getPercentComplete() === 0, 'stall does not advance');
     mod.advance(citiesState);
