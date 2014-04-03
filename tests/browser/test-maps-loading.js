@@ -1,8 +1,7 @@
 var test = require('tape');
-var app  = require('../../js/index.js');
 var $ = require('jquery');
 var maps = require('../../js/maps.js');
-
+window.maps = maps;
 
 test('maps: localStorage is enabled', function (t) {
   t.plan(2);
@@ -13,13 +12,6 @@ test('maps: localStorage is enabled', function (t) {
   });
   t.equal(window.localStorage.getItem('test-local-storage'), "hi");
   window.localStorage.clear();
-});
-
-test('maps: pt can be accessed', function (t) {
-  t.plan(1);
-  t.doesNotThrow(function () {
-    pt.initialiseGame();
-  });
 });
 
 test('maps: browser supports forEach', function(t){
@@ -33,7 +25,6 @@ test('maps: browser supports forEach', function(t){
   });
   t.deepEqual(a,["A","B","C"]);
 });
-
 
 test('maps: fixOverLap works', function(t){
   t.plan(2);
@@ -52,27 +43,38 @@ test('maps: fixOverLap works', function(t){
   },0);
 });
 
-test('maps: buildmap works', function(t){
-    t.plan(5);
-
+test('maps:', function(t){
+    t.plan(6);
+    //setup
     $("<div>", {
         id: "map"
     }).appendTo("body");
+    var map;
     
+    //buildmap
     t.doesNotThrow(function(){
-        maps.buildmap();
+        map = maps.buildmap();
     });
-   
-    var map = $('.jvectormap-container');
-    t.ok(map, "jvectormap is inserted");
+    var mapc = $('.jvectormap-container');
+    t.ok(mapc, "buildmap()");
+
+    // resizemap
+    var mh = $('#map').css('height');
+    maps.resizemap(30);
+    var mh2 = $('#map').css('height');
+    t.ok(mh>mh2,"resizemap()");
+
+    //runState
+    t.doesNotThrow(function(){
+      maps.runState([1,2,0,0,1]);
+    },"runState()");
+
+    //clearMapMarkers
+    map.setSelectedMarkers([1,2]);
+    t.deepEqual(map.getSelectedMarkers(),["1","2"],"clearMapMarkers()");
+    maps.clearMapMarkers();
+    t.deepEqual(map.getSelectedMarkers(),[],"clearMapMarkers()");
 
 
-    t.fail("runState()");
-    t.fail("clearMapMarkers()");
-
-    
-    t.fail("resizemap()");
-
-
-    // $("#map").remove();
+    $("#map").remove();
 });
