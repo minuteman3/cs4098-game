@@ -63,18 +63,18 @@ test('sidebar:', function(t){
     t.equals(sidebar.getActiveListItem(),1,'setActiveListItem works');
 
     sidebar.setBudget(1000000);
-    t.equals($('#budget').innerHTML,"$ 1,000,000",'setBudget');
-    t.equals($('').innerHTML,"$ 1,000,000",'setBudgetedWeeks');
-    t.equals($('').innerHTML,"$ 1,000,000",'setButtonText');
-    t.equals($('').innerHTML,"$ 1,000,000",'setCash');
-    t.equals($('').innerHTML,"$ 1,000,000",'setDueDate');
-    t.equals($('').innerHTML,"$ 1,000,000",'setPayroll');
-    t.equals($('').innerHTML,"$ 1,000,000",'setPayrollforModule');
-    t.equals($('').innerHTML,"$ 1,000,000",'setProgress');
-    t.equals($('').innerHTML,"$ 1,000,000",'setTitle');
-    t.equals($('').innerHTML,"$ 1,000,000",'setWeeks');
-    t.equals($('').innerHTML,"$ 1,000,000",'showProgressState');
-    t.equals($('').innerHTML,"$ 1,000,000",'showSelectTeams');
+    t.equals($('#budget').html(),"$ 1,000,000",'setBudget');
+    t.equals($('').html(),"$ 1,000,000",'setBudgetedWeeks');
+    t.equals($('').html(),"$ 1,000,000",'setButtonText');
+    t.equals($('').html(),"$ 1,000,000",'setCash');
+    t.equals($('').html(),"$ 1,000,000",'setDueDate');
+    t.equals($('').html(),"$ 1,000,000",'setPayroll');
+    t.equals($('').html(),"$ 1,000,000",'setPayrollforModule');
+    t.equals($('').html(),"$ 1,000,000",'setProgress');
+    t.equals($('').html(),"$ 1,000,000",'setTitle');
+    t.equals($('').html(),"$ 1,000,000",'setWeeks');
+    t.equals($('').html(),"$ 1,000,000",'showProgressState');
+    t.equals($('').html(),"$ 1,000,000",'showSelectTeams');
 
     $("#sidebar").remove();
 });
