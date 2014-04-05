@@ -24,6 +24,7 @@ var selectedTeams = {};
 
 
 var gameData = {
+    homeCity:"",
     weeksTilDueDate:0,
     projectBudget:0,
     totalPayRoll:0,
@@ -33,7 +34,6 @@ var gameData = {
 var modules = [];
 var moduleProgressOverTime = [[]];
 var currentWeek = 0;
-var homeCity;
 
 var GameStates = {
       START:0,
@@ -105,7 +105,7 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
       return obj;
     }),true);
     sidebar.setHomeCity(cities[code].name);
-    homeCity = cities[code].name;
+    gameData.homeCity = cities[code].name;
     sidebar.setListItemActive(0);
     curGameState = GameStates.SELECT_TEAMS;
   }
