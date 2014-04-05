@@ -140,7 +140,7 @@ function setPayrollforModule(cost){
 	$(payrollforModuleTag).html("$" + utils.commafy(cost));
 }
 
-function setLocations(teams,selectedCity){
+function setLocations(teams){
 
   $(locationTag).html("");
 
@@ -149,11 +149,6 @@ function setLocations(teams,selectedCity){
     var location = $("<li>");
     location.append(city.name);
     location.append($("<div>").addClass("teamMultiplier").html("x" +teams[key]));
-    
-    if (city.name === selectedCity) {
-      location.append($("<div>").addClass("teamMultiplierFade").html("+1"));
-    }
-
     $(locationTag).append(location);
    }
 }
