@@ -5,7 +5,7 @@ var client     = require('./../config/client-config.json');
 
 var menu=false;
 var modal=false;
-var events = [];
+
 
 // future work for modals: add new modals to a queue
 // so many can stack up. remove from queue when dealt with
@@ -62,16 +62,11 @@ function dialog(a){
   showmodal(html, true);
 }
 
-function setEventAction(num){
-  events[events.length-1].mitigation = events[events.length-1].actions[num];
-}
 
-function getEvents(){
-  return events;
-}
 
 function showEvent(ev,currentWeek){
   ev.week = currentWeek;
+
   var html = "<h1>Information</h1><p>";
   html +=  '<p>' + ev.message.replace("$site", ev.city.name).replace("$module", ev.module.name);
   html += '</p><div class="modal-options">';
@@ -84,7 +79,6 @@ function showEvent(ev,currentWeek){
   }
   html += '</div>';
 
-  events.push(ev);
   showmodal(html, false);
 }
 
@@ -234,7 +228,5 @@ module.exports = {
     generateCharts: generateCharts,
     addChartContainer: addChartContainer,
     //events
-    setEventAction: setEventAction,
-    getEvents: getEvents,
     showEvent: showEvent
 };

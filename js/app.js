@@ -9,7 +9,10 @@ var proj       = require('./../config/projects.json');
 var client     = require('./../config/client-config.json');
 var sidebar    = require('./sidebar.js');
 var utils      = require('./utils.js');
-var events     = require("../config/events.json");
+
+var events = require("./events.js")
+var eventData = require("../config/events.json")
+
 var interventions= require("../config/interventions.json");
 var deepcopy   = require('deepcopy');
 
@@ -20,19 +23,23 @@ var teamsSelected = {};
 var selectedTeams = {};
 
 
-var weeksTilDueDate = 0;
-var projectBudget = 0;
-var totalPayRoll = 0;
+var gameData = {
+    weeksTilDueDate:0,
+    projectBudget:0,
+    totalPayRoll:0,
+}
 
 
 var modules = [];
 var moduleProgressOverTime = [[]];
 var currentWeek = 0;
+var homeCity;
 
 var GameStates = {
       START:0,
-      SELECT_TEAMS:1,
-      PROGRESS:2,
+      SELECT_HOME:1,
+      SELECT_TEAMS:2,
+      PROGRESS:3,
 };
 var curGameState = GameStates.START;
 
@@ -62,8 +69,13 @@ function onlabelShow(e,label,code){
     }else{
       label.css('visibility','hidden');
     }
+  }else if(curGameState === GameStates.SELECT_HOME){
+    label.html(
+      'Select <strong>'+              hoverCity.name         +'</strong><br/>'+
+      'as your Home City '
+    );
   }
-  maps.fixOverLap(code,label);
+
 }
 
 function selectCity(e,  code,  isSelected,  selectedMarkers) {
@@ -76,24 +88,61 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
     });
     // only show tooltip if hoverCity in any of modules.developersPerCity
     if(utils.contains(mods, cities[code].name)){
+
       var i = deepcopy(interventions);
       i.city = deepcopy(cities[code]);
+
       showEvent(i);
     }
-  } else {
-    //update general information
-    teamsSelected[code] = (teamsSelected[code] || 0)+1;
-    totalPayRoll += cities[code].costPerWeek;
+  } else if(curGameState === GameStates.SELECT_TEAMS){
+    addExtraDeveloperToCity(code);
+  } else if(curGameState === GameStates.SELECT_HOME){
+      sidebar.setList(
+    selectedProject.modules.map(function(a){
+      var obj = {};
+      obj.name = a.name;
+      obj.cost = (100*a.cost/selectedProject.cost);
+      return obj;
+    }),true);
+    sidebar.setHomeCity(cities[code].name);
+    homeCity = cities[code].name;
+    sidebar.setListItemActive(0);
+    curGameState = GameStates.SELECT_TEAMS;
+  }
+}
 
-    sidebar.setPayroll(totalPayRoll);
-    sidebar.setBudgetedWeeks(selectedProject.budget/totalPayRoll);
+
+function addExtraDeveloperToCity(cityCode){
+    teamsSelected[cityCode] = (teamsSelected[cityCode] || 0)+1;
+    gameData.totalPayRoll += cities[cityCode].costPerWeek;
+
+    sidebar.setPayroll(gameData.totalPayRoll);
+    sidebar.setBudgetedWeeks(selectedProject.budget/gameData.totalPayRoll);
 
     // update information about this module
     sidebar.setPayrollforModule(calculatePayrollforMod(teamsSelected));
-    sidebar.setLocations(teamsSelected,code);
-
-  }
+    sidebar.setLocations(teamsSelected,cityCode);
 }
+
+function deductDeverloperFromCity(cityCode){
+    if(!teamsSelected[cityCode])
+      return;
+    teamsSelected[cityCode] = teamsSelected[cityCode] - 1;
+    gameData.totalPayRoll += cities[cityCode].costPerWeek;
+
+    sidebar.setPayroll(gameData.totalPayRoll);
+    sidebar.setBudgetedWeeks(selectedProject.budget/gameData.totalPayRoll);
+
+    // update information about this module
+    sidebar.setPayrollforModule(calculatePayrollforMod(teamsSelected));
+    sidebar.setLocations(teamsSelected,cityCode);
+
+   
+    if(teamsSelected[cityCode] == 0){
+      delete teamsSelected[cityCode];
+    }
+}
+
 
 
 function selectModule(cityName,nextIndex) {
@@ -176,7 +225,7 @@ function startGame(a){
 
   maps.buildmap();
 
-  curGameState = GameStates.SELECT_TEAMS;
+  curGameState = GameStates.SELECT_HOME;
 
   sidebar.show();
   sidebar.setButtonText("Start");
@@ -188,32 +237,35 @@ function startGame(a){
       obj.name = a.name;
       obj.cost = (100*a.cost/selectedProject.cost);
       return obj;
-    }),true);
-  sidebar.setListItemActive(0);
+    }),false);
+//  sidebar.setListItemActive(0);
+
+
   if( localStorage.getItem("firstTimeModals") === null ){
     modal.dialog(client.information+"<br/>Access this Information at any time from the Options Menu."); //removed information from startup
     localStorage.setItem("firstTimeModals",1);
   }
   moduleProgressOverTime = selectedProject.modules.map(function(){return [0];});
   moduleProgressOverTime.push([0]);
+
 }
 
 function showEvent(ev){
   ProcessSim.pause();
+  events.trackEvent(ev);
   modal.showEvent(ev,currentWeek);
 }
 
-function getRandomModule()
-{
-   return modules[Math.floor(Math.random()*modules.length)];
-}
+
 
 function startLoop(){
-  projectBudget = selectedProject.budget;
-  weeksTilDueDate = selectedProject.duration;
 
-  sidebar.setCash(projectBudget);
-  sidebar.setWeeks(weeksTilDueDate);
+  gameData.projectBudget = Number(selectedProject.budget);
+
+  gameData.weeksTilDueDate = selectedProject.duration;
+
+  sidebar.setCash(gameData.projectBudget);
+  sidebar.setWeeks(gameData.weeksTilDueDate);
   sidebar.setProgress(0);
 
   modules = [];
@@ -239,8 +291,15 @@ function startLoop(){
   var eventRate = selectedProject.eventRate || client.eventRate;
 
 
-  ProcessSim.start(modules,citiesState,simulationUpdate,simulationComplete,
-    showEvent,getRandomModule,events,eventRate);
+  ProcessSim.start(
+    modules,
+    citiesState,
+    simulationUpdate,
+    simulationComplete,
+    showEvent,
+    eventData,
+    eventRate
+  );
 }
 
 function simulationUpdate(modules,citiesState){
@@ -274,10 +333,13 @@ function simulationUpdate(modules,citiesState){
 
       percentComplete += modulesProgree;
   });
-  weeksTilDueDate--;
-  projectBudget -= totalCost;
-  sidebar.setCash(projectBudget);
-  sidebar.setWeeks(weeksTilDueDate);
+  gameData.weeksTilDueDate--;
+  
+  gameData.projectBudget -= totalCost;
+
+
+  sidebar.setCash(gameData.projectBudget);
+  sidebar.setWeeks(gameData.weeksTilDueDate);
   sidebar.setProgress(percentComplete/modules.length);
   sidebar.setList(sidebarmodules,true);
 }
@@ -296,19 +358,26 @@ function simulationComplete (modules) {
 
 function endGame(){
   ProcessSim.stop();
-  modal.endGame(currentWeek, projectBudget, selectedProject, moduleProgressOverTime);
+  modal.endGame(
+    currentWeek, 
+    gameData.projectBudget, 
+    selectedProject, 
+    moduleProgressOverTime);
 }
 
 function deleteDB(){
   teamsSelected = {};
   selectedTeams = {};
-  totalPayRoll  = 0;
+  gameData.totalPayRoll  = 0;
 }
 
 function initialiseGame(){
   sidebar.init(function(name,index){
     selectModule(name,index);
-  });
+  },
+  addExtraDeveloperToCity,
+  deductDeverloperFromCity
+  );
   sidebar.hide();
 
   modal.hidemodal();
@@ -334,35 +403,7 @@ function pause(){
   $('#btn-options').show();
 }
 
-function evt(actionNumber){
-  modal.setEventAction(actionNumber);
-  var ev = modal.getEvents();
-  var cev = ev[ev.length-1];
-  var effects = utils.objectadd(cev.effects, cev.actions[actionNumber].effects);
-  var city = cev.city;
-  if(effects.money){
-    projectBudget += effects.money;
-    if(effects.money<0){
-      city.stall();
-    }
-  }
-  if(effects.stall){
-    cev.module.stall(effects.stall);
-    city.stall();
-  }
-  if(effects.morale){
-    // set city morale to effects.morale
-    city.stall();
-    city.modifyMorale(effects.morale);
-    // setTimeout(function(){
-    //   city.setMorale(0-effects.morale);
-    // },5000);
-  }
-  if(effects.progress)
-  {
-      cev.module.setPercentageComplete(effects.progress);
-  }
-}
+
 
 $( document ).ready( function() {
   var $body = $('body'); //Cache this for performance
@@ -416,6 +457,10 @@ $( document ).ready( function() {
 });
 
 
+function doEvent(actionNum){
+  events.doEvent(actionNum,gameData);
+}
+
 module.exports = {
   initialiseGame: initialiseGame,            // first thing that happens. shows start screen
   selectProject: selectProject,              // select which project to do
@@ -427,7 +472,7 @@ module.exports = {
   // Modal
   hidemodal: modal.hidemodal,                // hides a modal window
   pause: pause,                              // toggles the pause menu
-  evt: evt,
+  evt: doEvent,
   //Maps
   resizemap: maps.resizemap,
   unpause:ProcessSim.unpause,

@@ -5,6 +5,7 @@
         "effects": {
             "morale": -20
         },
+        "target":"city",
         "actions": [
             {
                 "message": "Hire Manager",
@@ -27,6 +28,7 @@
         "effects": {
             "stall": 1
         },
+        "target":"city",
         "actions": [
             {
                 "message": "Ok",
@@ -35,13 +37,12 @@
         ]
     },
     {
-        "conditions": {
-            "morale": [ "high" ]
-            },
-        "message": "Extra investment! + $1000",
+        "conditions": {},
+        "message": "Extra investment! + $10,000",
         "effects": {
-            "money": 1000
+            "money": 10000
         },
+        "target":"city",
         "actions": [
             {
                 "message": "Ok",
@@ -61,6 +62,7 @@
         },
         "message": "Your employees at $site are threatening to strike unless you raise pay, what will you do?",
         "effects": {},
+        "target":"city",
         "actions": [
             {
                 "message": "Raise pay",
@@ -89,6 +91,7 @@
         },
         "message": "$module fails integration tests, what do you do?",
         "effects": {"progress": 60},
+        "target":"city",
         "actions": [
             {
                 "message": "Forced overtime",
@@ -116,6 +119,7 @@
         },
         "message": "$module fails acceptance tests, what do you do?",
         "effects": {"progress": 75 },
+        "target":"city",
         "actions": [
             {
                 "message": "Forced overtime",
