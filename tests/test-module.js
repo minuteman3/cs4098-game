@@ -4,7 +4,7 @@ var City = require("../js/city.js");
 
 test('Module:', function(t)
 {
-    t.plan(3);
+    t.plan(4);
 
     var mod = new Module(
                 {
@@ -26,6 +26,8 @@ test('Module:', function(t)
     
     mod.setPercentComplete(0.45);
     t.equals(mod.getPercentComplete(),45,'setPercentComplete');
+
+    t.equals(mod.getCost(citiesState),6500,'getCost');
 });
 
 test('Module: stall', function (t) {
