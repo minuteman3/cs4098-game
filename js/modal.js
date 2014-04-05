@@ -62,8 +62,6 @@ function dialog(a){
   showmodal(html, true);
 }
 
-
-
 function showEvent(ev,currentWeek){
   ev.week = currentWeek;
 
