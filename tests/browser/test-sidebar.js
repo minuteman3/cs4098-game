@@ -3,7 +3,7 @@ var test = require('tape');
 var $ = require('jquery');
 
 test('sidebar:', function(t){
-    t.plan(18);
+    t.plan(20);
 
     $("<div>", {
         id: "sidebar"
@@ -55,12 +55,20 @@ test('sidebar:', function(t){
 
         ]);
     },'setList works');
+
+    t.doesNotThrow(function(){
+      sidebar.setLocations({});
+    },"setLocations");
+
+    sidebar.setLocations({"0":2,"3":5});
+
+    t.equals($('#locations').html(),"<li>San Francisco<div class=\"teamMultiplier\">x2</div></li><li>Shanghai<div class=\"teamMultiplier\">x5</div></li>","setLocations");
+
     sidebar.setBudget(1000000);
     sidebar.setBudgetedWeeks(10);
     sidebar.setButtonText("butt");
     sidebar.setCash(100000);
     sidebar.setDueDate(50.003);
-    // sidebar.setLocations("");
     sidebar.setPayroll(1000000000);
     sidebar.setPayrollforModule(1000);
     sidebar.setProgress(57.56);

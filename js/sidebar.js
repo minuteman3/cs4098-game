@@ -140,20 +140,15 @@ function setPayrollforModule(cost){
 	$(payrollforModuleTag).html("$" + utils.commafy(cost));
 }
 
-function setLocations(teams,selectedCity){
+function setLocations(teams){
 
   $(locationTag).html("");
 
   for(var key in teams){
     var city = cities[key];
-    var location = $("<li></li>");
+    var location = $("<li>");
     location.append(city.name);
-    location.append($("<div></div>").addClass("teamMultiplier").html("x" +teams[key]));
-    
-    if (city.name === selectedCity) {
-      location.append($("<div></div>").addClass("teamMultiplierFade").html("+1"));
-    }
-
+    location.append($("<div>").addClass("teamMultiplier").html("x" +teams[key]));
     $(locationTag).append(location);
    }
 }

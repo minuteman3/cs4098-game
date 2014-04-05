@@ -40,15 +40,16 @@ test('Module: stall', function (t) {
     mod.advance(citiesState);
 
     t.ok(mod.isBehindSchedule(2,citiesState) === true,'isBehindSchedule');
+    
     t.doesNotThrow(function(){
         mod.calculateMaximalProgressPerCycle(citiesState);
     },"calculateMaximalProgressPerCycle");
-    t.ok(mod.getPercentComplete() === 0, 'stall does not advance');
+    t.ok(mod.getPercentComplete() === 0, 'stall');
     mod.advance(citiesState);
-    t.ok(mod.getPercentComplete() > 0, 'stall advances when over');
+    t.ok(mod.getPercentComplete() > 0, 'stall');
 });
 
-test('Module: Morale effects productivity', function(t) {
+test('Module: Morale', function(t) {
     t.plan(4);
     var mod = new Module( {
                     "Dublin": 1,
@@ -59,13 +60,13 @@ test('Module: Morale effects productivity', function(t) {
     t.ok(!mod.done(),'done');
     citiesState.Dublin.morale = 0;
     mod.advance(citiesState);
-    t.ok(mod.getPercentComplete() === 0, 'morale affects progress (0 progress at 0)');
+    t.ok(mod.getPercentComplete() === 0, 'morale');
     citiesState.Dublin.morale = 50;
     mod.advance(citiesState);
     var progress50 = mod.getPercentComplete();
-    t.ok(mod.getPercentComplete() > 0, 'morale affects progress non-zero');
+    t.ok(mod.getPercentComplete() > 0, 'morale');
     citiesState.Dublin.morale = 100;
     mod.advance(citiesState);
     var progress100 = mod.getPercentComplete() - progress50;
-    t.ok(Math.abs(progress100 - (2 * progress50) < 0.000001), 'morale scales progress');
+    t.ok(Math.abs(progress100 - (2 * progress50) < 0.000001), 'morale');
 });

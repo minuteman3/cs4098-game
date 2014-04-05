@@ -8,13 +8,19 @@ node_modules/*, *, these are all library dependencies and fall outside our testi
 tests/, *, these are tests
 js/app, calculatePayrollforMod, this is an internal function which isn't exported and therefore isn't tested
 js/app, deleteDB, this is an internal function which isn't exported and therefore isn't tested
+js/app, getRandomModule, this is an internal function which isn't exported and therefore isn't tested
 js/app, initialise, this is an internal function which isn't exported and therefore isn't tested
 js/app, onlabelShow, this is an internal function which isn't exported and therefore isn't tested
+js/app, pause, this is tested as part of modal and process simulator
 js/app, selectCity, this is an internal function which isn't exported and therefore isn't tested
 js/app, selectModule, this is tested as part of initialiseGame
+js/app, showEvent, this is tested as part of modal
 js/app, simulationComplete, this is tested as part of the Process Simulator
 js/app, simulationUpdate, this is tested as part of the Process Simulator
 js/app, startLoop, this is an internal function which isn't exported but is tested alongside startSimulation
+js/app, startSimulation, this function relies on internal state at invocation time which cannot be set from a testing interface
+js/index, *, there are no functions in this file
 js/maps, regionLabelShow, this is an internal function which isn't exported and therefore isn't tested
+js/modal, rg, this is an internal function which isn't exported and therefore isn't tested
 js/sidebar, setListListener, this listens for a click event on a button. The function it then performs is tested already.
 
