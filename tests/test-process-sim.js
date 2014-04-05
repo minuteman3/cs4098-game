@@ -7,7 +7,9 @@ var Module = require("../js/Module.js");
 var City = require("../js/city.js");
 
 test("process simulator: works", function(t) {
-	t.plan(6);
+	t.plan(8);
+	t.plan(8);
+	t.plan(8);
 	var citiesState={};
 	var modules = [];
 	t.doesNotThrow(function(){
@@ -38,14 +40,22 @@ test("process simulator: works", function(t) {
 			modules.forEach(function(module) {
 				done = done && module.done();
 			});
+			
+			// at this point, done should still be true, or else timerLoop is borken
+			t.ok(done, 'timerLoop()');
+
+			t.deepEqual(ProcessSim.getCity("Dublin"),citiesState.Dublin,"getCity()");
+			var testc = new City("test",222,111);
+			ProcessSim.setCity("test",testc);
+			t.deepEqual(ProcessSim.getCity("test"),testc,"setCity()");
+
 			t.doesNotThrow(function(){
 				ProcessSim.pause();
 			},'pause()');
 			t.doesNotThrow(function(){
 				ProcessSim.unpause();
 			},'unpause()');
-			// at this point, done should still be true, or else timerLoop is borken
-			t.ok(done, 'timerLoop()');
+
 			ProcessSim.stop();
 		},function(){}, function() {return modules[0];}, events,rate);
 	},'start()');

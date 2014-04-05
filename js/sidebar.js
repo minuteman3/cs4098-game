@@ -146,12 +146,12 @@ function setLocations(teams,selectedCity){
 
   for(var key in teams){
     var city = cities[key];
-    var location = $("<li></li>");
+    var location = $("<li>");
     location.append(city.name);
-    location.append($("<div></div>").addClass("teamMultiplier").html("x" +teams[key]));
+    location.append($("<div>").addClass("teamMultiplier").html("x" +teams[key]));
     
     if (city.name === selectedCity) {
-      location.append($("<div></div>").addClass("teamMultiplierFade").html("+1"));
+      location.append($("<div>").addClass("teamMultiplierFade").html("+1"));
     }
 
     $(locationTag).append(location);

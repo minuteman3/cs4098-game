@@ -24,6 +24,35 @@ test('modal:', function(t){
     $("#content").remove();
 });
 
+test('modal: makeChoices works', function(t){
+    t.plan(3);
+
+    var e = modal.makeChoices();
+
+    t.equals(e,'<p></p>'+
+        '<div class="modal-options">'+
+            '<button class="btn-action" onclick="pt.startGame(0)"  >'+
+                'Option 1'+
+            '</button>'+
+        '</div>');
+    var f = modal.makeChoices([{"name":"Option 1","funct":""}],"hello");
+
+    t.equals(f,'<p>hello</p>'+
+        '<div class="modal-options">'+
+            '<button class="btn-action" onclick="pt.startGame(0)"  >'+
+                'Option 1'+
+            '</button>'+
+        '</div>');
+    var g = modal.makeChoices([{"name":"Option 1","funct":""}],"hello","other");
+
+    t.equals(g,'<p>hello</p>'+
+        '<div class="modal-options">'+
+            '<button class="other" onclick="pt.startGame(0)"  >'+
+                'Option 1'+
+            '</button>'+
+        '</div>');
+});
+
 test('modal: dialog works', function(t){
     t.plan(2);
 
@@ -58,36 +87,6 @@ test('modal: pause works', function(t){
     $("#content").remove();
 });
 
-test('modal: makeChoices works', function(t){
-    t.plan(3);
-
-    var e = modal.makeChoices();
-
-    t.equals(e,'<p></p>'+
-        '<div class="modal-options">'+
-            '<button class="btn-action" onclick="pt.startGame(0)"  >'+
-                'Option 1'+
-            '</button>'+
-        '</div>');
-    var f = modal.makeChoices([{"name":"Option 1","funct":""}],"hello");
-
-    t.equals(f,'<p>hello</p>'+
-        '<div class="modal-options">'+
-            '<button class="btn-action" onclick="pt.startGame(0)"  >'+
-                'Option 1'+
-            '</button>'+
-        '</div>');
-    var g = modal.makeChoices([{"name":"Option 1","funct":""}],"hello","other");
-
-    t.equals(g,'<p>hello</p>'+
-        '<div class="modal-options">'+
-            '<button class="other" onclick="pt.startGame(0)"  >'+
-                'Option 1'+
-            '</button>'+
-        '</div>');
-
-});
-
 test('modal: endGame works', function(t){
   t.plan(2);
 
@@ -113,6 +112,22 @@ test('modal: endGame works', function(t){
 
     $("#content").remove();
 });
+
+// test('rg works',function(t){
+//     t.plan(2);
+//     var tag = "testrg";
+//     var d = $("div",{
+//         id: tag
+//     });
+//     $('body').append(d);
+
+//     modal.rg(tag,-10);
+//     t.equals($(tag).css('color'),'#dc322f');
+
+//     modal.rg(tag,10);
+//     t.equals($(tag).css('color'),'#859900');
+//     $(tag).remove();
+// });
 
 //charts tested in test-charts-loading.js
 
@@ -151,12 +166,12 @@ test('modal: events work', function(t){
     var es = modal.getEvents();
     var evt = es[es.length-1];
     ev.message = ev.message.replace("$site",ev.city.name).replace("$module", ev.module.name);
-    t.deepEquals(evt,ev,'showEvent event added to array');
+    t.deepEquals(evt,ev,'getEvents');
 
     modal.setEventAction(0);
     var es2 = modal.getEvents();
     var evt2 = es2[es2.length-1];
-    t.equals(evt2.mitigation,ev.actions[0],'showEvent event mitigation saved');
+    t.equals(evt2.mitigation,ev.actions[0],'setEventAction');
 
     $("#content").remove();
 });

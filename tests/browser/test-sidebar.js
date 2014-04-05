@@ -3,7 +3,7 @@ var test = require('tape');
 var $ = require('jquery');
 
 test('sidebar:', function(t){
-    t.plan(18);
+    t.plan(19);
 
     $("<div>", {
         id: "sidebar"
@@ -55,12 +55,14 @@ test('sidebar:', function(t){
 
         ]);
     },'setList works');
+
+    t.fail("sidebar.setLocations()");
+
     sidebar.setBudget(1000000);
     sidebar.setBudgetedWeeks(10);
     sidebar.setButtonText("butt");
     sidebar.setCash(100000);
     sidebar.setDueDate(50.003);
-    // sidebar.setLocations("");
     sidebar.setPayroll(1000000000);
     sidebar.setPayrollforModule(1000);
     sidebar.setProgress(57.56);
