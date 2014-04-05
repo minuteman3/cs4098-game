@@ -27,7 +27,15 @@ function timerLoop(){
     // we don't want to be bombarded with events for the last module
     if(!module.done()){
         var city = cities[utils.randomCity(module)];
-        var ev = gen.getEvent([city.morale, city.costPerDeveloper, module.getPercentComplete()]);
+
+        var ev = gen.getEvent([
+            city.morale, 
+            city.costPerDeveloper, 
+            module.getPercentComplete(), 
+            city.getGlobalDistance()
+            ]);
+
+
         if(ev){
             ev.module = module;
             ev.city = city;

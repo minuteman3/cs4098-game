@@ -1,7 +1,21 @@
-var City = function(_name,_costPerDeveloper,_baseProductivity){
-    this.name = _name;
-    this.costPerDeveloper = _costPerDeveloper;
-    this.productivity = _baseProductivity;
+
+
+
+var City = function(city,homeCity){
+
+    console.log(city);
+    console.log(homeCity);
+
+    var X1= city.coords[0];
+    var Y1 = city.coords[1];
+    var X2 = homeCity.coords[0];
+    var Y2 = homeCity.coords[1];
+
+    this.name = city.name;
+    this.costPerDeveloper = city.costPerWeek;
+    this.productivity = city.productivity;
+
+    this.GlobalDistance = Math.sqrt(Math.pow((X1 -X2),2) + Math.pow((Y1 - Y2),2))
     this.morale = 100;
     this._status = 0;
 };
@@ -46,5 +60,9 @@ City.prototype.setMorale = function setMorale(morale) {
     if (this.morale < 0) this.morale = 0;
     if (this.morale === 0) this._status = 1;
 };
+
+City.prototype.getGlobalDistance = function getGlobalDistance(){
+    return this.GlobalDistance;
+}
 
 module.exports = City;

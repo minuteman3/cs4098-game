@@ -44,6 +44,20 @@
     		"option":"high",
     		"values":[6500,7000,9007199254740992]
     	}
+    ],
+    "globalDistFuzzification":[
+        {
+            "option":"low",
+            "values":[0,4000,5000]
+        },
+        {
+            "option":"med",
+            "values":[4500,7000,10000]
+        },
+        {
+            "option":"high",
+            "values":[6500,7000,9007199254740992]
+        }
     ]
 
 }

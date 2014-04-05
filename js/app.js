@@ -105,13 +105,11 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
       return obj;
     }),true);
     sidebar.setHomeCity(cities[code].name);
-    gameData.homeCity = cities[code].name;
+    gameData.homeCity = cities[code];
     sidebar.setListItemActive(0);
     curGameState = GameStates.SELECT_TEAMS;
   }
 }
-
-
 
 
 
@@ -228,7 +226,7 @@ function startLoop(){
  
   var citiesState = {};
   cities.forEach(function(c){
-      citiesState[c.name] = new City(c.name,c.costPerWeek,c.productivity);
+      citiesState[c.name] = new City(c,gameData.homeCity);
   });
 
   var eventRate = selectedProject.eventRate || client.eventRate;
