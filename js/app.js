@@ -95,7 +95,6 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
   }
 }
 
-
 function selectModule(cityName,nextIndex) {
  
   var index = sidebar.getActiveListItem();
@@ -111,7 +110,6 @@ function selectModule(cityName,nextIndex) {
   sidebar.setPayrollforModule(payroll);
   sidebar.setLocations(teamsSelected);
   sidebar.setListItemActive( nextIndex);
-
 }
 
 function startSimulation(){
@@ -299,12 +297,6 @@ function endGame(){
   modal.endGame(currentWeek, projectBudget, selectedProject, moduleProgressOverTime);
 }
 
-function deleteDB(){
-  teamsSelected = {};
-  selectedTeams = {};
-  totalPayRoll  = 0;
-}
-
 function initialiseGame(){
   sidebar.init(function(name,index){
     selectModule(name,index);
@@ -321,7 +313,9 @@ function initialiseGame(){
 
   $('#btn-options').hide();
   $('#map').empty();//deletes the map
-  deleteDB();//reset all localStorage values;
+  teamsSelected = {};
+  selectedTeams = {};
+  totalPayRoll  = 0;
 
   $('#startScreen').show();
 }
@@ -383,24 +377,25 @@ $( document ).ready( function() {
       // this is the escape key [esc]
       pt.pause();
       evt.preventDefault();
-    }
-    else if(evt.keyCode == 38)
-    {//up
-      if(curGameState == GameStates.SELECT_TEAMS){
-          var index = sidebar.getActiveListItem() - 1; 
-          if(index >= 0){
-            var moduleName = selectedProject.modules[index].name;
-            selectModule(moduleName,index);
-          }
+    } else if(evt.keyCode === 38) {//up
+      if(curGameState === GameStates.SELECT_TEAMS){
+        var index = sidebar.getActiveListItem() - 1;
+        if(index >= 0){
+          var moduleName = selectedProject.modules[index].name;
+          selectModule(moduleName,index);
+        }
+      }
+      evt.preventDefault();
+    } else if(evt.keyCode === 40) {//down
+      if(curGameState === GameStates.SELECT_TEAMS){
+        var index2 = sidebar.getActiveListItem() + 1;
+        if(index2 < selectedProject.modules.length){
+          var moduleName2 = selectedProject.modules[index2].name;
+          selectModule(moduleName2,index2);
+        }
       }
     }
-    else if(evt.keyCode == 40){
-          var index = sidebar.getActiveListItem() + 1; 
-          if(index < selectedProject.modules.length ){
-            var moduleName = selectedProject.modules[index].name;
-            selectModule(moduleName,index);
-          }
-    }
+    evt.preventDefault();
   };
   window.addEventListener('resize', function(event){
     pt.resizemap(95);

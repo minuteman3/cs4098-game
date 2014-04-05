@@ -37,13 +37,12 @@ test('app: startGame', function (t) {
 });
 
 
-// TODO finish this:
-// test('app: startSimulation', function (t) {
-//     t.plan(1);
-//     t.doesNotThrow(function(){
-// 		pt.startSimulation(0);
-//     });
-// });
+test('app: startSimulation', function (t) {
+    t.plan(1);
+    t.doesNotThrow(function(){
+		pt.startSimulation(0);
+    });
+});
 
 test('app: endGame', function (t) {
     t.plan(1);
