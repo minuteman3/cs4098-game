@@ -355,12 +355,6 @@ function endGame(){
     moduleProgressOverTime);
 }
 
-function deleteDB(){
-  teamsSelected = {};
-  selectedTeams = {};
-  gameData.totalPayRoll  = 0;
-}
-
 function initialiseGame(){
   sidebar.init(function(name,index){
     selectModule(name,index);
