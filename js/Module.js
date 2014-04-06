@@ -53,6 +53,12 @@ Module.prototype.advance = function advance (cities,stage) {
     }
 
     if(stage != null){
+        var upperBound = client.completionFuzzification[stage][2];
+        if(this.progress > upperBound)
+        {
+            this.progress = upperBound + 1;
+        }
+        
         return this.getStage();
     }
 
