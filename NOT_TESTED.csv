@@ -17,7 +17,7 @@ js/app,calculatePayrollforMod,this is an internal function which isn't exported 
 js/app,startLoop,this is an internal function which isn't exported but is tested alongside startSimulation
 js/app,simulationUpdate,this is tested as part of the Process Simulator
 js/app,simulationComplete,this is tested as part of the Process Simulator
-js/app, showEvent, this is tested as part of modal
+js/app, doEvent, this is tested as part of modal
 js/EventGenerator/EventGenerator,loadFuzzyEngine,this is an internal function which isn't exported and therefore isn't tested
 js/EventGenerator/EventGenerator,getMemValues,this is an internal function which isn't exported and therefore isn't tested
 js/EventGenerator/EventGenerator,getConditions,this is an internal function which isn't exported and therefore isn't tested
@@ -29,9 +29,10 @@ js/EventGenerator/fuzzyEngine,GetRuleToCall,this is an internal function which i
 js/EventGenerator/fuzzyEngine,GetNonZeroVariables,this is an internal function which isn't exported and therefore isn't tested
 js/EventGenerator/fuzzyEngine,GetWeight,this is an internal function which isn't exported and therefore isn't tested
 js/EventGenerator/inferenceEngine,GetRulesToFireInVariable,This method is tested by testing GetRulesToFire
+js/events, setEventAction, this is tested as part of events
 js/index,*,there are no functions in this file
 js/maps,regionLabelShow,this is an internal function which isn't exported and therefore isn't tested
-js/app,getRandomModule,this is an internal function which isn't exported and therefore isn't tested
+js/ProcessSimulator,getRandomModule,this is an internal function which isn't exported and therefore isn't tested
 js/sidebar,setListListner,this listens for a click event on a button. The function it then performs is tested already.
 js/modal,rg,this is an internal function which isn't exported and therefore isn't tested
 
