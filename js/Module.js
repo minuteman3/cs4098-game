@@ -1,3 +1,6 @@
+var client     = require('./../config/client-config.json');
+
+
 var Module = function(_developersPerCity, _cost, _name){
     this.progress = 0;
     this.developersPerCity = _developersPerCity;
@@ -25,11 +28,17 @@ Module.prototype.stall = function stall (duration) {
     this.stalled = duration;
 };
 
-Module.prototype.advance = function advance (cities) {
-    if (this.stalled > 0) {
-        this.stalled --;
-        return;
-    } else if(!this.done()) {
+// -1 stands for don't care
+Module.prototype.advance = function advance (cities,stage) {
+
+
+    if(stage != null){
+        var s = this.getStage();
+        if(stage != s)
+            return s;
+    }
+
+    if(!this.done()) {
         var progressThisCycle = 0;
         var devs = this.developersPerCity;
         Object.keys(devs).forEach(function(key) {
@@ -42,6 +51,11 @@ Module.prototype.advance = function advance (cities) {
             this.progress = this.cost;
         }
     }
+
+    if(stage != null){
+        return this.getStage();
+    }
+
 };
 
 Module.prototype.calculateMaximalProgressPerCycle = function calculateMaximalProgress(cities) {
@@ -62,6 +76,18 @@ Module.prototype.getCost = function getCost (cities) {
     });
     return cost;
 };
+
+Module.prototype.getStage = function getStage () {
+    var stages = client.completionFuzzification;
+    var percet  = this.getPercentComplete();
+    for(var i = 0; i < stages.length;i++){
+
+        if( percet >= stages[i].values[0] && percet <= stages[i].values[2])
+            return i;
+
+    }
+}
+
 
 Module.prototype.isBehindSchedule = function isBehindSchedule (currentWeek,cities) {
       var completion = this.getPercentComplete();

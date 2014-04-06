@@ -19,16 +19,16 @@
     ],
     "completionFuzzification":[
     	{
-    		"option":"low",
+    		"option":"development",
     		"values":[0,20,30]
     	},
     	{
-    		"option":"med",
-    		"values":[40,50,80]
+    		"option":"testing",
+    		"values":[30,50,80]
     	},
     	{
-    		"option":"high",
-    		"values":[45,50,100]
+    		"option":"finishing",
+    		"values":[80,90,100]
     	}
     ],
     "payFuzzification":[

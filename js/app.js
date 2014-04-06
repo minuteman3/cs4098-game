@@ -239,7 +239,8 @@ function startLoop(){
     simulationComplete,
     showEvent,
     eventData,
-    eventRate
+    eventRate,
+    false
   );
 }
 

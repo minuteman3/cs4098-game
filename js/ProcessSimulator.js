@@ -12,15 +12,25 @@ var intervalID = null;
 var gen = null;
 var eventFunc = null;
 var paused = false;
+var stage = 0;
+
 
 function timerLoop(){
     var done = true;
 
+    modStages = [];
+    
     modules.forEach(function(module) {
-        
-        module.advance(cities);
+        if(waterfall)
+            modStages.push(module.advance(cities,stage));
+        else 
+            module.advance(cities);
         done = done && module.done();
     });
+
+    if(waterfall)
+        stage = Math.min.apply(null, modStages);
+
     updateFunc(modules,cities);
 
     var module = getRandomModule(modules);
@@ -52,7 +62,7 @@ function timerLoop(){
     }
 }
 
-function start(_modules,_cities, _updateFunc, _doneFunc, _eventFunc, events, eventRate){
+function start(_modules,_cities, _updateFunc, _doneFunc, _eventFunc, events, eventRate, isWaterFall){
     modules = _modules;
     cities = _cities;
     updateFunc = _updateFunc;
@@ -60,6 +70,7 @@ function start(_modules,_cities, _updateFunc, _doneFunc, _eventFunc, events, eve
     eventFunc = _eventFunc;
     intervalID = setInterval(timerLoop, config.timerDuration);
     gen = new EventGenerator(events,eventRate);
+    waterfall = isWaterFall;
     return intervalID;
 }
 
