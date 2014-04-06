@@ -22,10 +22,15 @@ var selectTeamTagstatus = ".select-teams-status";
 var sidebarTag = '#HUD';
 var titleTag = "#sidebar-title";
 var weeksTag = "#weeks";
+var homeCityTag = "#homecity";
+var homeCityHeaderTag = "#homecityHeader";
+
 
 var itemSelectionFunc;
+var upLocationFuction;
+var downLocationFunction;
 
-function init(itemSelection){
+function init(itemSelection,_upLocationFuction,_downLocationFunction){
   showProgressState(false);
   showSelectTeams(true);
   setTitle("Select Teams");
@@ -33,7 +38,8 @@ function init(itemSelection){
   setBudgetedWeeks(0);
   setPayrollforModule(0);
   setLocations([]);
-
+  upLocationFuction =_upLocationFuction;
+  downLocationFunction = _downLocationFunction;
   itemSelectionFunc = itemSelection;
 }
 
@@ -113,7 +119,6 @@ function setBudgetedWeeks(weekCount){
 	$(budgetWeeksTag).html(weekCount.toFixed(0) + " weeks");
 }
 
-
 function setCash(cash){
   $(cashTag).html("$" + utils.commafy(cash));
   if(cash < 0){
@@ -122,9 +127,11 @@ function setCash(cash){
     $(cashTag).css('color','#859900');//solarized @green
   }
 }
+
 function setProgress(progress){
   $(progressTag).html(progress.toFixed(0) + "%");
 }
+
 function setWeeks(weeks){
   $(weeksTag).html(weeks.toFixed(0) + " weeks");
   if(weeks < 0){
@@ -148,7 +155,26 @@ function setLocations(teams){
     var city = cities[key];
     var location = $("<li>");
     location.append(city.name);
+    
+    var upIcon = $("<i></i>").attr("date-code",key).addClass("fa fa-chevron-up ticker tickerUp").click(function(){
+      var code = $(this).attr("date-code");
+      upLocationFuction(code);
+    });
+    var downIcon =   $("<i></i>").attr("date-code",key).addClass("fa fa-chevron-down ticker tickerDown").click(function(){
+      var code = $(this).attr("date-code");
+      downLocationFunction(code);
+    });
+
+
+    location.append($("<div></div>").addClass("tickerBox").html(upIcon).append(downIcon));
     location.append($("<div>").addClass("teamMultiplier").html("x" +teams[key]));
+
+    if (city.name === selectedCity) {
+      location.append($("<div></div>").addClass("teamMultiplierFade").html("+1"));
+    }
+
+
+
     $(locationTag).append(location);
    }
 }
@@ -160,6 +186,11 @@ function showSelectTeams(visible){
 
 function showProgressState(visible){
   $(progressStateTag).css('display',visible?"block":"none");
+}
+
+function setHomeCity(city){
+ $(homeCityHeaderTag).css('color', '#93a1a1');
+ $(homeCityTag).html(city);
 }
 
 module.exports = {
@@ -180,6 +211,7 @@ module.exports = {
     showProgressState:showProgressState,
     show:show,
     hide:hide,
+    setHomeCity:setHomeCity,
     setButtonText:setButtonText,
     init:init,
     setListListner:setListListner,

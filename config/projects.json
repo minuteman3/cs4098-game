@@ -3,7 +3,7 @@
   {
     "name": "R&D Project",
     "budget": 50000,
-    "eventRate": 10,
+    "eventRate": 5,
     "duration": 8,
     "revenue": {
       "months": 3,
