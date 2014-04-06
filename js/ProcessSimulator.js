@@ -32,7 +32,8 @@ function timerLoop(){
             city.morale, 
             city.costPerDeveloper, 
             module.getPercentComplete(), 
-            city.getGlobalDistance()
+            city.getGeoDist(),
+            city.getCulturalDist()
             ]);
 
 

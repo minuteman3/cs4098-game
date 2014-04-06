@@ -45,18 +45,32 @@
     		"values":[6500,7000,9007199254740992]
     	}
     ],
-    "globalDistFuzzification":[
+    "geoDistFuzzification":[
         {
             "option":"low",
-            "values":[0,4000,5000]
+            "values":[0,100,200]
         },
         {
             "option":"med",
-            "values":[4500,7000,10000]
+            "values":[200,500,1000]
         },
         {
             "option":"high",
-            "values":[6500,7000,9007199254740992]
+            "values":[1000,15000,30000]
+        }
+    ],
+    "culturalDistFuzzification":[
+        {
+            "option":"low",
+            "values":[0,1,2]
+        },
+        {
+            "option":"med",
+            "values":[2,4,5]
+        },
+        {
+            "option":"high",
+            "values":[4,6,10]
         }
     ]
 
