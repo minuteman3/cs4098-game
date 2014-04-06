@@ -16,11 +16,11 @@ var City = function(city,homeCity){
 
 function calculateCulturalDistance(city,homeCity){
 
-    var culturalDist = city.language === homeCity.language ? 4:0;
-    culturalDist += city.west === homeCity.west ? 3:0;
-    culturalDist += city.highContext === homeCity.highContext ? 3:0;
-    culturalDist += city.nationCulture === homeCity.nationCulture ? 2:0;
-    culturalDist += city.organizationalCulture === homeCity.organizationalCulture ? 1:0;
+    var culturalDist = city.language !== homeCity.language ? 4:0;
+    culturalDist += city.west !== homeCity.west ? 3:0;
+    culturalDist += city.highContext !== homeCity.highContext ? 3:0;
+    culturalDist += city.nationCulture !== homeCity.nationCulture ? 2:0;
+    culturalDist += city.organizationalCulture !== homeCity.organizationalCulture ? 1:0;
 
     return culturalDist;
 
