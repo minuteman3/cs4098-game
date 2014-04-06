@@ -20,7 +20,7 @@ var deepcopy   = require('deepcopy');
 var projects = proj.projects;
 var selectedProject;
 
-
+var isWaterFall = false;
 
 
 var gameData = {
@@ -160,11 +160,21 @@ function projectdescription(a){
   $('#project-description').html(projects[a].dialog);
 }
 
-function startGame(a){
+
+function selectType(a){
+  modal.hidemodal();
   a = a || 0;
+  modal.makeTypeChoice(a,["agile","waterfall"]);    
+}
+
+function startGame(a,type){
+  a = a || 0;
+  modal.hidemodal();
+
+  isWaterFall = type === "waterfall";
   selectedProject = projects[a];
   selectedProject.cost = utils.calculateCost(selectedProject);
-  modal.hidemodal();
+
 
   $('#btn-options').show();
   $('#map').show();
@@ -240,7 +250,7 @@ function startLoop(){
     showEvent,
     eventData,
     eventRate,
-    true
+    isWaterFall
   );
 }
 
@@ -406,7 +416,7 @@ module.exports = {
   selectProject: selectProject,              // select which project to do
   startGame: startGame,                      // goes into "game mode", after placing teams
   endGame: endGame,                          // displays end-game stats
-
+  selectType:selectType,
   startSimulation: startSimulation,
   projectdescription: projectdescription,
   // Modal
