@@ -1,20 +1,18 @@
-var $          = require('jquery');
-var cities     = require('./../config/cities.json');
-var maps       = require('./maps.js');
-var modal      = require('./modal.js');
-var Module     = require('./Module.js');
-var City       = require('./city.js');
-var ProcessSim = require('./ProcessSimulator.js');
-var proj       = require('./../config/projects.json');
-var client     = require('./../config/client-config.json');
-var sidebar    = require('./sidebar.js');
-var utils      = require('./utils.js');
-
-var events = require("./events.js")
-var eventData = require("../config/events.json")
-
+var $            = require('jquery');
+var cities       = require('./../config/cities.json');
+var City         = require('./city.js');
+var client       = require('./../config/client-config.json');
+var deepcopy     = require('deepcopy');
+var eventData    = require("../config/events.json");
+var events       = require("./events.js");
 var interventions= require("../config/interventions.json");
-var deepcopy   = require('deepcopy');
+var maps         = require('./maps.js');
+var modal        = require('./modal.js');
+var Module       = require('./Module.js');
+var ProcessSim   = require('./ProcessSimulator.js');
+var proj         = require('./../config/projects.json');
+var sidebar      = require('./sidebar.js');
+var utils        = require('./utils.js');
 
 var projects = proj.projects;
 var selectedProject;
@@ -22,13 +20,11 @@ var selectedProject;
 var teamsSelected = {};
 var selectedTeams = {};
 
-
 var gameData = {
     weeksTilDueDate:0,
     projectBudget:0,
     totalPayRoll:0,
-}
-
+};
 
 var modules = [];
 var moduleProgressOverTime = [[]];
@@ -137,7 +133,7 @@ function deductDeverloperFromCity(cityCode){
     sidebar.setLocations(teamsSelected,cityCode);
 
    
-    if(teamsSelected[cityCode] == 0){
+    if(teamsSelected[cityCode] === 0){
       delete teamsSelected[cityCode];
     }
 }

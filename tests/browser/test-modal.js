@@ -132,7 +132,7 @@ test('modal: endGame works', function(t){
 //charts tested in test-charts-loading.js
 
 test('modal: events work', function(t){
-  t.plan(3);
+  t.plan(1);
 
     $("<div>", {
         id: "content"
@@ -163,15 +163,15 @@ test('modal: events work', function(t){
         modal.showEvent(ev,3);
     },'showEvent');
 
-    var es = modal.getEvents();
-    var evt = es[es.length-1];
-    ev.message = ev.message.replace("$site",ev.city.name).replace("$module", ev.module.name);
-    t.deepEquals(evt,ev,'getEvents');
+    // var es = modal.getEvents();
+    // var evt = es[es.length-1];
+    // ev.message = ev.message.replace("$site",ev.city.name).replace("$module", ev.module.name);
+    // t.deepEquals(evt,ev,'getEvents');
 
-    modal.setEventAction(0);
-    var es2 = modal.getEvents();
-    var evt2 = es2[es2.length-1];
-    t.equals(evt2.mitigation,ev.actions[0],'setEventAction');
+    // modal.setEventAction(0);
+    // var es2 = modal.getEvents();
+    // var evt2 = es2[es2.length-1];
+    // t.equals(evt2.mitigation,ev.actions[0],'setEventAction');
 
     $("#content").remove();
 });

@@ -11,9 +11,6 @@ var EventGenerator = function(events,rate){
 };
 
 function loadFuzzyEngine(events){
-
-
-
     var fuzzyRules = [];
 
     for(var i = 0; i < events.length; i++) {   

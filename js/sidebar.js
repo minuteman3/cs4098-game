@@ -165,15 +165,8 @@ function setLocations(teams){
       downLocationFunction(code);
     });
 
-
     location.append($("<div></div>").addClass("tickerBox").html(upIcon).append(downIcon));
     location.append($("<div>").addClass("teamMultiplier").html("x" +teams[key]));
-
-    if (city.name === selectedCity) {
-      location.append($("<div></div>").addClass("teamMultiplierFade").html("+1"));
-    }
-
-
 
     $(locationTag).append(location);
    }
