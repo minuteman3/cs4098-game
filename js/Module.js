@@ -56,9 +56,6 @@ Module.prototype.advance = function advance (cities,stage) {
         var upperBound = client.completionFuzzification[stage].values[2];
         var percet  = this.getPercentComplete();
 
-        console.log(upperBound);
-        console.log(percet);
-
 
         if(percet > upperBound)
         {
