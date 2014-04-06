@@ -91,7 +91,7 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
 
       var i = deepcopy(interventions);
       i.city = deepcopy(cities[code]);
-
+      i.module = {name:""};
       showEvent(i);
     }
   } else if(curGameState === GameStates.SELECT_TEAMS){
