@@ -5,7 +5,7 @@
         "effects": {
             "morale": -20
         },
-        "target":"city",
+        "target": "city",
         "actions": [
             {
                 "message": "Hire Manager",
@@ -28,10 +28,30 @@
         "effects": {
             "stall": 1
         },
-        "target":"city",
+        "target": "city",
         "actions": [
             {
-                "message": "Ok",
+                "message": "OK",
+                "effects": {}
+            }
+        ]
+    },
+    {
+        "conditions": {},
+        "message": "It's the birthday of one of your employees at $site",
+        "effects": {
+            "morale": 10
+        },
+        "target": "city",
+        "actions": [
+            {
+                "message": "Buy a cake",
+                "effects": {
+                    "money": -100
+                }
+            },
+            {
+                "message": "OK",
                 "effects": {}
             }
         ]
@@ -42,10 +62,10 @@
         "effects": {
             "money": 10000
         },
-        "target":"city",
+        "target": "city",
         "actions": [
             {
-                "message": "Ok",
+                "message": "OK",
                 "effects": {}
             }
         ]
@@ -62,20 +82,51 @@
         },
         "message": "Your employees at $site are threatening to strike unless you raise pay, what will you do?",
         "effects": {},
-        "target":"city",
+        "target": "city",
         "actions": [
             {
                 "message": "Raise pay",
                 "effects": {
                     "money": -2000,
-                    "morale": 20
+                    "morale": 10
                 }
             },
             {
                 "message": "Nothing",
                 "effects": {
                     "stall": 2,
+                    "morale": -10
+                }
+            }
+        ]
+    },
+    {
+        "conditions": {
+            "morale": [
+                "low",
+                "med"
+            ],
+            "progress": [
+                "low"
+            ]
+        },
+        "message": "$module has not passed Design Analysis, what do you do?",
+        "effects": {
+            "progress": 10
+        },
+        "target": "city",
+        "actions": [
+            {
+                "message": "Forced overtime",
+                "effects": {
+                    "money": -10000,
                     "morale": -20
+                }
+            },
+            {
+                "message": "Nothing",
+                "effects": {
+                    "stall": 1
                 }
             }
         ]
@@ -89,9 +140,11 @@
                 "med"
             ]
         },
-        "message": "$module fails integration tests, what do you do?",
-        "effects": {"progress": 60},
-        "target":"city",
+        "message": "$module fails to integrate correctly, what do you do?",
+        "effects": {
+            "progress": 50
+        },
+        "target": "city",
         "actions": [
             {
                 "message": "Forced overtime",
@@ -103,7 +156,7 @@
             {
                 "message": "Nothing",
                 "effects": {
-                    "stall": 5
+                    "stall": 1
                 }
             }
         ]
@@ -111,15 +164,19 @@
     {
         "conditions": {
             "morale": [
-                "low", "med"
+                "low",
+                "med"
             ],
             "progress": [
+                "med",
                 "high"
             ]
         },
-        "message": "$module fails acceptance tests, what do you do?",
-        "effects": {"progress": 75 },
-        "target":"city",
+        "message": "$module fails system tests, what do you do?",
+        "effects": {
+            "progress": 65
+        },
+        "target": "city",
         "actions": [
             {
                 "message": "Forced overtime",
@@ -131,7 +188,68 @@
             {
                 "message": "Nothing",
                 "effects": {
-                    "stall": 5
+                    "stall": 2
+                }
+            }
+        ]
+    },
+    {
+        "conditions": {
+            "morale": [
+                "low",
+                "med"
+            ],
+            "progress": [
+                "high"
+            ]
+        },
+        "message": "$module fails to deploy correctly, what do you do?",
+        "effects": {
+            "progress": 75
+        },
+        "target": "city",
+        "actions": [
+            {
+                "message": "Forced overtime",
+                "effects": {
+                    "money": -10000,
+                    "morale": -20
+                }
+            },
+            {
+                "message": "Nothing",
+                "effects": {
+                    "stall": 2
+                }
+            }
+        ]
+    },
+    {
+        "conditions": {
+            "morale": [
+                "low"
+            ],
+            "progress": [
+                "high"
+            ]
+        },
+        "message": "$module fails acceptance tests, what do you do?",
+        "effects": {
+            "progress": 80
+        },
+        "target": "city",
+        "actions": [
+            {
+                "message": "Forced overtime",
+                "effects": {
+                    "money": -10000,
+                    "morale": -20
+                }
+            },
+            {
+                "message": "Nothing",
+                "effects": {
+                    "stall": 2
                 }
             }
         ]
