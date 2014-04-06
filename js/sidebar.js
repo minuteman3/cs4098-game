@@ -38,8 +38,8 @@ function init(itemSelection,_upLocationFuction,_downLocationFunction){
   setBudgetedWeeks(0);
   setPayrollforModule(0);
   setLocations([]);
-upLocationFuction =_upLocationFuction;
-downLocationFunction = _downLocationFunction;
+  upLocationFuction =_upLocationFuction;
+  downLocationFunction = _downLocationFunction;
   itemSelectionFunc = itemSelection;
 }
 
@@ -119,7 +119,6 @@ function setBudgetedWeeks(weekCount){
 	$(budgetWeeksTag).html(weekCount.toFixed(0) + " weeks");
 }
 
-
 function setCash(cash){
   $(cashTag).html("$" + utils.commafy(cash));
   if(cash < 0){
@@ -128,9 +127,11 @@ function setCash(cash){
     $(cashTag).css('color','#859900');//solarized @green
   }
 }
+
 function setProgress(progress){
   $(progressTag).html(progress.toFixed(0) + "%");
 }
+
 function setWeeks(weeks){
   $(weeksTag).html(weeks.toFixed(0) + " weeks");
   if(weeks < 0){

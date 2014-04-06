@@ -66,8 +66,8 @@ function getConditions(conditions,fuzzyValue){
 EventGenerator.prototype.getEvent = function(variables){
     // rate% chance to return an event
     // make it more likely to be event if no events have fired
-    if(Math.random() + this.lastEvent*0.1 > (1-this.rate)) {
-        this.lastEvent = 1;
+    if(Math.random() + this.lastEvent*0.01 > (1-this.rate)) {
+        this.lastEvent = 0;
         return deepcopy(this.events[this.engine.run(variables, Math.random())]);
     } else {
         this.lastEvent += 1;

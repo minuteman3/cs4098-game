@@ -97,12 +97,12 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
   } else if(curGameState === GameStates.SELECT_TEAMS){
     addExtraDeveloperToCity(code);
   } else if(curGameState === GameStates.SELECT_HOME){
-      sidebar.setList(
-    selectedProject.modules.map(function(a){
-      var obj = {};
-      obj.name = a.name;
-      obj.cost = (100*a.cost/selectedProject.cost);
-      return obj;
+    sidebar.setList(
+      selectedProject.modules.map(function(a){
+        var obj = {};
+        obj.name = a.name;
+        obj.cost = (100*a.cost/selectedProject.cost);
+        return obj;
     }),true);
     sidebar.setHomeCity(cities[code].name);
     homeCity = cities[code].name;
@@ -110,7 +110,6 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
     curGameState = GameStates.SELECT_TEAMS;
   }
 }
-
 
 function addExtraDeveloperToCity(cityCode){
     teamsSelected[cityCode] = (teamsSelected[cityCode] || 0)+1;
@@ -143,8 +142,6 @@ function deductDeverloperFromCity(cityCode){
     }
 }
 
-
-
 function selectModule(cityName,nextIndex) {
  
   var index = sidebar.getActiveListItem();
@@ -160,7 +157,6 @@ function selectModule(cityName,nextIndex) {
   sidebar.setPayrollforModule(payroll);
   sidebar.setLocations(teamsSelected);
   sidebar.setListItemActive( nextIndex);
-
 }
 
 function startSimulation(){
@@ -255,8 +251,6 @@ function showEvent(ev){
   events.trackEvent(ev);
   modal.showEvent(ev,currentWeek);
 }
-
-
 
 function startLoop(){
 
@@ -403,8 +397,6 @@ function pause(){
   $('#btn-options').show();
 }
 
-
-
 $( document ).ready( function() {
   var $body = $('body'); //Cache this for performance
   
@@ -455,7 +447,6 @@ $( document ).ready( function() {
 
   ProcessSim.stop();
 });
-
 
 function doEvent(actionNum){
   events.doEvent(actionNum,gameData);
