@@ -17,7 +17,7 @@ Module.prototype.getPercentComplete = function getPercentComplete () {
 
 Module.prototype.setPercentComplete = function setPercentComplete (percent)
 {
-    this.progress = percent*this.cost;
+    this.progress = (percent/100)*this.cost;
 };
 
 Module.prototype.done = function done () {
@@ -53,12 +53,19 @@ Module.prototype.advance = function advance (cities,stage) {
     }
 
     if(stage != null){
-        var upperBound = client.completionFuzzification[stage][2];
-        if(this.progress > upperBound)
+        var upperBound = client.completionFuzzification[stage].values[2];
+        var percet  = this.getPercentComplete();
+
+        console.log(upperBound);
+        console.log(percet);
+
+
+        if(percet > upperBound)
         {
-            this.progress = upperBound + 1;
+
+            this.setPercentComplete(upperBound + 1);
         }
-        
+
         return this.getStage();
     }
 

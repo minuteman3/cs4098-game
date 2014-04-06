@@ -240,7 +240,7 @@ function startLoop(){
     showEvent,
     eventData,
     eventRate,
-    false
+    true
   );
 }
 
