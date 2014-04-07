@@ -31,7 +31,7 @@ test('modal: makeChoices works', function(t){
 
     t.equals(e,'<p></p>'+
         '<div class="modal-options">'+
-            '<button class="btn-action" onclick="pt.startGame(0)"  >'+
+            '<button class="btn-action" onclick="pt.selectType(0)"  >'+
                 'Option 1'+
             '</button>'+
         '</div>');
@@ -39,7 +39,7 @@ test('modal: makeChoices works', function(t){
 
     t.equals(f,'<p>hello</p>'+
         '<div class="modal-options">'+
-            '<button class="btn-action" onclick="pt.startGame(0)"  >'+
+            '<button class="btn-action" onclick="pt.selectType(0)"  >'+
                 'Option 1'+
             '</button>'+
         '</div>');
@@ -47,7 +47,7 @@ test('modal: makeChoices works', function(t){
 
     t.equals(g,'<p>hello</p>'+
         '<div class="modal-options">'+
-            '<button class="other" onclick="pt.startGame(0)"  >'+
+            '<button class="other" onclick="pt.selectType(0)"  >'+
                 'Option 1'+
             '</button>'+
         '</div>');
