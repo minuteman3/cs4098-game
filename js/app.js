@@ -12,24 +12,26 @@ var Module       = require('./Module.js');
 var ProcessSim   = require('./ProcessSimulator.js');
 var proj         = require('./../config/projects.json');
 var sidebar      = require('./sidebar.js');
+var teamPicker   = require('./teamPicker.js');
 var utils        = require('./utils.js');
 
 var projects = proj.projects;
 var selectedProject;
 
-var teamsSelected = {};
-var selectedTeams = {};
+var isWaterFall = false;
+
 
 var gameData = {
+    homeCity:"",
     weeksTilDueDate:0,
     projectBudget:0,
     totalPayRoll:0,
 };
 
+
 var modules = [];
 var moduleProgressOverTime = [[]];
 var currentWeek = 0;
-var homeCity;
 
 var GameStates = {
       START:0,
@@ -71,7 +73,7 @@ function onlabelShow(e,label,code){
       'as your Home City '
     );
   }
-  maps.fixOverLap(code,label);
+
 }
 
 function selectCity(e,  code,  isSelected,  selectedMarkers) {
@@ -87,80 +89,38 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
 
       var i = deepcopy(interventions);
       i.city = deepcopy(cities[code]);
-
+      i.module = {name:""};
       showEvent(i);
     }
   } else if(curGameState === GameStates.SELECT_TEAMS){
-    addExtraDeveloperToCity(code);
+    teamPicker.addExtraDeveloperToCity(code,gameData);
   } else if(curGameState === GameStates.SELECT_HOME){
-    sidebar.setList(
-      selectedProject.modules.map(function(a){
-        var obj = {};
-        obj.name = a.name;
-        obj.cost = (100*a.cost/selectedProject.cost);
-        return obj;
+      sidebar.setList(
+    selectedProject.modules.map(function(a){
+      var obj = {};
+      obj.name = a.name;
+      obj.cost = (100*a.cost/selectedProject.cost);
+      return obj;
     }),true);
     sidebar.setHomeCity(cities[code].name);
-    homeCity = cities[code].name;
+    gameData.homeCity = cities[code];
     sidebar.setListItemActive(0);
     curGameState = GameStates.SELECT_TEAMS;
   }
 }
 
-function addExtraDeveloperToCity(cityCode){
-    teamsSelected[cityCode] = (teamsSelected[cityCode] || 0)+1;
-    gameData.totalPayRoll += cities[cityCode].costPerWeek;
-
-    sidebar.setPayroll(gameData.totalPayRoll);
-    sidebar.setBudgetedWeeks(selectedProject.budget/gameData.totalPayRoll);
-
-    // update information about this module
-    sidebar.setPayrollforModule(calculatePayrollforMod(teamsSelected));
-    sidebar.setLocations(teamsSelected,cityCode);
-}
-
-function deductDeverloperFromCity(cityCode){
-    if(!teamsSelected[cityCode])
-      return;
-    teamsSelected[cityCode] = teamsSelected[cityCode] - 1;
-    gameData.totalPayRoll += cities[cityCode].costPerWeek;
-
-    sidebar.setPayroll(gameData.totalPayRoll);
-    sidebar.setBudgetedWeeks(selectedProject.budget/gameData.totalPayRoll);
-
-    // update information about this module
-    sidebar.setPayrollforModule(calculatePayrollforMod(teamsSelected));
-    sidebar.setLocations(teamsSelected,cityCode);
-
-   
-    if(teamsSelected[cityCode] === 0){
-      delete teamsSelected[cityCode];
-    }
-}
-
-function selectModule(cityName,nextIndex) {
- 
-  var index = sidebar.getActiveListItem();
 
 
-  if(Object.keys(teamsSelected).length !== 0){
-    selectedTeams[selectedProject.modules[index].name] = teamsSelected;
-  }
-
-  teamsSelected = selectedTeams[cityName]?selectedTeams[cityName]:{};
-  var payroll = calculatePayrollforMod(teamsSelected);
-  
-  sidebar.setPayrollforModule(payroll);
-  sidebar.setLocations(teamsSelected);
-  sidebar.setListItemActive( nextIndex);
-}
 
 function startSimulation(){
   var curModuleIndex = sidebar.getActiveListItem();
   var curModuleName = selectedProject.modules[curModuleIndex].name;
-  selectModule(curModuleName,curModuleIndex);
+  
 
-  if(Object.keys(selectedTeams).length !== selectedProject.modules.length){
+  teamPicker.selectModule(curModuleName,curModuleIndex);
+
+
+  if(teamPicker.allModulesHaveTeams()){
     modal.dialog("There needs to be at least one team for every module");
     return;
   }
@@ -175,13 +135,7 @@ function startSimulation(){
   startLoop();
 }
 
-function calculatePayrollforMod(teams){
-  payroll = 0;
-  for(var key in teams){
-    payroll += cities[key].costPerWeek *  teams[key];
-  }
-  return payroll;
-}
+
 
 function selectProject(){
   $('#startScreen').hide();
@@ -204,11 +158,21 @@ function projectdescription(a){
   $('#project-description').html(projects[a].dialog);
 }
 
-function startGame(a){
+
+function selectType(a){
+  modal.hidemodal();
   a = a || 0;
+  modal.makeTypeChoice(a,["agile","waterfall"]);    
+}
+
+function startGame(a,type){
+  a = a || 0;
+  modal.hidemodal();
+
+  isWaterFall = type === "waterfall";
   selectedProject = projects[a];
   selectedProject.cost = utils.calculateCost(selectedProject);
-  modal.hidemodal();
+
 
   $('#btn-options').show();
   $('#map').show();
@@ -219,6 +183,7 @@ function startGame(a){
 
   curGameState = GameStates.SELECT_HOME;
 
+  teamPicker.init(gameData,cities,selectedProject.modules,selectedProject.budget);
   sidebar.show();
   sidebar.setButtonText("Start");
   sidebar.setBudget(selectedProject.budget);
@@ -248,6 +213,8 @@ function showEvent(ev){
   modal.showEvent(ev,currentWeek);
 }
 
+
+
 function startLoop(){
 
   gameData.projectBudget = Number(selectedProject.budget);
@@ -258,24 +225,17 @@ function startLoop(){
   sidebar.setWeeks(gameData.weeksTilDueDate);
   sidebar.setProgress(0);
 
-  modules = [];
-  selectedProject.modules.forEach(function(i){
-     var moduleDevelopes = {};
-       // move along the markers
-    Object.keys(selectedTeams[i.name]).forEach(function(key) {
-      moduleDevelopes[cities[key].name] = selectedTeams[i.name][key];
-    });
 
-    modules.push(
-      new Module( 
-        moduleDevelopes, i.cost, i.name
-      )
-    );
+  modules = selectedProject.modules.map(function(i){
+      return new Module( 
+        teamPicker.getDevelopers(i.name), i.cost, i.name
+      );
   });
  
   var citiesState = {};
   cities.forEach(function(c){
-      citiesState[c.name] = new City(c.name,c.costPerWeek,c.productivity);
+      var cityMods = modules.filter(function(module){return module.hasCity(c.name);});
+      citiesState[c.name] = new City(c,gameData.homeCity,cityMods);
   });
 
   var eventRate = selectedProject.eventRate || client.eventRate;
@@ -288,7 +248,8 @@ function startLoop(){
     simulationComplete,
     showEvent,
     eventData,
-    eventRate
+    eventRate,
+    isWaterFall
   );
 }
 
@@ -355,12 +316,16 @@ function endGame(){
     moduleProgressOverTime);
 }
 
+function deleteDB(){
+  gameData.totalPayRoll  = 0;
+}
+
 function initialiseGame(){
   sidebar.init(function(name,index){
-    selectModule(name,index);
+    teamPicker.selectModule(name,index);
   },
-  addExtraDeveloperToCity,
-  deductDeverloperFromCity
+  teamPicker.addExtraDeveloperToCity,
+  teamPicker.deductDeverloperFromCity
   );
   sidebar.hide();
 
@@ -374,9 +339,7 @@ function initialiseGame(){
 
   $('#btn-options').hide();
   $('#map').empty();//deletes the map
-  teamsSelected = {};
-  selectedTeams = {};
-  totalPayRoll  = 0;
+  deleteDB();//reset all localStorage values;
 
   $('#startScreen').show();
 }
@@ -388,6 +351,8 @@ function pause(){
   }
   $('#btn-options').show();
 }
+
+
 
 $( document ).ready( function() {
   var $body = $('body'); //Cache this for performance
@@ -408,25 +373,25 @@ $( document ).ready( function() {
       // this is the escape key [esc]
       pt.pause();
       evt.preventDefault();
-    } else if(evt.keyCode === 38) {//up
-      if(curGameState === GameStates.SELECT_TEAMS){
-        var index = sidebar.getActiveListItem() - 1;
-        if(index >= 0){
-          var moduleName = selectedProject.modules[index].name;
-          selectModule(moduleName,index);
-        }
+    }
+    else if(evt.keyCode == 38){//up
+      if(curGameState == GameStates.SELECT_TEAMS){
+          var index = sidebar.getActiveListItem() - 1; 
+          if(index >= 0){
+            var moduleName = selectedProject.modules[index].name;
+            teamPicker.selectModule(moduleName,index);
+          }
       }
-      evt.preventDefault();
-    } else if(evt.keyCode === 40) {//down
-      if(curGameState === GameStates.SELECT_TEAMS){
-        var index2 = sidebar.getActiveListItem() + 1;
-        if(index2 < selectedProject.modules.length){
+    }
+    else if(evt.keyCode == 40){//down
+      if(curGameState == GameStates.SELECT_TEAMS){
+        var index2 = sidebar.getActiveListItem() + 1; 
+        if(index2 < selectedProject.modules.length ){
           var moduleName2 = selectedProject.modules[index2].name;
-          selectModule(moduleName2,index2);
+          teamPicker.selectModule(moduleName2,index2);
         }
       }
     }
-    evt.preventDefault();
   };
   window.addEventListener('resize', function(event){
     pt.resizemap(95);
@@ -441,6 +406,7 @@ $( document ).ready( function() {
   ProcessSim.stop();
 });
 
+
 function doEvent(actionNum){
   events.doEvent(actionNum,gameData);
 }
@@ -450,7 +416,7 @@ module.exports = {
   selectProject: selectProject,              // select which project to do
   startGame: startGame,                      // goes into "game mode", after placing teams
   endGame: endGame,                          // displays end-game stats
-
+  selectType:selectType,
   startSimulation: startSimulation,
   projectdescription: projectdescription,
   // Modal

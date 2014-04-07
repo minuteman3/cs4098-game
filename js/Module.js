@@ -1,3 +1,6 @@
+var client     = require('./../config/client-config.json');
+
+
 var Module = function(_developersPerCity, _cost, _name){
     this.progress = 0;
     this.developersPerCity = _developersPerCity;
@@ -14,7 +17,7 @@ Module.prototype.getPercentComplete = function getPercentComplete () {
 
 Module.prototype.setPercentComplete = function setPercentComplete (percent)
 {
-    this.progress = percent*this.cost;
+    this.progress = (percent/100)*this.cost;
 };
 
 Module.prototype.done = function done () {
@@ -25,11 +28,21 @@ Module.prototype.stall = function stall (duration) {
     this.stalled = duration;
 };
 
-Module.prototype.advance = function advance (cities) {
+// -1 stands for don't care
+Module.prototype.advance = function advance (cities,stage) {
+
+
+    if(stage !== null){
+        var s = this.getStage();
+        if(stage !== s)
+            return s;
+    }
+
     if (this.stalled > 0) {
         this.stalled --;
         return;
-    } else if(!this.done()) {
+    } 
+    else if(!this.done()) {
         var progressThisCycle = 0;
         var devs = this.developersPerCity;
         Object.keys(devs).forEach(function(key) {
@@ -42,6 +55,21 @@ Module.prototype.advance = function advance (cities) {
             this.progress = this.cost;
         }
     }
+
+    if(stage !== null){
+        var upperBound = client.completionFuzzification[stage].values[2];
+        var percet  = this.getPercentComplete();
+
+
+        if(percet > upperBound)
+        {
+
+            this.setPercentComplete(upperBound + 1);
+        }
+
+        return this.getStage();
+    }
+
 };
 
 Module.prototype.calculateMaximalProgressPerCycle = function calculateMaximalProgress(cities) {
@@ -61,6 +89,25 @@ Module.prototype.getCost = function getCost (cities) {
         cost += cities[key].cost(developers);
     });
     return cost;
+};
+
+Module.prototype.getStage = function getStage () {
+    var stages = client.completionFuzzification;
+    var percet  = this.getPercentComplete();
+    for(var i = 0; i < stages.length;i++){
+
+        if( percet >= stages[i].values[0] && percet <= stages[i].values[2])
+            return i;
+
+    }
+};
+
+Module.prototype.hasCity = function hasCity (city) {
+    return this.developersPerCity[city] > 0;
+};
+
+Module.prototype.isStalled = function isStalled(){
+    return this.stalled > 0;
 };
 
 Module.prototype.isBehindSchedule = function isBehindSchedule (currentWeek,cities) {

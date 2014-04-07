@@ -1,34 +1,77 @@
 [
-  {
-    "coords": [ 37.6788056,-122.2880726],
-    "name":"San Francisco",
-    "morale":100,
-    "productivity":200,
-    "costPerWeek":12000
-  }, {
-    "coords": [ 40.43,-74.0],
-    "name":"New York",
-    "morale":100,
-    "productivity":125,
-    "costPerWeek":7500
-  },{
-    "coords": [ 53.24, -6.6],
-    "name":"Dublin",
-    "morale":100,
-    "productivity":100,
-    "costPerWeek":6000
-  },{
-    "coords": [  31.12,121.30],
-    "name":"Shanghai",
-    "morale":100,
-    "productivity":75,
-    "costPerWeek":4500
-  },{
-    "coords": [ 18.9750,72.8258],
-    "name":"Mumbai",
-    "morale":100,
-    "productivity":20,
-    "costPerWeek":1200
-  }
+    {
+        "coords": [
+            37.6788056,
+            -122.2880726
+        ],
+        "name": "San Francisco",
+        "morale": 100,
+        "productivity": 200,
+        "costPerWeek": 12000,
+        "language": "english",
+        "west": true,
+        "highContext": false,
+        "nationCulture": "american",
+        "organizationalCulture": "undefined"
+    },
+    {
+        "coords": [
+            40.43,
+            -74
+        ],
+        "name": "New York",
+        "morale": 100,
+        "productivity": 125,
+        "costPerWeek": 7500,
+        "language": "english",
+        "west": true,
+        "highContext": false,
+        "nationCulture": "american",
+        "organizationalCulture": "undefined"
+    },
+    {
+        "coords": [
+            53.24,
+            -6.6
+        ],
+        "name": "Dublin",
+        "morale": 100,
+        "productivity": 100,
+        "costPerWeek": 6000,
+        "language": "english",
+        "west": true,
+        "highContext": false,
+        "nationCulture": "american",
+        "organizationalCulture": "undefined"
+    },
+    {
+        "coords": [
+            31.12,
+            121.3
+        ],
+        "name": "Shanghai",
+        "morale": 100,
+        "productivity": 75,
+        "costPerWeek": 4500,
+        "language": "english",
+        "west": true,
+        "highContext": false,
+        "nationCulture": "american",
+        "organizationalCulture": "undefined"
+    },
+    {
+        "coords": [
+            18.975,
+            72.8258
+        ],
+        "name": "Mumbai",
+        "morale": 100,
+        "productivity": 20,
+        "costPerWeek": 1200,
+        "language": "english",
+        "west": true,
+        "highContext": false,
+        "nationCulture": "american",
+        "organizationalCulture": "undefined"
+    }
 ]
-

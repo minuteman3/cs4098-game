@@ -12,22 +12,47 @@ var intervalID = null;
 var gen = null;
 var eventFunc = null;
 var paused = false;
+var stage = 0;
+
 
 function timerLoop(){
     var done = true;
 
+    modStages = [];
+
     modules.forEach(function(module) {
-        
-        module.advance(cities);
+        if(waterfall)
+            modStages.push(module.advance(cities,stage));
+        else 
+            module.advance(cities);
         done = done && module.done();
     });
+
+
+    for(var key in cities) {
+       cities[key].advance();
+    }
+
+
+    if(waterfall)
+        stage = Math.min.apply(null, modStages);
+
     updateFunc(modules,cities);
 
     var module = getRandomModule(modules);
     // we don't want to be bombarded with events for the last module
     if(!module.done()){
         var city = cities[utils.randomCity(module)];
-        var ev = gen.getEvent([city.morale, city.costPerDeveloper, module.getPercentComplete()]);
+
+        var ev = gen.getEvent([
+            city.morale, 
+            city.costPerDeveloper, 
+            module.getPercentComplete(), 
+            city.getGeoDist(),
+            city.getCulturalDist()
+            ]);
+
+
         if(ev){
             ev.module = module;
             ev.city = city;
@@ -43,7 +68,7 @@ function timerLoop(){
     }
 }
 
-function start(_modules,_cities, _updateFunc, _doneFunc, _eventFunc, events, eventRate){
+function start(_modules,_cities, _updateFunc, _doneFunc, _eventFunc, events, eventRate, isWaterFall){
     modules = _modules;
     cities = _cities;
     updateFunc = _updateFunc;
@@ -51,6 +76,7 @@ function start(_modules,_cities, _updateFunc, _doneFunc, _eventFunc, events, eve
     eventFunc = _eventFunc;
     intervalID = setInterval(timerLoop, config.timerDuration);
     gen = new EventGenerator(events,eventRate);
+    waterfall = isWaterFall;
     return intervalID;
 }
 

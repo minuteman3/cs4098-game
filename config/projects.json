@@ -1,103 +1,106 @@
 {
-  "projects" : [
-  {
-    "name": "R&D Project",
-    "budget": 50000,
-    "eventRate": 5,
-    "duration": 8,
-    "revenue": {
-      "months": 3,
-      "amount": 40000
-    },
-    "modules": [
-      {
-        "name": "AI Engine",
-        "cost": 600
-      },
-      {
-        "name": "Real-time Physics",
-        "cost": 600
-      }
-    ],
-    "dialog": "This Project has two modules, each with a different cost, make sure to allocate resources evenly for this project to succeed. Be careful about over-spending on this short project.",
-  },{
-    "name": "RPG Game",
-    "budget": 1000000,
-    "duration": 72,
-    "revenue": {
-      "months": 16,
-      "amount": 125000
-    },
-    "modules": [
-      {
-        "name": "AI Engine",
-        "cost": 6000
-      },
-      {
-        "name": "UI Design",
-        "cost": 2000
-      },
-      {
-        "name": "Character Creation",
-        "cost": 1400
-      },
-      {
-        "name": "Procedural Generation",
-        "cost": 2500
-      },
-      {
-        "name": "Story Design",
-        "cost": 2500
-      }
-    ],
-    "dialog": "This Project has five modules, each with a different cost, make sure to allocate lots of resources to AI Engine for this project to succeed. Character Creation shouldn't take long for this project."
-  },{
-    "name": "Software Simulator",
-    "budget": 1000000,
-    "duration": 24,
-    "revenue": {
-      "months": 36 ,
-      "amount": 50000
-    },
-    "modules": [
-      {
-        "name": "Time Simulator",
-        "cost": 8000
-      },
-      {
-        "name": "Event Generation",
-        "cost": 3000
-      },
-      {
-        "name": "UX Design",
-        "cost": 3750
-      }
-    ],
-    "dialog": "This project has three modules, each with a different cost. Simulating Time will be the most difficult task for this project."
-  },
-  {
-    "name": "Accounting Software",
-    "budget": 720000,
-    "eventRate": 5,
-    "duration": 40,
-    "revenue": {
-      "months": 24,
-      "amount": 100000
-    },
-    "modules": [
-      {
-        "name": "Legal Compliance",
-        "cost": 8000
-      },
-      {
-        "name": "User Interface",
-        "cost": 4000
-      },
-      {
-        "name": "Advanced Algorithms",
-        "cost": 3000
-      }
-    ],
-    "dialog": "This Project has three modules, each with a different cost, Legal Compliance is really important in the Accounting Industry, and Normally takes up most of the effort.",
-  }]
+    "projects": [
+        {
+            "name": "R&D Project",
+            "budget": 50000,
+            "eventRate": 10,
+            "duration": 8,
+            "revenue": {
+                "months": 3,
+                "amount": 40000
+            },
+            "modules": [
+                {
+                    "name": "AI Engine",
+                    "cost": 600
+                },
+                {
+                    "name": "Real-time Physics",
+                    "cost": 600
+                }
+            ],
+            "dialog": "This Project has two modules, each with a different cost, make sure to allocate resources evenly for this project to succeed. Be careful about over-spending on this short project."
+        },
+        {
+            "name": "RPG Game",
+            "budget": 1000000,
+            "duration": 72,
+            "revenue": {
+                "months": 16,
+                "amount": 125000
+            },
+            "modules": [
+                {
+                    "name": "AI Engine",
+                    "cost": 6000
+                },
+                {
+                    "name": "UI Design",
+                    "cost": 2000
+                },
+                {
+                    "name": "Character Creation",
+                    "cost": 1400
+                },
+                {
+                    "name": "Procedural Generation",
+                    "cost": 2500
+                },
+                {
+                    "name": "Story Design",
+                    "cost": 2500
+                }
+            ],
+            "dialog": "This Project has five modules, each with a different cost, make sure to allocate lots of resources to AI Engine for this project to succeed. Character Creation shouldn't take long for this project."
+        },
+        {
+            "name": "Software Simulator",
+            "budget": 1000000,
+            "duration": 24,
+            "revenue": {
+                "months": 36,
+                "amount": 50000
+            },
+            "modules": [
+                {
+                    "name": "Time Simulator",
+                    "cost": 8000
+                },
+                {
+                    "name": "Event Generation",
+                    "cost": 3000
+                },
+                {
+                    "name": "UX Design",
+                    "cost": 3750
+                }
+            ],
+            "dialog": "This project has three modules, each with a different cost. Simulating Time will be the most difficult task for this project."
+        },
+        {
+            "name": "Accounting Software",
+            "budget": 720000,
+            "eventRate": 5,
+            "duration": 40,
+            "revenue": {
+                "months": 24,
+                "amount": 100000
+            },
+            "modules": [
+                {
+                    "name": "Legal Compliance",
+                    "cost": 8000
+                },
+                {
+                    "name": "User Interface",
+                    "cost": 4000
+                },
+                {
+                    "name": "Advanced Algorithms",
+                    "cost": 3000
+                }
+            ],
+            "dialog": "This Project has three modules, each with a different cost, Legal Compliance is really important in the Accounting Industry, and Normally takes up most of the effort."
+        }
+    ]
 }

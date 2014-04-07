@@ -26,6 +26,21 @@ function hidemodal () {
   $('#modal').hide();
 }
 
+
+function makeTypeChoice(index,options){
+
+  var html = "<h1>Please Select Project Type</h1><p>";
+  html +=  '<p> Select what type of software engineering method you would like to follow';
+  html += '</p><div class="modal-options">';
+  options.forEach(function(option){
+      html += '<button class="btn-action" onclick="pt.startGame('+index+", \'"+option+"\')\" >" + option + '</button>';
+  });
+
+  html += '</div>';
+
+  showmodal(html, false);
+}
+
 function makeChoices(a,b,c,proj){
   a = a || [{"name":"Option 1","funct":""}];// the names to use for each button
   b = b || "";// this should be a description of the event, indicating/hinting at the correct answer
@@ -38,7 +53,7 @@ function makeChoices(a,b,c,proj){
   ret+= '</p><div class="modal-options">';
 
   a.forEach(function(b,i,arr) {
-    b.funct = b.funct || "startGame("+i+")";
+    b.funct = b.funct || "selectType("+i+")";
     if (proj){
       d = 'onmouseover="'+'pt.projectdescription('+i+')" ';
       d += 'ontouchstart="'+'pt.projectdescription('+i+')" ';
@@ -226,5 +241,7 @@ module.exports = {
     generateCharts: generateCharts,
     addChartContainer: addChartContainer,
     //events
-    showEvent: showEvent
+    showEvent: showEvent,
+
+    makeTypeChoice:makeTypeChoice,
 };
