@@ -41,7 +41,7 @@
         "language": "english",
         "west": true,
         "highContext": false,
-        "nationCulture": "american",
+        "nationCulture": "european",
         "organizationalCulture": "undefined"
     },
     {
@@ -56,7 +56,7 @@
         "language": "english",
         "west": true,
         "highContext": false,
-        "nationCulture": "american",
+        "nationCulture": "asian",
         "organizationalCulture": "undefined"
     },
     {
@@ -71,7 +71,7 @@
         "language": "english",
         "west": true,
         "highContext": false,
-        "nationCulture": "american",
+        "nationCulture": "asian",
         "organizationalCulture": "undefined"
     }
 ]

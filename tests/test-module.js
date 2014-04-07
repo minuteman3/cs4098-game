@@ -2,9 +2,8 @@ var test = require('tape');
 var Module = require('../js/Module.js');
 var City = require("../js/city.js");
 
-test('Module:', function(t)
-{
-    t.plan(13);
+test('Module:', function(t) {
+    t.plan(19);
 
     var mod = null;
 
@@ -71,9 +70,23 @@ test('Module:', function(t)
     t.equals(mod.getPercentComplete(),45,'setPercentComplete');
 
     t.equals(mod.getCost(citiesState),6500,'getCost');
+
+    t.equals(mod.getStage(),1,"getStage");
+
+    t.equals(mod.isStalled(),false,"isStalled");
+
+    t.doesNotThrow(function(){
+           mod.stall(1);
+    },'advance');
+  
+    t.equals(mod.isStalled(),true,"isStalled");
+
+    t.equals(mod.hasCity("Dublin"),true,"hasCity");
+    t.equals(mod.hasCity("New York"),false,"hasCity");
+
     
     mod.setPercentComplete(0); // clean slate
-
+    
     mod.stall(1);
     mod.advance(citiesState);
 
