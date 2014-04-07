@@ -223,7 +223,7 @@ Specifies events which can be fired depending on `eventRate` and fuzzy logic eng
 			"money": Number,
 			"stall": Number,
 			"morale": Number,
-			"productivity": Number
+			"progress": Number
 		},
 		"actions": [
 			{
@@ -232,7 +232,7 @@ Specifies events which can be fired depending on `eventRate` and fuzzy logic eng
 					"money": Number,
 					"stall": Number,
 					"morale": Number,
-					"productivity": Number,
+					"progress": Number,
 				}
 			}
 		]
@@ -244,14 +244,14 @@ Specifies events which can be fired depending on `eventRate` and fuzzy logic eng
 * *(optional)* `morale`: The fuzzy logic parameter conditions for morale
 * *(optional)* `pay`: The fuzzy logic parameter conditions for pay
 * `message`: The text describing the event which occurred.
-* `effects`: An object of repercussions common to all actions. Can currently be one of {money, stall,morale,productivity}. Can be empty {}.
+* `effects`: An object of repercussions common to all actions. Can currently be one of {money, stall,morale,progress}. Can be empty {}.
 * *(optional)* `money`: A change in overall bank balance.
 * *(optional)* `stall`: A halt in production for Number weeks.
 * *(optional)* `morale`: A change in morale.
-* *(optional)* `productivity`: A change in productivity.
+* *(optional)* `progress`: A change in progress.
 * `actions`: An array of resolutions each with a message and effects.
 * `message`: The text describing the resolution.
-* `effects`: An object of repercussions for this action. Can currently be one of {money, stall,morale,productivity}. Can be empty {}.
+* `effects`: An object of repercussions for this action. Can currently be one of {money, stall,morale,progress}. Can be empty {}.
 
 
 ### interventions.json
@@ -267,7 +267,7 @@ Specifies interventions which can be manually made during gameplay.
 		"money": Number,
 		"stall": Number,
 		"morale": Number,
-		"productivity": Number
+		"progress": Number
 	},
 	"actions": [
 		{
@@ -276,7 +276,7 @@ Specifies interventions which can be manually made during gameplay.
 				"money": Number,
 				"stall": Number,
 				"morale": Number,
-				"productivity": Number,
+				"progress": Number,
 			}
 		}
 	]
@@ -284,14 +284,14 @@ Specifies interventions which can be manually made during gameplay.
 ```
 
 * `message`: The text describing the interventions which can be applied.
-* `effects`: An object of repercussions common to all actions. Can currently be one of {money, stall,morale,productivity}. Can be empty {}.
+* `effects`: An object of repercussions common to all actions. Can currently be one of {money, stall,morale,progress}. Can be empty {}.
 * *(optional)* `money`: A change in overall bank balance.
 * *(optional)* `stall`: A halt in production for Number weeks.
 * *(optional)* `morale`: A change in morale.
-* *(optional)* `productivity`: A change in productivity.
+* *(optional)* `progress`: A change in progress.
 * `actions`: An array of resolutions each with a message and effects.
 * `message`: The text describing the resolution.
-* `effects`: An object of repercussions for this action. Can currently be one of {money, stall,morale,productivity}. Can be empty {}.
+* `effects`: An object of repercussions for this action. Can currently be one of {money, stall,morale,progress}. Can be empty {}.
 
 
 
