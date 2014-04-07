@@ -64,8 +64,8 @@ test('sidebar:', function(t){
 
     sidebar.setLocations({"0":2,"3":5});
 
-    t.equals($('#locations').html(),
-      "<li>San Francisco<div class=\"tickerBox\"><i date-code=\"0\" class=\"fa fa-chevron-up ticker tickerUp\"></i><i date-code=\"0\" class=\"fa fa-chevron-down ticker tickerDown\"></i></div><div class=\"teamMultiplier\">x2</div></li><li>Shanghai<div class=\"tickerBox\"><i date-code=\"3\" class=\"fa fa-chevron-up ticker tickerUp\"></i><i date-code=\"3\" class=\"fa fa-chevron-down ticker tickerDown\"></i></div><div class=\"teamMultiplier\">x5</div></li>",
+    t.equals($('#locations').text(),
+      "San Franciscox2Shanghaix5",
       "setLocations");
 
     sidebar.setBudget(1000000);
