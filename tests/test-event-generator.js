@@ -93,7 +93,7 @@ test("events: Event generator works", function(t){
     });
 
     t.doesNotThrow(function() {
-        gen.getEvent([20,4000,20]);
+        gen.getEvent([20,4000,20,0,0]);
     });
 });
 
