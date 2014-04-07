@@ -32,9 +32,9 @@ Module.prototype.stall = function stall (duration) {
 Module.prototype.advance = function advance (cities,stage) {
 
 
-    if(stage !== null){
+    if(stage != null){
         var s = this.getStage();
-        if(stage !== s)
+        if(stage != s)
             return s;
     }
 
@@ -56,7 +56,7 @@ Module.prototype.advance = function advance (cities,stage) {
         }
     }
 
-    if(stage !== null){
+    if(stage != null){
         var upperBound = client.completionFuzzification[stage].values[2];
         var percet  = this.getPercentComplete();
 
