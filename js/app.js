@@ -115,26 +115,25 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
 
 
 function startSimulation(){
-  var curModuleIndex = sidebar.getActiveListItem();
-  var curModuleName = selectedProject.modules[curModuleIndex].name;
-  
+  if( curGameState === GameStates.SELECT_TEAMS){
+    var curModuleIndex = sidebar.getActiveListItem();
+    var curModuleName = selectedProject.modules[curModuleIndex].name;
+    teamPicker.selectModule(curModuleName,curModuleIndex);
 
-  teamPicker.selectModule(curModuleName,curModuleIndex);
+    if(teamPicker.allModulesHaveTeams()){
+      modal.dialog("There needs to be at least one team for every module");
+      return;
+    }
+    curGameState = GameStates.PROGRESS;
+    
+    sidebar.setList([],false);
+    sidebar.showSelectTeams(false);
+    sidebar.setTitle(selectedProject.name);
 
-
-  if(teamPicker.allModulesHaveTeams()){
-    modal.dialog("There needs to be at least one team for every module");
-    return;
+    sidebar.showProgressState(true);
+    maps.runState();
+    startLoop();
   }
-  curGameState = GameStates.PROGRESS;
-  
-  sidebar.setList([],false);
-  sidebar.showSelectTeams(false);
-  sidebar.setTitle(selectedProject.name);
-
-  sidebar.showProgressState(true);
-  maps.runState();
-  startLoop();
 }
 
 
