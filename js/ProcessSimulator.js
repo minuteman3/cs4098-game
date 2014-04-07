@@ -19,7 +19,7 @@ function timerLoop(){
     var done = true;
 
     modStages = [];
-    
+
     modules.forEach(function(module) {
         if(waterfall)
             modStages.push(module.advance(cities,stage));
@@ -27,6 +27,12 @@ function timerLoop(){
             module.advance(cities);
         done = done && module.done();
     });
+
+
+    for(var key in cities) {
+       cities[key].advance();
+    }
+
 
     if(waterfall)
         stage = Math.min.apply(null, modStages);

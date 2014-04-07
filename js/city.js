@@ -46,11 +46,15 @@ function calculateGeoDistance(city,homeCity){
 }
 
 
+City.prototype.advance = function(){
+    if (this.stalled > 0) {
+        this.stalled --;
+    }
+}
 
 City.prototype.progress = function( developerCount){
      
     if (this.stalled > 0) {
-        this.stalled --;
         return 0;
     } else{
         return this.idealProgress(developerCount) * (this.morale / 100);
@@ -69,10 +73,10 @@ City.prototype.cost = function( developerCount){
 City.prototype.status = function(){
     // TODO needs to return a status based on not being ok all the time
     if(this.cityMods.length){
-        if(this.stalled > 0){
+        if(this.stalled > 0 || this.morale < 10){
             return States.RED;
         }
-        else if(this.cityMods.some(function(x){ return x.isStalled();})){
+        else if(this.cityMods.some(function(x){ return x.isStalled();}) || this.morale < 50){
             return States.YELLOW;
         }else{
             return States.GREEN;
@@ -89,13 +93,11 @@ City.prototype.stall = function stall(duration){
 City.prototype.modifyMorale = function modifyMorale(mod){
     this.morale = this.morale + mod;
     if (this.morale < 0) this.morale = 0;
-    if (this.morale === 0) this._status = 1;
 };
 
 City.prototype.setMorale = function setMorale(morale) {
     this.morale = morale;
     if (this.morale < 0) this.morale = 0;
-    if (this.morale === 0) this._status = 1;
 };
 
 City.prototype.getGeoDist = function getGeoDist(){

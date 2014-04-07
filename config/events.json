@@ -86,12 +86,12 @@
                 "low"
             ],
             "progress": [
-                "med"
+                "testing"
             ]
         },
         "message": "$module fails integration tests, what do you do?",
         "effects": {"progress": 60},
-        "target":"city",
+        "target":"module",
         "actions": [
             {
                 "message": "Forced overtime",
@@ -114,12 +114,12 @@
                 "low", "med"
             ],
             "progress": [
-                "high"
+                "finishing"
             ]
         },
         "message": "$module fails acceptance tests, what do you do?",
         "effects": {"progress": 75 },
-        "target":"city",
+        "target":"module",
         "actions": [
             {
                 "message": "Forced overtime",
