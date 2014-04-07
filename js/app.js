@@ -78,20 +78,22 @@ function onlabelShow(e,label,code){
 
 function selectCity(e,  code,  isSelected,  selectedMarkers) {
   if(curGameState === GameStates.PROGRESS){
-    var mods = [];
-    modules.forEach(function(m){
-      Object.keys(m.developersPerCity).forEach(function(mc){
-        mods.push(mc);
-      });
-    });
-    // only show tooltip if hoverCity in any of modules.developersPerCity
-    if(utils.contains(mods, cities[code].name)){
 
-      var i = deepcopy(interventions);
-      i.city = deepcopy(cities[code]);
-      i.module = {name:""};
-      showEvent(i);
-    }
+    var hoverCity  = cities[code];
+    var label;
+    label =
+      '<strong>'+              hoverCity.name         +'</strong><br/>'+
+      'Morale: '+          hoverCity.morale       +'%<br/>'+
+      'Productivity: '+    hoverCity.productivity +'%<br/>'+
+      'Cost per week: $'+ hoverCity.costPerWeek +'<br/>';
+
+      modal.dialog(label);
+    // insert inquiry interface here
+// var i = deepcopy(interventions);
+//       i.city = deepcopy(cities[code]);
+//       i.module = {name:""};
+//       showEvent(i);
+
   } else if(curGameState === GameStates.SELECT_TEAMS){
     teamPicker.addExtraDeveloperToCity(code,gameData);
   } else if(curGameState === GameStates.SELECT_HOME){
@@ -128,7 +130,7 @@ function startSimulation(){
   
   sidebar.setList([],false);
   sidebar.showSelectTeams(false);
-  sidebar.setTitle("Game is Running");
+  sidebar.setTitle(selectedProject.name);
 
   sidebar.showProgressState(true);
   maps.runState();
@@ -157,7 +159,6 @@ function projectdescription(a){
   $('#project-duration').html("Due in: "+projects[a].duration+ " weeks");
   $('#project-description').html(projects[a].dialog);
 }
-
 
 function selectType(a){
   modal.hidemodal();
