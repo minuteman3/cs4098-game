@@ -139,6 +139,8 @@ function startSimulation(){
     sidebar.setButtonText("Interventions");
   } else if (curGameState === GameStates.PROGRESS){
     var i = deepcopy(interventions);
+    i.city = {name:""};
+    i.module = {name:""};
     showEvent(i);
   }
 }
@@ -408,6 +410,8 @@ $( document ).ready( function() {
 
 
 function doEvent(actionNum){
+  hidemodal();
+  unpause();
   events.doEvent(actionNum,gameData);
 }
 

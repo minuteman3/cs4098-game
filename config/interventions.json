@@ -1,8 +1,5 @@
 {
-    "message": "These pre-emptive interventions are available for $site . What would you like to do?",
-    "effects": {
-        "money": -10000
-    },
+    "message": "These pre-emptive interventions are available for your Project. What would you like to do?",
     "target": "intervention",
     "actions": [
         {
@@ -10,14 +7,47 @@
             "effects": {
                 "stall": 2,
                 "morale": 100,
-                "money": 0
+                "money": -10000
             }
         },
         {
-            "message": "Encourage Overtime",
+            "message": "Face-to-Face meetings",
             "effects": {
-                "morale": 20,
+                "morale": 1,
+                "distance": -20,
+                "culture": -20,
+                "money": -40000
+            }
+        },
+        {
+            "message": "Company Exchange program",
+            "effects": {
+                "morale": 5,
+                "distance": -10,
                 "money": -20000
+            }
+        },
+        {
+            "message": "Weekly Video Conferences",
+            "effects": {
+                "morale": -5,
+                "distance": -10,
+                "money": -1000
+            }
+        },
+        {
+            "message": "Cultural Training",
+            "effects": {
+                "culture": -5,
+                "money": -1000
+            }
+        },
+        {
+            "message": "Reduce Interaction Between Teams",
+            "effects": {
+                "morale": -10,
+                "culture": -5,
+                "money": -1000
             }
         },
         {
