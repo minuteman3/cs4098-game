@@ -113,14 +113,9 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
 
 
 function startSimulation(){
-  var curModuleIndex = sidebar.getActiveListItem();
-  var curModuleName = selectedProject.modules[curModuleIndex].name;
-  
-
-  teamPicker.selectModule(curModuleName,curModuleIndex);
 
 
-  if(teamPicker.allModulesHaveTeams()){
+  if(!teamPicker.allModulesHaveTeams()){
     modal.dialog("There needs to be at least one team for every module");
     return;
   }

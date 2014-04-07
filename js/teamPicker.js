@@ -38,8 +38,13 @@ function selectModule(cityName,nextIndex) {
 
 
 function addExtraDeveloperToCity(cityCode){
+
+
     teamsSelected[cityCode] = (teamsSelected[cityCode] || 0)+1;
+
+
     gameData.totalPayRoll += cities[cityCode].costPerWeek;
+
 
     sidebar.setPayroll(gameData.totalPayRoll);
     sidebar.setBudgetedWeeks(budget/gameData.totalPayRoll);
@@ -75,16 +80,25 @@ function calculatePayrollforMod(teams){
 }
 
 function allModulesHaveTeams(){
-	return Object.keys(selectedTeams).length !== modules.length;
+//add current module to the list
+  var index = sidebar.getActiveListItem();
+  if(Object.keys(teamsSelected).length === 0){
+   delete selectedTeams[modules[index].name];
+  }else{
+     selectedTeams[modules[index].name] = teamsSelected;
+  }
+
+
+	return Object.keys(selectedTeams).length === modules.length;
 }
 
-function getDevelopers(city){
+function getDevelopers(module){
 	var developers = {};
-	Object.keys(selectedTeams[city]).forEach(function(key) {
-      developers[cities[key].name] = selectedTeams[city][key];
-    });
+	Object.keys(selectedTeams[module]).forEach(function(key) {
+      developers[cities[key].name] = selectedTeams[module][key];
+  });
 
-    return developers;
+  return developers;
 }
 
 module.exports = {

@@ -2,6 +2,7 @@ var test = require('tape');
 var Module = require("../js/Module.js");
 var City = require("../js/city.js");
 
+
 test('city: class works', function (t) {
     t.plan(17);
 
