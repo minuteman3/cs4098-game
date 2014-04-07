@@ -3,13 +3,15 @@ var test = require('tape');
 var $ = require('jquery');
 
 test('sidebar:', function(t){
-    t.plan(20);
+    t.plan(21);
 
     $("<div>", {
         id: "sidebar"
     }).appendTo("body");
 
     var str = '<div id="sidebar-title">Select Teams</div>' +
+      '<p id="homecityHeader" >Home City</p>' +
+      '<p id="homecity" >Choose a city</p>' +
       '<ul class="nav">' +
         '<li class="active">Interface</li>' +
         '<li>Game Engine </li>' +
@@ -98,8 +100,9 @@ test('sidebar:', function(t){
         t.equals($('#weeks').html(),"11 weeks",'setWeeks');
         t.equals($('.progess-state').css('display'),"block",'showProgressState');
         t.equals($('.select-teams').css('display'),"none",'showSelectTeams');
-        t.equals($('.select-teams').css('display'),"none",'showSelectTeams');
-         t.equals($("#homecity").html(),"dublin","setHomeCity");
+        
+        sidebar.setHomeCity("dublin");
+        t.equals($("#homecity").html(),"dublin","setHomeCity");
         $("#sidebar").remove();
     },0);
 
