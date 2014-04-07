@@ -316,9 +316,7 @@ function endGame(){
     moduleProgressOverTime);
 }
 
-function deleteDB(){
-  gameData.totalPayRoll  = 0;
-}
+
 
 function initialiseGame(){
   sidebar.init(function(name,index){
@@ -339,7 +337,7 @@ function initialiseGame(){
 
   $('#btn-options').hide();
   $('#map').empty();//deletes the map
-  deleteDB();//reset all localStorage values;
+  gameData.totalPayRoll  = 0;
 
   $('#startScreen').show();
 }

@@ -3,8 +3,8 @@ var Module = require('../js/Module.js');
 var City = require("../js/city.js");
 
 test('Module:', function(t)
-{
-    t.plan(5);
+{t
+    t.plan(11);
 
     var mod = null;
 
@@ -71,6 +71,21 @@ test('Module:', function(t)
     t.equals(mod.getPercentComplete(),45,'setPercentComplete');
 
     t.equals(mod.getCost(citiesState),6500,'getCost');
+
+
+    t.equals(mod.getStage(),1,"getStage");
+
+    t.equals(mod.isStalled(),false,"isStalled");
+
+    t.doesNotThrow(function(){
+           mod.stall(1);
+    },'advance');
+  
+    t.equals(mod.isStalled(),true,"isStalled");
+
+    t.equals(mod.hasCity("Dublin"),true,"hasCity");
+    t.equals(mod.hasCity("New York"),false,"hasCity");
+
 });
 /*
 test('Module: stall', function (t) {

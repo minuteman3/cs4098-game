@@ -3,13 +3,13 @@ var Module = require("../js/Module.js");
 var City = require("../js/city.js");
 
 test('city: class works', function (t) {
-    t.plan(13);
+    t.plan(17);
 
     var city = 
     {
         "coords": [
-            37.6788056,
-            -122.2880726
+            0,
+            0
         ],
         "name": "San Francisco",
         "morale": 100,
@@ -25,17 +25,17 @@ test('city: class works', function (t) {
     var homeCity = 
     {
         "coords": [
-            40.43,
-            -74
+            10,
+            0
         ],
-        "name": "New York",
+        "name": "Dublin",
         "morale": 100,
         "productivity": 125,
         "costPerWeek": 7500,
         "language": "english",
         "west": true,
-        "highContext": false,
-        "nationCulture": "american",
+        "highContext": true,
+        "nationCulture": "european",
         "organizationalCulture": "undefined"
     };
 
@@ -47,6 +47,12 @@ test('city: class works', function (t) {
     
     t.equal(c.costPerDeveloper, 12000);
     t.equal(c.productivity, 200);
+
+    t.equal(c.calculateGeoDistance(city, homeCity),480)
+    t.equal(c.calculateCulturalDistance(city, homeCity),5)
+
+    t.equal(c.getGeoDist(city, homeCity),480)
+    t.equal(c.getCulturalDist(city, homeCity),5)
 
     t.equal(c.morale,100);
     

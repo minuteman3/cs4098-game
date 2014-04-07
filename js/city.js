@@ -9,14 +9,14 @@ var City = function(city,homeCity,cityMods){
     this.name = city.name;
     this.costPerDeveloper = city.costPerWeek;
     this.productivity = city.productivity;
-    this.geoDistance = calculateGeoDistance(city,homeCity);
-    this.culturalDistance = calculateCulturalDistance(city,homeCity);
+    this.geoDistance = this.calculateGeoDistance(city,homeCity);
+    this.culturalDistance = this.calculateCulturalDistance(city,homeCity);
     this.morale = 100;
     this.stalled = 0;
     this.cityMods = cityMods;
 };
 
-function calculateCulturalDistance(city,homeCity){
+City.prototype.calculateCulturalDistance = function calculateCulturalDistance(city,homeCity){
     var culturalDist = city.language !== homeCity.language ? 4:0;
     culturalDist += city.west !== homeCity.west ? 3:0;
     culturalDist += city.highContext !== homeCity.highContext ? 3:0;
@@ -26,7 +26,7 @@ function calculateCulturalDistance(city,homeCity){
     return culturalDist;
 }
 
-function calculateGeoDistance(city,homeCity){
+City.prototype.calculateGeoDistance= function calculateGeoDistance(city,homeCity){
 
     var X1= city.coords[0];
     var Y1 = city.coords[1];
@@ -97,7 +97,7 @@ City.prototype.getGeoDist = function getGeoDist(){
     return this.geoDistance;
 };
 
-City.prototype.getCulturalDist = function getGlobalDist(){
+City.prototype.getCulturalDist = function getCulturalDist(){
     return this.culturalDistance;
 };
 

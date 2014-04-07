@@ -78,6 +78,7 @@ test('sidebar:', function(t){
     sidebar.setWeeks(10.5);
     sidebar.showProgressState(true);
     sidebar.showSelectTeams(false);
+    sidebar.setHomeCity("dublin");
 
     setTimeout(function() {
         t.equals(sidebar.getActiveListItem(),-1,'getActiveListItem works');
@@ -97,6 +98,8 @@ test('sidebar:', function(t){
         t.equals($('#weeks').html(),"11 weeks",'setWeeks');
         t.equals($('.progess-state').css('display'),"block",'showProgressState');
         t.equals($('.select-teams').css('display'),"none",'showSelectTeams');
+        t.equals($('.select-teams').css('display'),"none",'showSelectTeams');
+         t.equals($("#homecity").html(),"dublin","setHomeCity");
         $("#sidebar").remove();
     },0);
 

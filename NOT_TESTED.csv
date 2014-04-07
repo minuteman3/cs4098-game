@@ -9,11 +9,8 @@ tests/,*,these are tests
 js/app,onlabelShow,this is an internal function which isn't exported and therefore isn't tested
 js/app,pause,this is tested as part of modal and process simulator
 js/app,selectCity,this is an internal function which isn't exported and therefore isn't tested
-js/app,addExtraDeveloperToCity,this is an internal function which isn't exported and therefore isn't tested
-js/app,deductDeverloperFromCity,this is an internal function which isn't exported and therefore isn't tested
 js/app,selectModule,this is tested as part of initialiseGame
 js/app,startSimulation,this function relies on internal state at invocation time which cannot be set from a testing interface
-js/app,calculatePayrollforMod,this is an internal function which isn't exported and therefore isn't tested
 js/app,startLoop,this is an internal function which isn't exported but is tested alongside startSimulation
 js/app,simulationUpdate,this is tested as part of the Process Simulator
 js/app,simulationComplete,this is tested as part of the Process Simulator

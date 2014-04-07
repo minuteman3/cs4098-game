@@ -1,4 +1,4 @@
-FUNCTIONS=($(grep -r -o "function \w\w*" "function\s*(\w\w*)" js | grep -oE '[^ ]+$'))
+FUNCTIONS=($(grep -r -o "function \w\w*"  js | grep -oE '[^ ]+$'))
 
 for function  in "${FUNCTIONS[@]}"
 do
