@@ -410,8 +410,8 @@ $( document ).ready( function() {
 
 
 function doEvent(actionNum){
-  hidemodal();
-  unpause();
+  modal.hidemodal();
+  ProcessSim.unpause();
   events.doEvent(actionNum,gameData);
 }
 
