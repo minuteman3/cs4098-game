@@ -44,8 +44,10 @@ function doEvent(actionNumber,gamedata){
 
   }else if(target === "cityModule"){
     if(effects.stall){
-      cev.module.stall(effects.stall);
+      module.stall(effects.stall);
+      city.stall(effects.stall);
     }
+  }else if (target === "intervention"){
   }
 
   if(effects.money){

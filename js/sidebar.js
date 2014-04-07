@@ -43,7 +43,6 @@ function init(itemSelection,_upLocationFuction,_downLocationFunction){
   itemSelectionFunc = itemSelection;
 }
 
-
 function show(){
     $(sidebarTag).show();
 }

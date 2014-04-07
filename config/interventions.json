@@ -3,6 +3,7 @@
     "effects": {
         "money": -10000
     },
+    "target": "intervention",
     "actions": [
         {
             "message": "Two Week Company Vacation",
