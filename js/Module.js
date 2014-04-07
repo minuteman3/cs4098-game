@@ -38,7 +38,11 @@ Module.prototype.advance = function advance (cities,stage) {
             return s;
     }
 
-    if(!this.done()) {
+    if (this.stalled > 0) {
+        this.stalled --;
+        return;
+    } 
+    else if(!this.done()) {
         var progressThisCycle = 0;
         var devs = this.developersPerCity;
         Object.keys(devs).forEach(function(key) {
@@ -98,6 +102,14 @@ Module.prototype.getStage = function getStage () {
     }
 }
 
+
+Module.prototype.hasCity = function hasCity (city) {
+    return this.developersPerCity[city] > 0;
+}
+
+Module.prototype.isStalled = function isStalled(){
+    return this.stalled > 0;
+}
 
 Module.prototype.isBehindSchedule = function isBehindSchedule (currentWeek,cities) {
       var completion = this.getPercentComplete();

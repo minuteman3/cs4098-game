@@ -1,7 +1,12 @@
 
+var States = {
+    GRAY:0,
+    RED:1,
+    YELLOW:2,
+    GREEN:3,
+}
 
-
-var City = function(city,homeCity){
+var City = function(city,homeCity,cityMods){
 
 
     this.name = city.name;
@@ -11,7 +16,9 @@ var City = function(city,homeCity){
     this.geoDistance = calculateGeoDistance(city,homeCity);
     this.culturalDistance = calculateCulturalDistance(city,homeCity);
     this.morale = 100;
-    this._status = 0;
+    this.stalled = 0;
+
+    this.cityMods = cityMods;
 };
 
 function calculateCulturalDistance(city,homeCity){
@@ -42,12 +49,11 @@ function calculateGeoDistance(city,homeCity){
 
 City.prototype.progress = function( developerCount){
      
-    if(this._status == 3){
-        return this.idealProgress(developerCount) * (this.morale / 100);
-    }
-    else{
-        this._status += 1;
+    if (this.stalled > 0) {
+        this.stalled --;
         return 0;
+    } else{
+        return this.idealProgress(developerCount) * (this.morale / 100);
     }
 
 };
@@ -62,11 +68,22 @@ City.prototype.cost = function( developerCount){
 
 City.prototype.status = function(){
     // TODO needs to return a status based on not being ok all the time
-    return this._status;
+    if(this.cityMods.length){
+        if(this.stalled > 0){
+            return States.RED;
+        }
+        else if(this.cityMods.some(function(x){ return x.isStalled();})){
+            return States.YELLOW;
+        }else{
+            return States.GREEN;
+        }
+    }else{ 
+        return States.GRAY;
+    }
 };
 
-City.prototype.stall = function stall(){
-    this._status = 2;
+City.prototype.stall = function stall(duration){
+    this.stalled = duration;
 };
 
 City.prototype.modifyMorale = function modifyMorale(mod){

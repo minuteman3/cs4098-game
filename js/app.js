@@ -236,7 +236,8 @@ function startLoop(){
  
   var citiesState = {};
   cities.forEach(function(c){
-      citiesState[c.name] = new City(c,gameData.homeCity);
+      var cityMods = modules.filter(function(module){return module.hasCity(c.name);});
+      citiesState[c.name] = new City(c,gameData.homeCity,cityMods);
   });
 
   var eventRate = selectedProject.eventRate || client.eventRate;
