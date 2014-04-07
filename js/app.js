@@ -1,21 +1,19 @@
-var $          = require('jquery');
-var cities     = require('./../config/cities.json');
-var maps       = require('./maps.js');
-var modal      = require('./modal.js');
-var Module     = require('./Module.js');
-var City       = require('./city.js');
-var ProcessSim = require('./ProcessSimulator.js');
-var proj       = require('./../config/projects.json');
-var client     = require('./../config/client-config.json');
-var sidebar    = require('./sidebar.js');
-var utils      = require('./utils.js');
-var teamPicker = require('./teamPicker.js');
-
-var events = require("./events.js")
-var eventData = require("../config/events.json")
-
+var $            = require('jquery');
+var cities       = require('./../config/cities.json');
+var City         = require('./city.js');
+var client       = require('./../config/client-config.json');
+var deepcopy     = require('deepcopy');
+var eventData    = require("../config/events.json");
+var events       = require("./events.js");
 var interventions= require("../config/interventions.json");
-var deepcopy   = require('deepcopy');
+var maps         = require('./maps.js');
+var modal        = require('./modal.js');
+var Module       = require('./Module.js');
+var ProcessSim   = require('./ProcessSimulator.js');
+var proj         = require('./../config/projects.json');
+var sidebar      = require('./sidebar.js');
+var teamPicker   = require('./teamPicker.js');
+var utils        = require('./utils.js');
 
 var projects = proj.projects;
 var selectedProject;
@@ -28,7 +26,7 @@ var gameData = {
     weeksTilDueDate:0,
     projectBudget:0,
     totalPayRoll:0,
-}
+};
 
 
 var modules = [];
@@ -231,7 +229,7 @@ function startLoop(){
   modules = selectedProject.modules.map(function(i){
       return new Module( 
         teamPicker.getDevelopers(i.name), i.cost, i.name
-      )
+      );
   });
  
   var citiesState = {};
@@ -376,8 +374,7 @@ $( document ).ready( function() {
       pt.pause();
       evt.preventDefault();
     }
-    else if(evt.keyCode == 38)
-    {//up
+    else if(evt.keyCode == 38){//up
       if(curGameState == GameStates.SELECT_TEAMS){
           var index = sidebar.getActiveListItem() - 1; 
           if(index >= 0){
@@ -386,12 +383,14 @@ $( document ).ready( function() {
           }
       }
     }
-    else if(evt.keyCode == 40){
-          var index = sidebar.getActiveListItem() + 1; 
-          if(index < selectedProject.modules.length ){
-            var moduleName = selectedProject.modules[index].name;
-            teamPicker.selectModule(moduleName,index);
-          }
+    else if(evt.keyCode == 40){//down
+      if(curGameState == GameStates.SELECT_TEAMS){
+        var index2 = sidebar.getActiveListItem() + 1; 
+        if(index2 < selectedProject.modules.length ){
+          var moduleName2 = selectedProject.modules[index2].name;
+          teamPicker.selectModule(moduleName2,index2);
+        }
+      }
     }
   };
   window.addEventListener('resize', function(event){

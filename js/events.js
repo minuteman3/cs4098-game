@@ -1,10 +1,7 @@
-
 var eventData = require("../config/events.json");
 var utils     = require('./utils.js');
 
 var events = [];
-
-
 
 function setEventAction(num){
   events[events.length-1].mitigation = events[events.length-1].actions[num];
@@ -17,7 +14,6 @@ function getEvents(){
 function trackEvent(ev){
 	events.push(ev);
 }
-
 
 function doEvent(actionNumber,gamedata){
   setEventAction(actionNumber);
@@ -57,7 +53,6 @@ function doEvent(actionNumber,gamedata){
   }
 
 }
-
 
 module.exports = {
     //events

@@ -9,12 +9,12 @@ var modules;
 
 
 function init(_gameData,_cities,_modules,_budget){
-teamsSelected = {};
-selectedTeams = {};
-gameData = _gameData;
-cities = _cities;
-modules = _modules;
-budget = _budget;
+  teamsSelected = {};
+  selectedTeams = {};
+  gameData = _gameData;
+  cities = _cities;
+  modules = _modules;
+  budget = _budget;
 }
 
 
@@ -61,13 +61,10 @@ function deductDeverloperFromCity(cityCode){
     // update information about this module
     sidebar.setPayrollforModule(calculatePayrollforMod(teamsSelected));
     sidebar.setLocations(teamsSelected,cityCode);
-
-   
-    if(teamsSelected[cityCode] == 0){
+    if(teamsSelected[cityCode] === 0){
       delete teamsSelected[cityCode];
     }
 }
-
 
 function calculatePayrollforMod(teams){
   payroll = 0;
@@ -77,11 +74,9 @@ function calculatePayrollforMod(teams){
   return payroll;
 }
 
-
 function allModulesHaveTeams(){
 	return Object.keys(selectedTeams).length !== modules.length;
 }
-
 
 function getDevelopers(city){
 	var developers = {};

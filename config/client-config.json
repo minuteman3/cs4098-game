@@ -1,77 +1,135 @@
 {
-	"information":"On this screen, you find the GAME MAP.<br />It has CITIES where you can allocate TEAMS.<br />To allocate a TEAM, just select a CITY, and it will be set up for you.<br />Be careful, though. Each TEAM costs money from your BUDGET based on which CITY it's in.<br />TEAMS are groups of developers that do all your work for you. <br />TEAMS are affected by things like MORALE and PRODUCTIVITY in each CITY.<br />The BUDGET value is the maximum amount you want to spend on the PROJECT.<br />",
-	"eventRate": 10,
+    "information": "On this screen, you find the GAME MAP.<br />It has CITIES where you can allocate TEAMS.<br />To allocate a TEAM, just select a CITY, and it will be set up for you.<br />Be careful, though. Each TEAM costs money from your BUDGET based on which CITY it's in.<br />TEAMS are groups of developers that do all your work for you. <br />TEAMS are affected by things like MORALE and PRODUCTIVITY in each CITY.<br />The BUDGET value is the maximum amount you want to spend on the PROJECT.<br />",
+    "eventRate": 10,
     "timerDuration": 1000,
-
-    "moraleFuzzification":[
-    	{
-    		"option":"low",
-    		"values":[0,20,30]
-    	},
-    	{
-    		"option":"med",
-    		"values":[40,50,80]
-    	},
-    	{
-    		"option":"high",
-    		"values":[45,50,100]
-    	}
-    ],
-    "completionFuzzification":[
-    	{
-    		"option":"development",
-    		"values":[0,20,30]
-    	},
-    	{
-    		"option":"testing",
-    		"values":[30,50,80]
-    	},
-    	{
-    		"option":"finishing",
-    		"values":[80,90,100]
-    	}
-    ],
-    "payFuzzification":[
-    	{
-    		"option":"low",
-    		"values":[0,4000,5000]
-    	},
-    	{
-    		"option":"med",
-    		"values":[4500,7000,10000]
-    	},
-    	{
-    		"option":"high",
-    		"values":[6500,7000,9007199254740992]
-    	}
-    ],
-    "geoDistFuzzification":[
+    "moraleFuzzification": [
         {
-            "option":"low",
-            "values":[0,100,200]
+            "option": "low",
+            "values": [
+                0,
+                20,
+                30
+            ]
         },
         {
-            "option":"med",
-            "values":[200,500,1000]
+            "option": "med",
+            "values": [
+                40,
+                50,
+                80
+            ]
         },
         {
-            "option":"high",
-            "values":[1000,15000,30000]
+            "option": "high",
+            "values": [
+                45,
+                50,
+                100
+            ]
         }
     ],
-    "culturalDistFuzzification":[
+    "completionFuzzification": [
         {
-            "option":"low",
-            "values":[0,1,2]
+            "option": "development",
+            "values": [
+                0,
+                20,
+                30
+            ]
         },
         {
-            "option":"med",
-            "values":[2,4,5]
+            "option": "testing",
+            "values": [
+                30,
+                50,
+                80
+            ]
         },
         {
-            "option":"high",
-            "values":[4,6,10]
+            "option": "finishing",
+            "values": [
+                80,
+                90,
+                100
+            ]
+        }
+    ],
+    "payFuzzification": [
+        {
+            "option": "low",
+            "values": [
+                0,
+                4000,
+                5000
+            ]
+        },
+        {
+            "option": "med",
+            "values": [
+                4500,
+                7000,
+                10000
+            ]
+        },
+        {
+            "option": "high",
+            "values": [
+                6500,
+                7000,
+                9007199254740992
+            ]
+        }
+    ],
+    "geoDistFuzzification": [
+        {
+            "option": "low",
+            "values": [
+                0,
+                100,
+                200
+            ]
+        },
+        {
+            "option": "med",
+            "values": [
+                200,
+                500,
+                1000
+            ]
+        },
+        {
+            "option": "high",
+            "values": [
+                1000,
+                15000,
+                30000
+            ]
+        }
+    ],
+    "culturalDistFuzzification": [
+        {
+            "option": "low",
+            "values": [
+                0,
+                1,
+                2
+            ]
+        },
+        {
+            "option": "med",
+            "values": [
+                2,
+                4,
+                5
+            ]
+        },
+        {
+            "option": "high",
+            "values": [
+                4,
+                6,
+                10
+            ]
         }
     ]
-
 }

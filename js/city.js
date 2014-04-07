@@ -1,28 +1,22 @@
-
 var States = {
     GRAY:0,
     RED:1,
     YELLOW:2,
     GREEN:3,
-}
+};
 
 var City = function(city,homeCity,cityMods){
-
-
     this.name = city.name;
     this.costPerDeveloper = city.costPerWeek;
     this.productivity = city.productivity;
-
     this.geoDistance = calculateGeoDistance(city,homeCity);
     this.culturalDistance = calculateCulturalDistance(city,homeCity);
     this.morale = 100;
     this.stalled = 0;
-
     this.cityMods = cityMods;
 };
 
 function calculateCulturalDistance(city,homeCity){
-
     var culturalDist = city.language !== homeCity.language ? 4:0;
     culturalDist += city.west !== homeCity.west ? 3:0;
     culturalDist += city.highContext !== homeCity.highContext ? 3:0;
@@ -30,7 +24,6 @@ function calculateCulturalDistance(city,homeCity){
     culturalDist += city.organizationalCulture !== homeCity.organizationalCulture ? 1:0;
 
     return culturalDist;
-
 }
 
 function calculateGeoDistance(city,homeCity){
@@ -50,7 +43,7 @@ City.prototype.advance = function(){
     if (this.stalled > 0) {
         this.stalled --;
     }
-}
+};
 
 City.prototype.progress = function( developerCount){
      
@@ -102,9 +95,10 @@ City.prototype.setMorale = function setMorale(morale) {
 
 City.prototype.getGeoDist = function getGeoDist(){
     return this.geoDistance;
-}
+};
+
 City.prototype.getCulturalDist = function getGlobalDist(){
     return this.culturalDistance;
-}
+};
 
 module.exports = City;

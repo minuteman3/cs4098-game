@@ -14,12 +14,12 @@ var InferenceEngine = function(varOptCnts,rules){
 
 
 	// init the varOptBitMatches
-	for(var i = 0;i<varOptCnts.length;i++)
+	for(var a = 0;a<varOptCnts.length;a++)
 	{
-		this.varOptBitMatches[i]  = new Array(varOptCnts[i]);
-		for(var j = 0;j<varOptCnts[i] + 1;j++)
+		this.varOptBitMatches[a]  = new Array(varOptCnts[a]);
+		for(var b = 0;b<varOptCnts[a] + 1;b++)
 		{
-			this.varOptBitMatches[i][j] = new BitArray(this.ruleCount);
+			this.varOptBitMatches[a][b] = new BitArray(this.ruleCount);
 		}
 	}
 

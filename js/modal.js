@@ -30,7 +30,7 @@ function hidemodal () {
 function makeTypeChoice(index,options){
 
   var html = "<h1>Please Select Project Type</h1><p>";
-  html +=  '<p> Select what type of software engineering method you would like to follow'
+  html +=  '<p> Select what type of software engineering method you would like to follow';
   html += '</p><div class="modal-options">';
   options.forEach(function(option){
       html += '<button class="btn-action" onclick="pt.startGame('+index+", \'"+option+"\')\" >" + option + '</button>';
