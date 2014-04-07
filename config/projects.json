@@ -3,7 +3,7 @@
         {
             "name": "R&D Project",
             "budget": 50000,
-            "eventRate": 10,
+            "eventRate": 5,
             "duration": 8,
             "revenue": {
                 "months": 3,
@@ -80,7 +80,6 @@
         {
             "name": "Accounting Software",
             "budget": 720000,
-            "eventRate": 5,
             "duration": 40,
             "revenue": {
                 "months": 24,
