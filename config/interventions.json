@@ -1,6 +1,7 @@
 {
     "message": "These pre-emptive interventions are available for your Project. What would you like to do?",
     "target": "intervention",
+    "effects":{},
     "actions": [
         {
             "message": "Two Week Company Vacation",
@@ -13,7 +14,7 @@
         {
             "message": "Face-to-Face meetings",
             "effects": {
-                "morale": 1,
+                "morale": 5,
                 "distance": -20,
                 "culture": -20,
                 "money": -40000
