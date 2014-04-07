@@ -113,23 +113,7 @@ test('modal: endGame works', function(t){
     $("#content").remove();
 });
 
-// test('rg works',function(t){
-//     t.plan(2);
-//     var tag = "testrg";
-//     var d = $("div",{
-//         id: tag
-//     });
-//     $('body').append(d);
 
-//     modal.rg(tag,-10);
-//     t.equals($(tag).css('color'),'#dc322f');
-
-//     modal.rg(tag,10);
-//     t.equals($(tag).css('color'),'#859900');
-//     $(tag).remove();
-// });
-
-//charts tested in test-charts-loading.js
 
 test('modal: events work', function(t){
   t.plan(1);
