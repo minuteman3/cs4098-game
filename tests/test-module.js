@@ -4,7 +4,7 @@ var City = require("../js/city.js");
 
 test('Module:', function(t)
 {
-    t.plan(5);
+    t.plan(13);
 
     var mod = null;
 
@@ -57,8 +57,8 @@ test('Module:', function(t)
 
     
     var citiesState = {
-        "Dublin" : new City(mumbai, dublin, modules),
-        "Mumbai" : new City(dublin, dublin, modules)
+        "Dublin" : new City(dublin, dublin, modules),
+        "Mumbai" : new City(mumbai, dublin, modules)
     };
     
     t.doesNotThrow(function(){
@@ -71,16 +71,9 @@ test('Module:', function(t)
     t.equals(mod.getPercentComplete(),45,'setPercentComplete');
 
     t.equals(mod.getCost(citiesState),6500,'getCost');
-});
-/*
-test('Module: stall', function (t) {
-    t.plan(4);
-    var mod = new Module({
-                    "Dublin": 1
-                  }, 300, "test");
-    var citiesState = {
-        "Dublin": new City("Dublin",6000,100)
-    };
+    
+    mod.setPercentComplete(0); // clean slate
+
     mod.stall(1);
     mod.advance(citiesState);
 
@@ -92,26 +85,31 @@ test('Module: stall', function (t) {
     t.ok(mod.getPercentComplete() === 0, 'stall');
     mod.advance(citiesState);
     t.ok(mod.getPercentComplete() > 0, 'stall');
-});
 
-test('Module: Morale', function(t) {
-    t.plan(4);
-    var mod = new Module( {
-                    "Dublin": 1,
-                }, 300, "test");
-    var citiesState = {
-            "Dublin" : new City("Dublin",6000,100)
+    mod = new Module(
+                {
+                    "Dublin": 1
+                },
+                300,
+                "test"
+                );
+
+    citiesState = {
+        "Dublin" : new City(dublin, dublin, modules),
     };
     t.ok(!mod.done(),'done');
+    
     citiesState.Dublin.morale = 0;
     mod.advance(citiesState);
     t.ok(mod.getPercentComplete() === 0, 'morale');
+
     citiesState.Dublin.morale = 50;
     mod.advance(citiesState);
     var progress50 = mod.getPercentComplete();
     t.ok(mod.getPercentComplete() > 0, 'morale');
+    
     citiesState.Dublin.morale = 100;
     mod.advance(citiesState);
     var progress100 = mod.getPercentComplete() - progress50;
     t.ok(Math.abs(progress100 - (2 * progress50) < 0.000001), 'morale');
-});*/
+});
