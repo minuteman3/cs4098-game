@@ -69,6 +69,22 @@ test('modal: dialog works', function(t){
     $("#content").remove();
 });
 
+test('modal: makeTypeChoice works', function(t){
+    t.plan(2);
+
+    $("<div>", {
+        id: "content"
+    }).appendTo("body");
+    
+    t.doesNotThrow(function(){
+        modal.makeTypeChoice("test", ["test"]);
+    });
+
+    t.ok($("#modal"), "Modal is in the DOM");
+
+    $("#content").remove();
+});
+
 test('modal: pause works', function(t){
     t.plan(3);
 
