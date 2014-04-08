@@ -88,7 +88,7 @@ function showEvent(ev,currentWeek){
   });
 
   if(ev.actions.length === 0){
-      html += '<p class="btn-action" onclick="pt.hidemodal();pt.unpause()"> Continue </p>';
+      html += '<button class="btn-action" onclick="pt.hidemodal();pt.unpause()"> Continue </button>';
   }
   html += '</div>';
 

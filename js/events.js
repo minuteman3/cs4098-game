@@ -26,6 +26,9 @@ function doEvent(actionNumber,gamedata){
   var target = cev.target;
   effects = effects || {};
 
+  if(actionNumber > cev.actions.length)
+    return false;
+
   if(target === "city"){
     if(effects.stall){
       city.stall(effects.stall);
@@ -81,7 +84,7 @@ function doEvent(actionNumber,gamedata){
   if(effects.money){
     gamedata.projectBudget += effects.money;
   }
-
+  return true;
 }
 
 module.exports = {

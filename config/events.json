@@ -24,31 +24,21 @@
     },
     {
         "conditions": {},
-        "message": "The minister has come for an inspection of $site",
+        "message": "Your stakeholders have come for an inspection of the Product.<br /> They Arrive in $site on Monday",
         "effects": {
             "stall": 1
         },
         "target": "city",
-        "actions": [
-            {
-                "message": "Ok",
-                "effects": {}
-            }
-        ]
+        "actions": []
     },
     {
         "conditions": {},
-        "message": "Extra investment! + $10,000",
+        "message": "An Industry Event at $site left some potential investors excited about your project.<br /> An Angel Investor wants to help the Company. <br />Extra investment! + $10,000",
         "effects": {
             "money": 10000
         },
         "target": "city",
-        "actions": [
-            {
-                "message": "Ok",
-                "effects": {}
-            }
-        ]
+        "actions": []
     },
     {
         "conditions": {

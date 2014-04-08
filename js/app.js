@@ -439,9 +439,10 @@ $( document ).ready( function() {
 });
 
 function doEvent(actionNum){
-  modal.hidemodal();
-  ProcessSim.unpause();
-  events.doEvent(actionNum,gameData);
+  if(events.doEvent(actionNum,gameData)){
+    modal.hidemodal();
+    ProcessSim.unpause();
+  }
 }
 
 module.exports = {
