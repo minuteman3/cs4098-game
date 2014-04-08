@@ -7,7 +7,6 @@ var cities;
 var budget;
 var modules;
 
-
 function init(_gameData,_cities,_modules,_budget){
   teamsSelected = {};
   selectedTeams = {};
@@ -17,11 +16,8 @@ function init(_gameData,_cities,_modules,_budget){
   budget = _budget;
 }
 
-
 function selectModule(cityName,nextIndex) {
- 
   var index = sidebar.getActiveListItem();
-
 
   if(Object.keys(teamsSelected).length !== 0){
     selectedTeams[modules[index].name] = teamsSelected;
@@ -38,13 +34,8 @@ function selectModule(cityName,nextIndex) {
 
 
 function addExtraDeveloperToCity(cityCode){
-
-
     teamsSelected[cityCode] = (teamsSelected[cityCode] || 0)+1;
-
-
     gameData.totalPayRoll += cities[cityCode].costPerWeek;
-
 
     sidebar.setPayroll(gameData.totalPayRoll);
     sidebar.setBudgetedWeeks(budget/gameData.totalPayRoll);
@@ -83,12 +74,10 @@ function allModulesHaveTeams(){
 //add current module to the list
   var index = sidebar.getActiveListItem();
   if(Object.keys(teamsSelected).length === 0){
-   delete selectedTeams[modules[index].name];
+    delete selectedTeams[modules[index].name];
   }else{
-     selectedTeams[modules[index].name] = teamsSelected;
+    selectedTeams[modules[index].name] = teamsSelected;
   }
-
-
 	return Object.keys(selectedTeams).length === modules.length;
 }
 

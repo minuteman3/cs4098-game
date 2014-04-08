@@ -84,11 +84,11 @@ function showEvent(ev,currentWeek){
   html +=  '<p>' + ev.message.replace("$site", ev.city.name).replace("$module", ev.module.name);
   html += '</p><div class="modal-options">';
   ev.actions.forEach(function(action, index){
-      html += '<button class="btn-action" onclick="pt.hidemodal();pt.unpause();pt.evt('+index+')">' + action.message + '</button>';
+      html += '<p class="btn-action" onclick="pt.evt('+index+')">'+(index+1)+'. ' + action.message + '</p>';
   });
 
   if(ev.actions.length === 0){
-      html += '<button class="btn-action" onclick="pt.hidemodal();pt.unpause()"> Continue </button>';
+      html += '<p class="btn-action" onclick="pt.hidemodal();pt.unpause()"> Continue </p>';
   }
   html += '</div>';
 

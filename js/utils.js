@@ -35,8 +35,12 @@ function contains(a, obj) {
 }
 
 function objectadd(a,b){
-  Object.keys(b).forEach(function(k){a[k]=b[k];});
-  return a;
+  if(a === {}){
+    return b;
+  }else{
+    Object.keys(b).forEach(function(k){a[k]=b[k];});
+    return a;
+  }
 }
 
 function randomCity(m){
