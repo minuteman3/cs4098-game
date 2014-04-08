@@ -25,7 +25,6 @@ function doEvent(actionNumber,gamedata){
   var module = cev.module;
   var target = cev.target;
 
-
   if(target === "city"){
     if(effects.stall){
       city.stall(effects.stall);
@@ -48,11 +47,38 @@ function doEvent(actionNumber,gamedata){
       city.stall(effects.stall);
     }
   }else if (target === "intervention"){
-    console.log("gamedata");
-    console.log(gamedata.citiesState);
+    if(effects.stall){
     // "morale": 1,
+      Object.keys(gamedata.citiesState).forEach(function(cname){
+        var c = gamedata.citiesState[cname];
+        c.stall(effects.stall);
+      });
+    }
+    if(effects.morale){
+    // "morale": -20,
+      Object.keys(gamedata.citiesState).forEach(function(cname){
+        var c = gamedata.citiesState[cname];
+        c.modifyMorale(effects.morale);
+      });
+    }
+    if(effects.distance){
     // "distance": -20,
+      Object.keys(gamedata.citiesState).forEach(function(cname){
+        var c = gamedata.citiesState[cname];
+        c.geoDistance = c.geoDistance * (100+effects.distance)/100;
+        console.log("c.geoDistance");
+        console.log(c.geoDistance);
+      });
+    }
+    if(effects.culture){
     // "culture": -20,
+      Object.keys(gamedata.citiesState).forEach(function(cname){
+        var c = gamedata.citiesState[cname];
+        c.culturalDistance = c.culturalDistance * (100+ effects.culture)/100;
+        console.log("c.culturalDistance");
+        console.log(c.culturalDistance);
+      });
+    }
   }
 
   if(effects.money){

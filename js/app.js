@@ -47,7 +47,7 @@ interventions.actions.forEach(function(a){
     var m = a.message + " (";
     if(a.effects.stall && count < max){
       count++;
-      m = m + " Stalls Production for "+ a.effects.stall+" weeks,";
+      m = m + " Stalls Production for "+ a.effects.stall+" Weeks,";
     }
     if(a.effects.morale && count < max){
       count++;
@@ -56,12 +56,12 @@ interventions.actions.forEach(function(a){
     }
     if(a.effects.distance && count < max){
       count++;
-      var dist = a.effects.morale > 0 ? " Increases":" Decreases";
+      var dist = a.effects.distance > 0 ? " Increases":" Decreases";
       m = m + dist + " Geographic Distance,";
     }
     if(a.effects.culture && count < max){
       count++;
-      var cult = a.effects.morale > 0 ? " Increases":" Decreases";
+      var cult = a.effects.culture > 0 ? " Increases":" Decreases";
       m = m + cult + " Cultural Distance,";
     }
     if(a.effects.money){
