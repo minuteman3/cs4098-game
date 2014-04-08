@@ -30,27 +30,59 @@
     ],
     "completionFuzzification": [
         {
-            "option": "development",
+            "option": "design",
             "values": [
+                -1,
                 0,
+                20
+            ]
+        },
+        {
+            "option": "implementation",
+            "values": [
+                10,
                 20,
-                30
+                35
             ]
         },
         {
-            "option": "testing",
+            "option": "unittest",
             "values": [
-                30,
+                25,
+                35,
+                45
+            ]
+        },
+        {
+            "option": "integration",
+            "values": [
+                35,
+                45,
+                60
+            ]
+        },
+        {
+            "option": "systemtest",
+            "values": [
                 50,
-                80
+                60,
+                75
             ]
         },
         {
-            "option": "finishing",
+            "option": "deployment",
             "values": [
-                80,
-                90,
-                100
+                65,
+                75,
+                90
+            ]
+        },
+        {
+            "option": "acceptance",
+            "values": [
+                85,
+                100,
+                101
             ]
         }
     ],
