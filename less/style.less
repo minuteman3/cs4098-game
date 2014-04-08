@@ -39,7 +39,7 @@
     -moz-box-shadow:    @string;
     box-shadow:         @string;
 }
-.gradient (@startColor, @endColor) {
+.gradient (@Color, @endColor) {
     background-color: @startColor;
     background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
     background: -webkit-linear-gradient(top, @startColor, @endColor);
@@ -236,6 +236,23 @@ html a:hover {
 #budgetedWeeks{
     margin-left: 0.5em;
 }
+
+#homecityHeader{
+    padding-left:0.2em;
+    font-size: 0.4em;
+    margin:0em;
+    color:@accent
+}
+#homecity{
+    padding-left:0.6em;
+    margin-top:0.1em;
+}
+
+
+
+
+
+
 .mixi-frames{
 from {background: @accent;}
 to {background: @base3;}
@@ -265,6 +282,32 @@ to {background: @base3;}
     margin-right: 0.5em;
     font-weight:200;
 }
+
+.tickerBox{
+    float:right;margin-left:-1em;
+}
+.ticker{
+font-size: 0.7em;
+align:right;
+position: relative;
+}
+
+.ticker:hover{
+color: @magenta;
+}
+
+
+.tickerUp{
+
+right:-0.95em;
+vertical-align:top;
+}
+.tickerDown{
+vertical-align:bottom;
+}
+
+
+
 /***
  *    ██████╗ ██╗   ██╗████████╗████████╗ ██████╗ ███╗   ██╗███████╗
  *    ██╔══██╗██║   ██║╚══██╔══╝╚══██╔══╝██╔═══██╗████╗  ██║██╔════╝
@@ -276,7 +319,7 @@ to {background: @base3;}
  */
 button {
     .border-radius(0.3em);
-    background-color: desaturate(@cyan,20%);
+    background-color: desaturate(@blue,30%);
     border: 0.1em solid transparent;
     margin-left: 1em;
     color: @base2;
@@ -287,13 +330,13 @@ button {
     z-index: 997;
 }
 button:hover {
-    background-color: @cyan;
-    border: 0.1em solid @cyan;
+    background-color: @blue;
+    border: 0.1em solid @blue;
     cursor: pointer;
     color: @base3; 
 }
 button:active {
-    .box-shadow(inset 0 0 0.3em 0.3em desaturate(@cyan,30%));
+    .box-shadow(inset 0 0 0.3em 0.3em desaturate(@blue,40%));
 }
 #btn-region{
     position: absolute;
@@ -434,6 +477,16 @@ button:active {
         position: absolute;
         bottom: 0.25em;
         width: 100%;
+        p {
+            margin-left: 16em;
+            line-height: 0.25em;
+            text-align: left;
+            font-size: 0.225em;
+            bottom: 1em;
+        }
+        p:hover {
+            color: @magenta;
+        }
     }
     .project{
         font-size: 0.3em;

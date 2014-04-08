@@ -6,18 +6,25 @@ var deepcopy = require('deepcopy');
 var EventGenerator = function(events,rate){
     this.events = events || [];
     this.rate = (rate/100);
+    this.lastEvent = 1;
     this.engine = loadFuzzyEngine(this.events);
 };
 
 function loadFuzzyEngine(events){
 
-
+        var memberFuncs = [
+    getMemValues( config.moraleFuzzification), 
+    getMemValues( config.payFuzzification ),
+    getMemValues( config.completionFuzzification),
+    getMemValues( config.geoDistFuzzification),
+    getMemValues( config.culturalDistFuzzification),
+     ];
 
     var fuzzyRules = [];
 
     for(var i = 0; i < events.length; i++) {   
-                          //Morale  // Pay  
-        var conditions = [[0],[0],[0]]; 
+                          
+        var conditions = memberFuncs.map(function(){return [0];});
 
         if('morale' in events[i].conditions) {
 
@@ -32,13 +39,18 @@ function loadFuzzyEngine(events){
             conditions[2] = getConditions(events[i].progress,config.completionFuzzification) ;
         }
 
+        if('geoDistance' in events[i].conditions) {
+            conditions[3] = getConditions(events[i].progress,config.geoDistFuzzification) ;
+        }
+
+        if('culturalDistance' in events[i].conditions) {
+            conditions[3] = getConditions(events[i].progress,config.culturalDistFuzzification) ;
+        }
+
         fuzzyRules.push(conditions);
     }
 	
-    var memberFuncs = [
-    getMemValues( config.moraleFuzzification), 
-    getMemValues( config.payFuzzification ),
-    getMemValues( config.completionFuzzification) ];
+
 
     return new FuzzyEngine(fuzzyRules, memberFuncs);
 }
@@ -64,9 +76,13 @@ function getConditions(conditions,fuzzyValue){
 
 EventGenerator.prototype.getEvent = function(variables){
     // rate% chance to return an event
-    if(Math.random() > (1-this.rate)) {
+    // make it more likely to be event if no events have fired
+    if(Math.random() + this.lastEvent*0.02 > (1-this.rate)) {
+        this.lastEvent = 1;
         return deepcopy(this.events[this.engine.run(variables, Math.random())]);
+
     } else {
+        this.lastEvent += 1;
         return null;
     }
 };

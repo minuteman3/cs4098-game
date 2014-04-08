@@ -3,13 +3,15 @@ var test = require('tape');
 var $ = require('jquery');
 
 test('sidebar:', function(t){
-    t.plan(18);
+    t.plan(21);
 
     $("<div>", {
         id: "sidebar"
     }).appendTo("body");
 
     var str = '<div id="sidebar-title">Select Teams</div>' +
+      '<p id="homecityHeader" >Home City</p>' +
+      '<p id="homecity" >Choose a city</p>' +
       '<ul class="nav">' +
         '<li class="active">Interface</li>' +
         '<li>Game Engine </li>' +
@@ -55,12 +57,22 @@ test('sidebar:', function(t){
 
         ]);
     },'setList works');
+
+    t.doesNotThrow(function(){
+      sidebar.setLocations({});
+    },"setLocations");
+
+    sidebar.setLocations({"0":2,"3":5});
+
+    t.equals($('#locations').text(),
+      "San Franciscox2Shanghaix5",
+      "setLocations");
+
     sidebar.setBudget(1000000);
     sidebar.setBudgetedWeeks(10);
     sidebar.setButtonText("butt");
     sidebar.setCash(100000);
     sidebar.setDueDate(50.003);
-    // sidebar.setLocations("");
     sidebar.setPayroll(1000000000);
     sidebar.setPayrollforModule(1000);
     sidebar.setProgress(57.56);
@@ -68,6 +80,7 @@ test('sidebar:', function(t){
     sidebar.setWeeks(10.5);
     sidebar.showProgressState(true);
     sidebar.showSelectTeams(false);
+    sidebar.setHomeCity("dublin");
 
     setTimeout(function() {
         t.equals(sidebar.getActiveListItem(),-1,'getActiveListItem works');
@@ -87,6 +100,9 @@ test('sidebar:', function(t){
         t.equals($('#weeks').html(),"11 weeks",'setWeeks');
         t.equals($('.progess-state').css('display'),"block",'showProgressState');
         t.equals($('.select-teams').css('display'),"none",'showSelectTeams');
+        
+        sidebar.setHomeCity("dublin");
+        t.equals($("#homecity").html(),"dublin","setHomeCity");
         $("#sidebar").remove();
     },0);
 

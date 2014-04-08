@@ -5,7 +5,7 @@ var client     = require('./../config/client-config.json');
 
 var menu=false;
 var modal=false;
-var events = [];
+
 
 // future work for modals: add new modals to a queue
 // so many can stack up. remove from queue when dealt with
@@ -26,6 +26,21 @@ function hidemodal () {
   $('#modal').hide();
 }
 
+
+function makeTypeChoice(index,options){
+
+  var html = "<h1>Please Select Project Type</h1><p>";
+  html +=  '<p> Select what type of software engineering method you would like to follow';
+  html += '</p><div class="modal-options">';
+  options.forEach(function(option){
+      html += '<button class="btn-action" onclick="pt.startGame('+index+", \'"+option+"\')\" >" + option + '</button>';
+  });
+
+  html += '</div>';
+
+  showmodal(html, false);
+}
+
 function makeChoices(a,b,c,proj){
   a = a || [{"name":"Option 1","funct":""}];// the names to use for each button
   b = b || "";// this should be a description of the event, indicating/hinting at the correct answer
@@ -38,7 +53,7 @@ function makeChoices(a,b,c,proj){
   ret+= '</p><div class="modal-options">';
 
   a.forEach(function(b,i,arr) {
-    b.funct = b.funct || "startGame("+i+")";
+    b.funct = b.funct || "selectType("+i+")";
     if (proj){
       d = 'onmouseover="'+'pt.projectdescription('+i+')" ';
       d += 'ontouchstart="'+'pt.projectdescription('+i+')" ';
@@ -62,21 +77,14 @@ function dialog(a){
   showmodal(html, true);
 }
 
-function setEventAction(num){
-  events[events.length-1].mitigation = events[events.length-1].actions[num];
-}
-
-function getEvents(){
-  return events;
-}
-
 function showEvent(ev,currentWeek){
   ev.week = currentWeek;
+
   var html = "<h1>Information</h1><p>";
   html +=  '<p>' + ev.message.replace("$site", ev.city.name).replace("$module", ev.module.name);
   html += '</p><div class="modal-options">';
   ev.actions.forEach(function(action, index){
-      html += '<button class="btn-action" onclick="pt.hidemodal();pt.unpause();pt.evt('+index+')">' + action.message + '</button>';
+      html += '<p class="btn-action" onclick="pt.evt('+index+')">'+(index+1)+'. ' + action.message + '</p>';
   });
 
   if(ev.actions.length === 0){
@@ -84,7 +92,6 @@ function showEvent(ev,currentWeek){
   }
   html += '</div>';
 
-  events.push(ev);
   showmodal(html, false);
 }
 
@@ -234,7 +241,7 @@ module.exports = {
     generateCharts: generateCharts,
     addChartContainer: addChartContainer,
     //events
-    setEventAction: setEventAction,
-    getEvents: getEvents,
-    showEvent: showEvent
+    showEvent: showEvent,
+
+    makeTypeChoice:makeTypeChoice,
 };

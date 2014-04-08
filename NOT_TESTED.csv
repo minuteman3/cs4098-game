@@ -1,19 +1,35 @@
-filename, function, reason not tested
-assets/*, *, these are just assets
-less/style, *, this is style information which uses mixins to target cross-browser
-lib/canvasjs, *, this is a charting library available at canvasjs.com
-lib/jquery-jvectormap-1.2.2.min, *, this is a mapping library available at jvectormap.com
-lib/jquery-jvectormap-world-mill-en, *, this is a geo-map data available at jvectormap.com
-node_modules/*, *, these are all library dependencies and fall outside our testing remit
-tests/*, *, these are tests
-js/app, calculatePayrollforMod, this is an internal function which isn't exported and therefore isn't tested
-js/app, deleteDB, this is an internal function which isn't exported and therefore isn't tested
-js/app, initialise, this is an internal function which isn't exported and therefore isn't tested
-js/app, onlabelShow, this is an internal function which isn't exported and therefore isn't tested
-js/app, selectCity, this is an internal function which isn't exported and therefore isn't tested
-js/app, selectModule, this is tested as part of initialiseGame
-js/app, simulationComplete, this is tested as part of the Process Simulator
-js/app, simulationUpdate, this is tested as part of the Process Simulator
-js/app, startLoop, this is an internal function which isn't exported but is tested alongside startSimulation
-js/maps, regionLabelShow, this is an internal function which isn't exported and therefore isn't tested
+filename,function,reason not tested
+assets/,*,these are just assets
+less/style,*,this is style information which uses mixins to target cross-browser
+lib/canvasjs,*,this is a charting library available at canvasjs.com
+lib/jquery-jvectormap-1.2.2.min,*,this is a mapping library available at jvectormap.com
+lib/jquery-jvectormap-world-mill-en,*,this is a geo-map data available at jvectormap.com
+node_modules/*,*,these are all library dependencies and fall outside our testing remit
+tests/,*,these are tests
+js/app,onlabelShow,this is an internal function which isn't exported and therefore isn't tested
+js/app,pause,this is tested as part of modal and process simulator
+js/app,selectCity,this is an internal function which isn't exported and therefore isn't tested
+js/app,selectModule,this is tested as part of initialiseGame
+js/app,startSimulation,this function relies on internal state at invocation time which cannot be set from a testing interface
+js/app,startLoop,this is an internal function which isn't exported but is tested alongside startSimulation
+js/app,simulationUpdate,this is tested as part of the Process Simulator
+js/app,simulationComplete,this is tested as part of the Process Simulator
+js/app, doEvent, this is tested as part of modal
+js/EventGenerator/EventGenerator,loadFuzzyEngine,this is an internal function which isn't exported and therefore isn't tested
+js/EventGenerator/EventGenerator,getMemValues,this is an internal function which isn't exported and therefore isn't tested
+js/EventGenerator/EventGenerator,getConditions,this is an internal function which isn't exported and therefore isn't tested
+js/EventGenerator/fuzzifier,makeMembershipFunctions,this is an internal function which isn't exported and therefore isn't tested
+js/EventGenerator/fuzzifier,makeAnyOption,this is an internal function which isn't exported and therefore isn't tested
+js/EventGenerator/fuzzifier,makeTrim,this is an internal function which isn't exported and therefore isn't tested
+js/EventGenerator/fuzzyEngine,GetWeightedRules,this is an internal function which isn't exported and therefore isn't tested
+js/EventGenerator/fuzzyEngine,GetRuleToCall,this is an internal function which isn't exported and therefore isn't tested
+js/EventGenerator/fuzzyEngine,GetNonZeroVariables,this is an internal function which isn't exported and therefore isn't tested
+js/EventGenerator/fuzzyEngine,GetWeight,this is an internal function which isn't exported and therefore isn't tested
+js/EventGenerator/inferenceEngine,GetRulesToFireInVariable,This method is tested by testing GetRulesToFire
+js/events, setEventAction, this is tested as part of events
+js/index,*,there are no functions in this file
+js/maps,regionLabelShow,this is an internal function which isn't exported and therefore isn't tested
+js/ProcessSimulator,getRandomModule,this is an internal function which isn't exported and therefore isn't tested
+js/sidebar,setListListner,this listens for a click event on a button. The function it then performs is tested already.
+js/modal,rg,this is an internal function which isn't exported and therefore isn't tested
 

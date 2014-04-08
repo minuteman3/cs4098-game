@@ -24,6 +24,35 @@ test('modal:', function(t){
     $("#content").remove();
 });
 
+test('modal: makeChoices works', function(t){
+    t.plan(3);
+
+    var e = modal.makeChoices();
+
+    t.equals(e,'<p></p>'+
+        '<div class="modal-options">'+
+            '<button class="btn-action" onclick="pt.selectType(0)"  >'+
+                'Option 1'+
+            '</button>'+
+        '</div>');
+    var f = modal.makeChoices([{"name":"Option 1","funct":""}],"hello");
+
+    t.equals(f,'<p>hello</p>'+
+        '<div class="modal-options">'+
+            '<button class="btn-action" onclick="pt.selectType(0)"  >'+
+                'Option 1'+
+            '</button>'+
+        '</div>');
+    var g = modal.makeChoices([{"name":"Option 1","funct":""}],"hello","other");
+
+    t.equals(g,'<p>hello</p>'+
+        '<div class="modal-options">'+
+            '<button class="other" onclick="pt.selectType(0)"  >'+
+                'Option 1'+
+            '</button>'+
+        '</div>');
+});
+
 test('modal: dialog works', function(t){
     t.plan(2);
 
@@ -33,6 +62,22 @@ test('modal: dialog works', function(t){
     
     t.doesNotThrow(function(){
         modal.dialog("asdasd");
+    });
+
+    t.ok($("#modal"), "Modal is in the DOM");
+
+    $("#content").remove();
+});
+
+test('modal: makeTypeChoice works', function(t){
+    t.plan(2);
+
+    $("<div>", {
+        id: "content"
+    }).appendTo("body");
+    
+    t.doesNotThrow(function(){
+        modal.makeTypeChoice("test", ["test"]);
     });
 
     t.ok($("#modal"), "Modal is in the DOM");
@@ -56,36 +101,6 @@ test('modal: pause works', function(t){
     t.notEqual($("#modal").css("display"), "none");
 
     $("#content").remove();
-});
-
-test('modal: makeChoices works', function(t){
-    t.plan(3);
-
-    var e = modal.makeChoices();
-
-    t.equals(e,'<p></p>'+
-        '<div class="modal-options">'+
-            '<button class="btn-action" onclick="pt.startGame(0)"  >'+
-                'Option 1'+
-            '</button>'+
-        '</div>');
-    var f = modal.makeChoices([{"name":"Option 1","funct":""}],"hello");
-
-    t.equals(f,'<p>hello</p>'+
-        '<div class="modal-options">'+
-            '<button class="btn-action" onclick="pt.startGame(0)"  >'+
-                'Option 1'+
-            '</button>'+
-        '</div>');
-    var g = modal.makeChoices([{"name":"Option 1","funct":""}],"hello","other");
-
-    t.equals(g,'<p>hello</p>'+
-        '<div class="modal-options">'+
-            '<button class="other" onclick="pt.startGame(0)"  >'+
-                'Option 1'+
-            '</button>'+
-        '</div>');
-
 });
 
 test('modal: endGame works', function(t){
@@ -114,10 +129,10 @@ test('modal: endGame works', function(t){
     $("#content").remove();
 });
 
-//charts tested in test-charts-loading.js
+
 
 test('modal: events work', function(t){
-  t.plan(3);
+  t.plan(1);
 
     $("<div>", {
         id: "content"
@@ -147,16 +162,6 @@ test('modal: events work', function(t){
     t.doesNotThrow(function(){
         modal.showEvent(ev,3);
     },'showEvent');
-
-    var es = modal.getEvents();
-    var evt = es[es.length-1];
-    ev.message = ev.message.replace("$site",ev.city.name).replace("$module", ev.module.name);
-    t.deepEquals(evt,ev,'showEvent event added to array');
-
-    modal.setEventAction(0);
-    var es2 = modal.getEvents();
-    var evt2 = es2[es2.length-1];
-    t.equals(evt2.mitigation,ev.actions[0],'showEvent event mitigation saved');
-
+    
     $("#content").remove();
 });

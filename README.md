@@ -44,21 +44,48 @@ If you experience installation problems, a goof plan is to remove the `node_modu
 
 ## Features
 
-* Config Loading
-	* Configuration is loaded from a `config.json` file in the application root. All values contained in this file are made available to any application component that imports it using the config loader. Individual flags can be specified (or overriden) on the command line, for example: `node index.js --test=50` would set a config variable named "test" to the value 50, or override the variable "test" if it already existed in `config.json`.
-* Clickable Maps
-	* A world map is loaded from the jvectormap library. It has selectable regions and offers a list of all the regions which have been selected. It is accessible from `index.html` in the root directory.
-	* Each zone has a status display, which details the status as a percentage. It is viewable by hovering over an area.
-* Inquiry Interface
-	* Click on a City to get a report on how well it is doing.
-* End of Game Report
+* \#17 Master Config Loader
+	* Configuration is loaded from a series of `.json` files in the config folder. View Config File Specifications below for more information.
+* \#9 Process Simulator 
+	* Simulates advancement of modules in individual chunks.
+	* Scales by number of developers in a city.
+	* Progress is dependant on high Morale, and the base productivity of that city. 
+* \#6 Status Display
+	* Each city on the map will be either {Green, Yellow, Red} depending on if it is {on target, falling behind or making no progress} respectively.
+* \#20 Default Scenarios
+	* Scenarios are specified in `projects.json`.
+* \#14 End of Game Report
 	* Shows Graphs of how you have progressed throughout the game.
 	* Compares data from beginning to end of project life-cycle.
-* Process Simulator 
-	* Simulates advancement of modules in individual chunks, scaled by number of developers.
-* Event Generator
-	* Generates events based on fuzzy logic. Each variable is divided into a list of options so for example the money variable is divided into small,medium,large so when money is $10,000 it will be 60% small and 30% medium and 0% large. We then use rules to determine which event should fire. So a rule then specifies which option(s) it chooses for each variable so eg when money=medium then fire rule 2. We then generate a weight for this rule based on which option is applied the lest. We use this value to make a weighted list of all possible rules we can fire. We then execute one of the rules based on a random number. 
-	* Loads events from JSON files.
+	* Gives information as percentages of estimated successful values.
+* \#5 Nominal Schedule Calculator
+	* The Nominal Schedule is calculated from the `projects.json` file, at the beginning of every game. Estimated values are provided, and then compared against in the End Game Report.
+* \#3 Game Score Calculator
+	* This is calculated based on the revenue field in `projects.json` for each project. You can manually edit these files to alter the amount of expected revenue. The calculation is `project.revenue.amount * project.revenue.months` ± `project.revenue.amount*(timetaken-project.duration)`. Revenue increases if released early, and decreased if released late.
+* \#8 Module Completion Calculator
+	* This is calculated once on project selection. Each module gets ± 0-25% to it's base cost. This is not displayed to the player.
+* \#4 Module Location Interface
+	* Module location is specified on the game map by placing teams in cities.
+* \#7 Inquiry Interface
+	* Click on a City to get inquiry possibilities for that city.
+* \#1 Clickable Maps
+	* A world map is loaded from the jvectormap library. It has selectable regions and offers a list of all the regions which have been selected.
+	* Each city gives some basic city information such as {Cost per Developer, Morale, Productivity} during team selection phase. While the game is running, however, clicking on a city will give you access to the inquiry interface for that city.
+* \#23 Basic & Enhanced Problem Set
+	* Events are loaded from the `events.json` config file, and fed through the fuzzy inference event generator.
+	* Generates events based on fuzzy logic. Each variable is divided into a list of options. For example the money variable is divided into small,medium,large so when money is $10,000 it will be 60% small and 30% medium and 0% large. We then use rules to determine which event should fire. 
+	* Each rule specifies which option(s) it chooses for each variable so eg when money=medium then fire rule 2. We then generate a weight for this rule based on which option is applied the least. We use this value to make a weighted list of all possible rules we can fire. We then execute one of the rules based on a random number. 
+* \#16 Intervention Interface
+	* Click on a City to get intervention possibilities for that city. May affect morale, progress, cash, Cultural Distance, Geographic Distance.
+* \#33 One time interventions
+	* Click on a City to get intervention possibilities for that city, modules in that city or specific modules worldwide. These interventions are configurable in `interventions.json`. May affect morale, progress, cash, Cultural Distance, Geographic Distance.
+* \#32 Motivational Interventions
+	* Click on a City to get intervention possibilities for that city. These interventions are configurable in `interventions.json`. May affect morale, progress, cash, Cultural Distance, Geographic Distance.
+* \#41 Configurable Membership functions
+	* Fuzzy logic membership functions configurable through `conditions.json`.
+* \#9: Waterfall Process simulator
+	* On project selection, choose between Waterfall, or Agile as your development philosophy. In Waterfall mode, all modules must reach the end of one stage before progressing to the next. 
+	
 
 
 ## Config File Specifications
@@ -142,6 +169,41 @@ Specifies constants that control client behaviour during the simulation.
 * 'option' * is just a name to use to identify which values you want to use in events.json
 * 'values' * is the triangular membership value you want to use for that option. So you first specifiy what the cut off point for the lowest possible value to be considered that option, the second value specifies what number would be considered '100%' for that option and then thrid option is the highest possible value you could have before you would not consider it to be that option. It's easier to reason about if you consider an options like low, medium and high.
 
+
+
+### conditions.json
+
+Specifies constants that control client behaviour during the simulation.
+
+```
+{
+	"morale":[
+		{
+				"option":"low",
+				"values":[100,5000,10000]
+		},
+		{
+				"option":"high",
+				"values":[100,5000,10000]
+		}
+
+	],
+	"pay":[
+		{
+				"option":"low",
+				"values":[100,5000,10000]
+		},
+		{
+				"option":"high",
+				"values":[100,5000,10000]
+		}
+	]
+ }
+```
+
+* `morale`: the membership functions for morale.
+* `pay`: the membership functions for pay.
+
 ### events.json
 
 Specifies events which can be fired depending on `eventRate` and fuzzy logic engine.
@@ -165,7 +227,7 @@ Specifies events which can be fired depending on `eventRate` and fuzzy logic eng
 			"money": Number,
 			"stall": Number,
 			"morale": Number,
-			"productivity": Number
+			"progress": Number
 		},
 		"actions": [
 			{
@@ -174,7 +236,7 @@ Specifies events which can be fired depending on `eventRate` and fuzzy logic eng
 					"money": Number,
 					"stall": Number,
 					"morale": Number,
-					"productivity": Number,
+					"progress": Number,
 				}
 			}
 		]
@@ -186,14 +248,56 @@ Specifies events which can be fired depending on `eventRate` and fuzzy logic eng
 * *(optional)* `morale`: The fuzzy logic parameter conditions for morale
 * *(optional)* `pay`: The fuzzy logic parameter conditions for pay
 * `message`: The text describing the event which occurred.
-* `effects`: An object of repercussions common to all actions. Can currently be one of {money, stall,morale,productivity}. Can be empty {}.
+* `effects`: An object of repercussions common to all actions. Can currently be one of {money, stall,morale,progress}. Can be empty {}.
 * *(optional)* `money`: A change in overall bank balance.
 * *(optional)* `stall`: A halt in production for Number weeks.
 * *(optional)* `morale`: A change in morale.
-* *(optional)* `productivity`: A change in productivity.
+* *(optional)* `progress`: A change in progress.
 * `actions`: An array of resolutions each with a message and effects.
 * `message`: The text describing the resolution.
-* `effects`: An object of repercussions for this action. Can currently be one of {money, stall,morale,productivity}. Can be empty {}.
+* `effects`: An object of repercussions for this action. Can currently be one of {money, stall,morale,progress}. Can be empty {}.
+
+
+### interventions.json
+
+Specifies interventions which can be manually made during gameplay.
+
+* Event object of the form:
+
+```
+{
+	"message": String,
+	"effects": {
+		"money": Number,
+		"stall": Number,
+		"morale": Number,
+		"progress": Number
+	},
+	"actions": [
+		{
+			"message": String,
+			"effects": {
+				"money": Number,
+				"stall": Number,
+				"morale": Number,
+				"culture": Number,
+				"distance": Number,
+			}
+		}
+	]
+}
+```
+
+* `message`: The text describing the interventions which can be applied.
+* `effects`: An object of repercussions common to all actions. Can currently be one of {money, stall,morale,progress}. Can be empty {}.
+* *(optional)* `money`: A change in overall bank balance.
+* *(optional)* `stall`: A halt in production for Number weeks.
+* *(optional)* `morale`: A change in morale.
+* *(optional)* `culture`: A modifier for Cultural Distance.
+* *(optional)* `distance`: A modifier for Geographic Distance.
+* `actions`: An array of resolutions each with a message and effects.
+* `message`: The text describing the resolution.
+* `effects`: An object of repercussions for this action. Can currently be one of {money, stall,morale,progress}. Can be empty {}.
 
 
 
@@ -225,7 +329,7 @@ Specifies projects that can be chosen including modules, costs, etc.
 
 * `name`: Project name displayed on the project selection dialog
 * `budget`: The amount of money available in the project
-* `eventRate`: The percentage rate of fire for events. *Overrides default*
+* *(optional)* `eventRate`: The percentage rate of fire for events. *Overrides default*
 * `duration`: Time until project is due
 * `revenue`: Named pair of
 	* `months`: The number of months of revenue added to the end game score of a project completed on time
@@ -237,7 +341,7 @@ Specifies projects that can be chosen including modules, costs, etc.
 
 ### server-config.json
 
-Specifies constants that control server behavior.
+Specifies constants that control server behaviour.
 
 * `port`: The port to listen for incoming connections on
 
@@ -249,7 +353,8 @@ This project uses [travis](http://travis-ci.org) and [testling](http://ci.testli
 To run manual tests run `npm test` from the project root directory.
 
 To run maunal front-end specific tests, an external tool [`testling`](http://ci.testling.com) can be installed using `npm install -g testling` (may require sudo). The testling tests can be run as follows:
-* `testling -u` in the project's root directory. 
+
+* `testling -u` in the project's root directory.
 * It will give out a localhost URL.
 	* copy the url and load it in a webpage using any browser
 * Back in the console the tests will be run.
