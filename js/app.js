@@ -105,6 +105,8 @@ function onlabelShow(e,label,code){
       'as your Home City '
     );
   }
+
+  maps.fixOverLap(code,label);
 }
 
 function selectCity(e,  code,  isSelected,  selectedMarkers) {
