@@ -67,7 +67,7 @@ If you experience installation problems, a goof plan is to remove the `node_modu
 * \#4 Module Location Interface
 	* Module location is specified on the game map by placing teams in cities.
 * \#7 Inquiry Interface
-	* Click on a City to get intervention possibilities for that city.
+	* Click on a City to get inquiry possibilities for that city.
 * \#1 Clickable Maps
 	* A world map is loaded from the jvectormap library. It has selectable regions and offers a list of all the regions which have been selected.
 	* Each city gives some basic city information such as {Cost per Developer, Morale, Productivity} during team selection phase. While the game is running, however, clicking on a city will give you access to the inquiry interface for that city.
@@ -76,11 +76,15 @@ If you experience installation problems, a goof plan is to remove the `node_modu
 	* Generates events based on fuzzy logic. Each variable is divided into a list of options. For example the money variable is divided into small,medium,large so when money is $10,000 it will be 60% small and 30% medium and 0% large. We then use rules to determine which event should fire. 
 	* Each rule specifies which option(s) it chooses for each variable so eg when money=medium then fire rule 2. We then generate a weight for this rule based on which option is applied the least. We use this value to make a weighted list of all possible rules we can fire. We then execute one of the rules based on a random number. 
 * \#16 Intervention Interface
-	* Click on a City to get intervention possibilities for that city.
-* \#33 One time interventions. May affect morale, productivity, cash.
-	* Click on a City to get intervention possibilities for that city, modules in that city or specific modules worldwide. These interventions are configurable in `interventions.json`. May affect morale, productivity, cash.
+	* Click on a City to get intervention possibilities for that city. May affect morale, progress, cash, Cultural Distance, Geographic Distance.
+* \#33 One time interventions
+	* Click on a City to get intervention possibilities for that city, modules in that city or specific modules worldwide. These interventions are configurable in `interventions.json`. May affect morale, progress, cash, Cultural Distance, Geographic Distance.
 * \#32 Motivational Interventions
-	* Click on a City to get intervention possibilities for that city. These interventions are configurable in `interventions.json`. May affect morale, productivity, cash.
+	* Click on a City to get intervention possibilities for that city. These interventions are configurable in `interventions.json`. May affect morale, progress, cash, Cultural Distance, Geographic Distance.
+* \#41 Configurable Membership functions
+	* Fuzzy logic membership functions configurable through `conditions.json`.
+* \#9: Waterfall Process simulator
+	* On project selection, choose between Waterfall, or Agile as your development philosophy. In Waterfall mode, all modules must reach the end of one stage before progressing to the next. 
 	
 
 
@@ -276,7 +280,8 @@ Specifies interventions which can be manually made during gameplay.
 				"money": Number,
 				"stall": Number,
 				"morale": Number,
-				"progress": Number,
+				"culture": Number,
+				"distance": Number,
 			}
 		}
 	]
@@ -288,7 +293,8 @@ Specifies interventions which can be manually made during gameplay.
 * *(optional)* `money`: A change in overall bank balance.
 * *(optional)* `stall`: A halt in production for Number weeks.
 * *(optional)* `morale`: A change in morale.
-* *(optional)* `progress`: A change in progress.
+* *(optional)* `culture`: A modifier for Cultural Distance.
+* *(optional)* `distance`: A modifier for Geographic Distance.
 * `actions`: An array of resolutions each with a message and effects.
 * `message`: The text describing the resolution.
 * `effects`: An object of repercussions for this action. Can currently be one of {money, stall,morale,progress}. Can be empty {}.
@@ -323,7 +329,7 @@ Specifies projects that can be chosen including modules, costs, etc.
 
 * `name`: Project name displayed on the project selection dialog
 * `budget`: The amount of money available in the project
-* `eventRate`: The percentage rate of fire for events. *Overrides default*
+* *(optional)* `eventRate`: The percentage rate of fire for events. *Overrides default*
 * `duration`: Time until project is due
 * `revenue`: Named pair of
 	* `months`: The number of months of revenue added to the end game score of a project completed on time
@@ -347,7 +353,8 @@ This project uses [travis](http://travis-ci.org) and [testling](http://ci.testli
 To run manual tests run `npm test` from the project root directory.
 
 To run maunal front-end specific tests, an external tool [`testling`](http://ci.testling.com) can be installed using `npm install -g testling` (may require sudo). The testling tests can be run as follows:
-* `testling -u` in the project's root directory. 
+
+* `testling -u` in the project's root directory.
 * It will give out a localhost URL.
 	* copy the url and load it in a webpage using any browser
 * Back in the console the tests will be run.

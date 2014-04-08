@@ -20,10 +20,11 @@ function doEvent(actionNumber,gamedata){
 
   var ev = getEvents();
   var cev = ev[ev.length-1];
-  var effects = utils.objectadd(cev.effects, cev.actions[actionNumber].effects);
+  var effects = utils.objectadd(cev.effects||{}, cev.actions[actionNumber].effects||{});
   var city = cev.city;
   var module = cev.module;
   var target = cev.target;
+  effects = effects || {};
 
   if(target === "city"){
     if(effects.stall){
@@ -32,7 +33,6 @@ function doEvent(actionNumber,gamedata){
     if(effects.morale){
       city.modifyMorale(effects.morale);
     }
-
   }else if(target === "module"){
     if(effects.stall){
       module.stall(effects.stall);
@@ -40,7 +40,6 @@ function doEvent(actionNumber,gamedata){
     if(effects.progress){
       module.setPercentComplete(effects.progress);
     }
-
   }else if(target === "cityModule"){
     if(effects.stall){
       module.stall(effects.stall);
@@ -66,8 +65,6 @@ function doEvent(actionNumber,gamedata){
       Object.keys(gamedata.citiesState).forEach(function(cname){
         var c = gamedata.citiesState[cname];
         c.geoDistance = c.geoDistance * (100+effects.distance)/100;
-        console.log("c.geoDistance");
-        console.log(c.geoDistance);
       });
     }
     if(effects.culture){
@@ -75,10 +72,10 @@ function doEvent(actionNumber,gamedata){
       Object.keys(gamedata.citiesState).forEach(function(cname){
         var c = gamedata.citiesState[cname];
         c.culturalDistance = c.culturalDistance * (100+ effects.culture)/100;
-        console.log("c.culturalDistance");
-        console.log(c.culturalDistance);
       });
     }
+  }else if (target === "inquiry"){
+    
   }
 
   if(effects.money){

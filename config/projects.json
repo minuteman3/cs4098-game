@@ -19,7 +19,7 @@
                     "cost": 600
                 }
             ],
-            "dialog": "This Project has two modules, each with a different cost, make sure to allocate resources evenly for this project to succeed. Be careful about over-spending on this short project."
+            "dialog": "This Project has two modules, make sure to allocate resources evenly for this project to succeed. Be careful about over-spending on this short project."
         },
         {
             "name": "RPG Game",
