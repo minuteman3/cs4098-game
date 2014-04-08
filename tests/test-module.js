@@ -71,7 +71,7 @@ test('Module:', function(t) {
 
     t.equals(mod.getCost(citiesState),6500,'getCost');
 
-    t.equals(mod.getStage(),1,"getStage");
+    t.equals(mod.getStage(),2,"getStage");
 
     t.equals(mod.isStalled(),false,"isStalled");
 
