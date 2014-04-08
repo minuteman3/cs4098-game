@@ -1,0 +1,23 @@
+{
+    "message": "Select a method of Inquiry for $site. Some methods are more effective than others!",
+    "target": "inquiry",
+    "effects":{},
+    "actions": [
+        {
+            "message": "Phone The Site Manager",
+            "effects": {}
+        },
+        {
+            "message": "Face-to-Face Meeting",
+            "effects": {
+                "morale": -5,
+                "distance": -10,
+                "culture": -10,
+                "money": -10000
+            }
+        },
+        {
+            "message": "Do nothing"
+        }
+    ]
+}
