@@ -76,26 +76,26 @@
                 "low"
             ],
             "progress": [
-                "testing"
+                "design"
             ]
         },
-        "message": "$module fails integration tests, what do you do?",
+        "message": "$module failed to pass design criteria, what do you do?",
         "effects": {
-            "progress": 60
+            "progress": 0
         },
         "target": "module",
         "actions": [
             {
-                "message": "Forced overtime",
+                "message": "Encourage overtime",
                 "effects": {
                     "money": -10000,
-                    "morale": -20
+                    "morale": -5
                 }
             },
             {
                 "message": "Nothing",
                 "effects": {
-                    "stall": 5
+                    "stall": 1
                 }
             }
         ]
@@ -107,17 +107,77 @@
                 "med"
             ],
             "progress": [
-                "finishing"
+                "implementation"
             ]
         },
-        "message": "$module fails acceptance tests, what do you do?",
+        "message": "Implementation of $module has failed, what do you do?",
         "effects": {
-            "progress": 75
+            "progress": 15
         },
         "target": "module",
         "actions": [
             {
-                "message": "Forced overtime",
+                "message": "Encourage overtime",
+                "effects": {
+                    "money": -10000,
+                    "morale": -10
+                }
+            },
+            {
+                "message": "Nothing",
+                "effects": {
+                    "stall": 2
+                }
+            }
+        ]
+    },
+    {
+        "conditions": {
+            "morale": [
+                "low"
+            ],
+            "progress": [
+                "unittest"
+            ]
+        },
+        "message": "It was discovered that $module has no Unit Tests, the module needs to be tested!",
+        "effects": {
+            "progress": 25
+        },
+        "target": "module",
+        "actions": [
+            {
+                "message": "Encourage overtime",
+                "effects": {
+                    "money": -10000,
+                    "morale": -15
+                }
+            },
+            {
+                "message": "Nothing",
+                "effects": {
+                    "stall": 1
+                }
+            }
+        ]
+    },
+    {
+        "conditions": {
+            "morale": [
+                "low"
+            ],
+            "progress": [
+                "integration"
+            ]
+        },
+        "message": "$module fails to integrate, what do you do?",
+        "effects": {
+            "progress": 35
+        },
+        "target": "module",
+        "actions": [
+            {
+                "message": "Encourage overtime",
                 "effects": {
                     "money": -10000,
                     "morale": -20
@@ -126,7 +186,98 @@
             {
                 "message": "Nothing",
                 "effects": {
-                    "stall": 5
+                    "stall": 1
+                }
+            }
+        ]
+    },
+    {
+        "conditions": {
+            "morale": [
+                "low"
+            ],
+            "progress": [
+                "systemtest"
+            ]
+        },
+        "message": "System tests on $module did not pass inspection, what do you do?",
+        "effects": {
+            "progress": 50
+        },
+        "target": "module",
+        "actions": [
+            {
+                "message": "Encourage overtime",
+                "effects": {
+                    "money": -10000,
+                    "morale": -15
+                }
+            },
+            {
+                "message": "Nothing",
+                "effects": {
+                    "stall": 1
+                }
+            }
+        ]
+    },
+    {
+        "conditions": {
+            "morale": [
+                "low"
+            ],
+            "progress": [
+                "deployment"
+            ]
+        },
+        "message": "$module fails to deploy correctly, what do you do?",
+        "effects": {
+            "progress": 65
+        },
+        "target": "module",
+        "actions": [
+            {
+                "message": "Encourage overtime",
+                "effects": {
+                    "money": -10000,
+                    "morale": -10
+                }
+            },
+            {
+                "message": "Nothing",
+                "effects": {
+                    "stall": 1
+                }
+            }
+        ]
+    },
+    {
+        "conditions": {
+            "morale": [
+                "low",
+                "med"
+            ],
+            "progress": [
+                "acceptance"
+            ]
+        },
+        "message": "$module fails acceptance tests, what do you do?",
+        "effects": {
+            "progress": 85
+        },
+        "target": "module",
+        "actions": [
+            {
+                "message": "Encourage overtime",
+                "effects": {
+                    "money": -10000,
+                    "morale": -5
+                }
+            },
+            {
+                "message": "Nothing",
+                "effects": {
+                    "stall": 1
                 }
             }
         ]
