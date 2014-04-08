@@ -12,7 +12,7 @@
             }
         },
         {
-            "message": "Face-to-Face meetings",
+            "message": "Implement Face-to-Face Meetings",
             "effects": {
                 "morale": 5,
                 "distance": -20,
@@ -21,7 +21,7 @@
             }
         },
         {
-            "message": "Company Exchange program",
+            "message": "Draft Company Employee Exchange Program",
             "effects": {
                 "morale": 5,
                 "distance": -10,
@@ -47,15 +47,11 @@
             "message": "Reduce Interaction Between Teams",
             "effects": {
                 "morale": -10,
-                "culture": -5,
-                "money": -1000
+                "culture": -5
             }
         },
         {
-            "message": "Do nothing",
-            "effects": {
-                "money": 0
-            }
+            "message": "Do nothing"
         }
     ]
 }

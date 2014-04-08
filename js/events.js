@@ -48,6 +48,8 @@ function doEvent(actionNumber,gamedata){
       city.stall(effects.stall);
     }
   }else if (target === "intervention"){
+    console.log("gamedata");
+    console.log(gamedata.citiesState);
     // "morale": 1,
     // "distance": -20,
     // "culture": -20,

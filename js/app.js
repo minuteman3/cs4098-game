@@ -20,14 +20,13 @@ var selectedProject;
 
 var isWaterFall = false;
 
-
 var gameData = {
     homeCity:"",
     weeksTilDueDate:0,
     projectBudget:0,
     totalPayRoll:0,
+    citiesState: {}
 };
-
 
 var modules = [];
 var moduleProgressOverTime = [[]];
@@ -40,6 +39,39 @@ var GameStates = {
       PROGRESS:3,
 };
 var curGameState = GameStates.START;
+
+interventions.actions.forEach(function(a){
+  var count = 0;
+  var max = 2;
+  if (a.effects){
+    var m = a.message + " (";
+    if(a.effects.stall && count < max){
+      count++;
+      m = m + " Stalls Production for "+ a.effects.stall+" weeks,";
+    }
+    if(a.effects.morale && count < max){
+      count++;
+      var mor = a.effects.morale > 0 ? " Increases":" Decreases";
+      m = m + mor + " Morale,";
+    }
+    if(a.effects.distance && count < max){
+      count++;
+      var dist = a.effects.morale > 0 ? " Increases":" Decreases";
+      m = m + dist + " Geographic Distance,";
+    }
+    if(a.effects.culture && count < max){
+      count++;
+      var cult = a.effects.morale > 0 ? " Increases":" Decreases";
+      m = m + cult + " Cultural Distance,";
+    }
+    if(a.effects.money){
+      m = m + " $"+ utils.commafy(a.effects.money*-1) +",";
+    }
+    m = m.slice(0,m.length-1);//remove last comma
+    m = m + " )";
+    a.message = m;
+  }
+});
 
 function onlabelShow(e,label,code){
   label.css('visibility','visible');
@@ -73,7 +105,6 @@ function onlabelShow(e,label,code){
       'as your Home City '
     );
   }
-
 }
 
 function selectCity(e,  code,  isSelected,  selectedMarkers) {
@@ -210,7 +241,6 @@ function startGame(a,type){
   }
   moduleProgressOverTime = selectedProject.modules.map(function(){return [0];});
   moduleProgressOverTime.push([0]);
-
 }
 
 function showEvent(ev){
@@ -235,10 +265,10 @@ function startLoop(){
       );
   });
  
-  var citiesState = {};
+  gameData.citiesState = {};
   cities.forEach(function(c){
       var cityMods = modules.filter(function(module){return module.hasCity(c.name);});
-      citiesState[c.name] = new City(c,gameData.homeCity,cityMods);
+      gameData.citiesState[c.name] = new City(c,gameData.homeCity,cityMods);
   });
 
   var eventRate = selectedProject.eventRate || client.eventRate;
@@ -246,7 +276,7 @@ function startLoop(){
 
   ProcessSim.start(
     modules,
-    citiesState,
+    gameData.citiesState,
     simulationUpdate,
     simulationComplete,
     showEvent,
@@ -354,8 +384,6 @@ function pause(){
   $('#btn-options').show();
 }
 
-
-
 $( document ).ready( function() {
   var $body = $('body'); //Cache this for performance
   
@@ -407,7 +435,6 @@ $( document ).ready( function() {
 
   ProcessSim.stop();
 });
-
 
 function doEvent(actionNum){
   modal.hidemodal();
