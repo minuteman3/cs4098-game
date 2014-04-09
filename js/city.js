@@ -109,7 +109,7 @@ City.prototype.getCulturalDist = function getCulturalDist(){
 City.prototype.inquire = function(type) {
     if(type === 0)
     {
-        var isonSchedule = (this.highContext || (this.stalled < 1 && this.morale > 10) );
+        var isonSchedule = (this.highContext || (this.stalled < 1 && this.morale > 50 && !this.cityMods.some(function(x){ return x.isStalled();})));
         return isonSchedule?"Is on Schedule":"Is falling behind";   
 
     }else if(type === 1){
@@ -117,7 +117,7 @@ City.prototype.inquire = function(type) {
         // misses out on half a day
         this.stalled += 0.1;
         this.cityMods.forEach(function(module){
-            html += module.name  + " is " + ((module.isStalled() && !this.highContext)?" fine":" behind") + "</br>"; 
+            html += module.name  + " is " + ((module.isStalled() && !this.highContext)?" behind":" fine") + "</br>"; 
         });
         return html;
     }else if(type === 2){
@@ -133,7 +133,7 @@ City.prototype.inquire = function(type) {
         // misses out on half week of work
         this.stalled += 0.5;
         this.cityMods.forEach(function(module){
-            html += module.name  + " is currently doing " + module.getStageName() + " and is " + ((module.isStalled() && (!this.highContext|| (Math.random()>0.5)))?" fine":" behind") + "</br>"; 
+            html += module.name  + " is currently doing " + module.getStageName() + " and is " + ((module.isStalled() && (!this.highContext|| (Math.random()>0.5)))?" behind":" fine") + "</br>"; 
         });
         return html;
     }else if(type === 4){
@@ -141,7 +141,7 @@ City.prototype.inquire = function(type) {
         // misses out on week worth of work
         this.stalled += 1;
         this.cityMods.forEach(function(module){
-            html += module.name  + " is currently doing " + module.getStageName() + " and is " + (module.isStalled()?" fine":" behind") + "</br>"; 
+            html += module.name  + " is currently doing " + module.getStageName() + " and is " + (module.isStalled()?" behind":" fine") + "</br>"; 
         });
         return html;
     }

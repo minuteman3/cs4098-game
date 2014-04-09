@@ -119,7 +119,7 @@ Module.prototype.hasCity = function hasCity (city) {
 };
 
 Module.prototype.isStalled = function isStalled(){
-    return this.stalled > 0;
+    return  (this.done() || this.stalled > 0);
 };
 
 Module.prototype.isBehindSchedule = function isBehindSchedule (currentWeek,cities) {

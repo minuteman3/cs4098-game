@@ -93,8 +93,6 @@ function setListProgress(modules,nonselectable,selectteams){
 
 
 function setModuleManHours(module,manHours){
-  console.log(module);
-  console.log(manHours);
 
   $(".modulecost[data-allocated-city='"+module+"']").html("Allocated " + manHours + " man hrs per week ");
 }
