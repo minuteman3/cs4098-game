@@ -4,7 +4,7 @@ var test = require('tape');
 var $ = require('jquery');
 
 test('sidebar:', function(t){
-    t.plan(22);
+    t.plan(23);
 
     $("<div>", {
         id: "sidebar"
@@ -15,7 +15,7 @@ test('sidebar:', function(t){
       '<p id="homecity" >Choose a city</p>' +
       '<ul class="nav">' +
         '<li class="active">Interface</li>' +
-        '<li>Game Engine </li>' +
+        '<li>Game Engine</li>' +
         '<li>Physics Engine</li>' +
       '</ul>' +
       
@@ -90,6 +90,7 @@ test('sidebar:', function(t){
     sidebar.showProgressState(true);
     sidebar.showSelectTeams(false);
     sidebar.setHomeCity("dublin");
+    sidebar.setModuleManHours("there",8000);
 
     setTimeout(function() {
         t.equals(sidebar.getActiveListItem(),-1,'getActiveListItem works');
@@ -109,11 +110,15 @@ test('sidebar:', function(t){
         t.equals($('#weeks').html(),"11 weeks",'setWeeks');
         t.equals($('.progess-state').css('display'),"block",'showProgressState');
         t.equals($('.select-teams').css('display'),"none",'showSelectTeams');
+        t.equals($(".modulecost[data-allocated-city='there']").html(),
+            "Allocated 8000 man hrs per week",'setModuleManHours');
         
         sidebar.setHomeCity("dublin");
         t.equals($("#homecity").html(),"dublin","setHomeCity");
         $("#sidebar").remove();
     },0);
+
+  
 });
 
 

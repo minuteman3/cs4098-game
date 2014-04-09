@@ -88,8 +88,7 @@ function setListProgress(modules,nonselectable){
 }
 
 function setModuleManHours(module,manHours){
-
-  $(".modulecost[data-allocated-city='"+module+"']").html("Allocated " + manHours + " man hrs per week ");
+  $(".modulecost[data-allocated-city='"+module+"']").html("Allocated " + manHours + " man hrs per week");
 }
 
 function setListListner(func){

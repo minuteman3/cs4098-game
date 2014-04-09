@@ -49,5 +49,5 @@ test('app:', function (t) {
 	}, "endGame");
 
 
-    $('#sidebar').hide();
+    $('#sidebar').remove();
 });
