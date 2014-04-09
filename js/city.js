@@ -85,7 +85,7 @@ City.prototype.status = function(){
 };
 
 City.prototype.stall = function stall(duration){
-    this.stalled = duration;
+    this.stalled += duration;
 };
 
 City.prototype.modifyMorale = function modifyMorale(mod){
@@ -109,11 +109,45 @@ City.prototype.getCulturalDist = function getCulturalDist(){
 City.prototype.inquire = function(type) {
     if(type === 0)
     {
-        var isonSchedule = (this.highContext || (this.stalled === 0 || this.morale > 10) );
+        var isonSchedule = (this.highContext || (this.stalled < 1 && this.morale > 10) );
+        return isonSchedule?"Is on Schedule":"Is falling behind";   
 
-        return isonSchedule?"Yes Everything is fine":"We are not completely on Schedule";   
-
+    }else if(type === 1){
+        var html = "";
+        // misses out on half a day
+        this.stalled += 0.1;
+        this.cityMods.forEach(function(module){
+            html += module.name  + " is " + ((module.isStalled() && !this.highContext)?" fine":" behind") + "</br>"; 
+        });
+        return html;
+    }else if(type === 2){
+        var html = "";
+        // misses out on a day
+        this.stalled += 0.2;
+        this.cityMods.forEach(function(module){
+            html += module.name  + " is currently doing " + module.getStageName() + "</br>"; 
+        });
+        return html;
+    }else if(type === 3){
+        var html = "";
+        // misses out on half week of work
+        this.stalled += 0.5;
+        this.cityMods.forEach(function(module){
+            html += module.name  + " is currently doing " + module.getStageName() + " and is " + ((module.isStalled() && (!this.highContext|| (Math.random()>0.5)))?" fine":" behind") + "</br>"; 
+        });
+        return html;
+    }else if(type === 4){
+        var html = "";
+        // misses out on week worth of work
+        this.stalled += 1;
+        this.cityMods.forEach(function(module){
+            html += module.name  + " is currently doing " + module.getStageName() + " and is " + (module.isStalled()?" fine":" behind") + "</br>"; 
+        });
+        return html;
     }
+
+
+
 };
 
 module.exports = City;

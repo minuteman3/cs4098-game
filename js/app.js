@@ -141,7 +141,11 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
         ProcessSim.pause();
         
         modal.showInquire(hoverCity.name,[
-          "Send \"are you on schedule?\" email"
+          "Send \"are you on schedule?\" email",
+          "Send \"please report status of modules\" email",
+          "Send \"please list completed tasks\" email",
+          "Hold video conference",
+          "Make site visit",
           ]);
     }
     // insert inquiry interface here
