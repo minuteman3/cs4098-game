@@ -346,6 +346,11 @@ function initialiseGame(){
   if(audio){
     $('#music').get(0).play();
   }
+  $(document).click(function(){
+    if(audio){
+      $('#blip').get(0).play();
+    }
+  });
 }
 
 function pause(){
@@ -379,11 +384,11 @@ $( document ).ready( function() {
     }
     else if(evt.keyCode == 38){//up
       if(curGameState == GameStates.SELECT_TEAMS){
-          var index = sidebar.getActiveListItem() - 1; 
-          if(index >= 0){
-            var moduleName = selectedProject.modules[index].name;
-            teamPicker.selectModule(moduleName,index);
-          }
+        var index = sidebar.getActiveListItem() - 1; 
+        if(index >= 0){
+          var moduleName = selectedProject.modules[index].name;
+          teamPicker.selectModule(moduleName,index);
+        }
       }
     }
     else if(evt.keyCode == 40){//down
@@ -479,7 +484,7 @@ module.exports = {
   evt: doEvent,
   //Maps
   resizemap: maps.resizemap,
-  unpause:ProcessSim.unpause,
+  unpause: ProcessSim.unpause,
   //Credits
   creds:creds,
   //Audio
