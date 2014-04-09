@@ -109,7 +109,7 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
         obj.cost = (100*a.cost/selectedProject.cost);
         return obj;
       }),
-    true);
+    true,true);
     sidebar.setHomeCity(cities[code].name);
     gameData.homeCity = cities[code];
     sidebar.setListItemActive(0);

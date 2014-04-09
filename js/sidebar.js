@@ -54,11 +54,12 @@ function hide(){
 /*
 *   List functions
 */ 
-function setList(elements,nonselectable){
+function setList(elements,nonselectable,selectteams){
   nonselectable = nonselectable || false;
+  selectteams = selectteams || false;
   $(listTag).empty();
   var e = "Effort ";
-  if (nonselectable){
+  if (nonselectable && !selectteams){
     e = "Progress ";
   }
 
