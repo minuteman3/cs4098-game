@@ -239,7 +239,9 @@ function startGame(a,type){
 
 function showEvent(ev){
   if(localStorage.getItem("audioEnabled")){
+    $('#event').get(0).load();
     $('#event').get(0).play();
+    $('#eventmusic').get(0).load();
     $('#eventmusic').get(0).play();
     $('#music').get(0).pause();
   }
@@ -347,6 +349,7 @@ function endGame(){
     selectedProject, 
     moduleProgressOverTime);
   if(localStorage.getItem("audioEnabled")){
+    $('#music-end').get(0).load();
     $('#music-end').get(0).play();
   }
 }
@@ -374,6 +377,7 @@ function initialiseGame(){
 
   $('#startScreen').show();
   if(localStorage.getItem("audioEnabled")){
+    $('#music').get(0).load();
     $('#music').get(0).play();
   }
 }
@@ -494,6 +498,7 @@ function toggleAudio(){
     $('#audio').removeClass("fa-volume-up").addClass("fa-volume-off");
     localStorage.removeItem("audioEnabled");
   } else {
+    $('#music').get(0).load();
     $('#music').get(0).play();
     $('#audio').removeClass("fa-volume-off").addClass("fa-volume-up");
     localStorage.setItem("audioEnabled",1);
