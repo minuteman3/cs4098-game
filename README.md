@@ -76,13 +76,13 @@ If you experience installation problems, a goof plan is to remove the `node_modu
 	* Generates events based on fuzzy logic. Each variable is divided into a list of options. For example the money variable is divided into small,medium,large so when money is $10,000 it will be 60% small and 30% medium and 0% large. We then use rules to determine which event should fire. 
 	* Each rule specifies which option(s) it chooses for each variable so eg when money=medium then fire rule 2. We then generate a weight for this rule based on which option is applied the least. We use this value to make a weighted list of all possible rules we can fire. We then execute one of the rules based on a random number. 
 * \#16 Intervention Interface
-	* Click on a City to get intervention possibilities for that city. May affect morale, progress, cash, Cultural Distance, Geographic Distance.
+	* Click on the interventions button to get all the intervention possibilities. May affect morale, progress, cash, Cultural Distance, Geographic Distance.
 * \#33 One time interventions
-	* Click on a City to get intervention possibilities for that city, modules in that city or specific modules worldwide. These interventions are configurable in `interventions.json`. May affect morale, progress, cash, Cultural Distance, Geographic Distance.
+	* Click on the interventions button to get all the possible interventions,. These interventions are configurable in `interventions.json`. May affect morale, progress, cash, Cultural Distance, Geographic Distance.
 * \#32 Motivational Interventions
-	* Click on a City to get intervention possibilities for that city. These interventions are configurable in `interventions.json`. May affect morale, progress, cash, Cultural Distance, Geographic Distance.
+	* Click on the interventions button to get all the intervention possibilities. These interventions are configurable in `interventions.json`. May affect morale, progress, cash, Cultural Distance, Geographic Distance.
 * \#41 Configurable Membership functions
-	* Fuzzy logic membership functions configurable through `conditions.json`.
+	* Fuzzy logic membership functions configurable through `client-config.json`.
 * \#9: Waterfall Process simulator
 	* On project selection, choose between Waterfall, or Agile as your development philosophy. In Waterfall mode, all modules must reach the end of one stage before progressing to the next. 
 	
@@ -169,40 +169,6 @@ Specifies constants that control client behaviour during the simulation.
 * 'option' * is just a name to use to identify which values you want to use in events.json
 * 'values' * is the triangular membership value you want to use for that option. So you first specifiy what the cut off point for the lowest possible value to be considered that option, the second value specifies what number would be considered '100%' for that option and then thrid option is the highest possible value you could have before you would not consider it to be that option. It's easier to reason about if you consider an options like low, medium and high.
 
-
-
-### conditions.json
-
-Specifies constants that control client behaviour during the simulation.
-
-```
-{
-	"morale":[
-		{
-				"option":"low",
-				"values":[100,5000,10000]
-		},
-		{
-				"option":"high",
-				"values":[100,5000,10000]
-		}
-
-	],
-	"pay":[
-		{
-				"option":"low",
-				"values":[100,5000,10000]
-		},
-		{
-				"option":"high",
-				"values":[100,5000,10000]
-		}
-	]
- }
-```
-
-* `morale`: the membership functions for morale.
-* `pay`: the membership functions for pay.
 
 ### events.json
 
