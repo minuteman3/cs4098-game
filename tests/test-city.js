@@ -4,7 +4,7 @@ var City = require("../js/city.js");
 
 
 test('city: class works', function (t) {
-    t.plan(17);
+    t.plan(18);
 
     var city = 
     {
@@ -78,4 +78,5 @@ test('city: class works', function (t) {
     t.equals(c.idealProgress(0),0,'city idealProgress');
     t.equals(c.idealProgress(1),200,'city idealProgress');
 
+    t.equals(c.inquire(0),"Is falling behind","inquire");
 });

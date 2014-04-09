@@ -3,7 +3,7 @@ var Module = require('../js/Module.js');
 var City = require("../js/city.js");
 
 test('Module:', function(t) {
-    t.plan(19);
+    t.plan(20);
 
     var mod = null;
 
@@ -72,6 +72,7 @@ test('Module:', function(t) {
     t.equals(mod.getCost(citiesState),6500,'getCost');
 
     t.equals(mod.getStage(),2,"getStage");
+    t.equals(mod.getStageName(),"unittest","getStageName");
 
     t.equals(mod.isStalled(),false,"isStalled");
 

@@ -44,7 +44,7 @@ test('maps: fixOverLap works', function(t){
 });
 
 test('maps:', function(t){
-    t.plan(6);
+    t.plan(7);
     //setup
     $("<div>", {
         id: "map"
@@ -68,6 +68,10 @@ test('maps:', function(t){
     t.doesNotThrow(function(){
       maps.runState([1,2,0,0,1]);
     },"runState()");
+
+    t.doesNotThrow(function(){
+      maps.makeHomeCity(0);
+    },"makeHomeCity");
 
     //clearMapMarkers
     map.setSelectedMarkers([1,2]);
