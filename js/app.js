@@ -346,7 +346,7 @@ function initialiseGame(){
   if(audio){
     $('#music').get(0).play();
   }
-  $(document).click(function(){
+  $('*').click(function(){
     if(audio){
       $('#blip').get(0).play();
     }
