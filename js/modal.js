@@ -218,8 +218,9 @@ function pause () {
     var pausemenu = "<h1>Pause</h1>";
     pausemenu += makeChoices([
                               {"name":"Continue","funct":"pause()"},
-                              {"name":"Restart","funct":"initialiseGame()"},
-                              {"name":"Quit","funct":"endGame()"}
+                              {"name":"Toggle Audio","funct":"toggleAudio()"},
+                              {"name":"End Game","funct":"endGame()"},
+                              {"name":"Quit to Menu","funct":"initialiseGame()"}
                               ],
                               client.information);
     showmodal(pausemenu,true);

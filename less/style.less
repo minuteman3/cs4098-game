@@ -485,11 +485,12 @@ button:active {
             bottom: 1em;
         }
         p:hover {
+            font-weight: 200;
             color: @magenta;
         }
     }
     .project{
-        font-size: 0.3em;
+        font-size: 0.25em;
         text-align: left;
         margin-left: 20%;
     }
@@ -572,6 +573,18 @@ button:active {
     #startScreenCenterV{
         display:table-cell;
         vertical-align: middle;
+    }
+ }
+ #audiocontainer{
+    margin-bottom: 0.2em;
+    margin-right: 0.2em;
+    font-weight: 100;
+    font-size: 0.5em;
+    position: fixed;
+    bottom: 0;
+    right:0;
+    #audio{
+        .transform(rotate(180deg));
     }
  }
 /***

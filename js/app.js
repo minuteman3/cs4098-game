@@ -19,6 +19,7 @@ var projects = proj.projects;
 var selectedProject;
 
 var isWaterFall = false;
+var audio = true;
 
 var gameData = {
     homeCity:"",
@@ -39,39 +40,6 @@ var GameStates = {
       PROGRESS:3,
 };
 var curGameState = GameStates.START;
-
-interventions.actions.forEach(function(a){
-  var count = 0;
-  var max = 2;
-  if (a.effects){
-    var m = a.message + " (";
-    if(a.effects.stall && count < max){
-      count++;
-      m = m + " Stalls Production for "+ a.effects.stall+" Weeks,";
-    }
-    if(a.effects.morale && count < max){
-      count++;
-      var mor = a.effects.morale > 0 ? " Increases":" Decreases";
-      m = m + mor + " Morale,";
-    }
-    if(a.effects.distance && count < max){
-      count++;
-      var dist = a.effects.distance > 0 ? " Increases":" Decreases";
-      m = m + dist + " Geographic Distance,";
-    }
-    if(a.effects.culture && count < max){
-      count++;
-      var cult = a.effects.culture > 0 ? " Increases":" Decreases";
-      m = m + cult + " Cultural Distance,";
-    }
-    if(a.effects.money){
-      m = m + " $"+ utils.commafy(a.effects.money*-1) +",";
-    }
-    m = m.slice(0,m.length-1);//remove last comma
-    m = m + " )";
-    a.message = m;
-  }
-});
 
 function onlabelShow(e,label,code){
   label.css('visibility','visible');
@@ -348,6 +316,9 @@ function endGame(){
     gameData.projectBudget, 
     selectedProject, 
     moduleProgressOverTime);
+  if(audio){
+    $('#music-end').get(0).play();
+  }
 }
 
 function initialiseGame(){
@@ -372,6 +343,14 @@ function initialiseGame(){
   gameData.totalPayRoll  = 0;
 
   $('#startScreen').show();
+  if(audio){
+    $('#music').get(0).play();
+  }
+  $('*').click(function(){
+    if(audio){
+      $('#blip').get(0).play();
+    }
+  });
 }
 
 function pause(){
@@ -395,6 +374,7 @@ $( document ).ready( function() {
   };
   $(window).resize(function(){
     setBodyScale();
+    pt.resizemap(95);
   });
   document.onkeydown = function (evt) {
     if (evt.keyCode === 27) {
@@ -404,11 +384,11 @@ $( document ).ready( function() {
     }
     else if(evt.keyCode == 38){//up
       if(curGameState == GameStates.SELECT_TEAMS){
-          var index = sidebar.getActiveListItem() - 1; 
-          if(index >= 0){
-            var moduleName = selectedProject.modules[index].name;
-            teamPicker.selectModule(moduleName,index);
-          }
+        var index = sidebar.getActiveListItem() - 1; 
+        if(index >= 0){
+          var moduleName = selectedProject.modules[index].name;
+          teamPicker.selectModule(moduleName,index);
+        }
       }
     }
     else if(evt.keyCode == 40){//down
@@ -421,10 +401,7 @@ $( document ).ready( function() {
       }
     }
   };
-  window.addEventListener('resize', function(event){
-    pt.resizemap(95);
-  });
-  
+
   //Fire it when the page first loads:
   setBodyScale();
 
@@ -432,12 +409,64 @@ $( document ).ready( function() {
   $('#map').bind('markerLabelShow.jvectormap', onlabelShow);
 
   ProcessSim.stop();
+  interventions.actions.forEach(function(a){
+    var count = 0;
+    var max = 2;
+    if (a.effects){
+      var m = a.message + " (";
+      if(a.effects.stall && count < max){
+        count++;
+        m = m + " Stalls Production for "+ a.effects.stall+" Weeks,";
+      }
+      if(a.effects.morale && count < max){
+        count++;
+        var mor = a.effects.morale > 0 ? " Increases":" Decreases";
+        m = m + mor + " Morale,";
+      }
+      if(a.effects.distance && count < max){
+        count++;
+        var dist = a.effects.distance > 0 ? " Increases":" Decreases";
+        m = m + dist + " Geographic Distance,";
+      }
+      if(a.effects.culture && count < max){
+        count++;
+        var cult = a.effects.culture > 0 ? " Increases":" Decreases";
+        m = m + cult + " Cultural Distance,";
+      }
+      if(a.effects.money){
+        m = m + " $"+ utils.commafy(a.effects.money*-1) +",";
+      }
+      m = m.slice(0,m.length-1);//remove last comma
+      m = m + " )";
+      a.message = m;
+    }
+  });
 });
 
 function doEvent(actionNum){
   if(events.doEvent(actionNum,gameData)){
     modal.hidemodal();
     ProcessSim.unpause();
+  }
+}
+
+function creds(){
+  var c = "<p>"+
+  "Music by Matthew Pablo<br>www.matthewpablo.com"+
+  "<br>Applause by Blender Foundation<br>apricot.blender.org"+
+  "</p>";
+  modal.dialog(c);
+}
+
+function toggleAudio(){
+  if(audio){
+    $('#music').get(0).pause();
+    $('#audio').removeClass("fa-volume-up").addClass("fa-volume-off");
+    audio = false;
+  } else {
+    $('#music').get(0).play();
+    $('#audio').removeClass("fa-volume-off").addClass("fa-volume-up");
+    audio = true;
   }
 }
 
@@ -455,7 +484,11 @@ module.exports = {
   evt: doEvent,
   //Maps
   resizemap: maps.resizemap,
-  unpause:ProcessSim.unpause,
+  unpause: ProcessSim.unpause,
+  //Credits
+  creds:creds,
+  //Audio
+  toggleAudio: toggleAudio,
   //Charts
   generateCharts: modal.generateCharts,
   addChartContainer: modal.addChartContainer

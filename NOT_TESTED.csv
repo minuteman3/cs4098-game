@@ -15,6 +15,8 @@ js/app.js,startLoop,this is an internal function which isn't exported but is tes
 js/app.js,simulationUpdate,this is tested as part of the Process Simulator
 js/app.js,simulationComplete,this is tested as part of the Process Simulator
 js/app.js, doEvent, this is tested as part of modal
+js/app.js, creds, this is tested as part of modal
+js/app.js, toggleAudio, audio is either supported or not depending on browser
 js/EventGenerator/EventGenerator.js,loadFuzzyEngine,this is an internal function which isn't exported and therefore isn't tested
 js/EventGenerator/EventGenerator.js,getMemValues,this is an internal function which isn't exported and therefore isn't tested
 js/EventGenerator/EventGenerator.js,getConditions,this is an internal function which isn't exported and therefore isn't tested
