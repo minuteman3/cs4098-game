@@ -215,6 +215,7 @@ function startGame(a,type){
 function showEvent(ev){
   if(localStorage.getItem("audioEnabled")){
     $('#event').get(0).play();
+    $('#eventmusic').get(0).play();
     $('#music').get(0).pause();
   }
   ProcessSim.pause();
@@ -445,6 +446,7 @@ $( document ).ready( function() {
 function doEvent(actionNum){
   if(localStorage.getItem("audioEnabled")){
     $('#music').get(0).play();
+    $('#eventmusic').get(0).pause();
   }
   if(events.doEvent(actionNum,gameData)){
     unpause();
@@ -454,7 +456,8 @@ function doEvent(actionNum){
 function creds(){
   var c = "<p>"+
   "Music by Matthew Pablo<br>www.matthewpablo.com"+
-  "<br>Applause by Blender Foundation<br>apricot.blender.org"+
+  "<br><br>Applause by Blender Foundation<br>apricot.blender.org"+
+  "<br><br>Event Music by VWolfDog<br>opengameart.org/users/vwolfdog"+
   "</p>";
   modal.dialog(c);
 }
@@ -484,6 +487,7 @@ function initAudio(){
 function unpause(){
   if(localStorage.getItem("audioEnabled")){
     $('#music').get(0).play();
+    $('#eventmusic').get(0).pause();
   }
   ProcessSim.unpause();
   modal.hidemodal();
