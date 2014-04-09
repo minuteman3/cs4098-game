@@ -15,7 +15,7 @@ test('app:', function (t) {
     }).appendTo('body');
 
     $('<audio>', {
-        id: 'blip'
+        id: 'event'
     }).appendTo('body');
 
 	t.doesNotThrow(function(){

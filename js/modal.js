@@ -71,7 +71,7 @@ function dialog(a){
   html += a;
 
   html += '</p><div class="modal-options">';
-  html += '<button class="btn-action" onclick="pt.hidemodal();pt.unpause()"> Continue </button>';
+  html += '<button class="btn-action" onclick="pt.unpause()"> Continue </button>';
   html += '</div>';
 
   showmodal(html, true);
@@ -88,7 +88,7 @@ function showEvent(ev,currentWeek){
   });
 
   if(ev.actions.length === 0){
-      html += '<button class="btn-action" onclick="pt.hidemodal();pt.unpause()"> Continue </button>';
+      html += '<button class="btn-action" onclick="pt.unpause()"> Continue </button>';
   }
   html += '</div>';
 

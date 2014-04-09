@@ -94,7 +94,7 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
         'Morale: '+          hoverCity.morale       +'%<br/>'+
         'Productivity: '+    hoverCity.productivity +'%<br/>'+
         'Cost per week: $'+ hoverCity.costPerWeek +'<br/>';
-
+        ProcessSim.pause();
         modal.dialog(label);
     }
     // insert inquiry interface here
@@ -214,6 +214,10 @@ function startGame(a,type){
 }
 
 function showEvent(ev){
+  if(audio){
+    $('#event').get(0).play();
+    $('#music').get(0).pause();
+  }
   ProcessSim.pause();
   events.trackEvent(ev);
   modal.showEvent(ev,currentWeek);
@@ -346,11 +350,6 @@ function initialiseGame(){
   if(audio){
     $('#music').get(0).play();
   }
-  $('*').click(function(){
-    if(audio){
-      $('#blip').get(0).play();
-    }
-  });
 }
 
 function pause(){
@@ -444,9 +443,11 @@ $( document ).ready( function() {
 });
 
 function doEvent(actionNum){
+  if(music){
+    $('#music').get(0).play();
+  }
   if(events.doEvent(actionNum,gameData)){
-    modal.hidemodal();
-    ProcessSim.unpause();
+    unpause();
   }
 }
 
@@ -469,6 +470,13 @@ function toggleAudio(){
     audio = true;
   }
 }
+function unpause(){
+  if(audio){
+    $('#music').get(0).play();
+  }
+  ProcessSim.unpause();
+  modal.hidemodal();
+}
 
 module.exports = {
   initialiseGame: initialiseGame,            // first thing that happens. shows start screen
@@ -479,12 +487,11 @@ module.exports = {
   startSimulation: startSimulation,
   projectdescription: projectdescription,
   // Modal
-  hidemodal: modal.hidemodal,                // hides a modal window
   pause: pause,                              // toggles the pause menu
   evt: doEvent,
   //Maps
   resizemap: maps.resizemap,
-  unpause: ProcessSim.unpause,
+  unpause: unpause,
   //Credits
   creds:creds,
   //Audio
