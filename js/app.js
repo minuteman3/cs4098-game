@@ -115,7 +115,7 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
           "Hold video conference",
           "Make site visit",
           ]);
-
+ 
     }
     // insert inquiry interface here
 
@@ -134,6 +134,7 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
     true,true);
     sidebar.setHomeCity(cities[code].name);
     gameData.homeCity = cities[code];
+    maps.makeHomeCity(code);
     sidebar.setListItemActive(0);
     curGameState = GameStates.SELECT_TEAMS;
   }
