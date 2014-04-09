@@ -443,7 +443,7 @@ $( document ).ready( function() {
 });
 
 function doEvent(actionNum){
-  if(music){
+  if(audio){
     $('#music').get(0).play();
   }
   if(events.doEvent(actionNum,gameData)){

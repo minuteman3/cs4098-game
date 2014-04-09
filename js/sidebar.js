@@ -33,7 +33,7 @@ var downLocationFunction;
 function init(itemSelection,_upLocationFuction,_downLocationFunction){
   showProgressState(false);
   showSelectTeams(true);
-  setTitle("Select Teams");
+  setTitle("Add Developers");
   setPayroll(0);
   setBudgetedWeeks(0);
   setPayrollforModule(0);
