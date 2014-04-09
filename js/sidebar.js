@@ -54,24 +54,49 @@ function hide(){
 /*
 *   List functions
 */ 
-function setList(elements,nonselectable,selectteams){
+function setListAllocation(elements,nonselectable,selectteams){
   nonselectable = nonselectable || false;
   selectteams = selectteams || false;
   $(listTag).empty();
-  var e = "Effort ";
-  if (nonselectable && !selectteams){
-    e = "Progress ";
-  }
 
   for(var i =0;i< elements.length;i++)
   {
     var item = elements[i];
-    var html = item.name + "<br/><span class='modulecost'>"+e+item.cost.toFixed(0)+"%</span>";
+    var html = item.name + "<br/><span class='modulecost'>Estimated "+item.EstimatedCost.toFixed(0)+" man hrs</span><br/>";
+    html += "<span class='modulecost' data-allocated-city='"+item.name+"' >Allocated "+item.AlloatedCost+" man hrs</span>";
     $(listTag).append($("<li></li>").html(html).attr("date-name",item.name));
   }
   if (nonselectable){
     setListListner(itemSelectionFunc);
   }
+}
+
+function setListProgress(modules,nonselectable,selectteams){
+  nonselectable = nonselectable || false;
+  selectteams = selectteams || false;
+  $(listTag).empty();
+
+  for(var i =0;i< modules.length;i++)
+  {
+    var moduleCities = modules[i].developersPerCity;
+    var html = modules[i].name + "<br/>";
+  
+    Object.keys(moduleCities).forEach(function(city) {
+            html += "<span class='modulecost' >" + city+ "</span></br>";
+    });
+
+    $(listTag).append($("<li></li>").html(html));
+  }
+
+}
+
+
+
+function setModuleManHours(module,manHours){
+  console.log(module);
+  console.log(manHours);
+
+  $(".modulecost[data-allocated-city='"+module+"']").html("Allocated " + manHours + " man hrs per week ");
 }
 
 function setListListner(func){
@@ -166,7 +191,7 @@ function setLocations(teams){
     });
 
     location.append($("<div></div>").addClass("tickerBox").html(upIcon).append(downIcon));
-    location.append($("<div>").addClass("teamMultiplier").html("x" +teams[key]));
+    location.append($("<div>").addClass("teamMultiplier").html(teams[key] + " devs"));
 
     $(locationTag).append(location);
    }
@@ -187,7 +212,6 @@ function setHomeCity(city){
 }
 
 module.exports = {
-    setList: setList ,
     setBudgetedWeeks:setBudgetedWeeks,
     setPayroll:setPayroll,
     setLocations:setLocations,
@@ -208,4 +232,8 @@ module.exports = {
     setButtonText:setButtonText,
     init:init,
     setListListner:setListListner,
+    setModuleManHours:setModuleManHours,
+
+    setListAllocation:setListAllocation,
+    setListProgress:setListProgress,
 };
