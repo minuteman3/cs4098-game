@@ -1,9 +1,10 @@
 var sidebar = require("../../js/sidebar.js");
+var Module = require("../../js/Module.js");
 var test = require('tape');
 var $ = require('jquery');
 
 test('sidebar:', function(t){
-    t.plan(21);
+    t.plan(23);
 
     $("<div>", {
         id: "sidebar"
@@ -14,7 +15,7 @@ test('sidebar:', function(t){
       '<p id="homecity" >Choose a city</p>' +
       '<ul class="nav">' +
         '<li class="active">Interface</li>' +
-        '<li>Game Engine </li>' +
+        '<li>Game Engine</li>' +
         '<li>Physics Engine</li>' +
       '</ul>' +
       
@@ -44,19 +45,27 @@ test('sidebar:', function(t){
         sidebar.hide();
     },'hide works');
 
+
     t.doesNotThrow(function(){
-        sidebar.setList([
+    var modules = [new Module({"Dublin": 1, "Mumbai": 1}, 400, "test")];
+        sidebar.setListProgress(modules);
+    },'setListProgress works');
+
+    t.doesNotThrow(function(){
+        sidebar.setListAllocation([
         {
           "name":"hi",
-          "cost": 100
+          "estimatedCost": 100,
+          "allocatedCost": 1000
         },
         {
           "name":"there",
-          "cost": 50
+          "estimatedCost": 50,
+          "allocatedCost": 30
         }
 
         ]);
-    },'setList works');
+    },'setListAllocation works');
 
     t.doesNotThrow(function(){
       sidebar.setLocations({});
@@ -65,7 +74,7 @@ test('sidebar:', function(t){
     sidebar.setLocations({"0":2,"3":5});
 
     t.equals($('#locations').text(),
-      "San Franciscox2Shanghaix5",
+      "San Francisco2 devsShanghai5 devs",
       "setLocations");
 
     sidebar.setBudget(1000000);
@@ -81,6 +90,7 @@ test('sidebar:', function(t){
     sidebar.showProgressState(true);
     sidebar.showSelectTeams(false);
     sidebar.setHomeCity("dublin");
+    sidebar.setModuleManHours("there",8000);
 
     setTimeout(function() {
         t.equals(sidebar.getActiveListItem(),-1,'getActiveListItem works');
@@ -100,12 +110,15 @@ test('sidebar:', function(t){
         t.equals($('#weeks').html(),"11 weeks",'setWeeks');
         t.equals($('.progess-state').css('display'),"block",'showProgressState');
         t.equals($('.select-teams').css('display'),"none",'showSelectTeams');
+        t.equals($(".modulecost[data-allocated-city='there']").html(),
+            "Allocated 8000 man hrs per week",'setModuleManHours');
         
         sidebar.setHomeCity("dublin");
         t.equals($("#homecity").html(),"dublin","setHomeCity");
         $("#sidebar").remove();
     },0);
 
+  
 });
 
 
