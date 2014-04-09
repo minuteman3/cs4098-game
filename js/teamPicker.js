@@ -35,7 +35,6 @@ function selectModule(cityName,nextIndex) {
   curModule = modules[nextIndex].name;
 }
 
-
 function addExtraDeveloperToCity(cityCode){
     teamsSelected[cityCode] = (teamsSelected[cityCode] || 0)+1;
     gameData.totalPayRoll += cities[cityCode].costPerWeek;
@@ -47,8 +46,8 @@ function addExtraDeveloperToCity(cityCode){
     sidebar.setPayrollforModule(calculatePayrollforMod(teamsSelected));
     sidebar.setLocations(teamsSelected,cityCode);
 
-    sidebar.setModuleManHours(curModule
-      ,calculateManHours(teamsSelected));
+    sidebar.setModuleManHours(curModule,
+      calculateManHours(teamsSelected));
 }
 
 function deductDeverloperFromCity(cityCode){
@@ -64,8 +63,8 @@ function deductDeverloperFromCity(cityCode){
     sidebar.setPayrollforModule(calculatePayrollforMod(teamsSelected));
     sidebar.setLocations(teamsSelected,cityCode);
 
-    sidebar.setModuleManHours(curModule
-      ,calculateManHours(teamsSelected));
+    sidebar.setModuleManHours(curModule,
+      calculateManHours(teamsSelected));
 
     if(teamsSelected[cityCode] === 0){
       delete teamsSelected[cityCode];
@@ -73,7 +72,7 @@ function deductDeverloperFromCity(cityCode){
 }
 
 function calculateManHours(teams){
-    var hours = 0;
+  var hours = 0;
   for(var key in teams){
     hours += cities[key].productivity *  teams[key];
   }
@@ -109,11 +108,11 @@ function getDevelopers(module){
 }
 
 module.exports = {
-init:init,
-selectModule:selectModule,
-addExtraDeveloperToCity:addExtraDeveloperToCity,
-deductDeverloperFromCity:deductDeverloperFromCity,
-calculatePayrollforMod:calculatePayrollforMod,
-allModulesHaveTeams:allModulesHaveTeams,
-getDevelopers:getDevelopers,
+  init:init,
+  selectModule:selectModule,
+  addExtraDeveloperToCity:addExtraDeveloperToCity,
+  deductDeverloperFromCity:deductDeverloperFromCity,
+  calculatePayrollforMod:calculatePayrollforMod,
+  allModulesHaveTeams:allModulesHaveTeams,
+  getDevelopers:getDevelopers,
 };
