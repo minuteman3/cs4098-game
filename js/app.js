@@ -19,7 +19,6 @@ var projects = proj.projects;
 var selectedProject;
 
 var isWaterFall = false;
-var audio = true;
 
 var gameData = {
     homeCity:"",
@@ -214,7 +213,7 @@ function startGame(a,type){
 }
 
 function showEvent(ev){
-  if(audio){
+  if(localStorage.getItem("audioEnabled")){
     $('#event').get(0).play();
     $('#music').get(0).pause();
   }
@@ -320,7 +319,7 @@ function endGame(){
     gameData.projectBudget, 
     selectedProject, 
     moduleProgressOverTime);
-  if(audio){
+  if(localStorage.getItem("audioEnabled")){
     $('#music-end').get(0).play();
   }
 }
@@ -347,7 +346,7 @@ function initialiseGame(){
   gameData.totalPayRoll  = 0;
 
   $('#startScreen').show();
-  if(audio){
+  if(localStorage.getItem("audioEnabled")){
     $('#music').get(0).play();
   }
 }
@@ -403,6 +402,7 @@ $( document ).ready( function() {
 
   //Fire it when the page first loads:
   setBodyScale();
+  initAudio();
 
   $('#map').bind('markerSelected.jvectormap', selectCity);
   $('#map').bind('markerLabelShow.jvectormap', onlabelShow);
@@ -443,7 +443,7 @@ $( document ).ready( function() {
 });
 
 function doEvent(actionNum){
-  if(audio){
+  if(localStorage.getItem("audioEnabled")){
     $('#music').get(0).play();
   }
   if(events.doEvent(actionNum,gameData)){
@@ -460,18 +460,29 @@ function creds(){
 }
 
 function toggleAudio(){
-  if(audio){
+  if(localStorage.getItem("audioEnabled")){
     $('#music').get(0).pause();
     $('#audio').removeClass("fa-volume-up").addClass("fa-volume-off");
-    audio = false;
+    localStorage.removeItem("audioEnabled");
   } else {
     $('#music').get(0).play();
     $('#audio').removeClass("fa-volume-off").addClass("fa-volume-up");
-    audio = true;
+    localStorage.setItem("audioEnabled",1);
   }
 }
+
+function initAudio(){
+  if(localStorage.getItem("audioEnabled")){
+    $('#music').get(0).play();
+    $('#audio').removeClass("fa-volume-off").addClass("fa-volume-up");
+  } else {
+    $('#audio').removeClass("fa-volume-up").addClass("fa-volume-off");
+    localStorage.removeItem("audioEnabled");
+  }
+}
+
 function unpause(){
-  if(audio){
+  if(localStorage.getItem("audioEnabled")){
     $('#music').get(0).play();
   }
   ProcessSim.unpause();
