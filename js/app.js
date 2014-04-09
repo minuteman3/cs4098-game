@@ -109,6 +109,17 @@ function onlabelShow(e,label,code){
   maps.fixOverLap(code,label);
 }
 
+
+
+function inquire(type,cityName){
+  modal.hidemodal();
+  if(curGameState === GameStates.PROGRESS){
+    var city = gameData.citiesState[cityName];
+      modal.dialog(city.inquire(type));
+  }
+}
+
+
 function selectCity(e,  code,  isSelected,  selectedMarkers) {
   if(curGameState === GameStates.PROGRESS){
     var mods = [];
@@ -126,8 +137,12 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
         'Morale: '+          hoverCity.morale       +'%<br/>'+
         'Productivity: '+    hoverCity.productivity +'%<br/>'+
         'Cost per week: $'+ hoverCity.costPerWeek +'<br/>';
-
-        modal.dialog(label);
+        
+        ProcessSim.pause();
+        
+        modal.showInquire(hoverCity.name,[
+          "Send \"are you on schedule?\" email"
+          ]);
     }
     // insert inquiry interface here
 
@@ -449,6 +464,7 @@ module.exports = {
   selectType:selectType,
   startSimulation: startSimulation,
   projectdescription: projectdescription,
+  inquire:inquire,
   // Modal
   hidemodal: modal.hidemodal,                // hides a modal window
   pause: pause,                              // toggles the pause menu

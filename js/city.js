@@ -14,6 +14,7 @@ var City = function(city,homeCity,cityMods){
     this.morale = 100;
     this.stalled = 0;
     this.cityMods = cityMods;
+    this.highContext = city.highContext;
 };
 
 City.prototype.calculateCulturalDistance = function calculateCulturalDistance(city,homeCity){
@@ -40,15 +41,19 @@ City.prototype.calculateGeoDistance= function calculateGeoDistance(city,homeCity
 
 
 City.prototype.advance = function(){
-    if (this.stalled > 0) {
+    if (this.stalled > 1) {
         this.stalled --;
+    }else{
+        this.stalled =0;
     }
 };
 
 City.prototype.progress = function( developerCount){
      
-    if (this.stalled > 0) {
+    if (this.stalled > 1) {
         return 0;
+    }else if (this.stalled > 0) {
+        return this.idealProgress(developerCount) * (this.morale / 100)*(this.stalled - 1);
     } else{
         return this.idealProgress(developerCount) * (this.morale / 100);
     }
@@ -99,6 +104,16 @@ City.prototype.getGeoDist = function getGeoDist(){
 
 City.prototype.getCulturalDist = function getCulturalDist(){
     return this.culturalDistance;
+};
+
+City.prototype.inquire = function(type) {
+    if(type === 0)
+    {
+        var isonSchedule = (this.highContext || (this.stalled === 0 || this.morale > 10) );
+
+        return isonSchedule?"Yes Everything is fine":"We are not completely on Schedule";   
+
+    }
 };
 
 module.exports = City;
