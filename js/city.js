@@ -14,6 +14,7 @@ var City = function(city,homeCity,cityMods){
     this.morale = 100;
     this.stalled = 0;
     this.cityMods = cityMods;
+    this.highContext = city.highContext;
 };
 
 City.prototype.calculateCulturalDistance = function calculateCulturalDistance(city,homeCity){
@@ -40,15 +41,19 @@ City.prototype.calculateGeoDistance= function calculateGeoDistance(city,homeCity
 
 
 City.prototype.advance = function(){
-    if (this.stalled > 0) {
+    if (this.stalled > 1) {
         this.stalled --;
+    }else{
+        this.stalled =0;
     }
 };
 
 City.prototype.progress = function( developerCount){
      
-    if (this.stalled > 0) {
+    if (this.stalled > 1) {
         return 0;
+    }else if (this.stalled > 0) {
+        return this.idealProgress(developerCount) * (this.morale / 100)*(this.stalled - 1);
     } else{
         return this.idealProgress(developerCount) * (this.morale / 100);
     }
@@ -80,7 +85,7 @@ City.prototype.status = function(){
 };
 
 City.prototype.stall = function stall(duration){
-    this.stalled = duration;
+    this.stalled += duration;
 };
 
 City.prototype.modifyMorale = function modifyMorale(mod){
@@ -99,6 +104,50 @@ City.prototype.getGeoDist = function getGeoDist(){
 
 City.prototype.getCulturalDist = function getCulturalDist(){
     return this.culturalDistance;
+};
+
+City.prototype.inquire = function(type) {
+    if(type === 0)
+    {
+        var isonSchedule = (this.highContext || (this.stalled < 1 && this.morale > 10) );
+        return isonSchedule?"Is on Schedule":"Is falling behind";   
+
+    }else if(type === 1){
+        var html = "";
+        // misses out on half a day
+        this.stalled += 0.1;
+        this.cityMods.forEach(function(module){
+            html += module.name  + " is " + ((module.isStalled() && !this.highContext)?" fine":" behind") + "</br>"; 
+        });
+        return html;
+    }else if(type === 2){
+        var html = "";
+        // misses out on a day
+        this.stalled += 0.2;
+        this.cityMods.forEach(function(module){
+            html += module.name  + " is currently doing " + module.getStageName() + "</br>"; 
+        });
+        return html;
+    }else if(type === 3){
+        var html = "";
+        // misses out on half week of work
+        this.stalled += 0.5;
+        this.cityMods.forEach(function(module){
+            html += module.name  + " is currently doing " + module.getStageName() + " and is " + ((module.isStalled() && (!this.highContext|| (Math.random()>0.5)))?" fine":" behind") + "</br>"; 
+        });
+        return html;
+    }else if(type === 4){
+        var html = "";
+        // misses out on week worth of work
+        this.stalled += 1;
+        this.cityMods.forEach(function(module){
+            html += module.name  + " is currently doing " + module.getStageName() + " and is " + (module.isStalled()?" fine":" behind") + "</br>"; 
+        });
+        return html;
+    }
+
+
+
 };
 
 module.exports = City;
