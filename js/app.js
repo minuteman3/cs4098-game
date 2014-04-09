@@ -127,11 +127,11 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
         var obj = {};
         obj.name = a.name;
         obj.cost = (100*a.cost/selectedProject.cost);
-        obj.EstimatedCost = a.cost;
-        obj.AlloatedCost = 0;
+        obj.estimatedCost = a.cost;
+        obj.allocatedCost = 0;
         return obj;
       }),
-    true,true);
+    true);
     sidebar.setHomeCity(cities[code].name);
     gameData.homeCity = cities[code];
     maps.makeHomeCity(code);
@@ -223,8 +223,8 @@ function startGame(a,type){
     selectedProject.modules.map(function(a){
       var obj = {};
       obj.name = a.name;
-      obj.EstimatedCost = a.cost;
-      obj.AlloatedCost = 0;
+      obj.estimatedCost = a.cost;
+      obj.allocatedCost = 0;
       return obj;
     }),
   false);

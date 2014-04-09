@@ -1,6 +1,6 @@
 var cities = require('./../config/cities.json');
-var $ = require('jquery');
-var utils      = require('./utils.js');
+var utils  = require('./utils.js');
+var $      = require('jquery');
 
 var activeClass = "active";
 var activeTag = "." + activeClass;
@@ -54,16 +54,15 @@ function hide(){
 /*
 *   List functions
 */ 
-function setListAllocation(elements,nonselectable,selectteams){
+function setListAllocation(elements,nonselectable){
   nonselectable = nonselectable || false;
-  selectteams = selectteams || false;
   $(listTag).empty();
 
   for(var i =0;i< elements.length;i++)
   {
     var item = elements[i];
-    var html = item.name + "<br/><span class='modulecost'>Estimated "+item.EstimatedCost.toFixed(0)+" man hrs</span><br/>";
-    html += "<span class='modulecost' data-allocated-city='"+item.name+"' >Allocated "+item.AlloatedCost+" man hrs</span>";
+    var html = item.name + "<br/><span class='modulecost'>Estimated "+item.estimatedCost.toFixed(0)+" man hrs</span><br/>";
+    html += "<span class='modulecost' data-allocated-city='"+item.name+"' >Allocated "+item.allocatedCost+" man hrs</span>";
     $(listTag).append($("<li></li>").html(html).attr("date-name",item.name));
   }
   if (nonselectable){
@@ -71,9 +70,8 @@ function setListAllocation(elements,nonselectable,selectteams){
   }
 }
 
-function setListProgress(modules,nonselectable,selectteams){
+function setListProgress(modules,nonselectable){
   nonselectable = nonselectable || false;
-  selectteams = selectteams || false;
   $(listTag).empty();
 
   for(var i =0;i< modules.length;i++)
@@ -87,10 +85,7 @@ function setListProgress(modules,nonselectable,selectteams){
 
     $(listTag).append($("<li></li>").html(html));
   }
-
 }
-
-
 
 function setModuleManHours(module,manHours){
 
@@ -112,7 +107,7 @@ function getActiveListItem(){
 function setListItemActive(i){
 	$(activeTag).removeClass(activeClass);
 	// jqeury doesnt start from 0
-    $(listTag+' li:nth-child(' + (i+1)+ ')').addClass(activeClass);
+  $(listTag+' li:nth-child(' + (i+1)+ ')').addClass(activeClass);
 }
 
 function setTitle(title){

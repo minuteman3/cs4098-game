@@ -1,9 +1,10 @@
 var sidebar = require("../../js/sidebar.js");
+var Module = require("../../js/Module.js");
 var test = require('tape');
 var $ = require('jquery');
 
 test('sidebar:', function(t){
-    t.plan(21);
+    t.plan(22);
 
     $("<div>", {
         id: "sidebar"
@@ -44,19 +45,27 @@ test('sidebar:', function(t){
         sidebar.hide();
     },'hide works');
 
+
     t.doesNotThrow(function(){
-        sidebar.setList([
+    var modules = [new Module({"Dublin": 1, "Mumbai": 1}, 400, "test")];
+        sidebar.setListProgress(modules);
+    },'setListProgress works');
+
+    t.doesNotThrow(function(){
+        sidebar.setListAllocation([
         {
           "name":"hi",
-          "cost": 100
+          "estimatedCost": 100,
+          "allocatedCost": 1000
         },
         {
           "name":"there",
-          "cost": 50
+          "estimatedCost": 50,
+          "allocatedCost": 30
         }
 
         ]);
-    },'setList works');
+    },'setListAllocation works');
 
     t.doesNotThrow(function(){
       sidebar.setLocations({});
@@ -65,7 +74,7 @@ test('sidebar:', function(t){
     sidebar.setLocations({"0":2,"3":5});
 
     t.equals($('#locations').text(),
-      "San Franciscox2Shanghaix5",
+      "San Francisco2 devsShanghai5 devs",
       "setLocations");
 
     sidebar.setBudget(1000000);
@@ -105,7 +114,6 @@ test('sidebar:', function(t){
         t.equals($("#homecity").html(),"dublin","setHomeCity");
         $("#sidebar").remove();
     },0);
-
 });
 
 
