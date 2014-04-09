@@ -73,11 +73,14 @@
 
     <div id="audiocontainer" onclick="pt.toggleAudio()">
         <i id="audio"  class="fa fa-lg fa-volume-up"></i>
-        <audio id="music" autobuffer loop> 
-          <source src="assets/RiversideRide.mp3" type="audio/mpeg" />
+        <audio id="music" autobuffer loop>
+          <source src="assets/RiversideRide.ogg" type="audio/ogg" />
+          <source src="assets/RiversideRide.wav" type="audio/wav" />
+          <source src="assets/RiversideRide.mp3" type="audio/mpeg3" />
         </audio>
-        <audio id="music-end" autobuffer> 
-          <source src="assets/applause.wav" type="audio/mpeg" />
+        <audio id="music-end" autobuffer>
+          <source src="assets/applause.ogg" type="audio/ogg" />
+          <source src="assets/applause.wav" type="audio/wav" />
         </audio>
     </div>
 </body>
