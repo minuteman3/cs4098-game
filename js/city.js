@@ -117,31 +117,46 @@ City.prototype.inquire = function(type) {
         // misses out on half a day
         this.stalled += 0.1;
         this.cityMods.forEach(function(module){
-            html += module.name  + " is " + ((module.isStalled() && !this.highContext)?" behind":" fine") + "</br>"; 
+            if(module.done())
+                html += module.name + " has finished."
+            else
+                html += module.name  + " is " + ((module.isStalled() && !this.highContext)?" behind":" fine") + "</br>"; 
         });
         return html;
+
     }else if(type === 2){
         var html = "";
         // misses out on a day
         this.stalled += 0.2;
         this.cityMods.forEach(function(module){
-            html += module.name  + " is currently doing " + module.getStageName() + "</br>"; 
+            if(module.done())
+                html += module.name + " has finished."
+            else
+                html += module.name  + " is currently doing " + module.getStageName() + "</br>"; 
         });
         return html;
+
     }else if(type === 3){
         var html = "";
         // misses out on half week of work
         this.stalled += 0.5;
         this.cityMods.forEach(function(module){
-            html += module.name  + " is currently doing " + module.getStageName() + " and is " + ((module.isStalled() && (!this.highContext|| (Math.random()>0.5)))?" behind":" fine") + "</br>"; 
+            if(module.done())
+                html += module.name + " has finished."
+            else
+                html += module.name  + " is currently doing " + module.getStageName() + " and is " + ((module.isStalled() && (!this.highContext|| (Math.random()>0.5)))?" behind":" fine") + "</br>"; 
         });
         return html;
+
     }else if(type === 4){
         var html = "";
         // misses out on week worth of work
         this.stalled += 1;
         this.cityMods.forEach(function(module){
-            html += module.name  + " is currently doing " + module.getStageName() + " and is " + (module.isStalled()?" behind":" fine") + "</br>"; 
+            if(module.done())
+                html += module.name + " has finished."
+            else
+                html += module.name  + " is currently doing " + module.getStageName() + " and is " + (module.isStalled()?" behind":" fine") + "</br>"; 
         });
         return html;
     }
