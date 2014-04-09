@@ -19,7 +19,7 @@
                     "cost": 600
                 }
             ],
-            "dialog": "This Project has two modules, make sure to allocate resources evenly for this project to succeed. Be careful about over-spending on this short project."
+            "dialog": "This Project has two modules, make sure to allocate resources evenly for this Project to succeed. Be careful about over-spending on this short Project."
         },
         {
             "name": "RPG Game",
@@ -51,7 +51,7 @@
                     "cost": 2500
                 }
             ],
-            "dialog": "This Project has five modules, each with a different cost, make sure to allocate lots of resources to AI Engine for this project to succeed. Character Creation shouldn't take long for this project."
+            "dialog": "This Project has five modules, each with a different cost, make sure to allocate lots of resources to AI Engine for this Project to succeed. Character Creation shouldn't take long for this Project."
         },
         {
             "name": "Software Simulator",
@@ -75,7 +75,7 @@
                     "cost": 3750
                 }
             ],
-            "dialog": "This project has three modules, each with a different cost. Simulating Time will be the most difficult task for this project."
+            "dialog": "This Project has three modules, each with a different cost. Simulating Time will be the most difficult task for this Project."
         },
         {
             "name": "Accounting Software",
