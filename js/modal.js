@@ -81,7 +81,7 @@ function dialog(a){
 function showInquire(city,options){
 
   var html = "<h1>Inquire</h1><p>";
-  html +=  '<p>You can perform an inquiry into a site to find out how it\'s performing. It action will also cause some delays.' 
+  html +=  '<p>You can perform an inquiry into a site to find out how it\'s performing. An inquiry may also cause some delays.' 
   html += '</p><div class="modal-options">';
 
   for(var i =0;i < options.length;i++){
