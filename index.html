@@ -54,14 +54,14 @@
             <button id="btn-options" onclick="pt.pause()" style="display: none;">Options</button>
         </div>
         <div id="sidebar">
-            <div id="sidebar-title">Select Teams</div>
+            <div id="sidebar-title"></div>
 
             <p id="homecityHeader">Home City</p>
             <p id="homecity">Choose a city</p>
 
             <ul class="nav"></ul>
 
-            <div class="select-teams location-header" style="display: block;">Module Cost <div id="costPerMonth">$0</div></div>
+            <div class="select-teams location-header" style="display: block;">Weekly Module Cost <div id="costPerMonth">$0</div></div>
 
             <ul class="select-teams" id="locations" style="display: block;"></ul>
 
@@ -72,11 +72,11 @@
     <div id="content"></div>
 
     <div id="audiocontainer" onclick="pt.toggleAudio()">
-        <i id="audio"  class="fa fa-lg fa-volume-up"></i>
+        <i id="audio"  class="fa fa-lg fa-volume-off"></i>
         <audio id="music" autobuffer loop>
-          <source src="assets/RiversideRide.ogg" type="audio/ogg" />
-          <source src="assets/RiversideRide.wav" type="audio/wav" />
-          <source src="assets/RiversideRide.mp3" type="audio/mpeg" />
+          <source src="assets/riversideride.ogg" type="audio/ogg" />
+          <source src="assets/riversideride.wav" type="audio/wav" />
+          <source src="assets/riversideride.mp3" type="audio/mpeg" />
         </audio>
         <audio id="music-end" autobuffer>
           <source src="assets/applause.ogg" type="audio/ogg" />
@@ -87,6 +87,11 @@
           <source src="assets/event.ogg" type="audio/ogg" />
           <source src="assets/event.wav" type="audio/wav" />
           <source src="assets/event.mp3" type="audio/mpeg" />
+        </audio>
+        <audio id="eventmusic" autobuffer loop>
+          <source src="assets/harp.ogg" type="audio/ogg" />
+          <source src="assets/harp.wav" type="audio/wav" />
+          <source src="assets/harp.mp3" type="audio/mpeg" />
         </audio>
     </div>
 </body>

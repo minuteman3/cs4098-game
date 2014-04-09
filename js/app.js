@@ -19,7 +19,6 @@ var projects = proj.projects;
 var selectedProject;
 
 var isWaterFall = false;
-var audio = true;
 
 var gameData = {
     homeCity:"",
@@ -109,7 +108,7 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
         obj.cost = (100*a.cost/selectedProject.cost);
         return obj;
       }),
-    true);
+    true,true);
     sidebar.setHomeCity(cities[code].name);
     gameData.homeCity = cities[code];
     sidebar.setListItemActive(0);
@@ -214,8 +213,9 @@ function startGame(a,type){
 }
 
 function showEvent(ev){
-  if(audio){
+  if(localStorage.getItem("audioEnabled")){
     $('#event').get(0).play();
+    $('#eventmusic').get(0).play();
     $('#music').get(0).pause();
   }
   ProcessSim.pause();
@@ -320,7 +320,7 @@ function endGame(){
     gameData.projectBudget, 
     selectedProject, 
     moduleProgressOverTime);
-  if(audio){
+  if(localStorage.getItem("audioEnabled")){
     $('#music-end').get(0).play();
   }
 }
@@ -347,7 +347,7 @@ function initialiseGame(){
   gameData.totalPayRoll  = 0;
 
   $('#startScreen').show();
-  if(audio){
+  if(localStorage.getItem("audioEnabled")){
     $('#music').get(0).play();
   }
 }
@@ -403,6 +403,7 @@ $( document ).ready( function() {
 
   //Fire it when the page first loads:
   setBodyScale();
+  initAudio();
 
   $('#map').bind('markerSelected.jvectormap', selectCity);
   $('#map').bind('markerLabelShow.jvectormap', onlabelShow);
@@ -443,8 +444,9 @@ $( document ).ready( function() {
 });
 
 function doEvent(actionNum){
-  if(music){
+  if(localStorage.getItem("audioEnabled")){
     $('#music').get(0).play();
+    $('#eventmusic').get(0).pause();
   }
   if(events.doEvent(actionNum,gameData)){
     unpause();
@@ -454,25 +456,38 @@ function doEvent(actionNum){
 function creds(){
   var c = "<p>"+
   "Music by Matthew Pablo<br>www.matthewpablo.com"+
-  "<br>Applause by Blender Foundation<br>apricot.blender.org"+
+  "<br><br>Applause by Blender Foundation<br>apricot.blender.org"+
+  "<br><br>Event Music by VWolfDog<br>opengameart.org/users/vwolfdog"+
   "</p>";
   modal.dialog(c);
 }
 
 function toggleAudio(){
-  if(audio){
+  if(localStorage.getItem("audioEnabled")){
     $('#music').get(0).pause();
     $('#audio').removeClass("fa-volume-up").addClass("fa-volume-off");
-    audio = false;
+    localStorage.removeItem("audioEnabled");
   } else {
     $('#music').get(0).play();
     $('#audio').removeClass("fa-volume-off").addClass("fa-volume-up");
-    audio = true;
+    localStorage.setItem("audioEnabled",1);
   }
 }
-function unpause(){
-  if(audio){
+
+function initAudio(){
+  if(localStorage.getItem("audioEnabled")){
     $('#music').get(0).play();
+    $('#audio').removeClass("fa-volume-off").addClass("fa-volume-up");
+  } else {
+    $('#audio').removeClass("fa-volume-up").addClass("fa-volume-off");
+    localStorage.removeItem("audioEnabled");
+  }
+}
+
+function unpause(){
+  if(localStorage.getItem("audioEnabled")){
+    $('#music').get(0).play();
+    $('#eventmusic').get(0).pause();
   }
   ProcessSim.unpause();
   modal.hidemodal();

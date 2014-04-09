@@ -17,6 +17,7 @@ js/app.js,simulationComplete,this is tested as part of the Process Simulator
 js/app.js, doEvent, this is tested as part of modal
 js/app.js, creds, this is tested as part of modal
 js/app.js, toggleAudio, audio is either supported or not depending on browser
+js/app.js, initAudio, audio is either supported or not depending on browser. This method turns on audio based on persistent data
 js/EventGenerator/EventGenerator.js,loadFuzzyEngine,this is an internal function which isn't exported and therefore isn't tested
 js/EventGenerator/EventGenerator.js,getMemValues,this is an internal function which isn't exported and therefore isn't tested
 js/EventGenerator/EventGenerator.js,getConditions,this is an internal function which isn't exported and therefore isn't tested

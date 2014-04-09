@@ -33,7 +33,7 @@ var downLocationFunction;
 function init(itemSelection,_upLocationFuction,_downLocationFunction){
   showProgressState(false);
   showSelectTeams(true);
-  setTitle("Select Teams");
+  setTitle("Add Developers");
   setPayroll(0);
   setBudgetedWeeks(0);
   setPayrollforModule(0);
@@ -54,11 +54,12 @@ function hide(){
 /*
 *   List functions
 */ 
-function setList(elements,nonselectable){
+function setList(elements,nonselectable,selectteams){
   nonselectable = nonselectable || false;
+  selectteams = selectteams || false;
   $(listTag).empty();
   var e = "Effort ";
-  if (nonselectable){
+  if (nonselectable && !selectteams){
     e = "Progress ";
   }
 
