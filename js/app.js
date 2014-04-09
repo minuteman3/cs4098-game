@@ -61,7 +61,7 @@ function onlabelShow(e,label,code){
     // only show tooltip if hoverCity in any of modules.developersPerCity
     if(utils.contains(mods, hoverCity.name)){
       label.html(
-        "Make a pre-emptive intervention<br />in "+hoverCity.name
+        "Make an inquiry<br />into "+hoverCity.name
       );
     }else{
       label.css('visibility','hidden');
@@ -98,13 +98,6 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
     // only show tooltip if hoverCity in any of modules.developersPerCity
     if(utils.contains(mods, cities[code].name)){
       var hoverCity  = cities[code];
-      var label;
-      label =
-        '<strong>'+              hoverCity.name         +'</strong><br/>'+
-        'Morale: '+          hoverCity.morale       +'%<br/>'+
-        'Productivity: '+    hoverCity.productivity +'%<br/>'+
-        'Cost per week: $'+ hoverCity.costPerWeek +'<br/>';
-
         
         ProcessSim.pause();
         
