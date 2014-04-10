@@ -222,9 +222,9 @@ function startGame(a,type){
     }),
   false);
 
-  if( localStorage.getItem("firstTimeModals") === null ){
+  if( localStorage.getItem("firstTime") === null ){
     modal.dialog(client.information+"<br/>Access this Information at any time from the Options Menu."); //removed information from startup
-    localStorage.setItem("firstTimeModals",1);
+    localStorage.setItem("firstTime",1);
   }
   moduleProgressOverTime = selectedProject.modules.map(function(){return [0];});
   moduleProgressOverTime.push([0]);
@@ -500,6 +500,10 @@ function toggleAudio(){
 }
 
 function initAudio(){
+  if( localStorage.getItem("firstTime") === null ){
+    localStorage.setItem("audioEnabled",1);
+  }
+
   if(localStorage.getItem("audioEnabled")){
     $('#music').get(0).play();
     $('#audio').removeClass("fa-volume-off").addClass("fa-volume-up");
