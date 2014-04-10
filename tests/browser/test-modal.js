@@ -3,7 +3,7 @@ var test = require('tape');
 var $ = require('jquery');
 
 test('modal:', function(t){
-    t.plan(4);
+    t.plan(5);
 
     $("<div>", {
         id: "content"
@@ -21,6 +21,10 @@ test('modal:', function(t){
 
     t.equal($("#modal").css("display"), "none");
 
+    t.doesNotThrow(function(){
+        modal.showInquire("Dublin",["test inquiry"]);
+    },'showInquire');
+    
     $("#content").remove();
 });
 

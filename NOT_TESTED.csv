@@ -6,30 +6,34 @@ lib/jquery-jvectormap-1.2.2.min,*,this is a mapping library available at jvector
 lib/jquery-jvectormap-world-mill-en,*,this is a geo-map data available at jvectormap.com
 node_modules/*,*,these are all library dependencies and fall outside our testing remit
 tests/,*,these are tests
-js/app,onlabelShow,this is an internal function which isn't exported and therefore isn't tested
-js/app,pause,this is tested as part of modal and process simulator
-js/app,selectCity,this is an internal function which isn't exported and therefore isn't tested
-js/app,selectModule,this is tested as part of initialiseGame
-js/app,startSimulation,this function relies on internal state at invocation time which cannot be set from a testing interface
-js/app,startLoop,this is an internal function which isn't exported but is tested alongside startSimulation
-js/app,simulationUpdate,this is tested as part of the Process Simulator
-js/app,simulationComplete,this is tested as part of the Process Simulator
-js/app, doEvent, this is tested as part of modal
-js/EventGenerator/EventGenerator,loadFuzzyEngine,this is an internal function which isn't exported and therefore isn't tested
-js/EventGenerator/EventGenerator,getMemValues,this is an internal function which isn't exported and therefore isn't tested
-js/EventGenerator/EventGenerator,getConditions,this is an internal function which isn't exported and therefore isn't tested
-js/EventGenerator/fuzzifier,makeMembershipFunctions,this is an internal function which isn't exported and therefore isn't tested
-js/EventGenerator/fuzzifier,makeAnyOption,this is an internal function which isn't exported and therefore isn't tested
-js/EventGenerator/fuzzifier,makeTrim,this is an internal function which isn't exported and therefore isn't tested
-js/EventGenerator/fuzzyEngine,GetWeightedRules,this is an internal function which isn't exported and therefore isn't tested
-js/EventGenerator/fuzzyEngine,GetRuleToCall,this is an internal function which isn't exported and therefore isn't tested
-js/EventGenerator/fuzzyEngine,GetNonZeroVariables,this is an internal function which isn't exported and therefore isn't tested
-js/EventGenerator/fuzzyEngine,GetWeight,this is an internal function which isn't exported and therefore isn't tested
-js/EventGenerator/inferenceEngine,GetRulesToFireInVariable,This method is tested by testing GetRulesToFire
-js/events, setEventAction, this is tested as part of events
-js/index,*,there are no functions in this file
-js/maps,regionLabelShow,this is an internal function which isn't exported and therefore isn't tested
-js/ProcessSimulator,getRandomModule,this is an internal function which isn't exported and therefore isn't tested
-js/sidebar,setListListner,this listens for a click event on a button. The function it then performs is tested already.
-js/modal,rg,this is an internal function which isn't exported and therefore isn't tested
+js/app.js,onlabelShow,this is an internal function which isn't exported and therefore isn't tested
+js/app.js,pause,this is tested as part of modal and process simulator
+js/app.js,selectCity,this is an internal function which isn't exported and therefore isn't tested
+js/app.js,selectModule,this is tested as part of initialiseGame
+js/app.js,startSimulation,this function relies on internal state at invocation time which cannot be set from a testing interface
+js/app.js,startLoop,this is an internal function which isn't exported but is tested alongside startSimulation
+js/app.js,simulationUpdate,this is tested as part of the Process Simulator
+js/app.js,simulationComplete,this is tested as part of the Process Simulator
+js/app.js, doEvent, this is tested as part of modal
+js/app.js, creds, this is tested as part of modal
+js/app.js, toggleAudio, audio is either supported or not depending on browser
+js/app.js, initAudio, audio is either supported or not depending on browser. This method turns on audio based on persistent data
+js/EventGenerator/EventGenerator.js,loadFuzzyEngine,this is an internal function which isn't exported and therefore isn't tested
+js/EventGenerator/EventGenerator.js,getMemValues,this is an internal function which isn't exported and therefore isn't tested
+js/EventGenerator/EventGenerator.js,getConditions,this is an internal function which isn't exported and therefore isn't tested
+js/EventGenerator/fuzzifier.js,makeMembershipFunctions,this is an internal function which isn't exported and therefore isn't tested
+js/EventGenerator/fuzzifier.js,makeAnyOption,this is an internal function which isn't exported and therefore isn't tested
+js/EventGenerator/fuzzifier.js,makeTrim,this is an internal function which isn't exported and therefore isn't tested
+js/EventGenerator/fuzzyEngine.js,GetWeightedRules,this is an internal function which isn't exported and therefore isn't tested
+js/EventGenerator/fuzzyEngine.js,GetRuleToCall,this is an internal function which isn't exported and therefore isn't tested
+js/EventGenerator/fuzzyEngine.js,GetNonZeroVariables,this is an internal function which isn't exported and therefore isn't tested
+js/EventGenerator/fuzzyEngine.js,GetWeight,this is an internal function which isn't exported and therefore isn't tested
+js/EventGenerator/inferenceEngine.js,GetRulesToFireInVariable,This method is tested by testing GetRulesToFire
+js/events.js,setEventAction,this is tested as part of events
+js/index.js,*,there are no functions in this file
+js/maps.js,regionLabelShow,this is an internal function which isn't exported and therefore isn't tested
+js/ProcessSimulator.js,getRandomModule,this is an internal function which isn't exported and therefore isn't tested
+js/sidebar.js,setListListner,this listens for a click event on a button. The function it then performs is tested already.
+js/teamPicker.js,calculateManHours,this internal function is tested in addExtraDeveloperToCity and deductDeverloperFromCity
+js/modal.js,rg,this is an internal function which isn't exported and therefore isn't tested
 

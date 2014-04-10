@@ -142,7 +142,7 @@
         },
         "message": "It was discovered that $module has no Unit Tests, the module needs to be tested!",
         "effects": {
-            "progress": 25
+            "progress": 15
         },
         "target": "module",
         "actions": [
@@ -172,7 +172,7 @@
         },
         "message": "$module fails to integrate, what do you do?",
         "effects": {
-            "progress": 35
+            "progress": 15
         },
         "target": "module",
         "actions": [
@@ -254,8 +254,10 @@
     {
         "conditions": {
             "morale": [
-                "low",
-                "med"
+                "low"
+            ],
+            "pay": [
+                "high"
             ],
             "progress": [
                 "acceptance"
@@ -263,7 +265,7 @@
         },
         "message": "$module fails acceptance tests, what do you do?",
         "effects": {
-            "progress": 85
+            "progress": 0
         },
         "target": "module",
         "actions": [

@@ -3,10 +3,9 @@ var test = require('tape');
 var $ = require('jquery');
 var teamPicker = require("../../js/teamPicker.js");
 
-
-
-
 test('teamPicker:', function(t) {
+    t.plan(10);
+
 
     $("<div>", {
         id: "sidebar"
@@ -38,12 +37,11 @@ test('teamPicker:', function(t) {
     sidebar.init();
 
     var gameData = {
-    homeCity:"San Francisco",
-    weeksTilDueDate:10,
-    projectBudget:12,
-    totalPayRoll:50,
+        homeCity:"San Francisco",
+        weeksTilDueDate:10,
+        projectBudget:12,
+        totalPayRoll:50,
     };
-
 
     var cities = [
     {
@@ -75,7 +73,7 @@ test('teamPicker:', function(t) {
         "highContext": false,
         "nationCulture": "american",
         "organizationalCulture": "undefined"
-    }]
+    }];
 
     var modules = [
      {
@@ -85,18 +83,15 @@ test('teamPicker:', function(t) {
     {
         "name": "Real-time Physics",
         "cost": 600
-    }]
+    }];
 
     teamsSelected ={
         0:3
-    }
-
-        t.plan(10);
+    };
 
     t.doesNotThrow(function(){
         teamPicker.init(gameData,cities,modules,10000);
     },'init');
-
 
     t.doesNotThrow(function(){
         teamPicker.selectModule("AI Engine",0);
@@ -107,16 +102,12 @@ test('teamPicker:', function(t) {
     },'addExtraDeveloperToCity');
 
     t.doesNotThrow(function(){
-         teamPicker.selectModule("Real-time Physics",1)
+         teamPicker.selectModule("Real-time Physics",1);
     },'selectModule');
   
     t.doesNotThrow(function(){
         teamPicker.addExtraDeveloperToCity(0);
     },'addExtraDeveloperToCity');
-
-
- 
-
 
     t.equal(teamPicker.allModulesHaveTeams(),true,'allModulesHaveTeams');
    
@@ -127,7 +118,7 @@ test('teamPicker:', function(t) {
     t.equal(teamPicker.allModulesHaveTeams(),false,'deductDeverloperFromCity');
     
     teamPicker.addExtraDeveloperToCity(0);
-    teamPicker.allModulesHaveTeams()
+    teamPicker.allModulesHaveTeams();
 
     t.doesNotThrow(function(){
         teamPicker.calculatePayrollforMod({
@@ -140,4 +131,5 @@ test('teamPicker:', function(t) {
         teamPicker.getDevelopers("AI Engine");
     },'getDevelopers');
 
+    $("#sidebar").remove();
 });

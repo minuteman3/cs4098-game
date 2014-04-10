@@ -1,6 +1,6 @@
 var cities = require('./../config/cities.json');
-var $ = require('jquery');
-var utils      = require('./utils.js');
+var utils  = require('./utils.js');
+var $      = require('jquery');
 
 var activeClass = "active";
 var activeTag = "." + activeClass;
@@ -33,7 +33,7 @@ var downLocationFunction;
 function init(itemSelection,_upLocationFuction,_downLocationFunction){
   showProgressState(false);
   showSelectTeams(true);
-  setTitle("Select Teams");
+  setTitle("Add Developers");
   setPayroll(0);
   setBudgetedWeeks(0);
   setPayrollforModule(0);
@@ -54,23 +54,41 @@ function hide(){
 /*
 *   List functions
 */ 
-function setList(elements,nonselectable){
+function setListAllocation(elements,nonselectable){
   nonselectable = nonselectable || false;
   $(listTag).empty();
-  var e = "Effort ";
-  if (nonselectable){
-    e = "Progress ";
-  }
 
   for(var i =0;i< elements.length;i++)
   {
     var item = elements[i];
-    var html = item.name + "<br/><span class='modulecost'>"+e+item.cost.toFixed(0)+"%</span>";
+    var html = item.name + "<br/><span class='modulecost'>Estimated "+item.estimatedCost.toFixed(0)+" man hrs</span><br/>";
+    html += "<span class='modulecost' data-allocated-city='"+item.name+"' >Allocated "+item.allocatedCost+" man hrs</span>";
     $(listTag).append($("<li></li>").html(html).attr("date-name",item.name));
   }
   if (nonselectable){
     setListListner(itemSelectionFunc);
   }
+}
+
+function setListProgress(modules,nonselectable){
+  nonselectable = nonselectable || false;
+  $(listTag).empty();
+
+  for(var i =0;i< modules.length;i++)
+  {
+    var moduleCities = modules[i].developersPerCity;
+    var html = modules[i].name + "<br/>";
+  
+    Object.keys(moduleCities).forEach(function(city) {
+            html += "<span class='modulecost' >" + city+ "</span></br>";
+    });
+
+    $(listTag).append($("<li></li>").html(html));
+  }
+}
+
+function setModuleManHours(module,manHours){
+  $(".modulecost[data-allocated-city='"+module+"']").html("Allocated " + manHours + " man hrs per week");
 }
 
 function setListListner(func){
@@ -88,7 +106,7 @@ function getActiveListItem(){
 function setListItemActive(i){
 	$(activeTag).removeClass(activeClass);
 	// jqeury doesnt start from 0
-    $(listTag+' li:nth-child(' + (i+1)+ ')').addClass(activeClass);
+  $(listTag+' li:nth-child(' + (i+1)+ ')').addClass(activeClass);
 }
 
 function setTitle(title){
@@ -165,7 +183,7 @@ function setLocations(teams){
     });
 
     location.append($("<div></div>").addClass("tickerBox").html(upIcon).append(downIcon));
-    location.append($("<div>").addClass("teamMultiplier").html("x" +teams[key]));
+    location.append($("<div>").addClass("teamMultiplier").html(teams[key] + " devs"));
 
     $(locationTag).append(location);
    }
@@ -186,7 +204,6 @@ function setHomeCity(city){
 }
 
 module.exports = {
-    setList: setList ,
     setBudgetedWeeks:setBudgetedWeeks,
     setPayroll:setPayroll,
     setLocations:setLocations,
@@ -207,4 +224,8 @@ module.exports = {
     setButtonText:setButtonText,
     init:init,
     setListListner:setListListner,
+    setModuleManHours:setModuleManHours,
+
+    setListAllocation:setListAllocation,
+    setListProgress:setListProgress,
 };

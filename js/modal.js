@@ -71,11 +71,27 @@ function dialog(a){
   html += a;
 
   html += '</p><div class="modal-options">';
-  html += '<button class="btn-action" onclick="pt.hidemodal();pt.unpause()"> Continue </button>';
+  html += '<button class="btn-action" onclick="pt.unpause()"> Continue </button>';
   html += '</div>';
 
   showmodal(html, true);
 }
+
+
+function showInquire(city,options){
+
+  var html = "<h1>Inquire</h1><p>";
+  html +=  '<p>You can perform an inquiry into a site to find out how it\'s performing. An inquiry may also cause some delays.' 
+  html += '</p><div class="modal-options">';
+
+  for(var i =0;i < options.length;i++){
+      html += '<p class="btn-action" onclick="pt.inquire('+i+", \'"+city+"\')\" >" + options[i] + '</p>';
+  };
+  html += '</div>';
+
+  showmodal(html, false);
+}
+
 
 function showEvent(ev,currentWeek){
   ev.week = currentWeek;
@@ -89,6 +105,25 @@ function showEvent(ev,currentWeek){
 
   if(ev.actions.length === 0){
       html += '<button class="btn-action" onclick="pt.hidemodal();pt.unpause()"> Continue </button>';
+  }
+  html += '</div>';
+
+  showmodal(html, false);
+}
+
+
+function showEvent(ev,currentWeek){
+  ev.week = currentWeek;
+
+  var html = "<h1>Information</h1><p>";
+  html +=  '<p>' + ev.message.replace("$site", ev.city.name).replace("$module", ev.module.name);
+  html += '</p><div class="modal-options">';
+  ev.actions.forEach(function(action, index){
+      html += '<p class="btn-action" onclick="pt.evt('+index+')">'+(index+1)+'. ' + action.message + '</p>';
+  });
+
+  if(ev.actions.length === 0){
+      html += '<button class="btn-action" onclick="pt.unpause()"> Continue </button>';
   }
   html += '</div>';
 
@@ -218,8 +253,9 @@ function pause () {
     var pausemenu = "<h1>Pause</h1>";
     pausemenu += makeChoices([
                               {"name":"Continue","funct":"pause()"},
-                              {"name":"Restart","funct":"initialiseGame()"},
-                              {"name":"Quit","funct":"endGame()"}
+                              {"name":"Toggle Audio","funct":"toggleAudio()"},
+                              {"name":"End Game","funct":"endGame()"},
+                              {"name":"Quit to Menu","funct":"initialiseGame()"}
                               ],
                               client.information);
     showmodal(pausemenu,true);
@@ -239,6 +275,7 @@ module.exports = {
     endGame: endGame,
     //charts
     generateCharts: generateCharts,
+    showInquire:showInquire,
     addChartContainer: addChartContainer,
     //events
     showEvent: showEvent,

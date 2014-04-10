@@ -55,6 +55,10 @@ function runState(states){
   map.series.markers[1].setValues(states);
 }
 
+function makeHomeCity(code){
+  $(".jvectormap-marker[data-index="+code+"]").css("stroke"," #d33682")
+}
+
 function clearMapMarkers(){
   //map clear selected markers for some reason calls teamSelected so we need to call it
   // before we set it to empty but also after we figure out how much the payroll is for the current
@@ -70,5 +74,6 @@ module.exports = {
 	buildmap: buildmap,
 	resizemap: resizemap,
 	runState: runState,
+  makeHomeCity:makeHomeCity,
 	map: map
 };

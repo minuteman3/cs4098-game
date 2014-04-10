@@ -8,7 +8,7 @@
     <meta content="0" http-equiv="expires">
     <meta content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" name="viewport">
     <meta content="yes" name="apple-mobile-web-app-capable">
-    <link href="/assets/favicon.png" rel="icon" type="image/png">
+    <link href="assets/favicon.png" rel="icon" type="image/png">
     <link href="assets/apple-touch-icon.png" rel="apple-touch-icon">
     <link href="assets/splash.png" rel="apple-touch-startup-image">
     <title>Panic Tycoon</title>
@@ -21,20 +21,20 @@
     <div id="startScreen">
         <div id="startScreenCenterV">
             <h1>PANIC</h1>
-
-            <h2>Tycoon</h2><button id="btn-start" onclick=
-            "pt.selectProject()">Start Game</button>
+            <h2>Tycoon</h2>
+            <button id="btn-start" onclick="pt.selectProject()">Start Game</button>
+            <button id="btn-start" onclick="pt.creds()">Credits</button>
         </div>
     </div>
 
-    <div id="HUD">
+    <div id="HUD" style="display: none;">
         <div id="statusbar">
             <div class="gameProperties select-teams-status" style="display: block;">
                 Total Budget<div id="budget"></div>
             </div>
 
             <div class="gameProperties select-teams-status" style="display: block;">
-                Weekly Payroll<div id="totalPayroll"></div>
+                Weekly Payroll<div id="totalPayroll">$ 0</div>
             </div>
 
             <div class="gameProperties select-teams-status" style="display: block;">
@@ -42,36 +42,57 @@
             </div>
 
             <div class="gameProperties select-teams-status" style="display: block;">
-                Budgeted Weeks<div id="budgetedWeeks"></div>
+                Budgeted Weeks<div id="budgetedWeeks">0 weeks</div>
             </div>
 
-            <div class="gameProperties progess-state">Cash <div id="cash"></div></div>
+            <div class="gameProperties progess-state" style="display: none;">Cash <div id="cash"></div></div>
 
-            <div class="gameProperties progess-state">Total Progress <div id="progress"></div></div>
+            <div class="gameProperties progess-state" style="display: none;">Total Progress <div id="progress"></div></div>
 
-            <div class="gameProperties progess-state">Weeks until Due<div id="weeks"></div></div>
+            <div class="gameProperties progess-state" style="display: none;">Weeks Until Due<div id="weeks"></div></div>
 
             <button id="btn-options" onclick="pt.pause()" style="display: none;">Options</button>
         </div>
         <div id="sidebar">
-            <div id="sidebar-title">
-                Select Teams
-            </div>
+            <div id="sidebar-title"></div>
 
-            <p id="homecityHeader" >Home City</p>
-            <p id="homecity" >Choose a city</p>
+            <p id="homecityHeader">Home City</p>
+            <p id="homecity">Choose a city</p>
 
             <ul class="nav"></ul>
 
-            <div class="select-teams location-header">Module Cost <div id="costPerMonth"></div></div>
+            <div class="select-teams location-header" style="display: block;">Weekly Module Cost <div id="costPerMonth">$0</div></div>
 
-            <ul class="select-teams" id="locations"></ul>
+            <ul class="select-teams" id="locations" style="display: block;"></ul>
 
             <button id="btn-region" onclick="pt.startSimulation()">Select Teams</button>
         </div>
-
     </div>
 
     <div id="content"></div>
+
+    <div id="audiocontainer" onclick="pt.toggleAudio()">
+        <i id="audio"  class="fa fa-lg fa-volume-off"></i>
+        <audio id="music" autobuffer loop>
+            <source src="assets/riversideride.ogg" type="audio/ogg">
+            <source src="assets/riversideride.wav" type="audio/wav">
+            <source src="assets/riversideride.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="music-end" autobuffer>
+            <source src="assets/applause.ogg" type="audio/ogg">
+            <source src="assets/applause.wav" type="audio/wav">
+            <source src="assets/applause.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="event" autobuffer>
+            <source src="assets/event.ogg" type="audio/ogg">
+            <source src="assets/event.wav" type="audio/wav">
+            <source src="assets/event.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="eventmusic" autobuffer loop>
+            <source src="assets/harp.ogg" type="audio/ogg">
+            <source src="assets/harp.wav" type="audio/wav">
+            <source src="assets/harp.mp3" type="audio/mpeg">
+        </audio>
+    </div>
 </body>
 </html>

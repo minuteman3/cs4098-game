@@ -11,6 +11,8 @@ var Module = function(_developersPerCity, _cost, _name){
     this.weeks = 0;
 };
 
+
+
 Module.prototype.getPercentComplete = function getPercentComplete () {
     return (this.progress/this.cost)*100;
 };
@@ -102,12 +104,22 @@ Module.prototype.getStage = function getStage () {
     }
 };
 
+Module.prototype.getStageName = function getStageName () {
+    var stages = client.completionFuzzification;
+    var percet  = this.getPercentComplete();
+    for(var i = 0; i < stages.length;i++){
+
+        if( percet >= stages[i].values[0] && percet <= stages[i].values[2])
+            return stages[i].option;
+    }
+};
+
 Module.prototype.hasCity = function hasCity (city) {
     return this.developersPerCity[city] > 0;
 };
 
 Module.prototype.isStalled = function isStalled(){
-    return this.stalled > 0;
+    return  (! this.done() && this.stalled > 0);
 };
 
 Module.prototype.isBehindSchedule = function isBehindSchedule (currentWeek,cities) {

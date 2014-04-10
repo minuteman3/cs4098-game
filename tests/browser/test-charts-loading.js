@@ -2,13 +2,6 @@ var test = require('tape');
 var app  = require('../../js/index.js');
 var $ = require('jquery');
 
-test('PT can be accessed', function (t) {
-  t.plan(1);
-  t.doesNotThrow(function () {
-    pt.initialiseGame();
-  });
-});
-
 test('addChartContainer works', function(t){
     t.plan(2);
     

@@ -3,11 +3,28 @@ var pt = require('./../../js/app.js');
 var $ = require('jquery');
 window.$ = $;
 
-test('app: pt can be accessed', function (t) {
-    t.plan(5);
+test('app:', function (t) {
+    t.plan(7);
+	
+	$('<audio>', {
+        id: 'music'
+    }).appendTo('body');
+
+	$('<audio>', {
+        id: 'music-end'
+    }).appendTo('body');
+
+    $('<audio>', {
+        id: 'event'
+    }).appendTo('body');
+
+    $('<audio>', {
+        id: 'eventmusic'
+    }).appendTo('body');
+
 	t.doesNotThrow(function(){
 		pt.initialiseGame();
-	});
+	},"audio is supported");
 
 	t.doesNotThrow(function(){
 		pt.selectProject();
@@ -26,20 +43,15 @@ test('app: pt can be accessed', function (t) {
     },0);
 
     $('#project-duration').remove();
-});
 
-test('app: startGame', function (t) {
-    t.plan(1);
-
-    t.doesNotThrow(function(){
+	t.doesNotThrow(function(){
 		pt.startGame(0);
-    });
-});
+	}, "startGame");
 
-test('app: endGame', function (t) {
-    t.plan(1);
-
-    t.doesNotThrow(function(){
+	t.doesNotThrow(function(){
 		pt.endGame(0);
-    });
+	}, "endGame");
+
+
+    $('#sidebar').remove();
 });

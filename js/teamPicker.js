@@ -6,6 +6,7 @@ var gameData;
 var cities;
 var budget;
 var modules;
+var curModule = "";
 
 function init(_gameData,_cities,_modules,_budget){
   teamsSelected = {};
@@ -14,10 +15,12 @@ function init(_gameData,_cities,_modules,_budget){
   cities = _cities;
   modules = _modules;
   budget = _budget;
+  curModule = modules[0].name;
 }
 
 function selectModule(cityName,nextIndex) {
   var index = sidebar.getActiveListItem();
+
 
   if(Object.keys(teamsSelected).length !== 0){
     selectedTeams[modules[index].name] = teamsSelected;
@@ -29,9 +32,8 @@ function selectModule(cityName,nextIndex) {
   sidebar.setPayrollforModule(payroll);
   sidebar.setLocations(teamsSelected);
   sidebar.setListItemActive( nextIndex);
-
+  curModule = modules[nextIndex].name;
 }
-
 
 function addExtraDeveloperToCity(cityCode){
     teamsSelected[cityCode] = (teamsSelected[cityCode] || 0)+1;
@@ -43,6 +45,9 @@ function addExtraDeveloperToCity(cityCode){
     // update information about this module
     sidebar.setPayrollforModule(calculatePayrollforMod(teamsSelected));
     sidebar.setLocations(teamsSelected,cityCode);
+
+    sidebar.setModuleManHours(curModule,
+      calculateManHours(teamsSelected));
 }
 
 function deductDeverloperFromCity(cityCode){
@@ -57,13 +62,25 @@ function deductDeverloperFromCity(cityCode){
     // update information about this module
     sidebar.setPayrollforModule(calculatePayrollforMod(teamsSelected));
     sidebar.setLocations(teamsSelected,cityCode);
+
+    sidebar.setModuleManHours(curModule,
+      calculateManHours(teamsSelected));
+
     if(teamsSelected[cityCode] === 0){
       delete teamsSelected[cityCode];
     }
 }
 
+function calculateManHours(teams){
+  var hours = 0;
+  for(var key in teams){
+    hours += cities[key].productivity *  teams[key];
+  }
+  return hours;
+}
+
 function calculatePayrollforMod(teams){
-  payroll = 0;
+  var payroll = 0;
   for(var key in teams){
     payroll += cities[key].costPerWeek *  teams[key];
   }
@@ -91,11 +108,11 @@ function getDevelopers(module){
 }
 
 module.exports = {
-init:init,
-selectModule:selectModule,
-addExtraDeveloperToCity:addExtraDeveloperToCity,
-deductDeverloperFromCity:deductDeverloperFromCity,
-calculatePayrollforMod:calculatePayrollforMod,
-allModulesHaveTeams:allModulesHaveTeams,
-getDevelopers:getDevelopers,
+  init:init,
+  selectModule:selectModule,
+  addExtraDeveloperToCity:addExtraDeveloperToCity,
+  deductDeverloperFromCity:deductDeverloperFromCity,
+  calculatePayrollforMod:calculatePayrollforMod,
+  allModulesHaveTeams:allModulesHaveTeams,
+  getDevelopers:getDevelopers,
 };

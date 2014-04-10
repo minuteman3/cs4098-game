@@ -40,39 +40,6 @@ var GameStates = {
 };
 var curGameState = GameStates.START;
 
-interventions.actions.forEach(function(a){
-  var count = 0;
-  var max = 2;
-  if (a.effects){
-    var m = a.message + " (";
-    if(a.effects.stall && count < max){
-      count++;
-      m = m + " Stalls Production for "+ a.effects.stall+" Weeks,";
-    }
-    if(a.effects.morale && count < max){
-      count++;
-      var mor = a.effects.morale > 0 ? " Increases":" Decreases";
-      m = m + mor + " Morale,";
-    }
-    if(a.effects.distance && count < max){
-      count++;
-      var dist = a.effects.distance > 0 ? " Increases":" Decreases";
-      m = m + dist + " Geographic Distance,";
-    }
-    if(a.effects.culture && count < max){
-      count++;
-      var cult = a.effects.culture > 0 ? " Increases":" Decreases";
-      m = m + cult + " Cultural Distance,";
-    }
-    if(a.effects.money){
-      m = m + " $"+ utils.commafy(a.effects.money*-1) +",";
-    }
-    m = m.slice(0,m.length-1);//remove last comma
-    m = m + " )";
-    a.message = m;
-  }
-});
-
 function onlabelShow(e,label,code){
   label.css('visibility','visible');
     
@@ -94,7 +61,7 @@ function onlabelShow(e,label,code){
     // only show tooltip if hoverCity in any of modules.developersPerCity
     if(utils.contains(mods, hoverCity.name)){
       label.html(
-        "Make a pre-emptive intervention<br />in "+hoverCity.name
+        "Make an inquiry<br />into "+hoverCity.name
       );
     }else{
       label.css('visibility','hidden');
@@ -109,6 +76,17 @@ function onlabelShow(e,label,code){
   maps.fixOverLap(code,label);
 }
 
+
+
+function inquire(type,cityName){
+  modal.hidemodal();
+  if(curGameState === GameStates.PROGRESS){
+    var city = gameData.citiesState[cityName];
+      modal.dialog(city.inquire(type));
+  }
+}
+
+
 function selectCity(e,  code,  isSelected,  selectedMarkers) {
   if(curGameState === GameStates.PROGRESS){
     var mods = [];
@@ -120,30 +98,36 @@ function selectCity(e,  code,  isSelected,  selectedMarkers) {
     // only show tooltip if hoverCity in any of modules.developersPerCity
     if(utils.contains(mods, cities[code].name)){
       var hoverCity  = cities[code];
-      var label;
-      label =
-        '<strong>'+              hoverCity.name         +'</strong><br/>'+
-        'Morale: '+          hoverCity.morale       +'%<br/>'+
-        'Productivity: '+    hoverCity.productivity +'%<br/>'+
-        'Cost per week: $'+ hoverCity.costPerWeek +'<br/>';
-
-        modal.dialog(label);
+        
+        ProcessSim.pause();
+        
+        modal.showInquire(hoverCity.name,[
+          "Send \"are you on schedule?\" email",
+          "Send \"please report status of modules\" email",
+          "Send \"please list completed tasks\" email",
+          "Hold video conference",
+          "Make site visit",
+          ]);
+ 
     }
     // insert inquiry interface here
 
   } else if(curGameState === GameStates.SELECT_TEAMS){
     teamPicker.addExtraDeveloperToCity(code,gameData);
   } else if(curGameState === GameStates.SELECT_HOME){
-    sidebar.setList(
+    sidebar.setListAllocation(
       selectedProject.modules.map(function(a){
         var obj = {};
         obj.name = a.name;
         obj.cost = (100*a.cost/selectedProject.cost);
+        obj.estimatedCost = a.cost;
+        obj.allocatedCost = 0;
         return obj;
       }),
     true);
     sidebar.setHomeCity(cities[code].name);
     gameData.homeCity = cities[code];
+    maps.makeHomeCity(code);
     sidebar.setListItemActive(0);
     curGameState = GameStates.SELECT_TEAMS;
   }
@@ -161,7 +145,7 @@ function startSimulation(){
     }
     curGameState = GameStates.PROGRESS;
     
-    sidebar.setList([],false);
+    sidebar.setListAllocation([],false);
     sidebar.showSelectTeams(false);
     sidebar.setTitle(selectedProject.name);
 
@@ -228,24 +212,32 @@ function startGame(a,type){
   sidebar.setButtonText("Start");
   sidebar.setBudget(selectedProject.budget);
   sidebar.setDueDate(selectedProject.duration);
-  sidebar.setList(
+  sidebar.setListAllocation(
     selectedProject.modules.map(function(a){
       var obj = {};
       obj.name = a.name;
-      obj.cost = (100*a.cost/selectedProject.cost);
+      obj.estimatedCost = a.cost;
+      obj.allocatedCost = 0;
       return obj;
     }),
   false);
 
-  if( localStorage.getItem("firstTimeModals") === null ){
+  if( localStorage.getItem("firstTime") === null ){
     modal.dialog(client.information+"<br/>Access this Information at any time from the Options Menu."); //removed information from startup
-    localStorage.setItem("firstTimeModals",1);
+    localStorage.setItem("firstTime",1);
   }
   moduleProgressOverTime = selectedProject.modules.map(function(){return [0];});
   moduleProgressOverTime.push([0]);
 }
 
 function showEvent(ev){
+  if(localStorage.getItem("audioEnabled")){
+    $('#event').get(0).load();
+    $('#event').get(0).play();
+    $('#eventmusic').get(0).load();
+    $('#eventmusic').get(0).play();
+    $('#music').get(0).pause();
+  }
   ProcessSim.pause();
   events.trackEvent(ev);
   modal.showEvent(ev,currentWeek);
@@ -275,6 +267,7 @@ function startLoop(){
 
   var eventRate = selectedProject.eventRate || client.eventRate;
 
+  sidebar.setListProgress(modules,true);
 
   ProcessSim.start(
     modules,
@@ -306,7 +299,7 @@ function simulationUpdate(modules,citiesState){
   currentWeek += 1;
   moduleProgressOverTime[0].push(currentWeek);
   var  i =1;
-  var sidebarmodules = [];
+ //var sidebarmodules = [];
   modules.forEach(function(module, index) {
       totalCost += module.getCost(citiesState);
       modulesProgree = module.getPercentComplete();
@@ -314,10 +307,10 @@ function simulationUpdate(modules,citiesState){
       if(moduleProgressOverTime[i][moduleProgressOverTime[i].length -1] < 100)
         moduleProgressOverTime[i].push(modulesProgree);
       i += 1;
-      sidebarmodules.push({"name":module.name,"cost":modulesProgree});
+     // sidebarmodules.push(modu);
 
       percentComplete += modulesProgree;
-  });
+  }); 
   gameData.weeksTilDueDate--;
   
   gameData.projectBudget -= totalCost;
@@ -326,7 +319,7 @@ function simulationUpdate(modules,citiesState){
   sidebar.setCash(gameData.projectBudget);
   sidebar.setWeeks(gameData.weeksTilDueDate);
   sidebar.setProgress(percentComplete/modules.length);
-  sidebar.setList(sidebarmodules,true);
+  
 }
 
 function simulationComplete (modules) {
@@ -348,6 +341,10 @@ function endGame(){
     gameData.projectBudget, 
     selectedProject, 
     moduleProgressOverTime);
+  if(localStorage.getItem("audioEnabled")){
+    $('#music-end').get(0).load();
+    $('#music-end').get(0).play();
+  }
 }
 
 function initialiseGame(){
@@ -372,6 +369,10 @@ function initialiseGame(){
   gameData.totalPayRoll  = 0;
 
   $('#startScreen').show();
+  if(localStorage.getItem("audioEnabled")){
+    $('#music').get(0).load();
+    $('#music').get(0).play();
+  }
 }
 
 function pause(){
@@ -395,6 +396,7 @@ $( document ).ready( function() {
   };
   $(window).resize(function(){
     setBodyScale();
+    pt.resizemap(95);
   });
   document.onkeydown = function (evt) {
     if (evt.keyCode === 27) {
@@ -404,11 +406,11 @@ $( document ).ready( function() {
     }
     else if(evt.keyCode == 38){//up
       if(curGameState == GameStates.SELECT_TEAMS){
-          var index = sidebar.getActiveListItem() - 1; 
-          if(index >= 0){
-            var moduleName = selectedProject.modules[index].name;
-            teamPicker.selectModule(moduleName,index);
-          }
+        var index = sidebar.getActiveListItem() - 1; 
+        if(index >= 0){
+          var moduleName = selectedProject.modules[index].name;
+          teamPicker.selectModule(moduleName,index);
+        }
       }
     }
     else if(evt.keyCode == 40){//down
@@ -421,24 +423,107 @@ $( document ).ready( function() {
       }
     }
   };
-  window.addEventListener('resize', function(event){
-    pt.resizemap(95);
-  });
-  
+
   //Fire it when the page first loads:
   setBodyScale();
+  initAudio();
 
   $('#map').bind('markerSelected.jvectormap', selectCity);
   $('#map').bind('markerLabelShow.jvectormap', onlabelShow);
 
   ProcessSim.stop();
+  interventions.actions.forEach(function(a){
+    var count = 0;
+    var max = 2;
+    if (a.effects){
+      var m = a.message + " (";
+      if(a.effects.stall && count < max){
+        count++;
+        m = m + " Stalls Production for "+ a.effects.stall+" Weeks,";
+      }
+      if(a.effects.morale && count < max){
+        count++;
+        var mor = a.effects.morale > 0 ? " Increases":" Decreases";
+        m = m + mor + " Morale,";
+      }
+      if(a.effects.distance && count < max){
+        count++;
+        var dist = a.effects.distance > 0 ? " Increases":" Decreases";
+        m = m + dist + " Geographic Distance,";
+      }
+      if(a.effects.culture && count < max){
+        count++;
+        var cult = a.effects.culture > 0 ? " Increases":" Decreases";
+        m = m + cult + " Cultural Distance,";
+      }
+      if(a.effects.money){
+        m = m + " $"+ utils.commafy(a.effects.money*-1) +",";
+      }
+      m = m.slice(0,m.length-1);//remove last comma
+      m = m + " )";
+      a.message = m;
+    }
+  });
 });
 
 function doEvent(actionNum){
-  if(events.doEvent(actionNum,gameData)){
-    modal.hidemodal();
-    ProcessSim.unpause();
+  if(localStorage.getItem("audioEnabled")){
+    $('#music').get(0).play();
+    $('#eventmusic').get(0).pause();
   }
+  if(events.doEvent(actionNum,gameData)){
+    unpause();
+  }
+}
+
+function creds(){
+  var c = "<p>"+
+  'Music by <a href="//www.matthewpablo.com">Matthew Pablo</a><br>'+
+  '<br>Applause by <a href="//apricot.blender.org">Blender Foundation</a><br>'+
+  '<br>Event Music by <a href="//opengameart.org/users/vwolfdog">VWolfDog</a><br>'+
+  '<br>Development by<br>'+
+  '<a href="//github.com/wheybags">Tom Mason</a><br>'+
+  '<a href="//github.com/thatrandomer">Kevin Farrell</a><br>'+
+  '<a href="//github.com/minuteman3">Miles McGuire</a><br>'+
+  '<a href="//wrossmck.bitbucket.org">Ross McKinley</a>'+
+  '</p>';
+  modal.dialog(c);
+}
+
+function toggleAudio(){
+  if(localStorage.getItem("audioEnabled")){
+    $('#music').get(0).pause();
+    $('#audio').removeClass("fa-volume-up").addClass("fa-volume-off");
+    localStorage.removeItem("audioEnabled");
+  } else {
+    $('#music').get(0).load();
+    $('#music').get(0).play();
+    $('#audio').removeClass("fa-volume-off").addClass("fa-volume-up");
+    localStorage.setItem("audioEnabled",1);
+  }
+}
+
+function initAudio(){
+  if( localStorage.getItem("firstTime") === null ){
+    localStorage.setItem("audioEnabled",1);
+  }
+
+  if(localStorage.getItem("audioEnabled")){
+    $('#music').get(0).play();
+    $('#audio').removeClass("fa-volume-off").addClass("fa-volume-up");
+  } else {
+    $('#audio').removeClass("fa-volume-up").addClass("fa-volume-off");
+    localStorage.removeItem("audioEnabled");
+  }
+}
+
+function unpause(){
+  if(localStorage.getItem("audioEnabled")){
+    $('#music').get(0).play();
+    $('#eventmusic').get(0).pause();
+  }
+  ProcessSim.unpause();
+  modal.hidemodal();
 }
 
 module.exports = {
@@ -449,13 +534,17 @@ module.exports = {
   selectType:selectType,
   startSimulation: startSimulation,
   projectdescription: projectdescription,
+  inquire:inquire,
   // Modal
-  hidemodal: modal.hidemodal,                // hides a modal window
   pause: pause,                              // toggles the pause menu
   evt: doEvent,
   //Maps
   resizemap: maps.resizemap,
-  unpause:ProcessSim.unpause,
+  unpause: unpause,
+  //Credits
+  creds:creds,
+  //Audio
+  toggleAudio: toggleAudio,
   //Charts
   generateCharts: modal.generateCharts,
   addChartContainer: modal.addChartContainer
