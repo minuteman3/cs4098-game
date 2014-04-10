@@ -485,7 +485,7 @@ function creds(){
   '<a href="//github.com/wheybags">Tom Mason</a><br>'+
   '<a href="//github.com/thatrandomer">Kevin Farrell</a><br>'+
   '<a href="//github.com/minuteman3">Miles McGuire</a><br>'+
-  '<a href="//github.com/wrossmck">Ross McKinley</a>'+
+  '<a href="//wrossmck.bitbucket.org">Ross McKinley</a>'+
   '</p>';
   modal.dialog(c);
 }
