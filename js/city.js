@@ -91,6 +91,7 @@ City.prototype.stall = function stall(duration){
 City.prototype.modifyMorale = function modifyMorale(mod){
     this.morale = this.morale + mod;
     if (this.morale < 0) this.morale = 0;
+    if (this.morale > 150) this.morale = 150;
 };
 
 City.prototype.setMorale = function setMorale(morale) {
