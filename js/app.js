@@ -481,6 +481,7 @@ function creds(){
   "Music by Matthew Pablo<br>www.matthewpablo.com"+
   "<br><br>Applause by Blender Foundation<br>apricot.blender.org"+
   "<br><br>Event Music by VWolfDog<br>opengameart.org/users/vwolfdog"+
+  "<br><br>Development by<br>Tom Mason<br>Kevin Farrell<br>Miles McGuire<br>Ross McKinley"+
   "</p>";
   modal.dialog(c);
 }
