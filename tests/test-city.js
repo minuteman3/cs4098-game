@@ -49,11 +49,11 @@ test('city: class works', function (t) {
     t.equal(c.costPerDeveloper, 12000);
     t.equal(c.productivity, 200);
 
-    t.equal(c.calculateGeoDistance(city, homeCity),480)
-    t.equal(c.calculateCulturalDistance(city, homeCity),5)
+    t.equal(c.calculateGeoDistance(city, homeCity),480);
+    t.equal(c.calculateCulturalDistance(city, homeCity),5);
 
-    t.equal(c.getGeoDist(city, homeCity),480)
-    t.equal(c.getCulturalDist(city, homeCity),5)
+    t.equal(c.getGeoDist(city, homeCity),480);
+    t.equal(c.getCulturalDist(city, homeCity),5);
 
     t.equal(c.morale,100);
     
@@ -62,7 +62,7 @@ test('city: class works', function (t) {
 
     t.doesNotThrow(function(){
         c.cost();
-    },'city cost')
+    },'city cost');
 
     t.equals(c.status(),3,'city status');
 
@@ -78,5 +78,5 @@ test('city: class works', function (t) {
     t.equals(c.idealProgress(0),0,'city idealProgress');
     t.equals(c.idealProgress(1),200,'city idealProgress');
 
-    t.equals(c.inquire(0),"Is falling behind","inquire");
+    t.equals(c.inquire(0),"San Francisco is falling behind","inquire");
 });
