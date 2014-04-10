@@ -254,8 +254,10 @@
     {
         "conditions": {
             "morale": [
-                "low",
-                "med"
+                "low"
+            ],
+            "pay": [
+                "high"
             ],
             "progress": [
                 "acceptance"
