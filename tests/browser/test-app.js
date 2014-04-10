@@ -18,6 +18,10 @@ test('app:', function (t) {
         id: 'event'
     }).appendTo('body');
 
+    $('<audio>', {
+        id: 'eventmusic'
+    }).appendTo('body');
+
 	t.doesNotThrow(function(){
 		pt.initialiseGame();
 	},"audio is supported");
