@@ -478,11 +478,15 @@ function doEvent(actionNum){
 
 function creds(){
   var c = "<p>"+
-  "Music by Matthew Pablo<br>www.matthewpablo.com"+
-  "<br><br>Applause by Blender Foundation<br>apricot.blender.org"+
-  "<br><br>Event Music by VWolfDog<br>opengameart.org/users/vwolfdog"+
-  "<br><br>Development by<br>Tom Mason<br>Kevin Farrell<br>Miles McGuire<br>Ross McKinley"+
-  "</p>";
+  'Music by <a href="//www.matthewpablo.com">Matthew Pablo</a><br>'+
+  '<br>Applause by <a href="//apricot.blender.org">Blender Foundation</a><br>'+
+  '<br>Event Music by <a href="//opengameart.org/users/vwolfdog">VWolfDog</a><br>'+
+  '<br>Development by<br>'+
+  '<a href="//github.com/wheybags">Tom Mason</a><br>'+
+  '<a href="//github.com/thatrandomer">Kevin Farrell</a><br>'+
+  '<a href="//github.com/minuteman3">Miles McGuire</a><br>'+
+  '<a href="//github.com/wrossmck">Ross McKinley</a>'+
+  '</p>';
   modal.dialog(c);
 }
 
