@@ -9,7 +9,8 @@ A game based on software engineering for the Trinity College Dublin 4th year CS4
 ## Prerequisites 
 
 * [node.js 0.10+](http://nodejs.org/download/) must be installed 
-* A browser which shows green in the testling image above
+* A modern browser (IE 9+, Chrome 16+, Firefox 10+, Safari 5+, Opera 11.6+)
+	* Some issues regarding HTML5 audio are making the testling image above render incorrectly.
 
 ### Installing Node.js 0.10
 
